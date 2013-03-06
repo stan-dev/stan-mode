@@ -53,6 +53,7 @@
 ;;; Code:
 (require 'font-lock)
 (require 'cc-mode)
+(require 'compile)
 
 ;;
 ;; Customizable Variables
