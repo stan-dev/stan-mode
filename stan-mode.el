@@ -179,7 +179,6 @@ Stan Manual, v.1.1.0, Section 16.5, p. 100.
     (,(regexp-opt stan-keywords-list 'symbols) . font-lock-keyword-face)
     ("\\(T\\)\\[.*?\\]" 1 font-lock-keyword-face)
     ;; check that lower and upper appear after a < or ,
-    (,(regexp-opt stan-bounds-list 'symbols). font-lock-keyword-face)
     (,(concat "\\(?:<\\|,\\)[[:space:]]*" (regexp-opt stan-bounds-list 'symbols))
      1 font-lock-keyword-face)
     (,(regexp-opt stan-functions-list 'symbols) . font-lock-function-name-face)
