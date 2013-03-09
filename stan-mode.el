@@ -174,7 +174,8 @@ Stan Manual, v.1.1.0, Section 16.5, p. 100.
 
 (defvar stan-font-lock-keywords
   `((,stan-blocks-regexp 1 font-lock-keyword-face)
-    (,(regexp-opt stan-types-list 'symbols) . font-lock-type-face)
+    ;; Stan types. Look for it to come after the start of a line or semicolon.
+    ( ,(concat "\\(^\\|;\\)\\s-*" (regexp-opt stan-types-list 'words)) 2 font-lock-type-face)
     (,stan-var-decl-regexp 2 font-lock-variable-name-face)
     (,(regexp-opt stan-keywords-list 'symbols) . font-lock-keyword-face)
     ("\\(T\\)\\[.*?\\]" 1 font-lock-keyword-face)
