@@ -141,12 +141,51 @@
 ;; handle truncation with a separate keyword
 
 (defvar stan-functions-list
-'("Phi" "Phi_approx" "abs" "acos" "acosh" "asin" "asinh" "atan" "atan2" "atanh" "bernoulli_cdf" "bernoulli_log" "bernoulli_logit_log" "beta_binomial_cdf" "beta_binomial_log" "beta_cdf" "beta_log" "binary_log_loss" "binomial_cdf" "binomial_coefficient_log" "binomial_log" "binomial_logit_log" "block" "categorical_log" "cauchy_cdf" "cauchy_log" "cbrt" "ceil" "chi_square_log" "cholesky_decompose" "col" "cols" "cos" "cosh" "crossprod" "cumulative_sum" "determinant" "diag_matrix" "diag_post_multiply" "diag_pre_multiply" "diagonal" "dims" "dirichlet_log" "dot_product" "dot_self" "double_exponential_log" "e" "eigenvalues_sym" "eigenvectors_sym" "epsilon" "erf" "erfc" "exp" "exp2" "expm1" "exponential_cdf" "exponential_log" "fabs" "fdim" "floor" "fma" "fmax" "fmin" "fmod" "gamma_log" "hypergeometric_log" "hypot" "if_else" "int_step" "inv_chi_square_cdf" "inv_chi_square_log" "inv_chi_squared_cdf" "inv_cloglog" "inv_gamma_cdf" "inv_gamma_log" "inv_logit" "inv_wishart_log" "inverse" "lbeta" "lgamma" "lkj_corr_cholesky_log" "lkj_corr_log" "lkj_cov_log" "lmgamma" "log" "log10" "log1m" "log1m_inv_logit" "log1p" "log1p_exp" "log2" "log_determinant" "log_inv_logit" "log_sum_exp" "logistic_cdf" "logistic_log" "logit" "lognormal_cdf" "lognormal_log" "max" "mdivide_left_tri_low" "mdivide_right_tri_low" "mean" "min" "multi_normal_cholesky_log" "multi_normal_log" "multi_normal_prec_log" "multi_student_t_log" "multinomial_cdf" "multinomial_log" "multiply_log" "multiply_lower_tri_self_transpose" "neg_binomial_cdf" "neg_binomial_log" "negative_epsilon" "negative_infinity" "normal_cdf" "normal_log" "not_a_number" "ordered_logistic_log" "pareto_cdf" "pareto_log" "pi" "poisson_cdf" "poisson_log" "poisson_log_log" "positive_infinity" "pow" "prod" "round" "row" "rows" "scaled_inv_chi_square_cdf" "sd" "sin" "singular_values" "sinh" "size" "softmax" "sqrt" "sqrt2" "square" "step" "student_t_cdf" "student_t_log" "sum" "tan" "tanh" "tcrossprod" "tgamma" "trace" "trunc" "uniform_log" "variance" "weibull_cdf" "weibull_log" "wishart_log")
-  "Regular expression for builtin Stan functions")
+'("Phi" "Phi_approx" "abs" "acos" "acosh" "asin"
+    "asinh" "atan" "atan2" "atanh" "binary_log_loss"
+    "binomial_coefficient_log" "block" "cbrt" "ceil" "cholesky_decompose" 
+    "col" "cols" "cos" "cosh" "crossprod" "cumulative_sum" "determinant" 
+    "diag_matrix" "diag_post_multiply" "diag_pre_multiply" "diagonal" 
+    "dims" "dot_product" "dot_self" "e" 
+    "eigenvalues_sym" "eigenvectors_sym" "epsilon"
+    "erf" "erfc" "exp" "exp2" "expm1" 
+    "fabs" "fdim" "floor" "fma" "fmax" 
+    "fmin" "fmod" "hypot" "if_else" 
+    "int_step" "inv_cloglog" "inv_logit" "inverse" "lbeta" 
+    "lgamma" "lmgamma" "log" "log10" "log1m" "log1m_inv_logit"
+    "log1p" "log1p_exp" "log2" "log_determinant" "log_inv_logit"
+    "log_sum_exp" "logit" 
+    "max" "mdivide_left_tri_low" "mdivide_right_tri_low" "mean" 
+    "min" "multiply_log" "multiply_lower_tri_self_transpose" 
+    "negative_epsilon" "negative_infinity"
+    "not_a_number" "pi" "positive_infinity" "pow" "prod" 
+    "round" "row" "rows" "sd" "sin" "singular_values" 
+    "sinh" "size" "softmax" "sqrt" "sqrt2" 
+    "square" "step" "sum" "tan" "tanh" 
+    "tcrossprod" "tgamma" "trace" "trunc" "variance")
+  "Regular expression for builtin Stan functions (excluding distributions and cdfs)")
 
 (defvar stan-distribution-list
-'("bernoulli" "bernoulli_logit" "beta" "beta_binomial" "binomial" "binomial_coefficient" "binomial_logit" "categorical" "cauchy" "chi_square" "dirichlet" "double_exponential" "exponential" "gamma" "hypergeometric" "inv_chi_square" "inv_gamma" "inv_wishart" "lkj_corr" "lkj_corr_cholesky" "lkj_cov" "logistic" "lognormal" "multi_normal" "multi_normal_cholesky" "multi_normal_prec" "multi_student_t" "multinomial" "multiply" "neg_binomial" "normal" "ordered_logistic" "pareto" "poisson" "poisson_log" "student_t" "uniform" "weibull" "wishart")
+  '("bernoulli" "bernoulli_logit" "beta_binomial" 
+    "beta" "binomial" "categorical" "cauchy" "chi_square" "dirichlet"
+    "double_exponential" "exponential" "gamma" "hypergeometric" 
+    "inv_chi_square" "inv_gamma" 
+    "inv_wishart" "lkj_corr_cholesky" "lkj_corr" "lkj_cov"
+    "logistic" "lognormal" 
+    "multi_normal_cholesky" "multi_normal" "multi_student_t"
+    "multinomial" "neg_binomial" "normal" 
+    "ordered_logistic"
+    "pareto" "poisson" "poisson_log" "scaled_inv_chi_square" 
+    "student_t" "uniform"
+    "weibull" "wishart")
   "Regular expression for Stan distributions")
+
+(defvar stan-cdf-list
+  '("bernoulli_cdf" "beta_binomial_cdf" "beta_cdf" "binomial_cdf" 
+    "exponential_cdf" "inv_chi_square_cdf" "inv_gamma_cdf" "logistic_cdf" 
+    "lognormal_cdf" "neg_binomial_cdf" "normal_cdf" "pareto_cdf" 
+    "poisson_cdf" "scaled_inv_chi_square_cdf" "student_t_cdf")
+  "Regular expression for Stan cdf functions")
 
 (defvar stan-c++-keywords
   '("alignas" "alignof" "and" "and_eq" "asm" "auto" "bitand" "bitor"
@@ -185,6 +224,12 @@ Stan Manual, v.1.1.0, Section 16.5, p. 100.
     (,(regexp-opt stan-functions-list 'symbols) . font-lock-function-name-face)
     ;; distribution names can only appear after a ~
     (,(concat "~[[:space:]]*" (regexp-opt stan-distribution-list 'symbols))
+     1 font-lock-function-name-face)
+    ;; distributions. Look for distribution_log after '<-'
+    (,(concat "<-\\s-*\\(\\<" (regexp-opt stan-distribution-list) "_log\\>\\)") 
+     1 font-lock-function-name-face)
+    ;; cdfs come after '<-'
+    (,(concat "<-[[:space:]]*" (regexp-opt stan-cdf-list 'symbols)) 
      1 font-lock-function-name-face)
     (,stan-assign-regexp . font-lock-reference-face)
     (,(regexp-opt stan-c++-keywords 'symbols) . font-lock-warning-face)
