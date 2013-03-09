@@ -3,12 +3,12 @@
 ;; Copyright (C) 2012, 2013  Jeffrey Arnold, Daniel Lee
 
 ;; Authors: Jeffrey Arnold <jeffrey.arnold@gmail.com>,
-;;   Daniel Lee
+;;   Daniel Lee <bearlee@alum.mit.edu>
 ;; Maintainers: Jeffrey Arnold <jeffrey.arnold@gmail.com>,
-;;   Daniel Lee
+;;   Daniel Lee <bearlee@alum.mit.edu>
 ;; URL: http://github.com/stan-dev/stan-mode
 ;; Keywords: languanges
-;; Version: 0.2.0
+;; Version: 1.2.0
 ;; Created: 2012-08-18
 
 ;; This file is not part of GNU Emacs.
