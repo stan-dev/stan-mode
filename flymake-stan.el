@@ -1,5 +1,5 @@
-;; flymake-stan.el --- Flymake for Stan
-;;
+;;; flymake-stan.el --- Flymake for Stan
+
 ;; Copyright (C) 2012, 2013  Jeffrey Arnold
 ;;
 ;; Author: Jeffrey Arnold <jeffrey.arnold@gmail.com>
@@ -10,12 +10,12 @@
 ;; This file is not part of GNU Emacs.
 
 ;;; License:
-;;
+
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
 ;; the Free Software Foundation, either version 3 of the License, or
 ;; (at your option) any later version.
-;;
+
 ;; This program is distributed in the hope that it will be useful,
 ;; but WITHOUT ANY WARRANTY; without even the implied warranty of
 ;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -29,6 +29,7 @@
 ;;
 ;; This adds flymake support for stan. See the stan-mode documentation.
 
+;;; Code:
 (require 'flymake)
 (require 'stan-mode)
 
@@ -74,3 +75,5 @@
 	  (lambda () (flymake-mode 1)))
 
 (provide 'flymake-stan)
+
+;;; flymake-stan.el ends here

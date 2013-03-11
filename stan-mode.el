@@ -1,14 +1,14 @@
-;; stan-mode.el --- Major mode for editing STAN files
+;;; stan-mode.el --- Major mode for editing STAN files
 
 ;; Copyright (C) 2012, 2013  Jeffrey Arnold, Daniel Lee
 
-;; Authors: Jeffrey Arnold <jeffrey.arnold@gmail.com>,
+;; Author: Jeffrey Arnold <jeffrey.arnold@gmail.com>,
 ;;   Daniel Lee <bearlee@alum.mit.edu>
-;; Maintainers: Jeffrey Arnold <jeffrey.arnold@gmail.com>,
+;; Maintainer: Jeffrey Arnold <jeffrey.arnold@gmail.com>,
 ;;   Daniel Lee <bearlee@alum.mit.edu>
 ;; URL: http://github.com/stan-dev/stan-mode
 ;; Keywords: languanges
-;; Version: 1.0.00
+;; Version: 1.0.0
 ;; Created: 2012-08-18
 
 ;; This file is not part of GNU Emacs.
