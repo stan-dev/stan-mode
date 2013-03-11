@@ -66,8 +66,11 @@
   :prefix "stan-"
   :group 'languages)
 
-(defconst stan-mode-version "1.2.0"
+(defconst stan-mode-version "1.0.0"
   "stan-mode version number")
+
+(defconst stan-language-version "1.2.0"
+  "Stan language version supported")
 
 (defcustom stan-mode-hook nil
   "Hook run when entering stan-mode"
