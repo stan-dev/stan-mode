@@ -15,7 +15,7 @@ Current features
 Installing Emacs Mode
 -------------------------------
 
-Download the files to a local directory, and add lines to you `.emacs`
+Download the files to a local directory, and add lines to your `.emacs`
 file to add that directory to the `load-path`, and `require` the
 library.
 
