@@ -112,6 +112,15 @@
 
 (define-abbrev-table 'stan-mode-abbrev-table ())
 
+;; Syntax Table
+(setq stan-mode-syntax-table (make-syntax-table c++-mode-syntax-table))
+(modify-syntax-entry ?#  "< b"  stan-mode-syntax-table)
+(modify-syntax-entry ?\n "> b"  stan-mode-syntax-table)
+(modify-syntax-entry ?'  "." stan-mode-syntax-table)
+;; _ should be part of symbol not word.
+;; see
+;; http://www.gnu.org/software/emacs/manual/html_node/elisp/Syntax-Class-Table.html#Syntax-Class-Table
+
 ;; Font-Locks
 
 ;; <- and ~
@@ -238,6 +247,8 @@ Stan Manual, v.1.1.0, Section 16.5, p. 100.
     (,(regexp-opt stan-c++-keywords 'symbols) . font-lock-warning-face)
     ))
 
+;; Compilation Regexp
+
 (defvar stan-compilation-error-regexp-alist
   '(("\\(.*?\\) LOCATION:[ \t]+file=\\([^;]+\\); +line=\\([0-9]+\\), +column=\\([0-9]+\\)" 1 2 3 4))
   "Regular expression matching error messages from the 'stanc' compiler.")
@@ -246,14 +257,7 @@ Stan Manual, v.1.1.0, Section 16.5, p. 100.
       (append stan-compilation-error-regexp-alist
               compilation-error-regexp-alist))
 
-;;; Define Syntax table
-(setq stan-mode-syntax-table (make-syntax-table c++-mode-syntax-table))
-(modify-syntax-entry ?#  "< b"  stan-mode-syntax-table)
-(modify-syntax-entry ?\n "> b"  stan-mode-syntax-table)
-(modify-syntax-entry ?'  "." stan-mode-syntax-table)
-;; _ should be part of symbol not word.
-;; see
-;; http://www.gnu.org/software/emacs/manual/html_node/elisp/Syntax-Class-Table.html#Syntax-Class-Table
+;; Misc
 
 (defun stan-version ()
   "Message the current stan-mode version"
@@ -326,23 +330,11 @@ See the documenation for stanc.
   "Stan mode imenu expression")
 
 ;; Keymap
-
 (defvar stan-mode-map (make-sparse-keymap)
   "Keymap for Stan major mode")
 
 ;; Indenting
-;; TODO:
-;; Indentation notes
-;; - Lines ending with ; are complete statements/expr
-;; - If complete statement, indent at same level as previous
-;;   complete statement
-;; - If not complete statement, then indent to
-;;   - open ( or [
-;;   - <-, ~
-;;   - else last lien
-;; - If previous line ends in {, indent >>
-;; - If previous line ends in }, indent <<
-;; - If previous line begins with "for", indent >>
+;; 2 spaces
 (defvar stan-style
   '("gnu"
     ;; # comments have syntatic class cpp-macro
