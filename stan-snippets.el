@@ -5,7 +5,7 @@
 ;; Author: Jeffrey Arnold <jeffrey.arnold@gmail.com>
 ;; URL: http://github.com/stan-dev/stan-mode
 ;; Keywords: languanges
-;; Version: 1.0.0
+;; Version: 1.2.0
 ;; Created: 2012-08-18
 
 ;; This file is not part of GNU Emacs.
