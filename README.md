@@ -61,7 +61,7 @@ Include the following lines in your `.emacs` file,
 ;; Uncomment to activate yasnippet support (requires yasnippet)
 ;; (require 'stan-snippets)
 ;; Uncomment to activate flymake support (requires flymake)
-;; (require 'stan-flymake)
+;; (require 'flymake-stan)
 ```
 
 For Aquamacs on Mac OS X, those lines alternatively could also be
