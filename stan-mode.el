@@ -188,11 +188,9 @@
     (,(regexp-opt stan-functions-list 'symbols) . font-lock-function-name-face)
     (,(regexp-opt stan-cdf-list 'symbols) . font-lock-function-name-face)
     (,(regexp-opt stan-rng-list 'symbols) . font-lock-function-name-face)
+    (,(regexp-opt stan-distribution-list) "_log\\>" 1 font-lock-function-name-face)
     ;; distribution names can only appear after a ~
     (,(concat "~[[:space:]]*" (regexp-opt stan-distribution-list 'symbols))
-     1 font-lock-function-name-face)
-    ;; distributions. Look for distribution_log after '<-'
-    (,(concat "<-\\s-*\\(\\<" (regexp-opt stan-distribution-list) "_log\\>\\)") 
      1 font-lock-function-name-face)
     ;; cdfs come after '<-'
     (,(concat "<-[[:space:]]*" (regexp-opt stan-cdf-list 'symbols)) 
