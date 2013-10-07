@@ -192,9 +192,6 @@
     ;; distribution names can only appear after a ~
     (,(concat "~[[:space:]]*" (regexp-opt stan-distribution-list 'symbols))
      1 font-lock-function-name-face)
-    ;; cdfs come after '<-'
-    (,(concat "<-[[:space:]]*" (regexp-opt stan-cdf-list 'symbols)) 
-     1 font-lock-function-name-face)
     (,stan-assign-regexp . font-lock-reference-face)
     (,(regexp-opt stan-reserved-list 'symbols) . font-lock-warning-face)
     ))
