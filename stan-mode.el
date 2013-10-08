@@ -168,32 +168,39 @@
   "List of Stan reserved keywords")
 
 ;; end automatically generated content
+(defun stan-regexp-opt (string)
+  (concat "\\_<\\(" (regexp-opt string) "\\)\\_>"))
 
 (defvar stan-var-decl-regexp
-  (concat (regexp-opt stan-types-list 'symbols)
+  (concat (stan-regexp-opt stan-types-list)
           "\\(?:<.*?>\\)?\\(?:\\[.*?\\]\\)?[[:space:]]+\\([A-Za-z0-9_]+\\)")
     "Stan variable declaration regex")
 
-
 (defvar stan-font-lock-keywords
   `((,stan-blocks-regexp 1 font-lock-keyword-face)
+    (,stan-assign-regexp . font-lock-reference-face)
     ;; Stan types. Look for it to come after the start of a line or semicolon.
     ( ,(concat "\\(^\\|;\\)\\s-*" (regexp-opt stan-types-list 'words)) 2 font-lock-type-face)
+    ;; Variable declaration
     (,stan-var-decl-regexp 2 font-lock-variable-name-face)
-    (,(regexp-opt stan-keywords-list 'symbols) . font-lock-keyword-face)
+    ;; keywords
+    (,(stan-regexp-opt stan-keywords-list) . font-lock-keyword-face)
+    ;; T
     ("\\(T\\)\\[.*?\\]" 1 font-lock-keyword-face)
     ;; check that lower and upper appear after a < or ,
-    (,(concat "\\(?:<\\|,\\)[[:space:]]*" (regexp-opt stan-bounds-list 'symbols))
+    (,(concat "\\(?:<\\|,\\)\\s-*" (stan-regexp-opt stan-bounds-list))
      1 font-lock-keyword-face)
-    (,(regexp-opt stan-functions-list 'symbols) . font-lock-function-name-face)
-    (,(regexp-opt stan-cdf-list 'symbols) . font-lock-function-name-face)
-    (,(regexp-opt stan-rng-list 'symbols) . font-lock-function-name-face)
-    (,(regexp-opt stan-distribution-list) "_log\\>" 1 font-lock-function-name-face)
+    (,(stan-regexp-opt stan-functions-list) . font-lock-function-name-face)
+    (,(stan-regexp-opt stan-cdf-list) . font-lock-function-name-face)
+    (,(stan-regexp-opt stan-rng-list) . font-lock-function-name-face)
+    (,(stan-regexp-opt (mapcar (function (lambda (x) (concat x "_log"))) stan-distribution-list))
+     . font-lock-function-name-face)
     ;; distribution names can only appear after a ~
-    (,(concat "~[[:space:]]*" (regexp-opt stan-distribution-list 'symbols))
+    (,(concat "~\\s-*\\(" (regexp-opt stan-distribution-list) "\\)\\_>")
      1 font-lock-function-name-face)
-    (,stan-assign-regexp . font-lock-reference-face)
-    (,(regexp-opt stan-reserved-list 'symbols) . font-lock-warning-face)
+    ;; (,(concat "~\\s-*" (stan-regexp stan-distribution-list))
+    ;;  . font-lock-function-name-face)
+    (,(stan-regexp-opt stan-reserved-list) . font-lock-warning-face)
     ))
 
 ;; Compilation Regexp
