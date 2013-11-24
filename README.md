@@ -13,7 +13,7 @@ Current features
 
 ## Installing Emacs Mode
 
-There are two mechanisms that can be used to install `stan-mode`.
+There are two ways to install `stan-mode`.
 
 ## Package.el
 
@@ -33,8 +33,8 @@ Add the following to your `.emacs` file, which will ensure that
 (add-to-list 'package-archives
  '("melpa" . "http://melpa.milkbox.net/packages/") t)
 (package-initialize)
-(unless (package-installed-p 'scala-mode2)
-(package-refresh-contents) (package-install 'scala-mode2))
+(unless (package-installed-p 'stan-mode)
+(package-refresh-contents) (package-install 'stan-mode))
 ```
 
 For more information on `package.el`, see the
