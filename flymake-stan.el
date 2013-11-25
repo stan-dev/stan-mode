@@ -58,10 +58,6 @@
               flymake-get-real-file-name)
             flymake-allowed-file-name-masks))
 
-(setq flymake-err-line-patterns
-      (append stan-compilation-error-regexp-alist
-              flymake-err-line-patterns))
-
 ;; This is needed. Otherwise the non-zero return code by
 ;; stanc causes an error.
 ;; Solution from http://pastebin.com/2Pp4bj9p

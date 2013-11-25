@@ -154,14 +154,15 @@
     ))
 
 ;; Compilation Regexp
+(defvar stan-compilation-regexp
+  '("LOCATION: file=\\([^;]+\\); line=\\([0-9]+\\), column=\\([0-9]+\\)" 1 2 3 nil)
+  "Specifications for matching parse errors in Stan.
+See `compilation-error-regexp-alist' for help on their format.")
 
-(defvar stan-compilation-error-regexp-alist
-  '(("\\(.*?\\) LOCATION:[ \t]+file=\\([^;]+\\); +line=\\([0-9]+\\), +column=\\([0-9]+\\)" 1 2 3 4))
-  "Regular expression matching error messages from the 'stanc' compiler.")
+(add-to-list 'compilation-error-regexp-alist-alist
+             (cons 'stan stan-compilation-regexp))
+(add-to-list 'compilation-error-regexp-alist 'stan)
 
-(setq compilation-error-regexp-alist
-      (append stan-compilation-error-regexp-alist
-              compilation-error-regexp-alist))
 
 ;; Misc
 
@@ -200,6 +201,9 @@
 
   ;; syntax highlighting
   (setq font-lock-defaults '((stan-font-lock-keywords)))
+
+  (make-local-variable 'compilation-error-regexp-alist)
+  (setq compilation-error-regexp-alist '(stan))
 
   ;; comments
   (setq mode-name "Stan")
