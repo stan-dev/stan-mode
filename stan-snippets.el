@@ -30,6 +30,7 @@
 
 ;;; Code:
 (require 'yasnippet)
+(require 'stan-mode)
 
 (defvar stan-snippets-dir
   (expand-file-name "snippets"
