@@ -90,6 +90,7 @@
   :group 'stan-mode)
 
 (defcustom stan-stanc-path
+  (if (member system-type '(windows-nt)) "stanc" "stanc.exe")
   "stanc"
   "Path to stanc executable"
   :type 'string
