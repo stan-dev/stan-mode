@@ -58,6 +58,16 @@
 (require 'cc-mode)
 (require 'compile)
 
+;; These are only required at compile time to get the sources for the
+;; language constants.  (The cc-fonts require and the font-lock
+;; related constants could additionally be put inside an
+;; (eval-after-load "font-lock" ...) but then some trickery is
+;; necessary to get them compiled.)
+(eval-when-compile
+  (require 'cc-langs)
+  (require 'cc-fonts))
+
+;; Contains keywords 
 (require 'stan-keywords-lists)
 
 ;;
@@ -90,8 +100,8 @@
   :group 'stan-mode)
 
 (defcustom stan-stanc-path
-  (if (member system-type '(windows-nt)) "stanc" "stanc.exe")
   "stanc"
+  ;;(if (member system-type '(windows-nt)) "stanc.exe" "stanc")
   "Path to stanc executable"
   :type 'string
   :group 'stan-mode)
@@ -99,16 +109,188 @@
 (defvar stan-mode-abbrev-table nil
   "Abbrev table used in stan-mode buffers.")
 
-(define-abbrev-table 'stan-mode-abbrev-table ())
+
+;;; Define c-language
 
-;; Syntax Table
-(setq stan-mode-syntax-table (make-syntax-table c++-mode-syntax-table))
-(modify-syntax-entry ?#  "< b"  stan-mode-syntax-table)
-(modify-syntax-entry ?\n "> b"  stan-mode-syntax-table)
-(modify-syntax-entry ?'  "." stan-mode-syntax-table)
-;; _ should be part of symbol not word.
-;; see
-;; http://www.gnu.org/software/emacs/manual/html_node/elisp/Syntax-Class-Table.html#Syntax-Class-Table
+;; This mode does not inherit properties from other modes. So, we do not use 
+;; the usual `c-add-language' function.
+(put 'stan-mode 'c-mode-prefix "stan-")
+
+;; (eval-and-compile
+;;   ;; Make our mode known to the language constant system.  Use Java
+;;   ;; mode as the fallback for the constants we don't change here.
+;;   ;; This needs to be done also at compile time since the language
+;;   ;; constants are evaluated then.
+;;   (c-add-language 'stan-mode 'c++-mode))
+
+;; Lexer level syntax
+(c-lang-defconst c-symbol-start
+  stan (concat "[" c-alpha "]"))
+
+(c-lang-defconst c-symbol-chars
+  stan (concat  c-alnum "_"))
+
+;; Since I cannot set two comments, still treat # as cpp
+(c-lang-defconst c-opt-cpp-prefix
+  stan "#")
+;; (c-lang-defconst c-cpp-matchers
+;;   stan nil)
+
+(c-lang-defconst c-assignment-operators
+  stan '("<-" "~" "="))
+
+(c-lang-defconst c-operators
+  stan '((postfix "[" "]" "(" ")")
+	  (postfix-if-paren "<" ">")
+	  (postfix "'")
+	  (prefix "!" "-" "+")
+	  (left-assoc "./" ".*")
+	  (left-assoc "\\")
+	  (left-assoc "/" "*")
+	  (left-assoc "+" "-")
+	  (left-assoc "<" "<=" ">" ">=")
+	  (left-assoc "!=" "==")
+	  (left-assoc "&&")
+	  (left-assoc "||")
+	  ))
+
+(c-lang-defconst c-other-op-syntax-tokens
+  stan 
+  '("{" "}" "(" ")" "[" "]" ";" ":" "," "=" "/*" "*/" "//" "#"))
+
+(c-lang-defconst c-stmt-delim-chars
+  stan "^;{}")
+
+(c-lang-defconst c-stmt-delim-chars-with-comma
+  stan "^;{},")
+
+;;; Syntatic whitespace
+
+;; cannot get cc-mode to recognize both // and # as comments
+;; setting the regex constants directly does not work either
+(c-lang-defconst c-line-comment-starter
+  stan "//")
+;; (c-lang-defconst c-line-comment-starter
+;;   stan "#")
+
+(c-lang-defconst c-block-comment-starter
+  stan "/*")
+
+(c-lang-defconst c-block-comment-ender
+  stan "*/")
+
+;;; Keyword lists
+
+(c-lang-defconst c-primitive-type-kwds
+  stan
+  '("cholesky_factor_cov" "corr_matrix" "cov_matrix" "int" "matrix" 
+    "ordered" "positive_ordered" "real" "row_vector" "simplex" 
+    "unit_vector" "vector"))
+  
+;; no prefixes for primitivesx
+(c-lang-defconst c-primitive-type-prefix-kwds
+  stan nil)
+
+;; no type definitions
+(c-lang-defconst c-tyepdef-kwds
+  stan nil)
+
+;; no type modifiers
+(c-lang-defconst c-type-modifier-kwds
+  stan nil)
+
+(c-lang-defconst c-modifier-kwds
+  stan nil)
+
+(c-lang-defconst c-protection-kwds
+  stan nil)
+
+;; e.g. class, struct, unions, 
+(c-lang-defconst c-class-decl-kwds
+  stan nil)
+  ;; stan   '("data" "generated quantities" "model" "parameters" 
+  ;; 	    "transformed data" "transformed parameters"))
+
+
+;; TODO: ?? 
+;; Keywords where the following block (if any) contains another
+;; declaration level that should not be considered a class
+(c-lang-defconst c-other-block-decl-kwds
+  stan   '("data" "generated quantities" "model" "parameters" 
+	    "transformed data" "transformed parameters"))
+
+;; Keywords that may be followed by a parenthesis expression that doesn't contain type identifiers
+(c-lang-defconst c-paren-non-type-kwds
+  stan nil)
+  ;; stan '("print" "increment_log_prob" "T"))
+
+(c-lang-defconst c-block-stmt-1-kwds
+  "Statement keywords followed directly by a substatement."
+  stan '("else"))
+
+(c-lang-defconst c-block-stmt-2-kwds
+  "Statement keywords followed by a paren sexp and then by a substatement."
+  stan '("for" "if" "while"))
+
+;; ignore break, continue, goto, return
+(c-lang-defconst c-simple-stmt-kwds
+  stan nil)
+
+;; for in Stan does not have ; separated expressions
+(c-lang-defconst c-paren-stmt-kwds
+  stan nil)
+
+;; No case construct
+(c-lang-defconst c-case-kwds
+  stan nil)
+
+;; No colon terminated label statements
+(c-lang-defconst c-label-kwds
+  stan nil)
+
+;; No keywords followed by label id, e.g. goto
+(c-lang-defconst c-before-label-kwds
+  stan nil)
+
+(c-lang-defconst c-constant-kwds
+  stan '("lp__")) ;; lp__ is very not-constant but is a non-used defined variable that is exposed.
+
+(defvar stan-mode-syntax-table nil
+  "Syntax table used in stan-mode buffers.")
+(or stan-mode-syntax-table
+    (setq stan-mode-syntax-table
+	  `(lambda () 
+	     (let ((table (funcall (c-lang-const c-make-mode-syntax-table stan))))
+	       (modify-syntax-entry ?#  "< b"  table)
+	       (modify-syntax-entry ?\n "> b"  table)
+	       (modify-syntax-entry ?'  "." table)
+	       table))))
+
+(defvar stan-mode-abbrev-table nil
+  "Abbreviation table used in stan-mode buffers.")
+
+(c-define-abbrev-table 'stan-mode-abbrev-table
+  ;; Keywords that if they occur first on a line might alter the
+  ;; syntactic context, and which therefore should trig reindentation
+  ;; when they are completed.
+  (list))
+
+(defvar stan-mode-map (let ((map (c-make-inherited-keymap)))
+              ;; Add bindings which are only useful for stan
+              map)
+  "Keymap used in stan-mode buffers.")
+
+(defconst stan-font-lock-keywords-1 (c-lang-const c-matchers-1 stan)
+  "Minimal highlighting for stan mode.")
+
+(defconst stan-font-lock-keywords-2 (c-lang-const c-matchers-2 stan)
+  "Fast normal highlighting for stan mode.")
+
+(defconst stan-font-lock-keywords-3 (c-lang-const c-matchers-3 stan)
+  "Accurate normal highlighting for stan mode.")
+
+(defvar stan-font-lock-keywords stan-font-lock-keywords-3
+  "Default expressions to highlight in stan mode.")
 
 ;; Font-Locks
 
@@ -145,7 +327,6 @@
     (,(concat "\\(?:<\\|,\\)\\s-*" (stan-regexp-opt stan-bounds-list))
      1 font-lock-keyword-face)
     (,(stan-regexp-opt stan-functions-list) . font-lock-function-name-face)
-    (,(stan-regexp-opt stan-distribution-list) . font-lock-function-name-face)
     ;; distribution names can only appear after a ~
     (,(concat "~\\s-*\\(" (regexp-opt stan-distribution-list) "\\)\\_>")
      1 font-lock-function-name-face)
@@ -172,51 +353,53 @@ See `compilation-error-regexp-alist' for help on their format.")
   (interactive)
   (message "stan-mode version %s" stan-mode-version))
 
-;; Imenu tags
+;;; Imenu tags
 (defvar stan-imenu-generic-expression
   `(("Variable" ,stan-var-decl-regexp 2)
     ("Block" ,stan-blocks-regexp 1))
   "Stan mode imenu expression")
 
-;; Keymap
-(defvar stan-mode-map (make-sparse-keymap)
-  "Keymap for Stan major mode")
+;;;###autoload
+(defun stan-mode ()
+  "
+The hook `c-mode-common-hook' is run with no args at mode
+initialization, then `stan-mode-hook'.
 
-;; Indenting
-;; 2 spaces
-(defvar stan-style
-  '("gnu"
-    ;; # comments have syntatic class cpp-macro
-    (c-offsets-alist . ((cpp-macro . 0)))))
-
-(c-add-style "stan" stan-style)
-
-;;
-;; Define Major Mode
-;;
-(define-derived-mode stan-mode c++-mode "Stan"
-  "A major mode for editing Stan files."
-  :syntax-table stan-mode-syntax-table
-  :abbrev-table stan-mode-abbrev-table
-  :group 'stan-mode
+Key bindings:
+\\{stan-mode-map}"
+  (interactive)
+  (kill-all-local-variables)
+  (c-initialize-cc-mode t)
+  (set-syntax-table stan-mode-syntax-table)
+  (setq major-mode 'stan-mode
+	mode-name "Stan"
+	local-abbrev-table stan-mode-abbrev-table
+	abbrev-mode t)
+  (use-local-map c-mode-map)
+  ;; `c-init-language-vars' is a macro that is expanded at compile
+  ;; time to a large `setq' with all the language variables and their
+  ;; customized values for our language.
+  (c-init-language-vars stan-mode)
+  ;; `c-common-init' initializes most of the components of a CC Mode
+  ;; buffer, including setup of the mode menu, font-lock, etc.
+  ;; There's also a lower level routine `c-basic-common-init' that
+  ;; only makes the necessary initialization to get the syntactic
+  ;; analysis and similar things working.
+  (c-common-init 'stan-mode)
+  (run-hooks 'c-mode-common-hook)
+  (run-hooks 'stan-mode-hook)
+  (c-update-modeline)
 
   ;; syntax highlighting
   (setq font-lock-defaults '((stan-font-lock-keywords)))
 
+  ;; compilation error mode
   (make-local-variable 'compilation-error-regexp-alist)
   (setq compilation-error-regexp-alist '(stan))
 
-  ;; comments
-  (setq mode-name "Stan")
-  ;;(setq comment-start stan-comment-start)
-  (set (make-local-variable 'comment-start) stan-comment-start)
-  (set (make-local-variable 'comment-end) stan-comment-end)
-  ;; no tabs
-  (setq indent-tabs-mode nil)
   ;; imenu
   (setq imenu-generic-expression stan-imenu-generic-expression)
-  ;; indentation style
-  (c-set-style "stan")
+  
   )
 
 (provide 'stan-mode)
