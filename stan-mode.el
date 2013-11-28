@@ -81,8 +81,15 @@
 (defconst stan-mode-version "1.2.0"
   "stan-mode version number")
 
+
 (defconst stan-language-version "2.0.1"
   "Stan language version supported")
+
+(defun stan-version ()
+  "Message the current stan-mode version"
+  (interactive)
+  (message "stan-mode version %s; supports Stan v. %s)"
+	   stan-mode-version stan-language-version))
 
 (defcustom stan-mode-hook nil
   "Hook run when entering stan-mode"
@@ -349,13 +356,6 @@ See `compilation-error-regexp-alist' for help on their format.")
 (add-to-list 'compilation-error-regexp-alist-alist
              (cons 'stan stan-compilation-regexp))
 (add-to-list 'compilation-error-regexp-alist 'stan)
-
-;; Misc
-
-(defun stan-version ()
-  "Message the current stan-mode version"
-  (interactive)
-  (message "stan-mode version %s" stan-mode-version))
 
 ;;; Imenu tags
 (defvar stan-imenu-generic-expression
