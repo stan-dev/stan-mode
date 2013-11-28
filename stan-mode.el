@@ -339,8 +339,6 @@
     (,stan-assign-regexp . font-lock-reference-face)
     ;; Stan types. Look for it to come after the start of a line or semicolon.
     ( ,(concat "\\(^\\|;\\)\\s-*" (regexp-opt stan-types-list 'words)) 2 font-lock-type-face)
-    ;; Variable declaration
-    (,stan-var-decl-regexp 2 font-lock-variable-name-face)
     ;; keywords
     (,(stan-regexp-opt stan-keywords-list) . font-lock-keyword-face)
     ;; T
@@ -355,6 +353,8 @@
     ;; (,(concat "~\\s-*" (stan-regexp stan-distribution-list))
     ;;  . font-lock-function-name-face)
     (,(stan-regexp-opt stan-reserved-list) . font-lock-warning-face)
+    ;; Variable declaration
+    (,stan-var-decl-regexp 2 font-lock-variable-name-face)
     ))
 
 ;;; Compilation mode
