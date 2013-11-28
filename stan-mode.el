@@ -38,9 +38,8 @@
 ;;
 ;;   (require 'stan-mode)
 ;;
-;; This mode currently supports syntax-highlighting, indentation (via
-;; the cc-mode indentation engine), imenu, and compiler-mode regular
-;; expressions.
+;; This mode currently has support for syntax-highlighting, indentation,
+;; imenu, and compilation error checking.
 ;;
 ;; Yasnippet and flymake support for stan are provided in separate
 ;; libraries included with stan-mode.
@@ -114,11 +113,7 @@
   :type 'string
   :group 'stan-mode)
 
-(defvar stan-mode-abbrev-table nil
-  "Abbrev table used in stan-mode buffers.")
-
-
-;;; Define language for cc-mode
+;;; cc-mode Language support
 
 ;; This mode does not inherit properties from other modes. So, we do not use
 ;; the usual `c-add-language' function.
@@ -220,23 +215,18 @@
 (c-lang-defconst c-protection-kwds
   stan nil)
 
-;; e.g. class, struct, unions,
+;; Treat blocks as classes
+;; I tried setting them to c-block-decls-with-vars but then the 
+;; syntatic symbols for the context were things like indata, inparameters, ...
+;; which was more of a pain to deal with.
 (c-lang-defconst c-class-decl-kwds
   stan stan-blocks-list)
 
-;; TODO: ??
-;; Keywords where the following block (if any) contains another
-;; declaration level that should not be considered a class
-;; (c-lang-defconst c-other-block-decl-kwds
-;;   stan   '("data" "generated quantities" "model" "parameters"
-;; 	    "transformed data" "transformed parameters"))
 (c-lang-defconst c-block-decls-with-vars
   stan nil)
 
-;; Keywords that may be followed by a parenthesis expression that doesn't contain type identifiers
 (c-lang-defconst c-paren-non-type-kwds
   stan nil)
-  ;; stan '("print" "increment_log_prob" "T"))
 
 (c-lang-defconst c-block-stmt-1-kwds
   "Statement keywords followed directly by a substatement."
@@ -288,6 +278,8 @@
 ;; use user-specified syntax table else default
 (or stan-mode-syntax-table
     (setq stan-mode-syntax-table stan-mode-syntax-table-default))
+
+;;; Abbrev table
 
 (defvar stan-mode-abbrev-table nil
   "Abbreviation table used in stan-mode buffers.")
@@ -347,7 +339,8 @@
     (,(stan-regexp-opt stan-reserved-list) . font-lock-warning-face)
     ))
 
-;; Compilation Regexp
+;;; Compilation mode 
+
 (defvar stan-compilation-regexp
   '("LOCATION: file=\\([^;]+\\); line=\\([0-9]+\\), column=\\([0-9]+\\)" 1 2 3 nil)
   "Specifications for matching parse errors in Stan.
@@ -357,13 +350,15 @@ See `compilation-error-regexp-alist' for help on their format.")
              (cons 'stan stan-compilation-regexp))
 (add-to-list 'compilation-error-regexp-alist 'stan)
 
-;;; Imenu tags
+;;; Imenu mode
+
 (defvar stan-imenu-generic-expression
   `(("Variable" ,stan-var-decl-regexp 2)
     ("Block" ,stan-blocks-regexp 1))
   "Stan mode imenu expression")
 
-;;;###autoload
+;;; Mode initialization
+
 (defun stan-mode ()
   "The hook `c-mode-common-hook' is run with no args at mode
 initialization, then `stan-mode-hook'.
