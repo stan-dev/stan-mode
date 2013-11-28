@@ -67,7 +67,7 @@
   (require 'cc-langs)
   (require 'cc-fonts))
 
-;; Contains keywords
+;; Contains keywords and functions
 (require 'stan-keywords-lists)
 
 ;;
@@ -113,19 +113,9 @@
 
 ;;; Define language for cc-mode
 
-;; (eval-and-compile
-;;   (c-add-language 'stan-mode 'c++-mode))
-
 ;; This mode does not inherit properties from other modes. So, we do not use
 ;; the usual `c-add-language' function.
 (put 'stan-mode 'c-mode-prefix "stan-")
-
-;; (eval-and-compile
-;;   ;; Make our mode known to the language constant system.  Use Java
-;;   ;; mode as the fallback for the constants we don't change here.
-;;   ;; This needs to be done also at compile time since the language
-;;   ;; constants are evaluated then.
-;;   (c-add-language 'stan-mode 'c++-mode))
 
 ;; Lexer level syntax
 (c-lang-defconst c-symbol-start
@@ -134,7 +124,9 @@
 (c-lang-defconst c-symbol-chars
   stan (concat  c-alnum "_"))
 
-;; Since I cannot set two comments, still treat # as cpp
+;; Since I cannot set two types of line comments in a language,
+;; treat # as a cpp-macro, but kill as much of the functionality as possible
+;; Set # to a comment in the syntax table.
 (c-lang-defconst c-opt-cpp-prefix
   stan "#")
 (c-lang-defconst c-opt-cpp-prefix
@@ -151,10 +143,6 @@
   stan nil)
 (c-lang-defconst c-cpp-expr-functions
   stan nil)
-;; (c-lang-defconst c-opt-cpp-start
-;;   stan "ab\bc")
-;; (c-lang-defconst c-cpp-matchers
-;;   stan nil)
 
 (c-lang-defconst c-assignment-operators
   stan '("<-" "~"))
@@ -174,9 +162,12 @@
 	  (left-assoc "||")
 	  ))
 
+;; tokens in syntax or parenthesis syntax classes that have uses
+;; other than as expression operators
+;; As with most of cc-mode, I don't fully understand this
+;; c++ doesn't include <> so I won't
 (c-lang-defconst c-other-op-syntax-tokens
-  stan
-  '("{" "}" "(" ")" "[" "]" ";" ":" "," "=" "/*" "*/" "//" "#"))
+  stan (append '("#") (c-lang-const c-other-op-syntax-tokens)))
 
 (c-lang-defconst c-stmt-delim-chars
   stan "^;{}")
@@ -272,7 +263,6 @@
   stan '("lp__")) ;; lp__ is very not-constant but is a non-used defined variable that is exposed.
 
 (defconst stan-mode-syntax-table-default
-  "Default Syntax table for stan-mode buffers."
   (let ((table (funcall (c-lang-const c-make-mode-syntax-table stan))))
     ;; treat <> as operators only
     ;; TODO: use syntax-propertize-function to determine context of <>
@@ -282,7 +272,8 @@
     (modify-syntax-entry ?#  "< b"  table)
     (modify-syntax-entry ?\n "> b"  table)
     (modify-syntax-entry ?'  "." table)
-    table))
+    table)
+  "Default Syntax table for stan-mode buffers.")
 
 (defvar stan-mode-syntax-table nil
   "Syntax table used in stan-mode buffers.")
@@ -300,9 +291,10 @@
   ;; when they are completed.
   (list))
 
-(defvar stan-mode-map (let ((map (c-make-inherited-keymap)))
-              ;; Add bindings which are only useful for stan
-              map)
+(defvar stan-mode-map 
+  (let ((map (c-make-inherited-keymap)))
+    ;; Add bindings which are only useful for stan
+    map)
   "Keymap used in stan-mode buffers.")
 
 ;; Font-Locks
