@@ -80,7 +80,6 @@
 (defconst stan-mode-version "1.2.0"
   "stan-mode version number")
 
-
 (defconst stan-language-version "2.0.1"
   "Stan language version supported")
 
