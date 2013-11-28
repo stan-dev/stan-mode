@@ -6,6 +6,9 @@
 import json
 import re
 
+""" Stan language version """
+VERSION = "2.0.1"
+
 PARTS = {"V": "Built-In Functions",
          "VI": "Discrete Distributions",
          "VII": "Continuous Distributions"}
@@ -159,15 +162,18 @@ def parse_manual(src):
 
 def main(src):
     functions = parse_manual(src)
-    data = {'functions': functions,
-            'operators': OPERATORS,
-            'blocks': BLOCKS,
-            'types': TYPES,
-            'reserved': RESERVED,
-            'bounds': BOUNDS,
-            'cpp_reserved': CPP_RESERVED,
-            'pseudo_keywords': PSEUDO_KEYWORDS,
-            'keywords': KEYWORDS}
+    data = {
+        'version': VERSION,
+        'functions': functions,
+        'operators': OPERATORS,
+        'blocks': BLOCKS,
+        'types': TYPES,
+        'reserved': RESERVED,
+        'bounds': BOUNDS,
+        'cpp_reserved': CPP_RESERVED,
+        'pseudo_keywords': PSEUDO_KEYWORDS,
+        'keywords': KEYWORDS
+    }
     return data
 
 if __name__ == '__main__':
