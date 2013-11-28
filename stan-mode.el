@@ -54,8 +54,7 @@
 ;; (eval-after-load "font-lock" ...) but then some trickery is
 ;; necessary to get them compiled.)
 (eval-when-compile
-  (require 'cc-langs)
-  (require 'cc-fonts))
+  (require 'cc-langs))
 
 ;; Contains keywords and functions
 (require 'stan-keywords-lists)
