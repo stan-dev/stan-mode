@@ -67,7 +67,7 @@
   (require 'cc-langs)
   (require 'cc-fonts))
 
-;; Contains keywords 
+;; Contains keywords
 (require 'stan-keywords-lists)
 
 ;;
@@ -115,7 +115,7 @@
 ;; (eval-and-compile
 ;;   (c-add-language 'stan-mode 'c++-mode))
 
-;; This mode does not inherit properties from other modes. So, we do not use 
+;; This mode does not inherit properties from other modes. So, we do not use
 ;; the usual `c-add-language' function.
 (put 'stan-mode 'c-mode-prefix "stan-")
 
@@ -174,7 +174,7 @@
 	  ))
 
 (c-lang-defconst c-other-op-syntax-tokens
-  stan 
+  stan
   '("{" "}" "(" ")" "[" "]" ";" ":" "," "=" "/*" "*/" "//" "#"))
 
 (c-lang-defconst c-stmt-delim-chars
@@ -187,7 +187,7 @@
 
 ;; cannot get cc-mode to recognize both // and # as comments
 ;; setting the regex constants directly does not work either
-;; thus # is set as a cpp-macro and the c-offset-alist style 
+;; thus # is set as a cpp-macro and the c-offset-alist style
 ;; altered
 (c-lang-defconst c-line-comment-starter
   stan "//")
@@ -202,7 +202,7 @@
 
 (c-lang-defconst c-primitive-type-kwds
   stan stan-types-list)
-  
+
 ;; no prefixes for primitivesx
 (c-lang-defconst c-primitive-type-prefix-kwds
   stan nil)
@@ -221,15 +221,15 @@
 (c-lang-defconst c-protection-kwds
   stan nil)
 
-;; e.g. class, struct, unions, 
+;; e.g. class, struct, unions,
 (c-lang-defconst c-class-decl-kwds
   stan stan-blocks-list)
 
-;; TODO: ?? 
+;; TODO: ??
 ;; Keywords where the following block (if any) contains another
 ;; declaration level that should not be considered a class
 ;; (c-lang-defconst c-other-block-decl-kwds
-;;   stan   '("data" "generated quantities" "model" "parameters" 
+;;   stan   '("data" "generated quantities" "model" "parameters"
 ;; 	    "transformed data" "transformed parameters"))
 (c-lang-defconst c-block-decls-with-vars
   stan nil)
@@ -356,7 +356,6 @@ See `compilation-error-regexp-alist' for help on their format.")
 (add-to-list 'compilation-error-regexp-alist-alist
              (cons 'stan stan-compilation-regexp))
 (add-to-list 'compilation-error-regexp-alist 'stan)
-
 
 ;; Misc
 
