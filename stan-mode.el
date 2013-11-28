@@ -32,25 +32,16 @@
 ;;; Commentary:
 ;;
 ;; This is a major mode for the Stan modeling language for Bayesian
-;; statistics. See http://mc-stan.org/.
+;; statistics. (See URL `http://mc-stan.org/`).
 ;;
-;; To load this library:
-;;
+;; Usage:
 ;;   (require 'stan-mode)
 ;;
 ;; This mode currently has support for syntax-highlighting, indentation,
 ;; imenu, and compilation error checking.
 ;;
-;; Yasnippet and flymake support for stan are provided in separate
-;; libraries included with stan-mode.
-;;
-;; Yasnippet support is provided in stan-snippets.
-;;
-;;   (require 'stan-snippets)
-;;
-;; Flymake support is provided in flymake-stan.
-;;
-;;   (require 'flymake-stan)
+;; See `flymake-stan` for flymake support, and `stan-snippets` for
+;; yasnippet support.
 
 ;;; Code:
 (require 'font-lock)

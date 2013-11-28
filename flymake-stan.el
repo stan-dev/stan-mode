@@ -1,4 +1,4 @@
-;;; flymake-stan.el --- Flymake for Stan
+;;; flymake-stan.el --- A flymake handler for stan files.
 
 ;; Copyright (C) 2012, 2013  Jeffrey Arnold
 ;;
@@ -7,6 +7,8 @@
 ;; Keywords: languanges
 ;; Version: 1.2.0
 ;; Created: 2012-08-18
+;; Package-Requires: ((flymake "0.3"))
+
 ;; This file is not part of GNU Emacs.
 
 ;;; License:
@@ -27,11 +29,21 @@
 
 ;;; Commentary:
 ;;
-;; This adds flymake support for stan. See the stan-mode documentation.
+;; Add flymake support for stan.
+;;
+;; Usage:
+;;   (require 'flymake-stan)
+;;
+;; Stanc must be compiled, and either be on the PATH or either `stan-stanc-path` 
+;; or `flymake-stan-stanc-path` set to the location of the executable.
 
 ;;; Code:
 (require 'flymake)
 (require 'stan-mode)
+
+(defvar flymake-stan-stanc-path
+  stan-stanc-path
+  "Stanc executable to use when running flymake")
 
 (defvar flymake-stan-temp-output-file-name nil
   "Name of the temporary output file produced by stanc when running flymake")
@@ -44,7 +56,7 @@
                       (file-name-directory buffer-file-name))))
     (setq flymake-stan-temp-output-file-name
           (make-temp-file "flymake-stan-" nil ".cpp"))
-    (list stan-stanc-path
+    (list flymake-stan-stanc-path
           (list (concat "--o=" flymake-stan-temp-output-file-name) local-file))))
 
 (defun flymake-stan-cleanup ()
