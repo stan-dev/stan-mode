@@ -215,7 +215,7 @@
   stan nil)
 
 ;; Treat blocks as classes
-;; I tried setting them to c-block-decls-with-vars but then the 
+;; I tried setting them to c-block-decls-with-vars but then the
 ;; syntatic symbols for the context were things like indata, inparameters, ...
 ;; which was more of a pain to deal with.
 (c-lang-defconst c-class-decl-kwds
@@ -302,7 +302,7 @@
 
 ;;; Keymap
 
-(defvar stan-mode-map 
+(defvar stan-mode-map
   (let ((map (c-make-inherited-keymap)))
     ;; Add bindings which are only useful for stan
     map)
@@ -357,7 +357,7 @@
     (,(stan-regexp-opt stan-reserved-list) . font-lock-warning-face)
     ))
 
-;;; Compilation mode 
+;;; Compilation mode
 
 (defvar stan-compilation-regexp
   '("LOCATION: file=\\([^;]+\\); line=\\([0-9]+\\), column=\\([0-9]+\\)" 1 2 3 nil)
@@ -377,8 +377,12 @@ See `compilation-error-regexp-alist' for help on their format.")
 
 ;;; Mode initialization
 
+;;; On Load
+;;;###autoload
 (defun stan-mode ()
-  "The hook `c-mode-common-hook' is run with no args at mode
+  "A major mode for editing Stan files.
+
+The hook `c-mode-common-hook' is run with no args at mode
 initialization, then `stan-mode-hook'.
 
 Key bindings:
@@ -422,8 +426,6 @@ Key bindings:
 
 (provide 'stan-mode)
 
-;;; On Load
-;;;###autoload
 (add-to-list 'auto-mode-alist '("\\.stan\\'" . stan-mode))
 
 ;;; stan-mode.el ends here
