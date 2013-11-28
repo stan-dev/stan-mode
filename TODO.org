@@ -1,8 +1,4 @@
 * TODO documentation
-* TODO menu
-
-Some sort of menu
-
 * TODO autocomplete mode support
 * TODO el-doc support
 * TODO compile / execute
@@ -13,12 +9,15 @@ way of doing this.
 ** TODO compile stan to cpp
 ** TODO compile cpp to executable
 ** TODO run executable associated with model
-* TODO cc-mode indentation without deriving from c++ mode
-
-c++-mode has a lot of extra baggage. is it possible to use the
-cc-mode indentation engine without deriving the mode from c++-mode?
-
 * TODO semantic mode support
 
 Long run. Write a semantic parser for full language support.
+* 
 
+* TODO split into separate packages
+
+- stan-mode
+- stan-snippets
+- flymake-stan
+
+This makes dependencies modular
