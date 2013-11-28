@@ -1,4 +1,4 @@
-;;; stan-mode.el --- Major mode for editing STAN files
+;;; stan-mode.el --- Major mode for editing Stan files
 
 ;; Copyright (C) 2012, 2013  Jeffrey Arnold, Daniel Lee
 
