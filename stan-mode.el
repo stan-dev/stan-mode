@@ -270,16 +270,25 @@
 (c-lang-defconst c-constant-kwds
   stan '("lp__")) ;; lp__ is very not-constant but is a non-used defined variable that is exposed.
 
+(defconst stan-mode-syntax-table-default
+  "Default Syntax table for stan-mode buffers."
+  (let ((table (funcall (c-lang-const c-make-mode-syntax-table stan))))
+    ;; treat <> as operators only
+    ;; TODO: use syntax-propertize-function to determine context of <>
+    (modify-syntax-entry ?< ".")
+    (modify-syntax-entry ?> ".")
+    ;; Mark single
+    (modify-syntax-entry ?#  "< b"  table)
+    (modify-syntax-entry ?\n "> b"  table)
+    (modify-syntax-entry ?'  "." table)
+    table))
+
 (defvar stan-mode-syntax-table nil
   "Syntax table used in stan-mode buffers.")
+
+;; use user-specified syntax table else default
 (or stan-mode-syntax-table
-    (setq stan-mode-syntax-table
-	  `(lambda () 
-	     (let ((table (funcall (c-lang-const c-make-mode-syntax-table stan))))
-	       (modify-syntax-entry ?#  "< b"  table)
-	       (modify-syntax-entry ?\n "> b"  table)
-	       (modify-syntax-entry ?'  "." table)
-	       table))))
+    (setq stan-mode-syntax-table stan-mode-syntax-table-default))
 
 (defvar stan-mode-abbrev-table nil
   "Abbreviation table used in stan-mode buffers.")
