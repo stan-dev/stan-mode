@@ -258,6 +258,17 @@
 (c-lang-defconst c-constant-kwds
   stan '("lp__")) ;; lp__ is very not-constant but is a non-used defined variable that is exposed.
 
+;;; cc-mode indentation
+
+(defvar stan-style
+  '("gnu"
+    ;; # comments have syntatic class cpp-macro
+    (c-offsets-alist . ((cpp-macro . 0)))))
+
+(c-add-style "stan" stan-style)
+
+;;; Syntax table
+
 (defconst stan-mode-syntax-table-default
   (let ((table (funcall (c-lang-const c-make-mode-syntax-table stan))))
     ;; treat <> as operators only
@@ -383,7 +394,7 @@ Key bindings:
   ;; only makes the necessary initialization to get the syntactic
   ;; analysis and similar things working.
   ;; this will use manual highlighting
-  (c-basic-common-init 'stan-mode c-default-style)
+  (c-basic-common-init 'stan-mode stan-style)
 
   ;; syntax highlighting
   (setq font-lock-defaults '((stan-font-lock-keywords)))
