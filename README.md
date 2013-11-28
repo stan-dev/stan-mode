@@ -18,9 +18,7 @@ Two other packages contain additional functionality but are dependent on additio
 
 ## Installing
 
-There are two ways to install `stan-mode`.
-
-### Package.el
+### Via package.el
 
 The is the recommended way to install `stan-mode` is using the
 built-in package manager of Emacs 24, `package.el`. This allows for
@@ -54,8 +52,7 @@ If the installation doesn't work try refreshing the package list:
 For more information on `package.el`, see the
 [EmacsWiki](http://emacswiki.org/emacs/ELPA).
 
-### Manual
-
+### Manually
 
 Download the files to a local directory, and add lines to your `.emacs`
 file to add that directory to the `load-path`, and `require` the
