@@ -128,13 +128,13 @@ def parse_manual(src):
                     else:
                         argtypes = tuple([x[0] for x in args])
                         argnames = [x[1] for x in args]
-                        argdict = list(zip(argnames, argtypes))
                         key = ','.join(argtypes)
                     if fname not in functionlist:
                         functionlist[fname] = {}
                     functionlist[fname][key] = {
                         'return': rettype,
-                        'args': argdict,
+                        'argtypes': argtypes,
+                        'argnames': argnames,
                         'location': (current_part, current_section, current_subsection),
                         'description': description
                     }
