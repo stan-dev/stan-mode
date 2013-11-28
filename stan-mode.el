@@ -106,11 +106,7 @@
 
 (defcustom stan-stanc-path
   (if (member system-type '(windows-nt cygwin ms-dos))
-<<<<<<< HEAD
-      "stanc.exe" 
-=======
       "stanc.exe"
->>>>>>> feature/new-cc-mode
     "stanc")
   "Path to stanc executable"
   :type 'string
@@ -428,7 +424,7 @@ Key bindings:
   (c-update-modeline)
   )
 
-;;;###autoload
+;;;###autoload
 (add-to-list 'auto-mode-alist '("\\.stan\\'" . stan-mode))
 
 (provide 'stan-mode)
