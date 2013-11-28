@@ -3,7 +3,7 @@ A file for testing Stan syntax highlighting.
 
 It is not a real model and will not compile
 */
-# also a comment
+# another comment
 // also a comment
 data {
   // valid name
@@ -47,13 +47,13 @@ parameters {
   real fred;
   real plugh;
 }
-transformed parameters {    
+transformed parameters {
 }
 model {
   // ~, <- are operators, 
   // T may be be recognized
   // normal is a function
-  fred ~ normal(0, 1) T(-0.5, 0.5);
+  fred ~ normal(0, 1) T[-0.5, 0.5];
   real tmp;
   // C++ reserved
   real public;
