@@ -14,7 +14,7 @@ way of doing this.
 Long run. Write a semantic parser for full language support.
 * 
 
-* TODO split into separate packages
+* DONE split into separate packages
 
 - stan-mode
 - stan-snippets
