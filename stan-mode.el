@@ -300,22 +300,30 @@
   ;; when they are completed.
   (list))
 
+;;; Keymap
+
 (defvar stan-mode-map 
   (let ((map (c-make-inherited-keymap)))
     ;; Add bindings which are only useful for stan
     map)
   "Keymap used in stan-mode buffers.")
 
-;; Font-Locks
+;;; Font-locking
 
-;; <- and ~
+;; <- and~ s
 (defvar stan-assign-regexp
   "\\(<-\\|~\\)"
   "Assigment operators")
 
+;; Stan parser will accept
+;; "transformedparameters", "transformed parameters", "transformed     parameters",
+;; and "transformed\tparameters"
 (defvar stan-blocks-regexp
-  (concat "^[[:space:]]*\\(model\\|data\\|transformed[ \t]+data\\|parameters"
-          "\\|transformed[ \t]+parameters\\|generated[ \t]+quantities\\)[[:space:]]*{")
+  (concat "^[[:space:]]*\\("
+	  (mapconcat
+	   (lambda (x) (replace-regexp-in-string " " "[[:space:]]*" x))
+	   stan-blocks-list "\\|")
+	  "\\)[[:space:]]*{")
   "Stan blocks declaration regexp")
 
 (defun stan-regexp-opt (string)
