@@ -257,6 +257,9 @@
 
 (c-add-style "stan" stan-style)
 
+(setq c-default-style
+      (append c-default-style '((stan-mode . "stan"))))
+
 ;;; Syntax table
 
 (defconst stan-mode-syntax-table-default
@@ -288,7 +291,8 @@
   ;; Keywords that if they occur first on a line might alter the
   ;; syntactic context, and which therefore should trig reindentation
   ;; when they are completed.
-  (list))
+  '(("else" "else" c-electric-continued-statement 0)
+    ("while" "while" c-electric-continued-statement 0)))
 
 ;;; Keymap
 
@@ -297,6 +301,11 @@
     ;; Add bindings which are only useful for stan
     map)
   "Keymap used in stan-mode buffers.")
+
+;;; Menu
+
+(easy-menu-define stan-menu stan-mode-map "Stan Mode Commands"
+  (cons "Stan" (c-lang-const c-mode-menu stan)))
 
 ;;; Font-locking
 
@@ -367,7 +376,6 @@ See `compilation-error-regexp-alist' for help on their format.")
 
 ;;; Mode initialization
 
-
 ;;;###autoload
 (defun stan-mode ()
   "A major mode for editing Stan files.
@@ -385,7 +393,7 @@ Key bindings:
 	mode-name "Stan"
 	local-abbrev-table stan-mode-abbrev-table
 	abbrev-mode t)
-  (use-local-map c-mode-map)
+  (use-local-map stan-mode-map)
   ;; `c-init-language-vars' is a macro that is expanded at compile
   ;; time to a large `setq' with all the language variables and their
   ;; customized values for our language.
@@ -396,7 +404,8 @@ Key bindings:
   ;; only makes the necessary initialization to get the syntactic
   ;; analysis and similar things working.
   ;; this will use manual highlighting
-  (c-basic-common-init 'stan-mode stan-style)
+  (c-basic-common-init 'stan-mode c-default-style)
+  (easy-menu-add stan-menu)
 
   ;; syntax highlighting
   (setq font-lock-defaults '((stan-font-lock-keywords)))
@@ -409,8 +418,7 @@ Key bindings:
   (setq imenu-generic-expression stan-imenu-generic-expression)
 
   ;; conclusion
-  (run-hooks 'c-mode-common-hook)
-  (run-hooks 'stan-mode-hook)
+  (run-hooks 'c-mode-common-hook 'stan-mode-hook)
   (c-update-modeline)
   )
 
