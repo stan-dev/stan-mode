@@ -381,7 +381,7 @@ See `compilation-error-regexp-alist' for help on their format.")
 
 ;;; Mode initialization
 
-;;; On Load
+
 ;;;###autoload
 (defun stan-mode ()
   "A major mode for editing Stan files.
@@ -428,8 +428,9 @@ Key bindings:
   (c-update-modeline)
   )
 
-(provide 'stan-mode)
-
+;;;###autoload
 (add-to-list 'auto-mode-alist '("\\.stan\\'" . stan-mode))
+
+(provide 'stan-mode)
 
 ;;; stan-mode.el ends here
