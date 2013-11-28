@@ -110,7 +110,10 @@
   "Abbrev table used in stan-mode buffers.")
 
 
-;;; Define c-language
+;;; Define language for cc-mode
+
+;; (eval-and-compile
+;;   (c-add-language 'stan-mode 'c++-mode))
 
 ;; This mode does not inherit properties from other modes. So, we do not use 
 ;; the usual `c-add-language' function.
@@ -133,11 +136,27 @@
 ;; Since I cannot set two comments, still treat # as cpp
 (c-lang-defconst c-opt-cpp-prefix
   stan "#")
+(c-lang-defconst c-opt-cpp-prefix
+  stan "\\s *#\\s *")
+(c-lang-defconst c-anchored-cpp-prefix
+  stan "^\\s *\\(#\\)\\s *")
+(c-lang-defconst c-cpp-message-directives
+  stan nil)
+(c-lang-defconst c-cpp-include-directives
+  stan nil)
+(c-lang-defconst c-cpp-macro-define
+  stan nil)
+(c-lang-defconst c-cpp-expr-directives
+  stan nil)
+(c-lang-defconst c-cpp-expr-functions
+  stan nil)
+;; (c-lang-defconst c-opt-cpp-start
+;;   stan "ab\bc")
 ;; (c-lang-defconst c-cpp-matchers
 ;;   stan nil)
 
 (c-lang-defconst c-assignment-operators
-  stan '("<-" "~" "="))
+  stan '("<-" "~"))
 
 (c-lang-defconst c-operators
   stan '((postfix "[" "]" "(" ")")
@@ -168,10 +187,10 @@
 
 ;; cannot get cc-mode to recognize both // and # as comments
 ;; setting the regex constants directly does not work either
+;; thus # is set as a cpp-macro and the c-offset-alist style 
+;; altered
 (c-lang-defconst c-line-comment-starter
   stan "//")
-;; (c-lang-defconst c-line-comment-starter
-;;   stan "#")
 
 (c-lang-defconst c-block-comment-starter
   stan "/*")
@@ -182,10 +201,7 @@
 ;;; Keyword lists
 
 (c-lang-defconst c-primitive-type-kwds
-  stan
-  '("cholesky_factor_cov" "corr_matrix" "cov_matrix" "int" "matrix" 
-    "ordered" "positive_ordered" "real" "row_vector" "simplex" 
-    "unit_vector" "vector"))
+  stan stan-types-list)
   
 ;; no prefixes for primitivesx
 (c-lang-defconst c-primitive-type-prefix-kwds
@@ -207,17 +223,16 @@
 
 ;; e.g. class, struct, unions, 
 (c-lang-defconst c-class-decl-kwds
-  stan nil)
-  ;; stan   '("data" "generated quantities" "model" "parameters" 
-  ;; 	    "transformed data" "transformed parameters"))
-
+  stan stan-blocks-list)
 
 ;; TODO: ?? 
 ;; Keywords where the following block (if any) contains another
 ;; declaration level that should not be considered a class
-(c-lang-defconst c-other-block-decl-kwds
-  stan   '("data" "generated quantities" "model" "parameters" 
-	    "transformed data" "transformed parameters"))
+;; (c-lang-defconst c-other-block-decl-kwds
+;;   stan   '("data" "generated quantities" "model" "parameters" 
+;; 	    "transformed data" "transformed parameters"))
+(c-lang-defconst c-block-decls-with-vars
+  stan nil)
 
 ;; Keywords that may be followed by a parenthesis expression that doesn't contain type identifiers
 (c-lang-defconst c-paren-non-type-kwds
@@ -279,18 +294,6 @@
               ;; Add bindings which are only useful for stan
               map)
   "Keymap used in stan-mode buffers.")
-
-(defconst stan-font-lock-keywords-1 (c-lang-const c-matchers-1 stan)
-  "Minimal highlighting for stan mode.")
-
-(defconst stan-font-lock-keywords-2 (c-lang-const c-matchers-2 stan)
-  "Fast normal highlighting for stan mode.")
-
-(defconst stan-font-lock-keywords-3 (c-lang-const c-matchers-3 stan)
-  "Accurate normal highlighting for stan mode.")
-
-(defvar stan-font-lock-keywords stan-font-lock-keywords-3
-  "Default expressions to highlight in stan mode.")
 
 ;; Font-Locks
 
@@ -361,8 +364,7 @@ See `compilation-error-regexp-alist' for help on their format.")
 
 ;;;###autoload
 (defun stan-mode ()
-  "
-The hook `c-mode-common-hook' is run with no args at mode
+  "The hook `c-mode-common-hook' is run with no args at mode
 initialization, then `stan-mode-hook'.
 
 Key bindings:
@@ -385,10 +387,8 @@ Key bindings:
   ;; There's also a lower level routine `c-basic-common-init' that
   ;; only makes the necessary initialization to get the syntactic
   ;; analysis and similar things working.
-  (c-common-init 'stan-mode)
-  (run-hooks 'c-mode-common-hook)
-  (run-hooks 'stan-mode-hook)
-  (c-update-modeline)
+  ;; this will use manual highlighting
+  (c-basic-common-init 'stan-mode c-default-style)
 
   ;; syntax highlighting
   (setq font-lock-defaults '((stan-font-lock-keywords)))
@@ -399,7 +399,11 @@ Key bindings:
 
   ;; imenu
   (setq imenu-generic-expression stan-imenu-generic-expression)
-  
+
+  ;; conclusion
+  (run-hooks 'c-mode-common-hook)
+  (run-hooks 'stan-mode-hook)
+  (c-update-modeline)
   )
 
 (provide 'stan-mode)
