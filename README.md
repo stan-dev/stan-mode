@@ -52,7 +52,8 @@ If the installation doesn't work try refreshing the package list:
 <kbd>M-x package-refresh-contents [RET]</kbd>
 
 For more information on `package.el`, see the
-[EmacsWiki](http://emacswiki.org/emacs/ELPA).
+[EmacsWiki](http://emacswiki.org/emacs/ELPA)
+.tw
 
 ### Manual
 

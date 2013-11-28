@@ -5,7 +5,7 @@
 ;; Author: Jeffrey Arnold <jeffrey.arnold@gmail.com>
 ;; URL: http://github.com/stan-dev/stan-mode
 ;; Keywords: languanges
-;; Version: 1.2.0
+;; Version: 2.0.0
 ;; Created: 2012-08-18
 ;; Package-Requires: ((flymake "0.3"))
 
