@@ -2,12 +2,9 @@ import json
 import os
 import re
 import shutil
+import sys
+import subprocess as sp
 from os import path
-
-FILE = 'stan_lang.json'
-DST = '../snippets/stan-mode'
-FUNCTION_DIR = path.join(DST, 'functions')
-DIST_DIR = path.join(DST, 'distributions')
 
 DISTRIBUTION_PARTS = ('Discrete Distributions', 'Continuous Distributions')
 
@@ -37,14 +34,16 @@ def make_dist_sig(x):
 def make_args(x):
     if x['argnames']:
         return ', '.join(['${%d:%s}' % (y[0] + 1, ' '.join(y[1])) 
-                          for y in enumerate(zip(x['argtypes'], x['argnames']))])
+                          for y in enumerate(zip(x['argtypes'], 
+                                                 x['argnames']))])
     else:
         return ""
 
 def make_dist_args(x):
     if x['argnames']:
         return ', '.join(['${%d:%s}' % (y[0] + 1, ' '.join(y[1])) 
-                          for y in enumerate(zip(x['argtypes'][1:], x['argnames'][1:]))])
+                          for y in enumerate(zip(x['argtypes'][1:], 
+                                                 x['argnames'][1:]))])
     else:
         return ""
 
@@ -54,17 +53,18 @@ def make_group_function(x):
 def make_group_dist(x):
     return 'Distributions.%s' % x['location'][0].split()[0]
 
-def write_function_snippets(functions):
-    dir_create_or_clean(FUNCTION_DIR)
+def write_function_snippets(dst, functions):
+    dir_create_or_clean(dst)
     for funcname, sigs in functions.items():
         if not re.match("operator", funcname):
             for sig, v in sigs.items():
                 if v['argtypes']:
                     cleansig = re.sub(r"[\[\]]", "", '-'.join(v['argtypes']))
-                    filename = path.join(FUNCTION_DIR,
-                                         '%s-%s.yasnippet' % (funcname, cleansig))
+                    filename = path.join(dst,
+                                         '%s-%s.yasnippet' 
+                                         % (funcname, cleansig))
                 else:
-                    filename = path.join(FUNCTION_DIR, '%s.yasnippet' % funcname)
+                    filename = path.join(dst, '%s.yasnippet' % funcname)
                 snippet = TEMPLATE.format(funcname = funcname,
                                           sig = make_sig(v),
                                           args = make_args(v),
@@ -72,15 +72,15 @@ def write_function_snippets(functions):
                 with open(filename, 'w') as f:
                     f.write(snippet)
             
-def write_distribution_snippets(functions, distributions):
-    dir_create_or_clean(DIST_DIR)
+def write_distribution_snippets(dst, functions, distributions):
+    dir_create_or_clean(dst)
     distribution_funcs = ['%s_log' % x for x in distributions]
     for funcname, sigs in functions.items():
         if funcname in distribution_funcs:
             distname = funcname[:-4]
             for sig, v in sigs.items():
                 cleansig = re.sub(r"[\[\]]", "", '-'.join(v['argtypes']))
-                filename = path.join(DIST_DIR,
+                filename = path.join(dst,
                                      '%s-%s.yasnippet' % (funcname, cleansig))
                 snippet = TEMPLATE.format(funcname = distname,
                                           sig = make_dist_sig(v),
@@ -88,9 +88,38 @@ def write_distribution_snippets(functions, distributions):
                                           group = make_group_dist(v))
                 with open(filename, 'w') as f:
                     f.write(snippet)
+
+def compile_snippets(dst):
+    elisp = "(require 'yas)(yas-compile-directory \"%s\")" % dst
+    return sp.call(['emacs', '--batch', '--eval="%s"' % elisp])
+
+def move_snippets(src, dst):
+    files_to_copy = ['.yas-compiled-snippets.el',
+                     '.yas-make-groups',
+                     '.yas-parents']
+    stan_mode_dir = path.join(dst, 'stan-mode')
+    src_stan_mode_dir = path.join(src, 'stan-mode')
+    if not path.exists(dst):
+        print("creating directory %s" % dst)
+        os.makedirs(dst)
+    if not path.exists(stan_mode_dir):
+        print("creating directory %s" % stan_mode_dir)
+        os.makedirs(stan_mode_dir)
+    for f in files_to_copy:
+        src_f = path.join(src_stan_mode_dir, f)
+        dst_f = path.join(stan_mode_dir, f)
+        print("copying %s to %s" % (src_f, dst_f))
+        shutil.copy(src_f, dst_f)
         
 if __name__ == '__main__':
-    with open(FILE, 'r') as f:
+    src, dst, dst2 = sys.argv[1:4]
+    function_dir = path.join(dst, 'stan-mode', 'functions')
+    dist_dir = path.join(dst, 'stan-mode', 'distributions')
+
+    with open(src, 'r') as f:
         data = json.load(f)
-    write_function_snippets(data['functions'])
-    write_distribution_snippets(data['functions'], data['distributions'])
+    write_function_snippets(function_dir, data['functions'])
+    write_distribution_snippets(dist_dir, data['functions'], 
+                                data['distributions'])
+    compile_snippets(dst)
+    move_snippets(dst, dst2)
