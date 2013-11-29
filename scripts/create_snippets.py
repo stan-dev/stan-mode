@@ -15,8 +15,7 @@ TEMPLATE = """# name: {funcname}({sig})
 # key: {funcname}
 # group: {group}
 # --
-{funcname}({args})$0
-"""
+{funcname}({args})$0"""
 
 def dir_create_or_clean(dst):
     if path.exists(dst):

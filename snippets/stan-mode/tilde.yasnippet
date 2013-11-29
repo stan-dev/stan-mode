@@ -1,4 +1,6 @@
-# name : ~ ...
+# name : ~ distribution(...)
 # key : ~
+# expand-env: ((yas-triggers-in-field 't))
 # --
-~ ${1:$$(yas-choose-value stan-distribution-list)}($0);
+~ ${1:$$(yas-choose-value stan-distribution-list)};
+$0
