@@ -21,7 +21,7 @@
   "List of Stan functions")
 
 (defvar stan-distribution-list
-  '("bernoulli" "bernoulli_logit" "beta" "beta_binomial" "binomial" "binomial_coefficient" "binomial_logit" "categorical" "categorical_logit" "cauchy" "chi_square" "dirichlet" "double_exponential" "exp_mod_normal" "exponential" "gamma" "gaussian_dlm_obs" "gumbel" "hypergeometric" "inv_chi_square" "inv_gamma" "inv_wishart" "lkj_corr" "lkj_cov" "logistic" "lognormal" "multi_normal" "multi_normal_cholesky" "multi_normal_prec" "multi_student_t" "multinomial" "multiply" "neg_binomial" "normal" "ordered_logistic" "pareto" "poisson" "poisson_log" "rayleigh" "scaled_inv_chi_square" "skew_normal" "student_t" "uniform" "von_mises" "weibull" "wishart")
+  '("bernoulli" "bernoulli_logit" "beta" "beta_binomial" "binomial" "binomial_logit" "categorical" "categorical_logit" "cauchy" "chi_square" "dirichlet" "double_exponential" "exp_mod_normal" "exponential" "gamma" "gaussian_dlm_obs" "gumbel" "hypergeometric" "inv_chi_square" "inv_gamma" "inv_wishart" "lkj_corr" "lkj_cov" "logistic" "lognormal" "multi_normal" "multi_normal_cholesky" "multi_normal_prec" "multi_student_t" "multinomial" "neg_binomial" "normal" "ordered_logistic" "pareto" "poisson" "poisson_log" "rayleigh" "scaled_inv_chi_square" "skew_normal" "student_t" "uniform" "von_mises" "weibull" "wishart")
   "List of Stan distributions")
 
 (defvar stan-reserved-list
