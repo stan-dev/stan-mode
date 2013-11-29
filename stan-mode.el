@@ -374,6 +374,11 @@ See `compilation-error-regexp-alist' for help on their format.")
     ("Block" ,stan-blocks-regexp 1))
   "Stan mode imenu expression")
 
+(defcustom stan-turn-on-imenu t
+  "Turn on imenu-mode for Stan files"
+  :type 'boolean
+  :group 'stan-mode)
+
 ;;; Mode initialization
 
 ;;;###autoload
@@ -415,7 +420,12 @@ Key bindings:
   (setq compilation-error-regexp-alist '(stan))
 
   ;; imenu
-  (setq imenu-generic-expression stan-imenu-generic-expression)
+  (if stan-turn-on-imenu
+      (progn
+	(setq imenu-generic-expression stan-imenu-generic-expression)
+	(setq imenu-auto-rescan t)
+	(imenu-add-menubar-index))
+    nil)
 
   ;; conclusion
   (run-hooks 'c-mode-common-hook 'stan-mode-hook)
