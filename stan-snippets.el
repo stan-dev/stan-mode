@@ -45,6 +45,13 @@
   "Directory containing stan-mode snippets.")
 (yas-load-directory stan-snippets-dir)
 
+(add-hook 
+ 'stan-mode-hook
+ (lambda () 
+   ;; this is needed to expand functions with _ in them.
+   (setq-local yas-key-syntaxes (list "w_" "w_." "w_.()" "^ "))
+   ))
+
 (provide 'stan-snippets)
 
 ;;; stan-snippets.el ends here
