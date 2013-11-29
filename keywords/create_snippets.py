@@ -64,8 +64,12 @@ def write_function_snippets(functions):
     for funcname, sigs in functions.items():
         if not re.match("operator", funcname):
             for sig, v in sigs.items():
-                filename = path.join(FUNCTION_DIR,
-                                     '%s-%s.yasnippet' % (funcname, sig.replace(',', '-')))
+                if sig != '':
+                    cleansig = re.sub(r"[\[\]]", "", sig.replace(',', '-'))
+                    filename = path.join(FUNCTION_DIR,
+                                         '%s-%s.yasnippet' % (funcname, cleansig))
+                else:
+                    filename = path.join('%s.yasnippet')
                 snippet = TEMPLATE.format(funcname = funcname,
                                           sig = make_sig(v),
                                           args = make_args(v),
@@ -81,8 +85,9 @@ def write_distribution_snippets(functions):
             and re.search("_log$", funcname)):
             for sig, v in sigs.items():
                 if v['location'][0] in DISTRIBUTION_PARTS:
+                    cleansig = re.sub(r"[\[\]]", "", sig.replace(',', '-'))
                     filename = path.join(DIST_DIR,
-                                         '%s-%s.yasnippet' % (funcname, sig.replace(',', '-')))
+                                         '%s-%s.yasnippet' % (funcname, cleansig))
                     snippet = TEMPLATE.format(funcname = funcname,
                                               sig = make_dist_sig(v),
                                               args = make_dist_args(v),
