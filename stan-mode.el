@@ -304,6 +304,45 @@
 
 ;;; Menu
 
+;; this copied and pasted from cc-lang
+;; needed to delete parts related to cpp-macros.
+;; I should just edit the menu with lisp instead of this.
+(c-lang-defconst c-mode-menu
+  ;; The definition for the mode menu.	The menu title is prepended to
+  ;; this before it's fed to `easy-menu-define'.
+  stan `(["Comment Out Region"	comment-region
+       (c-fn-region-is-active-p)]
+      ["Uncomment Region"	(comment-region (region-beginning)
+						(region-end) '(4))
+       (c-fn-region-is-active-p)]
+      ["Indent Expression"	c-indent-exp
+       (memq (char-after) '(?\( ?\[ ?\{))]
+      ["Indent Line or Region"	c-indent-line-or-region t]
+      ["Fill Comment Paragraph" c-fill-paragraph t]
+      "----"
+      ["Backward Statement"	c-beginning-of-statement t]
+      ["Forward Statement"	c-end-of-statement t]
+      "----"
+      ("Style..."
+       ["Set Style..."                   c-set-style t]
+       ["Show Current Style Name"        (message
+					  "Style Name: %s"
+					  c-indentation-style) t]
+       ["Guess Style from this Buffer"   c-guess-buffer-no-install t]
+       ["Install the Last Guessed Style" c-guess-install
+	(and c-guess-guessed-offsets-alist
+	     c-guess-guessed-basic-offset) ]
+       ["View the Last Guessed Style"    c-guess-view
+	(and c-guess-guessed-offsets-alist
+	     c-guess-guessed-basic-offset) ])
+      "----"
+      ("Toggle..."
+       ["Syntactic indentation" c-toggle-syntactic-indentation t]
+       ["Electric mode"		c-toggle-electric-state t]
+       ["Auto newline"		c-toggle-auto-newline t]
+       ["Hungry delete"		c-toggle-hungry-state t]
+       ["Subword mode"		c-subword-mode t])))
+
 (easy-menu-define stan-menu stan-mode-map "Stan Mode Commands"
   (cons "Stan" (c-lang-const c-mode-menu stan)))
 
