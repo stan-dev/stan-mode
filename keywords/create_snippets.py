@@ -73,26 +73,25 @@ def write_function_snippets(functions):
                 with open(filename, 'w') as f:
                     f.write(snippet)
             
-def write_distribution_snippets(functions):
+def write_distribution_snippets(functions, distributions):
     dir_create_or_clean(DIST_DIR)
+    distribution_funcs = ['%s_log' % x for x in distributions]
     for funcname, sigs in functions.items():
-        if (not re.search("_ccdf_log$", funcname)
-            and not re.search("_cdf_log$", funcname)
-            and re.search("_log$", funcname)):
+        if funcname in distribution_funcs:
+            distname = funcname[-4:]
             for sig, v in sigs.items():
-                if v['location'][0] in DISTRIBUTION_PARTS:
-                    cleansig = re.sub(r"[\[\]]", "", '-'.join(v['argtypes']))
-                    filename = path.join(DIST_DIR,
-                                         '%s-%s.yasnippet' % (funcname, cleansig))
-                    snippet = TEMPLATE.format(funcname = funcname,
-                                              sig = make_dist_sig(v),
-                                              args = make_dist_args(v),
-                                              group = make_group_dist(v))
-                    with open(filename, 'w') as f:
-                        f.write(snippet)
+                cleansig = re.sub(r"[\[\]]", "", '-'.join(v['argtypes']))
+                filename = path.join(DIST_DIR,
+                                     '%s-%s.yasnippet' % (funcname, cleansig))
+                snippet = TEMPLATE.format(funcname = distname,
+                                          sig = make_dist_sig(v),
+                                          args = make_dist_args(v),
+                                          group = make_group_dist(v))
+                with open(filename, 'w') as f:
+                    f.write(snippet)
         
 if __name__ == '__main__':
     with open(FILE, 'r') as f:
         data = json.load(f)
     write_function_snippets(data['functions'])
-    write_distribution_snippets(data['functions'])
+    write_distribution_snippets(data['functions'], data['distributions'])

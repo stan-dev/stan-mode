@@ -58,22 +58,14 @@ def read_json(filename):
     re_cdf_log = re.compile("_cdf_log$")
     re_ccdf_log = re.compile("_ccdf_log$")
 
-    for fun_name in data['functions']:
-        if re_op.match(fun_name):
-            continue
-        if (not re_ccdf_log.search(fun_name)
-            and not re_cdf_log.search(fun_name)
-            and re_pdf.search(fun_name)):
-            for sig, val in data['functions'][fun_name].items():
-                if val['location'][0] in DISTR_PARTS:
-                    distributions.add(re.sub("_log$", "", fun_name))
-        functions.add(fun_name)
+    functions = [x for x in data['functions']
+                 if not re.match("operator", x)]
 
     return {
         'blocks': blocks,
         'bounds': bounds,
-        'distributions': list(distributions),
-        'functions': list(functions),
+        'distributions': sorted(data['distributions']),
+        'functions': sorted(functions),
         'keywords': keywords,
         'reserved': reserved,
         'types': types,
