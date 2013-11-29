@@ -98,12 +98,18 @@ def parse_manual(src):
     re_section = re.compile(r"?[0-9]{1,2}\.\s+(?P<title>.*)")
     re_subsection = re.compile(r"?[0-9]{1,2}\.[0-9]+\.?\s+(?P<title>.*)")
 
+    distr_parts = ('Continuous Distributions', 'Discrete Distributions')
+
     current_part = None
     current_section = None
     current_subsection = None
 
     functionlist = {}
+    distributionlist = set()
     hierarchy = {}
+
+    def valid_distribution_name(x): 
+        return (re.search("_log$", x) and not re.search("_c?cdf_log$", x))
 
     description = []
     in_fitem = False
@@ -121,6 +127,10 @@ def parse_manual(src):
                 arglist = m.group('args')
                 description = m.group('description')
                 if fname not in ["print"]:
+                    ## If a distribution, add to distribution list
+                    if (current_part in distr_parts
+                        and valid_distribution_name(fname)):
+                        distributionlist.add(fname[:-4])
                     args = [x.split() for x in arglist.split(",")]
                     if args == [[]]:
                         argtypes = None
@@ -156,10 +166,10 @@ def parse_manual(src):
             elif m_fitem:
                 fitemtext = line.strip()
                 in_fitem = True
-    return functionlist
+    return (functionlist, list(distributionlist))
 
 def main(src):
-    functions = parse_manual(src)
+    functions, distributions = parse_manual(src)
     data = {
         'version': VERSION,
         'functions': functions,
@@ -170,7 +180,8 @@ def main(src):
         'bounds': BOUNDS,
         'cpp_reserved': CPP_RESERVED,
         'pseudo_keywords': PSEUDO_KEYWORDS,
-        'keywords': KEYWORDS
+        'keywords': KEYWORDS,
+        'distributions': distributions
     }
     return data
 
