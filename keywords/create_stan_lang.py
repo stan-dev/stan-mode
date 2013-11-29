@@ -87,18 +87,16 @@ def parse_manual(src):
 
     fun_name = "(?:operator(?:%s)|[A-Za-z][A-Za-z0-9_]*)" % "|".join(OPERATORS_ESC)
 
-    sections = r"(2[7-9]|3[0-6])"
-
     # re_fitem = re.compile(type_decl + r"\s+" + "(?P<fun>%s)" % fun_name
 
-    re_fitem = re.compile("(?:)?" + type_decl + r"\s+" + "(?P<fun>%s)" % fun_name + "\(")
+    re_fitem = re.compile("?" + type_decl + r"\s+" + "(?P<fun>%s)" % fun_name + "\(")
 
     re_fitem_2 = (re.compile(type_decl + r"\s+" + "(?P<fun>%s)" % fun_name
                              + "\((?P<args>.*?)\) *(?P<description>.*)"))
 
     re_part = re.compile(r"\s*Part\s+(?P<title>%s)\b" % "|".join(PARTS.keys()))
-    re_section = re.compile(r"%s\.\s+(?P<title>.*)" % sections)
-    re_subsection = re.compile(r"%s\.[0-9]+\.?\s+(?P<title>.*)" % sections)
+    re_section = re.compile(r"?[0-9]{1,2}\.\s+(?P<title>.*)")
+    re_subsection = re.compile(r"?[0-9]{1,2}\.[0-9]+\.?\s+(?P<title>.*)")
 
     current_part = None
     current_section = None
@@ -125,8 +123,8 @@ def parse_manual(src):
                 if fname not in ["print"]:
                     args = [x.split() for x in arglist.split(",")]
                     if args == [[]]:
-                        argdict = {}
                         argtypes = None
+                        argnames = None
                         key = ""
                     else:
                         argtypes = tuple([x[0] for x in args])
