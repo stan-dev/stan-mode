@@ -1,7 +1,7 @@
 import json
 import os
 import re
-import glob
+import shutil
 from os import path
 
 FILE = 'stan_lang.json'
@@ -19,13 +19,9 @@ TEMPLATE = """# name: {funcname}({sig})
 """
 
 def dir_create_or_clean(dst):
-    if not path.exists(dst):
-        print("creating directory %s" % dst)
-        os.makedirs(dst)
-    else:
-        print("deleting files in %s" % dst)
-        for filename in glob.glob("*.yasnippet"):
-            os.unlink(filename)
+    if path.exists(dst):
+        shutil.rmtree(dst)
+    os.makedirs(dst)
 
 def make_sig(x):
     if x['argtypes']:
@@ -64,12 +60,12 @@ def write_function_snippets(functions):
     for funcname, sigs in functions.items():
         if not re.match("operator", funcname):
             for sig, v in sigs.items():
-                if sig != '':
-                    cleansig = re.sub(r"[\[\]]", "", sig.replace(',', '-'))
+                if v['argtypes']:
+                    cleansig = re.sub(r"[\[\]]", "", '-'.join(v['argtypes']))
                     filename = path.join(FUNCTION_DIR,
                                          '%s-%s.yasnippet' % (funcname, cleansig))
                 else:
-                    filename = path.join('%s.yasnippet')
+                    filename = path.join(FUNCTION_DIR, '%s.yasnippet' % funcname)
                 snippet = TEMPLATE.format(funcname = funcname,
                                           sig = make_sig(v),
                                           args = make_args(v),
@@ -85,7 +81,7 @@ def write_distribution_snippets(functions):
             and re.search("_log$", funcname)):
             for sig, v in sigs.items():
                 if v['location'][0] in DISTRIBUTION_PARTS:
-                    cleansig = re.sub(r"[\[\]]", "", sig.replace(',', '-'))
+                    cleansig = re.sub(r"[\[\]]", "", '-'.join(v['argtypes']))
                     filename = path.join(DIST_DIR,
                                          '%s-%s.yasnippet' % (funcname, cleansig))
                     snippet = TEMPLATE.format(funcname = funcname,
