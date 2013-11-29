@@ -78,7 +78,7 @@ def write_distribution_snippets(functions, distributions):
     distribution_funcs = ['%s_log' % x for x in distributions]
     for funcname, sigs in functions.items():
         if funcname in distribution_funcs:
-            distname = funcname[-4:]
+            distname = funcname[:-4]
             for sig, v in sigs.items():
                 cleansig = re.sub(r"[\[\]]", "", '-'.join(v['argtypes']))
                 filename = path.join(DIST_DIR,
