@@ -1,3 +1,4 @@
+PYTHON = python3
 EMACS = emacs
 ## text file of Stan reference manual created with pdftotext --layout 
 REFERENCE = scripts/stan-reference-2.0.1.txt
