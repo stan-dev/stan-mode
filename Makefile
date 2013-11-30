@@ -1,6 +1,6 @@
 PYTHON = python3
 ## text file of Stan reference manual created with pdftotext --layout 
-REFERENCE = stan-reference-2.0.1.txt
+REFERENCE = scripts/stan-reference-2.0.1.txt
 
 all: stan-keywords-lists.el snippets
 
