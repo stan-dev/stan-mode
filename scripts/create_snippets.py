@@ -88,31 +88,9 @@ def write_distribution_snippets(dst, functions, distributions):
                                           group = make_group_dist(v))
                 with open(filename, 'w') as f:
                     f.write(snippet)
-
-def compile_snippets(dst):
-    elisp = "(require 'yas)(yas-compile-directory \"%s\")" % dst
-    return sp.call(['emacs', '--batch', '--eval="%s"' % elisp])
-
-def move_snippets(src, dst):
-    files_to_copy = ['.yas-compiled-snippets.el',
-                     '.yas-make-groups',
-                     '.yas-parents']
-    stan_mode_dir = path.join(dst, 'stan-mode')
-    src_stan_mode_dir = path.join(src, 'stan-mode')
-    if not path.exists(dst):
-        print("creating directory %s" % dst)
-        os.makedirs(dst)
-    if not path.exists(stan_mode_dir):
-        print("creating directory %s" % stan_mode_dir)
-        os.makedirs(stan_mode_dir)
-    for f in files_to_copy:
-        src_f = path.join(src_stan_mode_dir, f)
-        dst_f = path.join(stan_mode_dir, f)
-        print("copying %s to %s" % (src_f, dst_f))
-        shutil.copy(src_f, dst_f)
         
 if __name__ == '__main__':
-    src, dst, dst2 = sys.argv[1:4]
+    src, dst = sys.argv[1:3]
     function_dir = path.join(dst, 'stan-mode', 'functions')
     dist_dir = path.join(dst, 'stan-mode', 'distributions')
 
@@ -121,5 +99,3 @@ if __name__ == '__main__':
     write_function_snippets(function_dir, data['functions'])
     write_distribution_snippets(dist_dir, data['functions'], 
                                 data['distributions'])
-    compile_snippets(dst)
-    move_snippets(dst, dst2)

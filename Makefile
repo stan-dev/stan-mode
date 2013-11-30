@@ -11,6 +11,6 @@ stan-keywords-lists.el: scripts/create_stan_keywords_lists.py stan_lang.json
 	$(PYTHON) $^ > $@
 
 snippets:
-	$(PYTHON) scripts/create_snippets.py stan_lang.json scripts/snippets snippets
+	$(PYTHON) scripts/create_snippets.py stan_lang.json snippets
 
 .PHONY: snippets
