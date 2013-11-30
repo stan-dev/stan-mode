@@ -2,9 +2,18 @@
 ;;; Snippet definitions:
 ;;;
 (yas-define-snippets 'stan-mode
-		     '(("~" "~ ${1:$$(yas-choose-value stan-distribution-list)};\n$0" "~ distribution(...)" nil nil
+		     '(("<" "<lower=${1:0}>$0" "<lower=...>" nil
+			("Range Constraints")
+			nil nil nil nil)
+		       ("<" "<lower=${1:0},upper=${2:1}>$0" "<lower=..., upper=...>" nil
+			("Range Constraints")
+			nil nil nil nil)
+		       ("~" "~ ${1:$$(yas-choose-value stan-distribution-list)};\n$0" "~ distribution(...)" nil nil
 			((yas-triggers-in-field 't))
-			nil nil nil)))
+			nil nil nil)
+		       ("<" "<upper=${1:0}>$0" "<upper=...>" nil
+			("Range Constraints")
+			nil nil nil nil)))
 
 
 ;;; Snippet definitions:
@@ -1381,4 +1390,4 @@
 			nil nil nil nil)))
 
 
-;;; Do not edit! File generated at Sat Nov 30 12:19:25 2013
+;;; Do not edit! File generated at Sat Nov 30 12:28:33 2013
