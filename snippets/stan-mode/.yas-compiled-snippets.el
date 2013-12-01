@@ -647,9 +647,6 @@
 		       ("if_else" "if_else(${1:int cond}, ${2:real x}, ${3:real y})$0" "if_else(int, real, real)" nil
 			("Functions" "Built-In Functions" "Real-Valued Basic Functions" "Logical Functions")
 			nil nil nil nil)
-		       ("increment_log_prob" "increment_log_prob(${1:real lp})$0" "increment_log_prob(real)" nil
-			("Functions" "Built-In Functions" "Void Functions" "Increment Log Probability")
-			nil nil nil nil)
 		       ("int_step" "int_step(${1:int x})$0" "int_step(int)" nil
 			("Functions" "Built-In Functions" "Integer-Valued Basic Functions" "Absolute Functions")
 			nil nil nil nil)
@@ -1360,4 +1357,3 @@
 			nil nil nil nil)))
 
 
-;;; Do not edit! File generated at Sun Dec  1 01:55:25 2013

@@ -5,6 +5,7 @@
 """
 import json
 import re
+import sys
 
 """ Stan language version """
 VERSION = "2.0.1"
@@ -59,7 +60,7 @@ OPERATORS_ESC = [escape_regex(x) for x in OPERATORS]
 
 def parse_manual(src):
 
-    with open("stan-reference-2.0.1.txt", "r") as f:
+    with open(src, "r") as f:
         all_lines = f.readlines()
 
     # Keep only lines in Parts V-VII"
@@ -186,5 +187,5 @@ def main(src):
     return data
 
 if __name__ == '__main__':
-    data = main("stan-reference-2.0.1.txt")
+    data = main(sys.argv[1])
     print(json.dumps(data))
