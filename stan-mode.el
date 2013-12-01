@@ -423,6 +423,7 @@ See `compilation-error-regexp-alist' for help on their format.")
   :type 'boolean
   :group 'stan-mode)
 
+
 ;;; auto-complete mode 
 
 (defcustom stan-turn-on-auto-complete
@@ -434,21 +435,24 @@ This only has an effect if auto-complete is installed.
   :group 'stan-mode)
 
 (when (and (require 'auto-complete nil 'noerror)
+	   (require 'auto-complete-config nil 'noerror)
 	   stan-turn-on-auto-complete)
-  (add-to-list 'ac-dictionary-directories   
-	       (expand-file-name "ac"
+
+  (setq ac-modes (append ac-modes '(stan-mode)))
+
+  (add-to-list 'ac-dictionary-directories
+	       (expand-file-name "ac-dict"
 				 (file-name-directory
 				  (or load-file-name (buffer-file-name)))))
 
-  (add-hook 'stan-mode-hook
-	    (lambda ()
-	      (setq ac-sources '(ac-source-imenu
-				 ac-source-yasnippet
-				 ac-source-dictionary
-				 ac-source-words-in-buffer
-				 ))))
+  (defun ac-stan-mode-setup ()
+    (setq ac-sources '(ac-source-yasnippet
+		       ac-source-imenu
+		       ac-source-dictionary
+		       ac-source-words-in-buffer)))
 
-  (setq ac-modes (append ac-modes '(stan-mode)))
+  (add-hook 'stan-mode-hook 'ac-stan-mode-setup)
+
   )
 
 ;;; Mode initialization
