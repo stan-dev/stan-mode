@@ -11,7 +11,7 @@ def gen_dictwords(data):
         dictwords += data[k]
     dictwords += [x for x in data['functions'].keys() 
                   if not re.match('operator', x)]
-    return '\n'.join(list(set(dictwords)))
+    return '\n'.join(sorted(list(set(dictwords))))
 
 if __name__ == '__main__':
     src, dst = sys.argv[1:3]
