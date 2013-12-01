@@ -2,69 +2,6 @@
 ;;; Snippet definitions:
 ;;;
 (yas-define-snippets 'stan-mode
-		     '(("<" "<lower=${1:0}>$0" "<lower=...>" nil
-			("Range Constraints")
-			nil nil nil nil)
-		       ("<" "<lower=${1:0},upper=${2:1}>$0" "<lower=..., upper=...>" nil
-			("Range Constraints")
-			nil nil nil nil)
-		       ("~" "~ ${1:$$(yas-choose-value stan-distribution-list)};\n$0" "~ distribution(...)" nil nil
-			((yas-triggers-in-field 't))
-			nil nil nil)
-		       ("<" "<upper=${1:0}>$0" "<upper=...>" nil
-			("Range Constraints")
-			nil nil nil nil)))
-
-
-;;; Snippet definitions:
-;;;
-(yas-define-snippets 'stan-mode
-		     '(("data" "data {\n  $0\n}\n" "data {...}" nil
-			("Blocks")
-			nil nil nil nil)
-		       ("generated" "generated quantities {\n  $0\n}\n" "generated quantities {...}" nil
-			("Blocks")
-			nil nil nil nil)
-		       ("model" "model {\n  $0\n}\n" "model {...}" nil
-			("Blocks")
-			nil nil nil nil)
-		       ("param" "parameters {\n  $0\n}\n" "parameters {...}" nil
-			("Blocks")
-			nil nil nil nil)
-		       ("C-c C-t" "data {\n  $0\n}\ntransformed data {\n}\nparameters {\n}\ntransformed parameters {\n}\nmodel {\n}\ngenerated quantities {\n}" "data {...} ... " nil
-			("Blocks")
-			nil nil nil nil)
-		       ("tdata" "transformed data {\n  $0\n}\n" "transformed data {...}" nil
-			("Blocks")
-			nil nil nil nil)
-		       ("tparam" "transformed parameters {\n  $0\n}\n" "transformed parameters{...}" nil
-			("Blocks")
-			nil nil nil nil)))
-
-
-;;; Snippet definitions:
-;;;
-(yas-define-snippets 'stan-mode
-		     '(("elif" "else if (${1:condition}) {\n    $0\n}" "else if (...) { ... }" nil
-			("Conditionals")
-			nil nil nil nil)
-		       ("for" "for (${1:i} in ${2:1}:${3:N}) {\n    $0\n}\n" "for (...; ...; ...) { ... }" nil
-			("Conditionals")
-			nil nil nil nil)
-		       ("if" "if (${1:condition}) {\n    $0\n}" "if (...) { ... }" nil
-			("Conditionals")
-			nil nil nil nil)
-		       ("else" "else (${1:condition}) {\n    $0\n}" "else (...) { ... }" nil
-			("Conditionals")
-			nil nil nil nil)
-		       ("while" "while (${1:condition}) {\n    $0\n}" "while (...) { ... }" nil
-			("Conditionals")
-			nil nil nil nil)))
-
-
-;;; Snippet definitions:
-;;;
-(yas-define-snippets 'stan-mode
 		     '(("cholesky_factor_cov" "cholesky_factor_cov[${1:expression}${2:${3:, ${4:expression}}}] ${5:variable}${6:[${7:dims}]};\n$0" "cholesky_factor_cov[] ... ;" nil
 			("Types")
 			nil nil nil nil)
@@ -74,17 +11,51 @@
 		       ("cov_matrix" "cov_matrix[${1:expression}] ${2:variable}${3:[${4:dims}]};\n$0" "cov_matrix[] ... ;" nil
 			("Types")
 			nil nil nil nil)
+		       ("data" "data {\n  $0\n}\n" "data {...}" nil
+			("Blocks")
+			nil nil nil nil)
+		       ("elif" "else if (${1:condition}) {\n    $0\n}" "else if (...) { ... }" nil
+			("Structure")
+			nil nil nil nil)
+		       ("else" "else {\n    $0\n}" "else { ... }" nil
+			("Structure")
+			nil nil nil nil)
+		       ("for" "for (${1:i} in ${2:1}:${3:N}) {\n    $0\n}\n" "for (...; ...; ...) { ... }" nil
+			("Structure")
+			nil nil nil nil)
+		       ("generated" "generated quantities {\n  $0\n}\n" "generated quantities {...}" nil
+			("Blocks")
+			nil nil nil nil)
+		       ("if" "if (${1:condition}) {\n    $0\n}" "if (...) { ... }" nil
+			("Structure")
+			nil nil nil nil)
 		       ("int" "int${1:<${2:lower=...,upper=...}>} ${3:variable}${4:[${5:dims}]};\n$0\n" "int ... ;" nil
 			("Types")
+			nil nil nil nil)
+		       ("<" "<lower=${1:0}>$0" "<lower=...>" nil
+			("Range Constraints")
+			nil nil nil nil)
+		       ("<" "<lower=${1:0},upper=${2:1}>$0" "<lower=..., upper=...>" nil
+			("Range Constraints")
 			nil nil nil nil)
 		       ("matrix" "matrix{1:<${2:lower=...,upper=...}>}[$3, $4] ${5:variable}${6:[${7:dims}]};\n$0" "matrix[] ...;" nil
 			("Types")
 			nil nil nil nil)
+		       ("model" "model {\n  $0\n}\n" "model {...}" nil
+			("Blocks")
+			nil nil nil nil)
 		       ("ordered" "ordered[${1:dim}] ${2:variable}${3:[${4:dims}]};\n$0" "ordered[] ...;" nil
 			("Types")
 			nil nil nil nil)
+		       ("param" "parameters {\n  $0\n}\n" "parameters {...}" nil
+			("Blocks")
+			nil nil nil nil)
 		       ("pordered" "positive_ordered[${1:dim}] ${2:variable}${3:[${4:dims}]};\n$0" "positive_ordered[] ...;" nil
 			("Types")
+			nil nil nil nil)
+		       ("print" "print($1);\n$0" "print(...)" nil nil nil nil nil nil)
+		       ("C-c C-t" "data {\n  $0\n}\ntransformed data {\n}\nparameters {\n}\ntransformed parameters {\n}\nmodel {\n}\ngenerated quantities {\n}" "data {...} ..." nil
+			("Blocks")
 			nil nil nil nil)
 		       ("real" "real${1:<${2:lower=...,upper=...}>} ${3:variable}${4:[${5:dims}]};\n$0" "real ...;" nil
 			("Types")
@@ -95,11 +66,24 @@
 		       ("simplex" "simplex[${1:dim}] ${2:variable}${3:[${4:dims}]};\n$0" "simplex" nil
 			("Types")
 			nil nil nil nil)
+		       ("~" "~ ${1:$$(yas-choose-value stan-distribution-list)};\n$0" "~ distribution(...)" nil nil
+			((yas-triggers-in-field 't))
+			nil nil nil)
+		       ("tdata" "transformed data {\n  $0\n}\n" "transformed data {...}" nil
+			("Blocks")
+			nil nil nil nil)
+		       ("tparam" "transformed parameters {\n  $0\n}\n" "transformed parameters{...}" nil nil nil nil nil nil)
 		       ("uvector" "unit_vector[${1:expression}] ${2:variable}${3:[${4:dims}]};\n$0" "unit_vector[] ...;" nil
 			("Types")
 			nil nil nil nil)
+		       ("<" "<upper=${1:0}>$0" "<upper=...>" nil
+			("Range Constraints")
+			nil nil nil nil)
 		       ("vector" "vector${1:<${2:lower=...,upper=...}>}[${3:expression}] ${4:variable}${5:[${6:dims}]};\n$0" "vector[] ...;" nil
 			("Types")
+			nil nil nil nil)
+		       ("while" "while (${1:condition}) {\n    $0\n}" "while (...) { ... }" nil
+			("Structure")
 			nil nil nil nil)))
 
 
@@ -1376,4 +1360,4 @@
 			nil nil nil nil)))
 
 
-;;; Do not edit! File generated at Sat Nov 30 12:26:33 2013
+;;; Do not edit! File generated at Sun Dec  1 01:53:53 2013
