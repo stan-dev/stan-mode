@@ -15,8 +15,8 @@ stan_lang.json: scripts/create_stan_lang.py $(REFERENCE)
 stan-keywords-lists.el: scripts/create_stan_keywords_lists.py stan_lang.json
 	$(PYTHON) $^ > $@
 
-snippets/stan-mode/.yas-compiled-snippets.el: $(yasnippets) stan_lang.json
-	$(PYTHON) scripts/create_snippets.py stan_lang.json snippets
+snippets/stan-mode/.yas-compiled-snippets.el: scripts/create_snippets.py $(yasnippets) stan_lang.json
+	$(PYTHON) $< stan_lang.json snippets
 	$(EMACS) --batch -L lib -l yasnippet --eval '(yas-compile-directory "snippets")'
 	# better for version control
 	$(SED) -i '/^;;; Do not edit!/d' $@
