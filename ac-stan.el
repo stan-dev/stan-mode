@@ -7,9 +7,9 @@
 
 (add-hook 'stan-mode-hook
 	  (lambda ()
-	    (setq ac-sources '(ac-source-dictionary 
-			       ac-source-imenu 
+	    (setq ac-sources '(ac-source-imenu
 			       ac-source-yasnippet
+			       ac-source-dictionary
 			       ac-source-words-in-buffer
 			       ))))
 
