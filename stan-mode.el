@@ -492,12 +492,10 @@ Key bindings:
   (setq compilation-error-regexp-alist '(stan))
 
   ;; imenu
-  (if stan-turn-on-imenu
-      (progn
-	(setq imenu-generic-expression stan-imenu-generic-expression)
-	(setq imenu-auto-rescan t)
-	(imenu-add-menubar-index))
-    nil)
+  (when stan-turn-on-imenu
+    (setq imenu-generic-expression stan-imenu-generic-expression)
+    (setq imenu-auto-rescan t)
+    (imenu-add-menubar-index))
 
   ;; conclusion
   (run-hooks 'c-mode-common-hook 'stan-mode-hook)
