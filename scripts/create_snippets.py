@@ -1,3 +1,9 @@
+#!/usr/bin/env python3
+""" Create yasnippets for Stan functions and distributions from stan_lang.json
+
+Yasnippets for other parts of the language are created manually.
+
+"""
 import json
 import os
 import re
@@ -7,6 +13,9 @@ import subprocess as sp
 from os import path
 
 DISTRIBUTION_PARTS = ('Discrete Distributions', 'Continuous Distributions')
+""" Names of Documentation Parts that can contain distributions """
+
+EXCLUDED_FUNCTIONS = ["increment_log_prob"]
 
 TEMPLATE = """# name: {funcname}({sig})
 # key: {funcname}
@@ -53,10 +62,10 @@ def make_group_function(x):
 def make_group_dist(x):
     return 'Distributions.%s' % x['location'][0].split()[0]
 
-def write_function_snippets(dst, functions):
+def write_function_snippets(dst, functions, excluded):
     dir_create_or_clean(dst)
     for funcname, sigs in functions.items():
-        if not re.match("operator", funcname):
+        if not funcname in excluded:
             for sig, v in sigs.items():
                 if v['argtypes']:
                     cleansig = re.sub(r"[\[\]]", "", '-'.join(v['argtypes']))
@@ -96,6 +105,9 @@ if __name__ == '__main__':
 
     with open(src, 'r') as f:
         data = json.load(f)
-    write_function_snippets(function_dir, data['functions'])
+
+    excluded = EXCLUDED_FUNCTIONS + ['operator' + x for x in data['operators']]
+
+    write_function_snippets(function_dir, data['functions'], excluded)
     write_distribution_snippets(dist_dir, data['functions'], 
                                 data['distributions'])
