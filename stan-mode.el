@@ -426,8 +426,8 @@ See `compilation-error-regexp-alist' for help on their format.")
 
 ;;; auto-complete mode 
 
-(defcustom stan-turn-on-auto-complete
-  "Turn on auto-complete mode for Stan files
+(defcustom stan-use-auto-complete
+  "Activate auto-complete mode with Stan files
 
 This only has an effect if auto-complete is installed.
 "
@@ -436,7 +436,7 @@ This only has an effect if auto-complete is installed.
 
 (when (and (require 'auto-complete nil 'noerror)
 	   (require 'auto-complete-config nil 'noerror)
-	   stan-turn-on-auto-complete)
+	   stan-use-auto-complete)
 
   (setq ac-modes (append ac-modes '(stan-mode)))
 
