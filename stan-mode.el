@@ -423,6 +423,34 @@ See `compilation-error-regexp-alist' for help on their format.")
   :type 'boolean
   :group 'stan-mode)
 
+;;; auto-complete mode 
+
+(defcustom stan-turn-on-auto-complete
+  "Turn on auto-complete mode for Stan files
+
+This only has an effect if auto-complete is installed.
+"
+  :type 'boolean
+  :group 'stan-mode)
+
+(when (and (require 'auto-complete nil 'noerror)
+	   stan-turn-on-auto-complete)
+  (add-to-list 'ac-dictionary-directories   
+	       (expand-file-name "ac"
+				 (file-name-directory
+				  (or load-file-name (buffer-file-name)))))
+
+  (add-hook 'stan-mode-hook
+	    (lambda ()
+	      (setq ac-sources '(ac-source-imenu
+				 ac-source-yasnippet
+				 ac-source-dictionary
+				 ac-source-words-in-buffer
+				 ))))
+
+  (setq ac-modes (append ac-modes '(stan-mode)))
+  )
+
 ;;; Mode initialization
 
 ;;;###autoload
