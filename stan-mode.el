@@ -459,11 +459,10 @@ Key bindings:
   (setq compilation-error-regexp-alist '(stan))
 
   ;; imenu
-  (if stan-use-imenu
+  (when stan-use-imenu
       (progn
 	(setq imenu-generic-expression stan-imenu-generic-expression)
-	(imenu-add-menubar-index "Imenu-Stan"))
-    nil)
+	(imenu-add-menubar-index)))
 
   ;; conclusion
   (run-hooks 'c-mode-common-hook 'stan-mode-hook)
