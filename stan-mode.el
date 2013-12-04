@@ -282,6 +282,16 @@
 (or stan-mode-syntax-table
     (setq stan-mode-syntax-table stan-mode-syntax-table-default))
 
+;;; Movement
+
+;; map functions to c movement functions
+;; these are saved as separate variables incase the code changes in the future
+(setq stan-beginning-of-statement 'c-beginning-of-statement)
+(setq stan-end-of-statement 'c-end-of-statement)
+(setq stan-beginning-of-block 'c-beginning-of-defun)
+(setq stan-beginning-of-block 'c-end-of-defun)
+(setq stan-mark-block 'mark-defun)
+
 ;;; Abbrev table
 
 (defvar stan-mode-abbrev-table nil
@@ -299,6 +309,11 @@
 (defvar stan-mode-map
   (let ((map (c-make-inherited-keymap)))
     ;; Add bindings which are only useful for stan
+    (define-key map (kbd "M-a") 'stan-beginning-of-statement)
+    (define-key map (kbd "M-e") 'stan-end-of-statement)
+    (define-key map (kbd "C-M-a") 'stan-beginning-of-block)
+    (define-key map (kbd "C-M-e") 'stan-end-of-block)
+    (define-key map (kbd "C-M-h") 'stan-mark-block)
     map)
   "Keymap used in stan-mode buffers.")
 
@@ -322,6 +337,9 @@
       "----"
       ["Backward Statement"	c-beginning-of-statement t]
       ["Forward Statement"	c-end-of-statement t]
+      ["Backward Block"	        stan-beginning-of-block t]
+      ["Forward Block"	        stan-end-of-block t]
+      ["Mark Block"	        stan-mark-block t]
       "----"
       ("Style..."
        ["Set Style..."                   c-set-style t]
