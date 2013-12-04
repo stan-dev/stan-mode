@@ -98,9 +98,14 @@
   (if (member system-type '(windows-nt cygwin ms-dos))
       "stanc.exe"
     "stanc")
-  "Path to stanc executable"
+  "Path to stanc executable
+
+This can also be just the name of the stanc executable if it is on the PATH.
+"
   :type 'string
   :group 'stan-mode)
+
+
 
 ;;; cc-mode Language support
 
@@ -435,6 +440,38 @@ See `compilation-error-regexp-alist' for help on their format.")
   "Turn on imenu-mode for Stan files"
   :type 'boolean
   :group 'stan-mode)
+
+
+;;; auto-complete mode 
+
+(defcustom stan-use-auto-complete
+  "Activate auto-complete mode with Stan files
+
+This only has an effect if auto-complete is installed.
+"
+  :type 'boolean
+  :group 'stan-mode)
+
+(when (and (require 'auto-complete nil 'noerror)
+	   (require 'auto-complete-config nil 'noerror)
+	   stan-use-auto-complete)
+
+  (setq ac-modes (append ac-modes '(stan-mode)))
+
+  (add-to-list 'ac-dictionary-directories
+	       (expand-file-name "ac-dict"
+				 (file-name-directory
+				  (or load-file-name (buffer-file-name)))))
+
+  (defun ac-stan-mode-setup ()
+    (setq ac-sources '(ac-source-yasnippet
+		       ac-source-imenu
+		       ac-source-dictionary
+		       ac-source-words-in-buffer)))
+
+  (add-hook 'stan-mode-hook 'ac-stan-mode-setup)
+
+  )
 
 ;;; Mode initialization
 
