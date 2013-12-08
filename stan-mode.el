@@ -64,6 +64,7 @@
 ;;
 (defgroup stan-mode nil
   "A mode for Stan"
+  :tag "Stan"
   :prefix "stan-"
   :group 'languages)
 
