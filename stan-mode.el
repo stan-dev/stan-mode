@@ -445,7 +445,7 @@ See `compilation-error-regexp-alist' for help on their format.")
 
 ;;; auto-complete mode 
 
-(defcustom stan-use-auto-complete
+(defcustom stan-use-auto-complete t
   "Activate auto-complete mode with Stan files
 
 This only has an effect if auto-complete is installed.
@@ -453,10 +453,12 @@ This only has an effect if auto-complete is installed.
   :type 'boolean
   :group 'stan-mode)
 
-(when (and (require 'auto-complete nil 'noerror)
+(setq stan--load-auto-complete
+      (and (require 'auto-complete nil 'noerror)
 	   (require 'auto-complete-config nil 'noerror)
-	   stan-use-auto-complete)
+	   stan-use-auto-complete))
 
+(when stan--load-auto-complete
   (setq ac-modes (append ac-modes '(stan-mode)))
 
   (add-to-list 'ac-dictionary-directories
@@ -464,13 +466,11 @@ This only has an effect if auto-complete is installed.
 				 (file-name-directory
 				  (or load-file-name (buffer-file-name)))))
 
-  (defun ac-stan-mode-setup ()
+  (defun stan-ac-mode-setup ()
     (setq ac-sources '(ac-source-yasnippet
 		       ac-source-imenu
 		       ac-source-dictionary
 		       ac-source-words-in-buffer)))
-
-  (add-hook 'stan-mode-hook 'ac-stan-mode-setup)
 
   )
 
@@ -519,6 +519,9 @@ Key bindings:
       (progn
 	(setq imenu-generic-expression stan-imenu-generic-expression)
 	(imenu-add-menubar-index)))
+
+  ;; auto-complete
+  (when stan--load-ac stan-ac-mode-setup)
 
   ;; conclusion
   (run-hooks 'c-mode-common-hook 'stan-mode-hook)
