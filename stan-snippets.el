@@ -1,12 +1,13 @@
-;;; stan-snippets.el --- Yasnippet snippets for Stan
+;;; stan-snippets.el --- Yasnippets for Stan
 
 ;; Copyright (C) 2012, 2013  Jeffrey Arnold
 
 ;; Author: Jeffrey Arnold <jeffrey.arnold@gmail.com>
 ;; URL: http://github.com/stan-dev/stan-mode
 ;; Keywords: languanges
-;; Version: 1.2.0
+;; Version: 2.0.0
 ;; Created: 2012-08-18
+;; Package-Requires: ((yasnippet "0.8.0"))
 
 ;; This file is not part of GNU Emacs.
 
@@ -26,10 +27,16 @@
 ;; <http://www.gnu.org/licenses/>
 
 ;;; Commentary:
-;; Yasnippet support for stan. See the stan-mode documentation.
+
+;; Adds Yasnippet support for stan.
+;;
+;; Usage:
+;; 
+;;   (require 'stan-snippets)
 
 ;;; Code:
 (require 'yasnippet)
+(require 'stan-mode)
 
 (defvar stan-snippets-dir
   (expand-file-name "snippets"
@@ -37,6 +44,13 @@
                      (or load-file-name (buffer-file-name))))
   "Directory containing stan-mode snippets.")
 (yas-load-directory stan-snippets-dir)
+
+(add-hook 
+ 'stan-mode-hook
+ (lambda () 
+   ;; this is needed to expand functions with _ in them.
+   (setq-local yas-key-syntaxes (list "w_" "w_." "w_.()" "^ "))
+   ))
 
 (provide 'stan-snippets)
 
