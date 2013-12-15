@@ -32,7 +32,9 @@ If you're not already using MELPA, follow its installation [instructions](http:/
 You can install the modes with the following commands:
 
 <kbd>M-x package-install [RET] stan-mode [RET]</kbd>
+
 <kbd>M-x package-install [RET] stan-snippets [RET]</kbd>
+
 <kbd>M-x package-install [RET] flymake-stan [RET]</kbd>
 
 Or add the following to your Emacs initialization file (`.emacs` or `init.el`):
