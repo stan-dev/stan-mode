@@ -1,7 +1,6 @@
 # Emacs support for Stan
 
-This repository contains several packages providing support for editing
-[Stan](https://code.google.com/p/stan/) in emacs.
+This repository contains several packages providing support for editing [Stan](https://code.google.com/p/stan/) in emacs.
 
 `stan-mode` is the primary package; it is a major mode for editing Stan files.
 Its current features include:
@@ -21,10 +20,8 @@ Two other packages contain additional functionality but are dependent on additio
 
 ### Via package.el
 
-The is the recommended way to install `stan-mode` is using the
-built-in package manager of Emacs 24, `package.el`. This allows for
-easy updating of `stan-mode` from within emacs. If you are using Emacs
-23, you will need to install `package.el`.
+The is the recommended way to install `stan-mode` is using thebuilt-in package manager of Emacs 24, `package.el`. This allows for easy updating of `stan-mode` from within emacs.
+If you are using Emacs 23, you will need to install `package.el`.
 
 The stan packages are available from [MELPA](http://melpa.milkbox.net).
 If you're not already using MELPA, follow its installation [instructions](http://melpa.milkbox.net/#/getting-started).
@@ -57,12 +54,9 @@ For more information on `package.el`, see the
 
 ### Manually
 
-Download the files to a local directory, and add lines to your `.emacs`
-file to add that directory to the `load-path`, and `require` the
-library.
+Download the files to a local directory, and add lines to your `.emacs` file to add that directory to the `load-path`, and `require` the library.
 
-For example, use the `git clone` command, which will create a
-directory `stan-mode`,
+For example, use the `git clone` command, which will create a directory `stan-mode`,
 ```console
 $ cd ~/.emacs.d/plugins
 $ git clone git://github.com/stan-dev/stan-mode.git
@@ -73,8 +67,7 @@ Include the following lines in your `.emacs` file,
 (add-to-list 'load-path "~/.emacs.d/plugins/stan-mode/")
 ```
 
-For Aquamacs on Mac OS X, those lines alternatively could also be
-placed in the following preferences file `~/Library/Preferences/Aquamacs Emacs/Preferences.el`.
+For Aquamacs on Mac OS X, those lines alternatively could also be placed in the following preferences file `~/Library/Preferences/Aquamacs Emacs/Preferences.el`.
 
 ## Usage
 
