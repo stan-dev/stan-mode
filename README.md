@@ -82,21 +82,21 @@ Add the following lines to your Emacs initialization file,
 ```el
 (require 'stan-mode)
 ```
-If you have [autocomplete](http://cx4a.org/software/auto-complete/) and would like to activate stan-mode's support for it, add the following line
+If you have [autocomplete](http://cx4a.org/software/auto-complete/) installed and would like to activate `stan-mode`'s support for it, add the following line
 ```el
 (setq stan-use-auto-complete t)
 ```
 
-To use `flymake-stan` add the following lines
+To use `flymake-stan` add the following lines,
 ```el
 (require 'stan-snippets)
 ```
 
-To use `flymake-stan` add the following lines
+To use `flymake-stan` add the following lines,
 ```el
 (require 'flymake-stan)
 ```
-If `stanc` is not in your `PATH` you need to either add it to your path or set the variable `stan-stanc-path` to its location.
+`flymake-stan` requires the `stanc` executable. If `stanc` is not in your `PATH` you need to either add it or set the variable `stan-stanc-path` to its location,
 ```el
 (setq stan-stanc-path "/path/to/stanc")
 ```
@@ -104,7 +104,7 @@ If `stanc` is not in your `PATH` you need to either add it to your path or set t
 ## Developers
 
 This may be of use to developers which would like to support the Stan modeling language in other editors or applications.
-The file `stan-lang.json` contains Stan keywords as well as the signatures and documentation of all the functions.
+The file `stan_lang.json` contains Stan keywords as well as the signatures and documentation of all the functions.
 
 ## License
 
