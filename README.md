@@ -10,6 +10,7 @@ Its current features include:
 - indentation
 - `compilation-mode` support
 - `imenu-mode` support
+- `autcomplete-mode` support
 
 Two other packages contain additional functionality but are dependent on additional emacs packages.
 
@@ -51,7 +52,6 @@ If the installation doesn't work try refreshing the package list:
 
 For more information on `package.el`, see the
 [EmacsWiki](http://emacswiki.org/emacs/ELPA)
-.tw
 
 ### Manually
 
@@ -74,20 +74,35 @@ Include the following lines in your `.emacs` file,
 For Aquamacs on Mac OS X, those lines alternatively could also be
 placed in the following preferences file `~/Library/Preferences/Aquamacs Emacs/Preferences.el`.
 
-## Using
+## Usage
 
 Add the following lines to your Emacs initialization file,
-
 ```el
 (require 'stan-mode)
-;; Uncomment to activate yasnippet support (requires yasnippet)
-;; (require 'stan-snippets)
-;; Uncomment to activate flymake support (requires flymake)
-;; (require 'flymake-stan)
+```
+If you have [autocomplete](http://cx4a.org/software/auto-complete/) and would like to activate stan-mode's support for it, add the following line
+```el
+(setq stan-use-auto-complete t)
 ```
 
-If you are using `flymake-stan`, `stanc` either needs to be on the `PATH` or you need to
-set `stan-stanc-path` to its location.
+To use `flymake-stan` add the following lines
+```el
+(require 'stan-snippets)
+```
+
+To use `flymake-stan` add the following lines
+```el
+(require 'flymake-stan)
+```
+If `stanc` is not in your `PATH` you need to either add it to your path or set the variable `stan-stanc-path` to its location.
+```el
+(setq stan-stanc-path "/path/to/stanc")
+```
+
+## Developers
+
+This may be of use to developers which would like to support the Stan modeling language in other editors or applications.
+The file `stan-lang.json` contains Stan keywords as well as the signatures and documentation of all the functions.
 
 ## License
 
@@ -97,5 +112,7 @@ set `stan-stanc-path` to its location.
  -->
 <!--  LocalWords:  mapc EmacsWiki cd 'load 'stan 'flymake Aquamacs v3
  -->
-<!--  LocalWords:  GPL stanc
+<!--  LocalWords:  GPL stanc ' 'load 'stan autocomplete setq 'flymake
+ -->
+<!--  LocalWords:  lang json
  -->
