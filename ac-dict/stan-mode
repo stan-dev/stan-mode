@@ -78,6 +78,7 @@ diag_matrix
 diag_post_multiply
 diag_pre_multiply
 diagonal
+digamma
 dims
 dirichlet
 dirichlet_log
@@ -338,6 +339,7 @@ trace_gen_quad_form
 trace_quad_form
 transformed data
 transformed parameters
+trigamma
 trunc
 uniform
 uniform_ccdf_log

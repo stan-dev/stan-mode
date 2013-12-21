@@ -71,7 +71,7 @@
 (defconst stan-mode-version "2.0.0"
   "stan-mode version number")
 
-(defconst stan-language-version "2.0.1"
+(defconst stan-language-version "2.1.0"
   "Stan language version supported")
 
 (defun stan-version ()

@@ -29,6 +29,7 @@
 		       ("if" "if (${1:condition}) {\n    $0\n}" "if (...) { ... }" nil
 			("Structure")
 			nil nil nil nil)
+		       ("increment_log_prob" "increment_log_prob(${1:lp});\n$0\n" "increment_log_prob(...);" nil nil nil nil nil nil)
 		       ("int" "int${1:<${2:lower=...,upper=...}>} ${3:variable}${4:[${5:dims}]};\n$0\n" "int ... ;" nil
 			("Types")
 			nil nil nil nil)
@@ -138,6 +139,9 @@
 		       ("gaussian_dlm_obs" "gaussian_dlm_obs(${1:matrix F}, ${2:matrix G}, ${3:matrix V}, ${4:matrix W}, ${5:vector m0}, ${6:matrix C0})$0" "gaussian_dlm_obs(matrix, matrix, matrix, matrix, vector, matrix)" nil
 			("Distributions" "Continuous")
 			nil nil nil nil)
+		       ("gaussian_dlm_obs" "gaussian_dlm_obs(${1:matrix F}, ${2:matrix G}, ${3:vector V}, ${4:matrix W}, ${5:vector m0}, ${6:matrix C0})$0" "gaussian_dlm_obs(matrix, matrix, vector, matrix, vector, matrix)" nil
+			("Distributions" "Continuous")
+			nil nil nil nil)
 		       ("gumbel" "gumbel(${1:reals mu}, ${2:reals beta})$0" "gumbel(reals, reals)" nil
 			("Distributions" "Continuous")
 			nil nil nil nil)
@@ -189,7 +193,7 @@
 		       ("ordered_logistic" "ordered_logistic(${1:real eta}, ${2:vector c})$0" "ordered_logistic(real, vector)" nil
 			("Distributions" "Discrete")
 			nil nil nil nil)
-		       ("pareto" "pareto(${1:reals y_min}, ${2:reals alpha})$0" "pareto(reals, reals)" nil
+		       ("pareto" "pareto(${1:reals y}, ${2:reals alpha})$0" "pareto(reals, reals)" nil
 			("Distributions" "Continuous")
 			nil nil nil nil)
 		       ("poisson" "poisson(${1:reals lambda})$0" "poisson(reals)" nil
@@ -278,10 +282,10 @@
 		       ("bernoulli_rng" "bernoulli_rng(${1:real theta})$0" "bernoulli_rng(real)" nil
 			("Functions" "Discrete Distributions" "Binary Distributions" "Bernoulli Distribution")
 			nil nil nil nil)
-		       ("bessel_first_kind" "bessel_first_kind(${1:real v}, ${2:real z})$0" "bessel_first_kind(real, real)" nil
+		       ("bessel_first_kind" "bessel_first_kind(${1:int v}, ${2:real z})$0" "bessel_first_kind(int, real)" nil
 			("Functions" "Built-In Functions" "Real-Valued Basic Functions" "Combinatorial Functions")
 			nil nil nil nil)
-		       ("bessel_second_kind" "bessel_second_kind(${1:real v}, ${2:real z})$0" "bessel_second_kind(real, real)" nil
+		       ("bessel_second_kind" "bessel_second_kind(${1:int v}, ${2:real z})$0" "bessel_second_kind(int, real)" nil
 			("Functions" "Built-In Functions" "Real-Valued Basic Functions" "Combinatorial Functions")
 			nil nil nil nil)
 		       ("beta_binomial_ccdf_log" "beta_binomial_ccdf_log(${1:ints n}, ${2:ints N}, ${3:reals alpha}, ${4:reals beta})$0" "beta_binomial_ccdf_log(ints, ints, reals, reals)" nil
@@ -314,7 +318,7 @@
 		       ("beta_rng" "beta_rng(${1:real alpha}, ${2:real beta})$0" "beta_rng(real, real)" nil
 			("Functions" "Continuous Distributions" "Continuous Distributions on [0, 1]" "Beta Distribution")
 			nil nil nil nil)
-		       ("binary_log_loss" "binary_log_loss(${1:int y}, ${2:real y_hat})$0" "binary_log_loss(int, real)" nil
+		       ("binary_log_loss" "binary_log_loss(${1:int y}, ${2:real y})$0" "binary_log_loss(int, real)" nil
 			("Functions" "Built-In Functions" "Real-Valued Basic Functions" "Probability-Related Functions")
 			nil nil nil nil)
 		       ("binomial_ccdf_log" "binomial_ccdf_log(${1:ints n}, ${2:ints N}, ${3:reals theta})$0" "binomial_ccdf_log(ints, ints, reals)" nil
@@ -338,7 +342,7 @@
 		       ("binomial_rng" "binomial_rng(${1:int N}, ${2:real theta})$0" "binomial_rng(int, real)" nil
 			("Functions" "Discrete Distributions" "Bounded Discrete Distributions" "Binomial Distribution")
 			nil nil nil nil)
-		       ("block" "block(${1:matrix x}, ${2:int i}, ${3:int j}, ${4:int n_rows}, ${5:int n_cols})$0" "block(matrix, int, int, int, int)" nil
+		       ("block" "block(${1:matrix x}, ${2:int i}, ${3:int j}, ${4:int n}, ${5:int n})$0" "block(matrix, int, int, int, int)" nil
 			("Functions" "Built-In Functions" "Matrix Operations" "Slice and Package Functions")
 			nil nil nil nil)
 		       ("categorical_log" "categorical_log(${1:ints y}, ${2:vector theta})$0" "categorical_log(ints, vector)" nil
@@ -457,6 +461,9 @@
 			nil nil nil nil)
 		       ("diagonal" "diagonal(${1:matrix x})$0" "diagonal(matrix)" nil
 			("Functions" "Built-In Functions" "Matrix Operations" "Slice and Package Functions")
+			nil nil nil nil)
+		       ("digamma" "digamma(${1:real x})$0" "digamma(real)" nil
+			("Functions" "Built-In Functions" "Real-Valued Basic Functions" "Combinatorial Functions")
 			nil nil nil nil)
 		       ("dims" "dims(${1:T x})$0" "dims(T)" nil
 			("Functions" "Built-In Functions" "Array Operations" "Array Size and Dimension Function")
@@ -609,6 +616,9 @@
 			("Functions" "Continuous Distributions" "Positive Continuous Distributions" "Gamma Distribution")
 			nil nil nil nil)
 		       ("gaussian_dlm_obs_log" "gaussian_dlm_obs_log(${1:vector y}, ${2:matrix F}, ${3:matrix G}, ${4:matrix V}, ${5:matrix W}, ${6:vector m0}, ${7:matrix C0})$0" "gaussian_dlm_obs_log(vector, matrix, matrix, matrix, matrix, vector, matrix)" nil
+			("Functions" "Continuous Distributions" "Distributions over Unbounded Vectors" "Gaussian Dynamic Linear Models")
+			nil nil nil nil)
+		       ("gaussian_dlm_obs_log" "gaussian_dlm_obs_log(${1:vector y}, ${2:matrix F}, ${3:matrix G}, ${4:vector V}, ${5:matrix W}, ${6:vector m0}, ${7:matrix C0})$0" "gaussian_dlm_obs_log(vector, matrix, matrix, vector, matrix, vector, matrix)" nil
 			("Functions" "Continuous Distributions" "Distributions over Unbounded Vectors" "Gaussian Dynamic Linear Models")
 			nil nil nil nil)
 		       ("gumbel_ccdf_log" "gumbel_ccdf_log(${1:reals y}, ${2:reals mu}, ${3:reals beta})$0" "gumbel_ccdf_log(reals, reals, reals)" nil
@@ -896,10 +906,10 @@
 		       ("min" "min(${1:vector x})$0" "min(vector)" nil
 			("Functions" "Built-In Functions" "Matrix Operations" "Reductions")
 			nil nil nil nil)
-		       ("modified_bessel_first_kind" "modified_bessel_first_kind(${1:real v}, ${2:real z})$0" "modified_bessel_first_kind(real, real)" nil
+		       ("modified_bessel_first_kind" "modified_bessel_first_kind(${1:int v}, ${2:real z})$0" "modified_bessel_first_kind(int, real)" nil
 			("Functions" "Built-In Functions" "Real-Valued Basic Functions" "Combinatorial Functions")
 			nil nil nil nil)
-		       ("modified_bessel_second_kind" "modified_bessel_second_kind(${1:real v}, ${2:real z})$0" "modified_bessel_second_kind(real, real)" nil
+		       ("modified_bessel_second_kind" "modified_bessel_second_kind(${1:int v}, ${2:real z})$0" "modified_bessel_second_kind(int, real)" nil
 			("Functions" "Built-In Functions" "Real-Valued Basic Functions" "Combinatorial Functions")
 			nil nil nil nil)
 		       ("multi_normal_cholesky_log" "multi_normal_cholesky_log(${1:vector y}, ${2:vector mu}, ${3:matrix L})$0" "multi_normal_cholesky_log(vector, vector, matrix)" nil
@@ -977,19 +987,19 @@
 		       ("owens_t" "owens_t(${1:real h}, ${2:real a})$0" "owens_t(real, real)" nil
 			("Functions" "Built-In Functions" "Real-Valued Basic Functions" "Probability-Related Functions")
 			nil nil nil nil)
-		       ("pareto_ccdf_log" "pareto_ccdf_log(${1:reals y}, ${2:reals y_min}, ${3:reals alpha})$0" "pareto_ccdf_log(reals, reals, reals)" nil
+		       ("pareto_ccdf_log" "pareto_ccdf_log(${1:reals y}, ${2:reals y}, ${3:reals alpha})$0" "pareto_ccdf_log(reals, reals, reals)" nil
 			("Functions" "Continuous Distributions" "Positive Lower-Bounded Probabilities" "Pareto Distribution")
 			nil nil nil nil)
-		       ("pareto_cdf" "pareto_cdf(${1:reals y}, ${2:reals y_min}, ${3:reals alpha})$0" "pareto_cdf(reals, reals, reals)" nil
+		       ("pareto_cdf" "pareto_cdf(${1:reals y}, ${2:reals y}, ${3:reals alpha})$0" "pareto_cdf(reals, reals, reals)" nil
 			("Functions" "Continuous Distributions" "Positive Lower-Bounded Probabilities" "Pareto Distribution")
 			nil nil nil nil)
-		       ("pareto_cdf_log" "pareto_cdf_log(${1:reals y}, ${2:reals y_min}, ${3:reals alpha})$0" "pareto_cdf_log(reals, reals, reals)" nil
+		       ("pareto_cdf_log" "pareto_cdf_log(${1:reals y}, ${2:reals y}, ${3:reals alpha})$0" "pareto_cdf_log(reals, reals, reals)" nil
 			("Functions" "Continuous Distributions" "Positive Lower-Bounded Probabilities" "Pareto Distribution")
 			nil nil nil nil)
-		       ("pareto_log" "pareto_log(${1:reals y}, ${2:reals y_min}, ${3:reals alpha})$0" "pareto_log(reals, reals, reals)" nil
+		       ("pareto_log" "pareto_log(${1:reals y}, ${2:reals y}, ${3:reals alpha})$0" "pareto_log(reals, reals, reals)" nil
 			("Functions" "Continuous Distributions" "Positive Lower-Bounded Probabilities" "Pareto Distribution")
 			nil nil nil nil)
-		       ("pareto_rng" "pareto_rng(${1:real y_min}, ${2:real alpha})$0" "pareto_rng(real, real)" nil
+		       ("pareto_rng" "pareto_rng(${1:real y}, ${2:real alpha})$0" "pareto_rng(real, real)" nil
 			("Functions" "Continuous Distributions" "Positive Lower-Bounded Probabilities" "Pareto Distribution")
 			nil nil nil nil)
 		       ("pi" "pi()$0" "pi()" nil
@@ -1244,10 +1254,10 @@
 		       ("student_t_rng" "student_t_rng(${1:real nu}, ${2:real mu}, ${3:real sigma})$0" "student_t_rng(real, real, real)" nil
 			("Functions" "Continuous Distributions" "Unbounded Continuous Distributions" "Student-t Distribution")
 			nil nil nil nil)
-		       ("sub_col" "sub_col(${1:matrix x}, ${2:int i}, ${3:int j}, ${4:int n_rows})$0" "sub_col(matrix, int, int, int)" nil
+		       ("sub_col" "sub_col(${1:matrix x}, ${2:int i}, ${3:int j}, ${4:int n})$0" "sub_col(matrix, int, int, int)" nil
 			("Functions" "Built-In Functions" "Matrix Operations" "Slice and Package Functions")
 			nil nil nil nil)
-		       ("sub_row" "sub_row(${1:matrix x}, ${2:int i}, ${3:int j}, ${4:int n_cols})$0" "sub_row(matrix, int, int, int)" nil
+		       ("sub_row" "sub_row(${1:matrix x}, ${2:int i}, ${3:int j}, ${4:int n})$0" "sub_row(matrix, int, int, int)" nil
 			("Functions" "Built-In Functions" "Matrix Operations" "Slice and Package Functions")
 			nil nil nil nil)
 		       ("sum" "sum(${1:int x[]})$0" "sum(int)" nil
@@ -1300,6 +1310,9 @@
 			nil nil nil nil)
 		       ("trace_quad_form" "trace_quad_form(${1:matrix A}, ${2:matrix B})$0" "trace_quad_form(matrix, matrix)" nil
 			("Functions" "Built-In Functions" "Matrix Operations" "Matrix Arithmetic Operators")
+			nil nil nil nil)
+		       ("trigamma" "trigamma(${1:real x})$0" "trigamma(real)" nil
+			("Functions" "Built-In Functions" "Real-Valued Basic Functions" "Combinatorial Functions")
 			nil nil nil nil)
 		       ("trunc" "trunc(${1:real x})$0" "trunc(real)" nil
 			("Functions" "Built-In Functions" "Real-Valued Basic Functions" "Step-like Functions")
