@@ -1,4 +1,4 @@
-xStan Modeling Language
+Stan Modeling Language
 User’s Guide and Reference Manual
 
          Stan Development Team
@@ -7,7 +7,7 @@ User’s Guide and Reference Manual
 
 
            Stan Version 2.1.0
-         Saturday 21st December, 2013
+         Saturday 28th December, 2013
 
 
 
@@ -306,8 +306,8 @@ haven’t had time to code ourselves. For developer’s issues, we have a separa
       stan@mc-stan.org
 
 
-                                                                          The Stan Development Team
-                                                                         Saturday 21st December, 2013
+                                                                           The Stan Development Team
+                                                                         Saturday 28th December, 2013
 
 
 
@@ -9728,13 +9728,14 @@ denoting the condition to be a primitive type, integer or real.
 
 
                                              232
-      Part V Built-In Functions
+      Part V
+
+Built-In Functions
 
 
 
 
         233
-	
 26.       Vectorization
 
 Stan’s scalar log probability functions all support vectorized function application, with
@@ -9796,7 +9797,6 @@ and adds the result to the log probability.
 void increment log prob(real lp)
     Add lp to the total log probability accumulator returned by the log probability
     function defined by a Stan model.
-    
 The full behavior of the increment log prob statement and its relation to sampling
 statements is described in Section 23.2.
 
@@ -9912,6 +9912,7 @@ This chapter describes built-in functions that take zero or more real or integer
 and return real values.
 
 29.1.    Mathematical Constants
+
 Constants are represented as functions with no arguments and must be called as such. For
 instance, the mathematical constant π must be written in a Stan program as pi().
 
@@ -9923,10 +9924,10 @@ real e()
 
 real sqrt2()
     The square root of 2
-
+    
 real log2()
     The natural logarithm of 2
-
+    
 real log10()
     The natural logarithm of 10
 
@@ -9974,10 +9975,11 @@ int operator>=(int x, int y)
 
 int operator==(int x, int y)
     1 if x is equal to y and 0 otherwise
-
+    
 int operator!=(int x, int y)
     1 if x is not equal to y and 0 otherwise
-    The real-valued argument versions are identical other than for argument type.
+    
+The real-valued argument versions are identical other than for argument type.
 
 int operator<(real x, real y)
     1 if x is less than y and 0 otherwise
@@ -9999,6 +10001,7 @@ int operator!=(real x, real y)
     1 if x is not equal to y and 0 otherwise
 
 Boolean Operators
+
 Boolean operators return either 0 for false or 1 for true. Inputs may be any real
 or integer values, with non-zero values being treated as true and zero values treated
 as false. These operators have the usual precedences, with negation (not) bind-
@@ -10006,6 +10009,7 @@ ing the most tightly, conjunction the next and disjunction the weakest; all of t
 operators bind more tightly than the comparisons. Thus an expression such as
 !a˜&&˜b is interpreted as (!a)˜&&˜b, and a˜<˜b˜||˜c˜>=˜d˜&&˜e˜!=˜f as
 (a˜<˜b)˜||˜(((c˜>=˜d)˜&&˜(e˜!=˜f))).
+
 int operator!(int x)
     1 if x is zero and 0 otherwise
 
@@ -10022,7 +10026,7 @@ int operator!(real x)
 
 int operator&&(real x, real y)
     1 if x is unequal to 0 and y is unequal to 0
-
+    
 int operator||(real x, real y)
     1 if x is unequal to 0 or y is unequal to 0
 
@@ -10045,8 +10049,8 @@ real if_else(int cond, real x, real y)
     
 real step(real x)
     1 if x is positive and 0 otherwise; equivalent to x > 0.0
-    The log probability function and gradient evaluations are more efficient in Stan when
     
+    The log probability function and gradient evaluations are more efficient in Stan when
 implemented using conditional statements. If y is a real variable, and c, x1, and x2 are
 scalar expressions (type real or int), then the assignment statements
         y <- x1 * step(c) + x2 * (1 - step(c));
@@ -10082,13 +10086,13 @@ prefix notations as x + y and -x, respectively.
 
 real operator+(real x, real y)
     The sum of the addends x and y
-
+    
 real operator-(real x, real y)
     The difference between the minuend x and subtrahend y
-
+    
 real operator*(real x, real y)
     The product of the factors x and y
-
+    
 real operator/(real x, real y)
     The quotient of the dividend x and divisor y
 
@@ -10096,7 +10100,7 @@ Unary Prefix Operators
 
 real operator-(real x)
     The negation of the subtrahend x
-
+    
 real operator+(real x)
     This is a no-op.
 
@@ -10114,10 +10118,10 @@ Absolute Value Functions
 real abs(real x)
     The absolute value of x. This function is deprecated and will be removed in the
     future; please use fabs instead.
-
+    
 real fabs(real x)
     The absolute value of x; see warning at start of Section 29.5
-
+    
 real fdim(real x, real y)
     The positive difference between x and y, which is x - y if x is greater than y and 0
     otherwise; see warning at start of Section 29.5
@@ -10127,7 +10131,7 @@ real fdim(real x, real y)
 
 real fmin(real x, real y)
     The minimum of x and y ; see warning at start of Section 29.5
-
+    
 real fmax(real x, real y)
     The maximum of x and y ; see warning at start of Section 29.5
 
@@ -10154,14 +10158,14 @@ derivatives will all be zero.
 real floor(real x)
     The floor of x, which is the largest integer less than or equal to x, converted to a real
     value; see warning at start of Section 29.5
-
+    
 real ceil(real x)
     The ceiling of x, which is the smallest integer greater than or equal to x, converted
     to a real value; see warning at start of Section 29.5
-
+    
 real round(real x)
     The nearest integer to x, converted to a real value; see warning at start of Section 29.5
-
+    
 real trunc(real x)
     The integer nearest to but no larger in magnitude than x, converted to a double
     value; see warning at start of Section 29.5
@@ -10174,13 +10178,13 @@ real sqrt(real x)
 
 real cbrt(real x)
     The cube root of x
-
+    
 real square(real x)
     The square of x
-
+    
 real exp(real x)
     The natural exponential of x
-
+    
 real exp2(real x)
     The base-2 exponential of x
     
@@ -10264,35 +10268,33 @@ The following functions are commonly used as link functions in generalized linea
 tion 29.10).
 
 real logit(real x)
-                                                                                x
-    The log odds, or logit, function applied to x, defined by logit(x) = log   1−x   .
+    The log odds, or logit, function applied to x, defined by logit(x) = log(x / 1−x)
 
 real inv logit(real y)
-    The logistic sigmoid function applied to y, defined by logit−1 (y) =       1
-                                                                           1+exp(−y) .
+    The logistic sigmoid function applied to y, defined by logit−1 (y) = 1 / (1+exp(−y)).
+                                                                           
 
 real inv cloglog(real y)
     The inverse of the complementary log-log function applied to y, defined by
-    cloglog−1 (y) = 1 − exp (− exp(y)) .
+    cloglog−1 (y) = 1 − exp (− exp(y)).
 
 29.10.      Probability-Related Functions
 
 real erf(real x)
     The error function of x
-
+    
 real erfc(real x)
     The complementary error function of x
-
+    
 real Phi(real x)
     The cumulative unit normal density function of x; Phi(x) will underflow to 0 for
     x below -37.5 and overflow to 1 for x above 8.25; derivatives will underflow to 0
     below -27.5 and overflow to 1 above 27.5.
-
-real Phi_approx(real x)
+    
+real Phi approx(real x)
     Fast approximation of the cumulative unit normal density function of x, defined by
                           Φapprox (x) = logit−1 (0.07056 x3 + 1.5976 x).
-        This approximation has a maximum absolute error of 0.00014 and may be used in-
-        stead of Phi for probit regression. See (Bowling et al., 2009) for details.
+    This approximation has a maximum absolute error of 0.00014 and may be used instead Phi for probit regression. See (Bowling et al., 2009) for details.
 	
 real binary log loss(int y, real y hat)
     The log loss of predicting probability y hat for binary outcome y ;
@@ -10305,35 +10307,18 @@ real binary log loss(int y, real y hat)
                                             247
 real owens t(real h, real a)
     The Owen’s T function for the probability of the event X > a and 0 < Y < aX
-    where X and Y are independent standard normal random variables, defined by
-                                          1           a
-                                                          exp(− 12 h2 (1 + x2 ))
-                      owens t(h, a) =                                            dx
-                                         2π       0             1 + x2
-
+    where X and Y are independent standard normal random variables.
 
 
 29.11.    Combinatorial Functions
 
 real lbeta(real alpha, real beta)
     The natural logarithm of the beta function applied to alpha and beta. The beta
-    function, B(α, β), computes the normalizing constant for the beta distribution, and
-    is defined for α > 0 and β > 0 by
-                                              1
-                             B(α, β) =            uα−1 (1 − u)β−1 du.
-                                          0
-
-
+    function, B(α, β), computes the normalizing constant for the beta distribution
 
 real tgamma(real x)
     The gamma function applied to x. The gamma function is the generalization of
-    the factorial function to continuous variables, defined so that Γ(n + 1) = n!. The
-    function is defined for positive numbers and non-integral negative numbers by
-                                             ∞
-                               Γ(x) =             ux−1 exp(−u) du.
-                                         0
-
-
+    the factorial function to continuous variables, defined so that Γ(n + 1) = n!.
 
 real lgamma(real x)
     The natural logarithm of the gamma function applied to x
@@ -10354,95 +10339,40 @@ real lmgamma(int n, real x)
                                              248
 real gamma p(real a, real z)
     The normalised lower incomplete gamma function of a and z defined for positive a
-    and nonnegative z by
-                                                           z
-                                              1
-                                P (a, z) =                     ta−1 e−t dt
-                                             Γ(a)      0
-
-
+    and nonnegative z.
 
 real gamma q(real a, real z)
     The normalised upper incomplete gamma function of a and z defined for positive a
-    and nonnegative z by
-                                                        ∞
-                                              1
-                               Q(a, z) =                       ta−1 e−t dt
-                                             Γ(a)   z
-
-
+    and nonnegative z.
 
 real binomial coefficient log(real x, real y)
     The natural logarithm of the binomial coefficient of x and y. For non-negative
-    integer inputs, this is pronounced “x choose y,” written as xy , and defined by
+    integer inputs, this is pronounced “x choose y,” written as xy.
 
-                                       x             x!
-                                             =               .
-                                       y         (x − y)! y!
-      This Stan function extends the domain to continuous quantities through the Γ func-
-      tion, defining
-                                                                      Γ(x + 1)
-                 binomial coefficient log(x, y) = log                                 .
-                                                                Γ(x − y + 1) Γ(y + 1)
-
-
-real bessel_first_kind(int v, real z)
+real bessel first kind(int v, real z)
     The Bessel function of the first kind with order v applied to z defined for all z and
-    v by
-                                           v ∞                 k
-                                       1              − 14 z 2
-                          Jv (z) =       z
-                                       2         k! Γ(v + k + 1)
-                                                 k=0
+    v.
 
-
-real bessel_second_kind(int v, real z)
+real bessel second kind(int v, real z)
     The Bessel function of the second kind with order v applied to z defined for positive
-    z and v by
-                                      Jv (z) cos(vπ) − J−v (z)
-                             Yv (z) =
-                                               sin(vπ)
+    z and v.
 
-
-                                             249
 real modified bessel first kind(int v, real z)
     The modified Bessel function of the first kind with order v applied to z defined for
-    all z and v by
-                                           v ∞        1 2 k
-                                     1                4z
-                          Iv (z) =     z
-                                     2           k!Γ(v + k + 1)
-                                               k=0
-
-
+    all z and v.
 
 real modified bessel second kind(int v, real z)
     The modified Bessel function of the second kind with order v applied to z defined
-    for positive z and v by
-
-                                            π I−v (z) − Iv (z)
-                                 Kv (z) =     ·
-                                            2     sin(vπ)
-
+    for positive z and v.
 
 real falling factorial(real x, real n)
-    The falling factorial of x with power n defined for positive x and real n by
-
-                                                              x!
-                                  falling factorial(x, n) =
-                                                              n!
-
+    The falling factorial of x with power n defined for positive x and real n.
 
 real log falling factorial(real x, real n)
     The log of the falling factorial of x with power n defined for positive x and real n.
 
 real rising factorial(real x, real n)
-    The rising factorial of x with power n defined for positive x and real n by
-
-                                                        (x + n − 1)!
-                             rising factorial(x, n) =
-                                                          (x − 1)!
-
+    The rising factorial of x with power n defined for positive x and real n.
 
 real log rising factorial(real x, real n)
     The log of the rising factorial of x with power n defined for positive x and real n.
@@ -10454,7 +10384,6 @@ In practice, they are implemented to be more efficient and more numerically stab
 defining them directly using more basic Stan functions.
 
 
-                                            250
 real expm1(real x)
     The natural exponential of x minus 1
     
@@ -10532,12 +10461,8 @@ real prod(int x[])
 real log sum exp(real x[])
     The natural logarithm of the sum of the exponentials of the elements in x
 
-
-
-
                                            252
 Moments
-
 Moments are only defined for arrays x of size N ≥ 1; it is an error to call them with arrays
 of size N = 0. The sample mean is defined by
                                                    N
@@ -10567,6 +10492,7 @@ real sd(real x[])
     The sample standard deviation of elements in x
 
 30.2.     Array Size and Dimension Function
+
 The size of an array or matrix can be obtained using the dims() function. The dims()
 function is defined to take an argument consisting of any variable with up to 8 array dimen-
 sions (and up to 2 additional matrix dimensions) and returns an array of integers with the
@@ -10766,6 +10692,7 @@ matrix operator*(matrix x, matrix y)
     The product of the matrices x and y
 
 Broadcast Infix Operators
+
 vector operator+(vector x, real y)
     The result of adding y to every entry in the vector x
     
@@ -10833,6 +10760,7 @@ matrix operator./(matrix x, matrix y)
 
 
 Elementwise Logarithms
+
 vector log(vector x)
     The elementwise natural logarithm of x
     
@@ -10868,6 +10796,7 @@ row_vector cumulative sum(row_vector rv)
      The cumulative sum of rv
 
 Dot Products
+
 real dot product(vector x, vector y)
     The dot product of x and y
     
@@ -10887,7 +10816,6 @@ row_vector columns dot product(row_vector x, row_vector y)
      The dot product of the columns of x and y
 
                                               260
-					      
 row_vector columns dot product(matrix x, matrix y)
      The dot product of the columns of x and y
      
@@ -10904,7 +10832,7 @@ real dot self(vector x)
     The dot product of the vector x with itself
 
 real dot self(row_vector x)
-    The dot product of the row vector x with itself
+    The dot product of the row_vector x with itself
 
 row_vector columns dot self(vector x)
      The dot product of the columns of x with themselves
@@ -10928,7 +10856,7 @@ Specialized Products
 
 matrix tcrossprod(matrix x)
     The product of x postmultiplied by its own transpose, similar to the tcrossprod(x)
-    function in R. The result is a symmetric matrix x x .
+    function in R. The result is a symmetric matrix x x' .
 
 
 
@@ -10980,7 +10908,6 @@ matrix diag post multiply(matrix m, row_vector rv)
 
                                           262
 31.3.   Reductions
-
 Log Sum of Exponents
 
 real log sum exp(vector x)
@@ -11035,7 +10962,6 @@ real prod(matrix x)
     The product of the values in x, or 1 if x is empty
 
 Sample Moments
-
 Full definitions are provided for sample moments in Section 30.1.
 
 real mean(vector x)
@@ -11074,7 +11000,6 @@ real sd(matrix x)
 The following broadcast functions allow vectors, row vectors and matrices to be created by
 copying a single element into all of their cells. Matrices may also be created by stacking
 copies of row vectors vertically or stacking copies of column vectors horizontally.
-
 vector rep vector(real x, int m)
     Return the size m (column) vector consisting of copies of x.
     
@@ -11146,7 +11071,6 @@ row_vector sub row(matrix x, int i, int j, int n cols)
      n cols columns.
 
 Vector and Array Slicing Operations
-
 The head operation extracts the first n elements of a vector and the tail operation the last.
 The segment operation extracts an arbitrary subvector.
 
@@ -11235,13 +11159,11 @@ Stan provides the following functions for softmax and its log.
 vector softmax(vector x)
     The softmax of x
     
-vector log_softmax(vector x)
+vector log softmax(vector x)
     The natural logarithm of the softmax of x
 
 31.7.     Linear Algebra Functions and Solvers
-
 Matrix Division Infix Operators
-
 row_vector operator/(row_vector b, matrix A)
      The right division of b by A; equivalently b * inverse(A)
 
@@ -11385,6 +11307,7 @@ int bernoulli rng(real theta)
 
                                            272
 32.2.    Bernoulli Distribution, Logit Parameterization
+
 Stan also supplies a direct parameterization in terms of a logit-transformed chance-of-
 success parameter. This parameterization is more numerically stable if the chance-of-
 success parameter is on the logit scale, as with the linear predictor in a logistic regression.
@@ -11402,6 +11325,7 @@ Sampling Statement
     constant additive terms; Section 23.3 explains sampling statements.
 
 Stan Functions
+
 real bernoulli logit log(ints y, reals alpha)
     The log Bernoulli probability mass of y given logit chance of success exp(alpha)
 
@@ -11415,6 +11339,7 @@ Bounded discrete probability functions have support on {0, . . . , N } for some 
 N.
 
 33.1.    Binomial Distribution
+
 Probability Mass Function
 Suppose N ∈ N and θ ∈ [0, 1], and n ∈ {0, . . . , N }.
 
@@ -11503,6 +11428,7 @@ real binomial logit log(ints n, ints N, reals alpha)
     chance of success alpha
 
 33.3.    Beta-Binomial Distribution
+
 Probability Mass Function
 If N ∈ N, α ∈ R+ , and β ∈ R+ , then for n ∈ {0, . . . , N },
 
@@ -11523,13 +11449,11 @@ Sampling Statement
 
 Stan Functions
 
-real beta binomial log(ints n, ints N, reals alpha, reals
-beta)
+real beta binomial log(ints n, ints N, reals alpha, reals beta)
     The log beta-binomial probability mass of n successes in N trials given prior success
     count (plus one) of alpha and prior failure count (plus one) of beta
     
-real beta binomial cdf(ints n, ints N, reals alpha, reals
-beta)
+real beta binomial cdf(ints n, ints N, reals alpha, reals beta)
     The beta-binomial cumulative distribution function of n successes in N trials given
     prior success count (plus one) of alpha and prior failure count (plus one) of beta
     
@@ -11740,7 +11664,6 @@ real poisson ccdf log(ints n, reals lambda)
 
 
                                           281
-					  
 int poisson rng(real lambda)
     Generate a poisson variate with rate lambda; may only be used in generated
     quantities block
@@ -11826,6 +11749,7 @@ The unbounded univariate continuous probability distributions have support on al
 numbers.
 
 36.1.   Normal Distribution
+
 Probability Density Function
 If µ ∈ R and σ ∈ R+ , then for y ∈ R,
                                                                 2
@@ -11839,6 +11763,7 @@ Sampling Statement
     additive terms; Section 23.3 explains sampling statements.
 
 Stan Functions
+
 real normal log(reals y, reals mu, reals sigma)
     The log of the normal density of y given location mu and scale sigma
 
@@ -11862,6 +11787,7 @@ real normal rng(real mu, real sigma)
 
                                          285
 36.2.   Exponentially Modified Normal Distribution
+
 Probability Density Function
 If µ ∈ R, σ ∈ R+ , and λ ∈ R+ , then for y ∈ R,
 
@@ -11875,12 +11801,13 @@ Sampling Statement
     dropping constant additive terms; Section 23.3 explains sampling statements.
 
 Stan Functions
-
-real exp mod normal log(reals y, reals mu, reals sigma, reals lambda)
+real exp mod normal log(reals y, reals mu, reals sigma,
+                              reals lambda)
     The log of the exponentially modified normal density of y given location mu, scale
     sigma, and shape lambda
     
-real exp mod normal cdf(reals y, reals mu, reals sigma, reals lambda)
+real exp mod normal cdf(reals y, reals mu, reals sigma,
+                             reals lambda)
     The exponentially modified normal cumulative distribution function of y given
     location mu, scale sigma, and shape lambda
     
@@ -11916,19 +11843,23 @@ Sampling Statement
 
 Stan Functions
 
-real skew normal log(reals y, reals mu, reals sigma, reals alpha)
+real skew normal log(reals y, reals mu, reals sigma, reals
+alpha)
     The log of the skew normal density of y given location mu, scale sigma, and shape
     alpha
     
-real skew normal cdf(reals y, reals mu, reals sigma, reals alpha)
+real skew normal cdf(reals y, reals mu, reals sigma, reals
+alpha)
     The skew normal distribution function of y given location mu, scale sigma, and
     shape alpha
     
-real skew normal cdf log(reals y, reals mu, reals sigma, reals alpha)
+real skew normal cdf log(reals y, reals mu, reals sigma,
+                             reals alpha)
     The log of the skew normal cumulative distribution function of y given location mu,
     scale sigma, and shape alpha
     
-real skew normal ccdf log(reals y, reals mu, reals sigma, reals alpha)
+real skew normal ccdf log(reals y, reals mu, reals sigma,
+                              reals alpha)
     The log of the skew normal complementary cumulative distribution function of y
     given location mu, scale sigma, and shape alpha
 
@@ -11941,7 +11872,6 @@ real skew normal rng(real mu, real sigma, real alpha)
 
                                          287
 36.4.   Student-t Distribution
-
 Probability Density Function
 If ν ∈ R+ , µ ∈ R, and σ ∈ R+ , then for y ∈ R,
 
@@ -11957,15 +11887,18 @@ Sampling Statement
 
 Stan Functions
 
-real student t log(reals y, reals nu, reals mu, reals sigma)
+real student t log(reals y, reals nu, reals mu, reals
+sigma)
     The log of the Student-t density of y given degrees of freedom nu, location mu, and
     scale sigma
     
-real student t cdf(reals y, reals nu, reals mu, reals sigma)
+real student t cdf(reals y, reals nu, reals mu, reals
+sigma)
     The Student-t cumulative distribution function of y given degrees of freedom nu,
     location mu, and scale sigma
     
-real student t cdf log(reals y, reals nu, reals mu, reals sigma)
+real student t cdf log(reals y, reals nu, reals mu, reals
+sigma)
     The log of the Student-t cumulative distribution function of y given degrees of
     freedom nu, location mu, and scale sigma
     
@@ -11982,6 +11915,7 @@ real student t rng(real nu, real mu, real sigma)
 
                                            288
 36.5.   Cauchy Distribution
+
 Probability Density Function
 If µ ∈ R and σ ∈ R+ , then for y ∈ R,
                                           1         1
@@ -12015,7 +11949,6 @@ real cauchy rng(real mu, real sigma)
     generated quantities block
 
 36.6.   Double Exponential (Laplace) Distribution
-
 Probability Density Function
 If µ ∈ R and σ ∈ R+ , then for y ∈ R,
                                                 1       |y − µ|
@@ -12037,11 +11970,13 @@ real double exponential cdf(reals y, reals mu, reals sigma)
     The double exponential cumulative distribution function of y given location mu and
     scale sigma
     
-real double exponential cdf log(reals y, reals mu, reals sigma)
+real double exponential cdf log(reals y, reals mu, reals
+sigma)
     The log of the double exponential cumulative distribution function of y given
     location mu and scale sigma
     
-real double exponential ccdf log(reals y, reals mu, reals sigma)
+real double exponential ccdf log(reals y, reals mu, reals
+sigma)
     The log of the double exponential complementary cumulative distribution function
     of y given location mu and scale sigma
 
@@ -12050,7 +11985,6 @@ real double exponential rng(real mu, real sigma)
     be used in generated quantities block
 
 36.7.   Logistic Distribution
-
 Probability Density Function
 If µ ∈ R and σ ∈ R+ , then for y ∈ R,
                                                                         −2
@@ -12067,6 +12001,7 @@ Sampling Statement
 
                                          290
 Stan Functions
+
 real logistic log(reals y, reals mu, reals sigma)
     The log of the logistic density of y given location mu and scale sigma
 
@@ -12095,7 +12030,6 @@ If µ ∈ R and β ∈ R+ , then for y ∈ R,
                                     β        β           β
 
 Sampling Statement
-
  y ˜ gumbel(mu,beta);
     Increment log probability with gumbel log(y,mu,beta), dropping constant
     additive terms; Section 23.3 explains sampling statements.
@@ -12143,7 +12077,6 @@ Sampling Statement
     stant additive terms; Section 23.3 explains sampling statements.
 
 Stan Functions
-
 real lognormal log(reals y, reals mu, reals sigma)
     The log of the lognormal density of y given location mu and scale sigma
 
@@ -12181,7 +12114,6 @@ Sampling Statement
     ditive terms; Section 23.3 explains sampling statements.
 
 Stan Functions
-
 real chi square log(reals y, reals nu)
     The log of the Chi-square density of y given degrees of freedom nu
     
@@ -12236,6 +12168,7 @@ real inv chi square rng(real nu)
     used in generated quantities block
 
 37.4.     Scaled Inverse Chi-Square Distribution
+
 Probability Density Function
 If ν ∈ R+ and σ ∈ R+ , then for y ∈ R+ ,
 
@@ -12253,6 +12186,7 @@ Sampling Statement
 
                                            295
 Stan Functions
+
 real scaled inv chi square log(reals y, reals nu, reals sigma)
     The log of the scaled inverse Chi-square density of y given degrees of freedom nu
     and scale sigma
@@ -12260,7 +12194,7 @@ real scaled inv chi square log(reals y, reals nu, reals sigma)
 real scaled inv chi square cdf(reals y, reals nu, reals sigma)
     The scaled inverse Chi-square cumulative distribution function of y given degrees
     of freedom nu and scale sigma
-
+    
 real scaled inv chi square cdf log(reals y, reals nu, reals sigma)
     The log of the scaled inverse Chi-square cumulative distribution function of y given
     degrees of freedom nu and scale sigma
@@ -12290,9 +12224,6 @@ Stan Functions
 real exponential log(reals y, reals beta)
     The log of the exponential density of y given inverse scale beta
 
-
-
-                                          296
 real exponential cdf(reals y, reals beta)
     The exponential cumulative distribution function of y given inverse scale beta
 
@@ -12507,6 +12438,7 @@ The continuous distributions with outcomes in the interval [0, 1] are used to ch
 bounded quantities, including probabilities.
 
 40.1.    Beta Distribution
+
 Probability Density Function
 If α ∈ R+ and β ∈ R+ , then for θ ∈ (0, 1),
                                           1
@@ -12581,6 +12513,7 @@ real von mises log(reals y, reals mu, reals kappa)
 The bounded continuous probabilities have support on a finite interval of real numbers.
 
 42.1.    Uniform Distribution
+
 Probability Density Function
 If α ∈ R and β ∈ (α, ∞), then for y ∈ [α, β],
                                                     1
@@ -12623,6 +12556,7 @@ The unbounded vector probability distributions have support on all of RK for som
 K.
 
 43.1.    Multivariate Normal Distribution
+
 Probability Density Function
 If K ∈ N, µ ∈ RK , and Σ ∈ RK×K is symmetric and positive definite, then for y ∈ RK ,
 
@@ -12665,12 +12599,13 @@ If K ∈ N, µ ∈ RK , and Ω ∈ RK×K is symmetric and positive definite, th
     ping constant additive terms; Section 23.3 explains sampling statements.
 
 Stan Functions
-real multi normal prec log(vector y, vector mu, matrix
-Omega)
+
+real multi normal prec log(vector y, vector mu, matrix Omega)
     The log of the multivariate normal density of vector y given location mu and positive
     definite precision matrix Omega
 
 43.3.   Multivariate Normal Distribution, Cholesky Parameterization
+
 Probability Density Function
 If K ∈ N, µ ∈ RK , and L ∈ RK×K is lower triangular and such that LL          is positive
 definite, then for y ∈ RK ,
@@ -12684,7 +12619,8 @@ Sampling Statement
 
 Stan Functions
 
-real multi normal cholesky log(vector y, vector mu, matrix L)
+real multi normal cholesky log(vector y, vector mu, matrix
+L)
     The log of the multivariate normal density of vector y given location mu and
     lower-triangular Cholesky factor of the covariance matrix L
 
@@ -12692,9 +12628,7 @@ real multi normal cholesky log(vector y, vector mu, matrix L)
 
 
                                           307
-					  
 43.4.     Multivariate Student-t Distribution
-
 Probability Density Function
 If K ∈ N, ν ∈ R+ , µ ∈ RK , and Σ ∈ RK×K is symmetric and positive definite, then for
 y ∈ RK ,
@@ -12713,7 +12647,8 @@ Sampling Statement
 
 Stan Functions
 
-real multi student t log(vector y, real nu, vector mu, matrix Sigma)
+real multi student t log(vector y, real nu, vector mu,
+matrix Sigma)
     The log of the multivariate Student-t density of vector y given degrees of freedom
     nu, location mu, and scale matrix Sigma
     
@@ -12722,7 +12657,6 @@ vector multi student t rng(real nu, vector mu, matrix Sigma)
     and scale matrix Sigma; may only be used in generated quantities block
 
 43.5.     Gaussian Dynamic Linear Models
-
 A Gaussian Dynamic Linear model is defined as follows, For t ∈ 1, . . . , T ,
                                     yt ∼ N (F θt , V )
                                     θt ∼ N (Gθt−1 , W )
@@ -12746,13 +12680,17 @@ covariance matrix V and the second a vector V representing the diagonal of the o
 covariance matrix. The sampling statement defined in the previous section works with
 either type of observation V.
 
-real gaussian dlm obs log(vector y, matrix F, matrix G, matrix V, matrix W, vector m0, matrix C0)
+real gaussian dlm obs log(vector y, matrix F, matrix G,
+matrix V,
+                                   matrix W, vector m0, matrix C0)
     The log of the density of the Gaussian Dynamic Linear model with observation
     matrix y in which rows are variables and columns are observations, design matrix F,
     transition matrix G, observation covariance matrix V, system covariance matrix W,
     and the initial state is distributed normal with mean m0 and covariance C0.
     
-real gaussian dlm obs log(vector y, matrix F, matrix G, vector V, matrix W, vector m0, matrix C0)
+real gaussian dlm obs log(vector y, matrix F, matrix G,
+vector V,
+                             matrix W, vector m0, matrix C0)
     The log of the density of the Gaussian Dynamic Linear model with observation
     matrix y in which rows are variables and columns are observations, design matrix
     F, transition matrix G, observation covariance matrix with diagonal V, system
@@ -12843,6 +12781,7 @@ The covariance matrix distributions have support on symmetric, positive-definite
 matrices.
 
 46.1.    Wishart Distribution
+
 Probability Density Function
 If K ∈ N, ν ∈ (K − 1, ∞), and S ∈ RK×K is symmetric and positive definite, then for
 symmetric and positive-definite W ∈ RK×K ,
@@ -13436,7 +13375,7 @@ To avoid having to deal with constraints while simulating the Hamiltonian dynami
 ing sampling, every (multivariate) parameter in a Stan model is transformed to an uncon-
 strained variable behind the scenes by the model compiler. The transform is based on the
 constraints, if any, in the parameter’s definition. Scalars or the scalar values in vectors,
-row_vectors or matrices may be constrained with lower and/or upper bounds. Vectors may
+row vectors or matrices may be constrained with lower and/or upper bounds. Vectors may
 alternatively be constrained to be ordered, positive ordered, or simplexes. Matrices may
 be constrained to be correlation matrices or covariance matrices. This chapter provides a
 definition of the transforms used for each type of variable.
@@ -16100,7 +16039,7 @@ trigamma
 
 
                                         388
-     (reals y, reals alpha, reals 
+     (reals y, reals alpha, reals
          sigma): real, 299
 weibull rng
     (real alpha, real sigma): real,
