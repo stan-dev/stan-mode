@@ -521,7 +521,7 @@ Key bindings:
 	(imenu-add-menubar-index)))
 
   ;; auto-complete
-  (when stan--load-ac stan-ac-mode-setup)
+  (when stan--load-auto-complete stan-ac-mode-setup)
 
   ;; conclusion
   (run-hooks 'c-mode-common-hook 'stan-mode-hook)
