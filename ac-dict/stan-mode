@@ -83,6 +83,7 @@ dims
 dirichlet
 dirichlet_log
 dirichlet_rng
+distance
 dot_product
 dot_self
 double_exponential
@@ -176,8 +177,6 @@ lgamma
 lkj_corr
 lkj_corr_log
 lkj_corr_rng
-lkj_cov
-lkj_cov_log
 lmgamma
 log
 log10
@@ -318,6 +317,7 @@ sort_desc
 sqrt
 sqrt2
 square
+squared_distance
 step
 student_t
 student_t_ccdf_log

@@ -160,9 +160,6 @@
 		       ("lkj_corr" "lkj_corr(${1:real eta})$0" "lkj_corr(real)" nil
 			("Distributions" "Continuous")
 			nil nil nil nil)
-		       ("lkj_cov" "lkj_cov(${1:vector mu}, ${2:vector sigma}, ${3:real eta})$0" "lkj_cov(vector, vector, real)" nil
-			("Distributions" "Continuous")
-			nil nil nil nil)
 		       ("logistic" "logistic(${1:reals mu}, ${2:reals sigma})$0" "logistic(reals, reals)" nil
 			("Distributions" "Continuous")
 			nil nil nil nil)
@@ -474,6 +471,18 @@
 		       ("dirichlet_rng" "dirichlet_rng(${1:vector alpha})$0" "dirichlet_rng(vector)" nil
 			("Functions" "Continuous Distributions" "Simplex Distributions" "Dirichlet Distribution")
 			nil nil nil nil)
+		       ("distance" "distance(${1:row_vector x}, ${2:row_vector y})$0" "distance(row_vector, row_vector)" nil
+			("Functions" "Built-In Functions" "Array Operations" "Reductions")
+			nil nil nil nil)
+		       ("distance" "distance(${1:row_vector x}, ${2:vector y})$0" "distance(row_vector, vector)" nil
+			("Functions" "Built-In Functions" "Array Operations" "Reductions")
+			nil nil nil nil)
+		       ("distance" "distance(${1:vector x}, ${2:row_vector y})$0" "distance(vector, row_vector)" nil
+			("Functions" "Built-In Functions" "Array Operations" "Reductions")
+			nil nil nil nil)
+		       ("distance" "distance(${1:vector x}, ${2:vector y})$0" "distance(vector, vector)" nil
+			("Functions" "Built-In Functions" "Array Operations" "Reductions")
+			nil nil nil nil)
 		       ("dot_product" "dot_product(${1:row_vector x}, ${2:row_vector y})$0" "dot_product(row_vector, row_vector)" nil
 			("Functions" "Built-In Functions" "Matrix Operations" "Matrix Arithmetic Operators")
 			nil nil nil nil)
@@ -731,9 +740,6 @@
 			nil nil nil nil)
 		       ("lkj_corr_rng" "lkj_corr_rng(${1:int K}, ${2:real eta})$0" "lkj_corr_rng(int, real)" nil
 			("Functions" "Continuous Distributions" "Correlation Matrix Distributions" "LKJ Correlation Distribution")
-			nil nil nil nil)
-		       ("lkj_cov_log" "lkj_cov_log(${1:matrix W}, ${2:vector mu}, ${3:vector sigma}, ${4:real eta})$0" "lkj_cov_log(matrix, vector, vector, real)" nil
-			("Functions" "Continuous Distributions" "Covariance Matrix Distributions" "LKJ Covariance Distribution")
 			nil nil nil nil)
 		       ("lmgamma" "lmgamma(${1:int n}, ${2:real x})$0" "lmgamma(int, real)" nil
 			("Functions" "Built-In Functions" "Real-Valued Basic Functions" "Combinatorial Functions")
@@ -1235,6 +1241,18 @@
 			nil nil nil nil)
 		       ("square" "square(${1:real x})$0" "square(real)" nil
 			("Functions" "Built-In Functions" "Real-Valued Basic Functions" "Power and Logarithm Functions")
+			nil nil nil nil)
+		       ("squared_distance" "squared_distance(${1:row_vector x}, ${2:row_vector y[]})$0" "squared_distance(row_vector, row_vector)" nil
+			("Functions" "Built-In Functions" "Array Operations" "Reductions")
+			nil nil nil nil)
+		       ("squared_distance" "squared_distance(${1:row_vector x}, ${2:vector y[]})$0" "squared_distance(row_vector, vector)" nil
+			("Functions" "Built-In Functions" "Array Operations" "Reductions")
+			nil nil nil nil)
+		       ("squared_distance" "squared_distance(${1:vector x}, ${2:row_vector y[]})$0" "squared_distance(vector, row_vector)" nil
+			("Functions" "Built-In Functions" "Array Operations" "Reductions")
+			nil nil nil nil)
+		       ("squared_distance" "squared_distance(${1:vector x}, ${2:vector y[]})$0" "squared_distance(vector, vector)" nil
+			("Functions" "Built-In Functions" "Array Operations" "Reductions")
 			nil nil nil nil)
 		       ("step" "step(${1:real x})$0" "step(real)" nil
 			("Functions" "Built-In Functions" "Real-Valued Basic Functions" "Logical Functions")

@@ -3,7 +3,7 @@ EMACS = emacs
 SED = sed
 
 ## text file of Stan reference manual created with pdftotext --layout 
-REFERENCE = scripts/stan-reference-2.1.0.txt
+REFERENCE = scripts/stan-reference.txt
 
 yasnippets = $(shell find snippets -type f -name "*.yasnippet")
 
