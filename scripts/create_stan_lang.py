@@ -86,7 +86,7 @@ def parse_manual(src):
              "T")
     type_decl = "(?P<ret>" + r"|".join([x + r"(?:\[.*?\])?" for x in types]) + ")"
 
-    fun_name = "(?:operator(?:%s)|[A-Za-z][A-Za-z0-9_]*)" % "|".join(OPERATORS_ESC)
+    fun_name = "(?:operator(?:%s)|[A-Za-z][A-Za-z0-9_ ]*)" % "|".join(OPERATORS_ESC)
 
     # re_fitem = re.compile(type_decl + r"\s+" + "(?P<fun>%s)" % fun_name
 
@@ -123,7 +123,7 @@ def parse_manual(src):
             if not line or line.strip() == "":
                 fitemtext = re.sub(r"\s+", " ", fitemtext)
                 m = re_fitem_2.match(fitemtext)
-                fname = m.group('fun')
+                fname = re.sub(' ', '_', m.group('fun'))
                 rettype = m.group('ret')
                 arglist = m.group('args')
                 description = m.group('description')
@@ -157,6 +157,7 @@ def parse_manual(src):
         else:
             if m_part:
                 current_part = PARTS[m_part.group('title')]
+                print(current_part)
                 current_section = None
                 current_subsection = None
             if m_sec:
@@ -188,4 +189,6 @@ def main(src):
 
 if __name__ == '__main__':
     data = main(sys.argv[1])
-    print(json.dumps(data))
+    dst = sys.argv[2]
+    with open(dst, 'w') as f:
+        json.dump(data, f)
