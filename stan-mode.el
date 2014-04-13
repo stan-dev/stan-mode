@@ -292,11 +292,11 @@ This can also be just the name of the stanc executable if it is on the PATH.
 
 ;; map functions to c movement functions
 ;; these are saved as separate variables incase the code changes in the future
-(setq stan-beginning-of-statement 'c-beginning-of-statement)
-(setq stan-end-of-statement 'c-end-of-statement)
-(setq stan-beginning-of-block 'c-beginning-of-defun)
-(setq stan-beginning-of-block 'c-end-of-defun)
-(setq stan-mark-block 'mark-defun)
+(defvar stan-beginning-of-statement 'c-beginning-of-statement)
+(defvar stan-end-of-statement 'c-end-of-statement)
+(defvar stan-beginning-of-block 'c-beginning-of-defun)
+(defvar stan-beginning-of-block 'c-end-of-defun)
+(defvar stan-mark-block 'mark-defun)
 
 ;;; Abbrev table
 
@@ -453,7 +453,7 @@ This only has an effect if auto-complete is installed.
   :type 'boolean
   :group 'stan-mode)
 
-(setq stan--load-auto-complete
+(defvar stan--load-auto-complete
       (and (require 'auto-complete nil 'noerror)
 	   (require 'auto-complete-config nil 'noerror)
 	   stan-use-auto-complete))
@@ -464,15 +464,14 @@ This only has an effect if auto-complete is installed.
   (add-to-list 'ac-dictionary-directories
 	       (expand-file-name "ac-dict"
 				 (file-name-directory
-				  (or load-file-name (buffer-file-name)))))
-
-  (defun stan-ac-mode-setup ()
+				  (or load-file-name (buffer-file-name))))))
+(defun stan-ac-mode-setup ()
+  (when stan--load-auto-complete
     (setq ac-sources '(ac-source-yasnippet
 		       ac-source-imenu
 		       ac-source-dictionary
-		       ac-source-words-in-buffer)))
+		       ac-source-words-in-buffer))))
 
-  )
 
 ;;; Mode initialization
 
@@ -521,7 +520,7 @@ Key bindings:
 	(imenu-add-menubar-index)))
 
   ;; auto-complete
-  (when stan--load-ac stan-ac-mode-setup)
+  (when stan--load-auto-complete (stan-ac-mode-setup))
 
   ;; conclusion
   (run-hooks 'c-mode-common-hook 'stan-mode-hook)
