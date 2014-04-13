@@ -191,4 +191,4 @@ if __name__ == '__main__':
     data = main(sys.argv[1])
     dst = sys.argv[2]
     with open(dst, 'w') as f:
-        json.dump(data, f)
+        json.dump(data, f, sort_keys = True, indent = 2, separators = (',', ': '))
