@@ -55,6 +55,8 @@
 ;; necessary to get them compiled.)
 (eval-when-compile
   (require 'cc-langs))
+;; to remove byte-compile warning
+(declare-function c-populate-syntax-table "cc-mode")
 
 ;; Contains keywords and functions
 (require 'stan-keywords-lists)
