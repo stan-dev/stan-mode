@@ -460,11 +460,11 @@ This only has an effect if auto-complete is installed.
 
 (when stan--load-auto-complete
   (setq ac-modes (append ac-modes '(stan-mode)))
-
   (add-to-list 'ac-dictionary-directories
 	       (expand-file-name "ac-dict"
 				 (file-name-directory
 				  (or load-file-name (buffer-file-name))))))
+
 (defun stan-ac-mode-setup ()
   (when stan--load-auto-complete
     (setq ac-sources '(ac-source-yasnippet
@@ -520,7 +520,7 @@ Key bindings:
 	(imenu-add-menubar-index)))
 
   ;; auto-complete
-  (when stan--load-auto-complete (stan-ac-mode-setup))
+  (stan-ac-mode-setup)
 
   ;; conclusion
   (run-hooks 'c-mode-common-hook 'stan-mode-hook)
