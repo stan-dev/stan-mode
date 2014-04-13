@@ -33,8 +33,6 @@ You can install the modes with the following commands:
 
 <kbd>M-x package-install [RET] stan-snippets [RET]</kbd>
 
-<kbd>M-x package-install [RET] flymake-stan [RET]</kbd>
-
 Or add the following to your Emacs initialization file (`.emacs` or `init.el`):
 
 ```el
@@ -43,7 +41,7 @@ Or add the following to your Emacs initialization file (`.emacs` or `init.el`):
  (lambda (p)
    (unless (package-installed-p p)
      (package-install p)))
- '(stan-mode stan-snippets flymake-stan))
+ '(stan-mode stan-snippets))
 ```
 
 If the installation doesn't work try refreshing the package list:
@@ -72,7 +70,7 @@ For Aquamacs on Mac OS X, those lines alternatively could also be placed in the 
 
 ## Usage
 
-Add the following lines to your Emacs initialization file,
+Add the following line to your Emacs initialization file,
 ```el
 (require 'stan-mode)
 ```
@@ -81,19 +79,20 @@ If you have [autocomplete](http://cx4a.org/software/auto-complete/) installed an
 (setq stan-use-auto-complete t)
 ```
 
-To use `flymake-stan` add the following lines,
+``stan-mode`` supports flymake for on the fly syntax checking.
+This requires a `stanc` executable, as built with ``CmdStan``.
+If `stanc` is not in your `PATH` you need to either add it or set the variable `stan-stanc-path` to its location,
+```el
+(setq stan-stanc-path "/path/to/stanc")
+```
+
+Support for yasnippet snippets is contained in a separate package ``stan-snippets``.
+This contains snippets to complete **all** functions with their arguments, as well as blocks, and a few other elements of the language.
+You can activate snippet support by adding the following line to your Emacs initialization file,
 ```el
 (require 'stan-snippets)
 ```
 
-To use `flymake-stan` add the following lines,
-```el
-(require 'flymake-stan)
-```
-`flymake-stan` requires the `stanc` executable. If `stanc` is not in your `PATH` you need to either add it or set the variable `stan-stanc-path` to its location,
-```el
-(setq stan-stanc-path "/path/to/stanc")
-```
 
 ## Developers
 
