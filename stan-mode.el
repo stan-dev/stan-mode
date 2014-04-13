@@ -55,6 +55,8 @@
 ;; necessary to get them compiled.)
 (eval-when-compile
   (require 'cc-langs))
+;; to remove byte-compile warning
+(declare-function c-populate-syntax-table "cc-mode")
 
 ;; Contains keywords and functions
 (require 'stan-keywords-lists)
@@ -68,7 +70,7 @@
   :prefix "stan-"
   :group 'languages)
 
-(defconst stan-mode-version "2.0.0"
+(defconst stan-mode-version "2.0.1"
   "stan-mode version number")
 
 (defconst stan-language-version "2.2.0"
@@ -292,11 +294,11 @@ This can also be just the name of the stanc executable if it is on the PATH.
 
 ;; map functions to c movement functions
 ;; these are saved as separate variables incase the code changes in the future
-(setq stan-beginning-of-statement 'c-beginning-of-statement)
-(setq stan-end-of-statement 'c-end-of-statement)
-(setq stan-beginning-of-block 'c-beginning-of-defun)
-(setq stan-beginning-of-block 'c-end-of-defun)
-(setq stan-mark-block 'mark-defun)
+(defvar stan-beginning-of-statement 'c-beginning-of-statement)
+(defvar stan-end-of-statement 'c-end-of-statement)
+(defvar stan-beginning-of-block 'c-beginning-of-defun)
+(defvar stan-beginning-of-block 'c-end-of-defun)
+(defvar stan-mark-block 'mark-defun)
 
 ;;; Abbrev table
 
@@ -453,26 +455,25 @@ This only has an effect if auto-complete is installed.
   :type 'boolean
   :group 'stan-mode)
 
-(setq stan--load-auto-complete
+(defvar stan--load-auto-complete
       (and (require 'auto-complete nil 'noerror)
 	   (require 'auto-complete-config nil 'noerror)
 	   stan-use-auto-complete))
 
 (when stan--load-auto-complete
   (setq ac-modes (append ac-modes '(stan-mode)))
-
   (add-to-list 'ac-dictionary-directories
 	       (expand-file-name "ac-dict"
 				 (file-name-directory
-				  (or load-file-name (buffer-file-name)))))
+				  (or load-file-name (buffer-file-name))))))
 
-  (defun stan-ac-mode-setup ()
+(defun stan-ac-mode-setup ()
+  (when stan--load-auto-complete
     (setq ac-sources '(ac-source-yasnippet
 		       ac-source-imenu
 		       ac-source-dictionary
-		       ac-source-words-in-buffer)))
+		       ac-source-words-in-buffer))))
 
-  )
 
 ;;; Mode initialization
 
@@ -521,7 +522,7 @@ Key bindings:
 	(imenu-add-menubar-index)))
 
   ;; auto-complete
-  (when stan--load-auto-complete stan-ac-mode-setup)
+  (stan-ac-mode-setup)
 
   ;; conclusion
   (run-hooks 'c-mode-common-hook 'stan-mode-hook)

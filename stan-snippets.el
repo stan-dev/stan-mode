@@ -7,7 +7,7 @@
 ;; Keywords: languanges
 ;; Version: 2.0.0
 ;; Created: 2012-08-18
-;; Package-Requires: ((yasnippet "0.8.0"))
+;; Package-Requires: ((yasnippet "0.8.0") (stan-mode "2.0.0"))
 
 ;; This file is not part of GNU Emacs.
 
