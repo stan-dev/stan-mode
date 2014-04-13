@@ -8,7 +8,7 @@
 ;;   Daniel Lee <bearlee@alum.mit.edu>
 ;; URL: http://github.com/stan-dev/stan-mode
 ;; Keywords: languanges
-;; Version: 2.0.0
+;; Version: 2.1.0
 ;; Created: 2012-08-18
 
 ;; This file is not part of GNU Emacs.
@@ -38,10 +38,9 @@
 ;;   (require 'stan-mode)
 ;;
 ;; This mode currently has support for syntax-highlighting, indentation,
-;; imenu, and compilation error checking.
+;; imenu, flymake, and compilation error checking.
 ;;
-;; See `flymake-stan` for flymake support, and `stan-snippets` for
-;; yasnippet support.
+;; See `stan-snippets` for yasnippet support.
 
 ;;; Code:
 (require 'font-lock)
@@ -70,7 +69,7 @@
   :prefix "stan-"
   :group 'languages)
 
-(defconst stan-mode-version "2.0.1"
+(defconst stan-mode-version "2.1.0"
   "stan-mode version number")
 
 (defconst stan-language-version "2.2.0"
@@ -444,6 +443,48 @@ See `compilation-error-regexp-alist' for help on their format.")
   :type 'boolean
   :group 'stan-mode)
 
+;;; flymake-mode
+
+(defvar flymake-stan-stanc-path
+  stan-stanc-path
+  "Stanc executable to use when running flymake")
+
+(defvar flymake-stan-temp-output-file-name nil
+  "Name of the temporary output file produced by stanc when running flymake")
+
+(defun flymake-stan-init ()
+  (let* ((temp-file (flymake-init-create-temp-buffer-copy
+                     'flymake-create-temp-inplace))
+         (local-file (file-relative-name
+                      temp-file
+                      (file-name-directory buffer-file-name))))
+    (setq flymake-stan-temp-output-file-name
+          (make-temp-file "flymake-stan-" nil ".cpp"))
+    (list flymake-stan-stanc-path
+          (list (concat "--o=" flymake-stan-temp-output-file-name) local-file))))
+
+(defun flymake-stan-cleanup ()
+  (flymake-safe-delete-file flymake-stan-temp-output-file-name)
+  (flymake-simple-cleanup))
+
+(setq flymake-allowed-file-name-masks
+      (cons '(".+\\.stan$"
+              flymake-stan-init
+              flymake-stan-cleanup
+              flymake-get-real-file-name)
+            flymake-allowed-file-name-masks))
+
+;; This is needed. Otherwise the non-zero return code by
+;; stanc causes an error.
+;; Solution from http://pastebin.com/2Pp4bj9p
+;; TODO: make it local to this mode
+(defadvice flymake-post-syntax-check
+  (before flymake-force-check-was-interrupted)
+  (setq flymake-check-was-interrupted t))
+(ad-activate 'flymake-post-syntax-check)
+
+(add-hook 'stan-mode-hook
+	  (lambda () (flymake-mode 1)))
 
 ;;; auto-complete mode 
 

@@ -1,6 +1,6 @@
 # Emacs support for Stan
 
-This repository contains several packages providing support for editing [Stan](https://code.google.com/p/stan/) in emacs.
+This repository contains several packages providing support for editing [Stan](https://code.google.com/p/stan/) in Emacs.
 
 `stan-mode` is the primary package; it is a major mode for editing Stan files.
 Its current features include:
@@ -9,18 +9,19 @@ Its current features include:
 - indentation
 - `compilation-mode` support
 - `imenu-mode` support
-- `autcomplete-mode` support
+- `flymake-mode` support
+- `autocomplete-mode` support (if installed)
 
-Two other packages contain additional functionality but are dependent on additional emacs packages.
+Two other packages contain additional functionality but are dependent on additional Emacs packages.
 
 - `stan-snippets`: Adds [yasnippet](https://github.com/capitaomorte/yasnippet) snippets
-- `flymake-stan`: A [flymake](http://flymake.sourceforge.net/) handler
+
 
 ## Installing
 
 ### Via package.el
 
-The is the recommended way to install `stan-mode` is using thebuilt-in package manager of Emacs 24, `package.el`. This allows for easy updating of `stan-mode` from within emacs.
+The is the recommended way to install `stan-mode` is using the built-in package manager of Emacs 24, `package.el`. This allows for easy updating of `stan-mode` from within emacs.
 If you are using Emacs 23, you will need to install `package.el`.
 
 The stan packages are available from [MELPA](http://melpa.milkbox.net).
@@ -105,9 +106,9 @@ The file `stan_lang.json` contains Stan keywords as well as the signatures and d
 
 <!--  LocalWords:  stan imenu yasnippet flymake MELPA kbd RET init '
  -->
-<!--  LocalWords:  mapc EmacsWiki cd 'load 'stan 'flymake Aquamacs v3
+<!--  LocalWords:  mapc EmacsWiki cd 'load 'stan 'flymake Aquamacs 
  -->
 <!--  LocalWords:  GPL stanc ' 'load 'stan autocomplete setq 'flymake
  -->
-<!--  LocalWords:  lang json
+<!--  LocalWords:  lang json el emacs
  -->
