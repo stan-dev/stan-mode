@@ -1,6 +1,6 @@
 ;;; flymake-stan.el --- A flymake handler for stan files.
 
-;; Copyright (C) 2012, 2013  Jeffrey Arnold
+;; Copyright (C) 2012, 2013, 2014  Jeffrey Arnold
 ;;
 ;; Author: Jeffrey Arnold <jeffrey.arnold@gmail.com>
 ;; URL: http://github.com/stan-dev/stan-mode
