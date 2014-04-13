@@ -70,7 +70,7 @@
   :prefix "stan-"
   :group 'languages)
 
-(defconst stan-mode-version "2.0.0"
+(defconst stan-mode-version "2.0.1"
   "stan-mode version number")
 
 (defconst stan-language-version "2.2.0"
