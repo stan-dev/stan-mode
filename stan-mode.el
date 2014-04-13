@@ -46,6 +46,7 @@
 (require 'font-lock)
 (require 'cc-mode)
 (require 'compile)
+(require 'flymake)
 
 ;; These are only required at compile time to get the sources for the
 ;; language constants.  (The cc-fonts require and the font-lock
