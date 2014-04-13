@@ -8,7 +8,7 @@
 ;;   Daniel Lee <bearlee@alum.mit.edu>
 ;; URL: http://github.com/stan-dev/stan-mode
 ;; Keywords: languanges
-;; Version: 2.1.0
+;; Version: 2.1.1
 ;; Created: 2012-08-18
 
 ;; This file is not part of GNU Emacs.
@@ -70,7 +70,7 @@
   :prefix "stan-"
   :group 'languages)
 
-(defconst stan-mode-version "2.1.0"
+(defconst stan-mode-version "2.1.1"
   "stan-mode version number")
 
 (defconst stan-language-version "2.2.0"
