@@ -7,7 +7,7 @@
 ;; Keywords: languanges
 ;; Version: 2.0.0
 ;; Created: 2012-08-18
-;; Package-Requires: ((yasnippet "0.8.0") (stan-mode "2.0.0"))
+;; Package-Requires: ((yasnippet "0.8.0") (stan-mode "2.1.1"))
 
 ;; This file is not part of GNU Emacs.
 
@@ -43,14 +43,23 @@
                     (file-name-directory
                      (or load-file-name (buffer-file-name))))
   "Directory containing stan-mode snippets.")
-(yas-load-directory stan-snippets-dir)
 
-(add-hook 
+(add-hook
  'stan-mode-hook
  (lambda () 
    ;; this is needed to expand functions with _ in them.
    (setq-local yas-key-syntaxes (list "w_" "w_." "w_.()" "^ "))
    ))
+
+;;;###autoload
+(defun stan-snippets-initialize ()
+  (when (boundp 'yas-snippet-dirs)
+      (add-to-list 'yas-snippet-dirs stan-snippets-dir t))
+  (yas-load-directory stan-snippets-dir))
+
+;;;###autoload
+(eval-after-load "yasnippet"
+  '(stan-snippets-initialize))
 
 (provide 'stan-snippets)
 
