@@ -43,24 +43,12 @@
 ;; See `stan-snippets` for yasnippet support.
 
 ;;; Code:
-(require 'font-lock)
 (require 'cc-mode)
-(require 'compile)
-(eval-when-compile
-  (require 'flymake))
-(declare-function flymake-init-create-temp-buffer-copy "flymake")
-(declare-function flymake-safe-delete-file "flymake")
-(declare-function flymake-simple-cleanup "flymake")
+(require 'cc-langs)
 
-;; These are only required at compile time to get the sources for the
-;; language constants.  (The cc-fonts require and the font-lock
-;; related constants could additionally be put inside an
-;; (eval-after-load "font-lock" ...) but then some trickery is
-;; necessary to get them compiled.)
-(eval-when-compile
-  (require 'cc-langs))
-;; to remove byte-compile warning
-(declare-function c-populate-syntax-table "cc-mode")
+(require 'font-lock)
+(require 'compile)
+(require 'flymake)
 
 ;; Contains keywords and functions
 (require 'stan-keywords-lists)
@@ -118,7 +106,8 @@ This can also be just the name of the stanc executable if it is on the PATH.
 
 ;; This mode does not inherit properties from other modes. So, we do not use
 ;; the usual `c-add-language' function.
-(put 'stan-mode 'c-mode-prefix "stan-")
+(eval-and-compile
+  (put 'stan-mode 'c-mode-prefix "stan-"))
 
 ;; Lexer level syntax
 (c-lang-defconst c-symbol-start
@@ -273,7 +262,6 @@ This can also be just the name of the stanc executable if it is on the PATH.
       (append c-default-style '((stan-mode . "stan"))))
 
 ;;; Syntax table
-
 (defconst stan-mode-syntax-table-default
   (let ((table (funcall (c-lang-const c-make-mode-syntax-table stan))))
     ;; treat <> as operators only
@@ -499,6 +487,11 @@ This only has an effect if auto-complete is installed.
 "
   :type 'boolean
   :group 'stan-mode)
+
+;; defined to avoid compile warnings
+(defvar ac-modes)
+(defvar ac-dictionary-directories)
+(defvar ac-sources)
 
 (defvar stan--load-auto-complete
       (and (require 'auto-complete nil 'noerror)
