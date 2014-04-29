@@ -398,7 +398,7 @@ This can also be just the name of the stanc executable if it is on the PATH.
     ;; keywords
     (,(stan-regexp-opt stan-keywords-list) . font-lock-keyword-face)
     ;; T
-    ("\\_<T\\[.*?\\]" 1 font-lock-keyword-face)
+    ("\\_<\\(T\\)\\[.*?\\]" 1 font-lock-keyword-face)
     ;; check that lower and upper appear after a < or ,
     (,(concat "\\(?:<\\|,\\)\\s-*" (stan-regexp-opt stan-bounds-list))
      1 font-lock-keyword-face)
