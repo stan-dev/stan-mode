@@ -8,7 +8,7 @@
 ;;   Daniel Lee <bearlee@alum.mit.edu>
 ;; URL: http://github.com/stan-dev/stan-mode
 ;; Keywords: languanges
-;; Version: 2.1.2
+;; Version: 2.1.3
 ;; Created: 2012-08-18
 
 ;; This file is not part of GNU Emacs.
@@ -398,7 +398,7 @@ This can also be just the name of the stanc executable if it is on the PATH.
     ;; keywords
     (,(stan-regexp-opt stan-keywords-list) . font-lock-keyword-face)
     ;; T
-    ("\\(T\\)\\[.*?\\]" 1 font-lock-keyword-face)
+    ("\\_<\\(T\\)\\[.*?\\]" 1 font-lock-keyword-face)
     ;; check that lower and upper appear after a < or ,
     (,(concat "\\(?:<\\|,\\)\\s-*" (stan-regexp-opt stan-bounds-list))
      1 font-lock-keyword-face)

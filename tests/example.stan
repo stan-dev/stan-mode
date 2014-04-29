@@ -20,6 +20,7 @@ data {
   corr_matrix[3] grault;
   cov_matrix[3] garply;
   cholesky_factor_cov[3] waldo;
+  real RT[1];
   
   real<lower=-1,upper=1> foo1;
   real<lower=0> foo2;
