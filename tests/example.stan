@@ -1,7 +1,7 @@
 /* 
-A file for testing Stan syntax highlighting. 
+   A file for testing Stan syntax highlighting. 
 
-It is not a real model and will not compile
+   It is not a real model and will not compile
 */
 # another comment
 // also a comment
