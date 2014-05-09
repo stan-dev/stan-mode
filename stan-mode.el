@@ -475,9 +475,6 @@ See `compilation-error-regexp-alist' for help on their format.")
   (setq flymake-check-was-interrupted t))
 (ad-activate 'flymake-post-syntax-check)
 
-(add-hook 'stan-mode-hook
-	  (lambda () (flymake-mode 1)))
-
 ;;; auto-complete mode 
 
 (defcustom stan-use-auto-complete t
