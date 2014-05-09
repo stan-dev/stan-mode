@@ -8,7 +8,7 @@
 ;;   Daniel Lee <bearlee@alum.mit.edu>
 ;; URL: http://github.com/stan-dev/stan-mode
 ;; Keywords: languanges
-;; Version: 2.1.3
+;; Version: 2.2.0
 ;; Created: 2012-08-18
 
 ;; This file is not part of GNU Emacs.
