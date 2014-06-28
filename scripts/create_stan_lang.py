@@ -19,7 +19,8 @@ TYPES = ["int", "real",
          "matrix", "cov_matrix", "corr_matrix", "cholesky_factor_cov",
          "vector", "simplex", "unit_vector", "ordered", "positive_ordered", "row_vector"]
 
-BLOCKS = ["data",
+BLOCKS = ["functions",
+          "data",
           "transformed data",
           "parameters",
           "transformed parameters",
@@ -49,7 +50,7 @@ RESERVED = ["for", "in", "while", "repeat", "until", "if", "then", "else", "true
 
 ## Section 22.5
 OPERATORS = ["||", "&&", "==", "!=", "<", "<=", ">", ">=", "+", "-", "*", "/",
-             "\\", ".*", "./", "!", "-", "+", "'"]
+             "\\", ".*", "./", "!", "-", "+", "'", "^"]
 
 def escape_regex(x):
     return re.sub("([|*+.])", r"\\\1", x)
