@@ -72,7 +72,7 @@ def read_json(filename):
     }
 
 def sexp(x):
-    return "'(" + ' '.join('"%s"' % atom for atom in x) + ")"
+    return "'(\n" + '\n'.join('    "%s"' % atom for atom in x) + "\n    )"
 
 def create_code(data):
     print(_TEMPLATE.format(**data))
