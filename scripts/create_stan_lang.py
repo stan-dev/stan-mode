@@ -28,7 +28,7 @@ BLOCKS = ["functions",
           "generated quantities"]
 
 ## Section 24.1
-KEYWORDS = ["for", "in", "while", "print", "if", "else", "void"]
+KEYWORDS = ["for", "in", "while", "print", "if", "else", "void", "return"]
 PSEUDO_KEYWORDS = ['lp__']
 BOUNDS = ["lower", "upper"]
 
