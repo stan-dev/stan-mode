@@ -42,9 +42,9 @@ def make_dist_sig(x):
 
 def make_args(x):
     if x['argnames']:
+        argnames = [re.sub(r"\[.*\]", "", y) for y in x['argnames']]
         return ', '.join(['${%d:%s}' % (y[0] + 1, ' '.join(y[1])) 
-                          for y in enumerate(zip(x['argtypes'], 
-                                                 x['argnames']))])
+                          for y in enumerate(zip(x['argtypes'], argnames))])
     else:
         return ""
 
