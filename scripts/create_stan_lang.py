@@ -28,7 +28,7 @@ BLOCKS = ["functions",
           "generated quantities"]
 
 ## Section 24.1
-KEYWORDS = ["for", "in", "while", "print", "if", "else"]
+KEYWORDS = ["for", "in", "while", "print", "if", "else", "void"]
 PSEUDO_KEYWORDS = ['lp__']
 BOUNDS = ["lower", "upper"]
 
@@ -46,7 +46,7 @@ CPP_RESERVED = ["alignas", "alignof", "and", "and_eq", "asm", "auto", "bitand", 
                 "wchar_t", "while", "xor", "xor_eq"]
 
 ## Section 22.2
-RESERVED = ["for", "in", "while", "repeat", "until", "if", "then", "else", "true", "false"]
+RESERVED = ["for", "in", "while", "repeat", "until", "if", "then", "else", "true", "false", "fvar", "var"]
 
 ## Section 22.5
 OPERATORS = ["||", "&&", "==", "!=", "<", "<=", ">", ">=", "+", "-", "*", "/",
