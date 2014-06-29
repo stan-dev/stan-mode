@@ -10,9 +10,9 @@ import sys
 """ Stan language version """
 VERSION = "2.2.0"
 
-PARTS = {"V": "Built-In Functions",
-         "VI": "Discrete Distributions",
-         "VII": "Continuous Distributions"}
+PARTS = ("Built-In Functions",
+         "Discrete Distributions",
+         "Continuous Distributions")
 
 ## Figure 22.2
 TYPES = ["int", "real", 
@@ -62,21 +62,7 @@ OPERATORS_ESC = [escape_regex(x) for x in OPERATORS]
 def parse_manual(src):
 
     with open(src, "r") as f:
-        all_lines = f.readlines()
-
-    # Keep only lines in Parts V-VII"
-    re_start = re.compile(r"\s*Part V\b")
-    re_end = re.compile(r"\s*Part VIII\b")
-    keeplines = []
-    touse = False
-    for line in all_lines:
-        if re_start.search(line):
-            keeplines.append(line)
-            touse = True
-        elif re_end.match(line):
-            break
-        elif touse:
-            keeplines.append(line)
+        lines = f.readlines()
 
     types = ("real",
              "int",
@@ -85,9 +71,19 @@ def parse_manual(src):
              "matrix", 
              "void",
              "T")
-    type_decl = "(?P<ret>" + r"|".join([x + r"(?:\[.*?\])?" for x in types]) + ")"
+    type_decl = "(?P<ret>" + "(?:" + r"|".join([x for x in types]) +")" + r"(?:\[.*?\])?" + ")"
 
     fun_name = "(?:operator(?:%s)|[A-Za-z][A-Za-z0-9_ ]*)" % "|".join(OPERATORS_ESC)
+
+    arg_types = ("reals?",
+                 "ints?",
+                 "row_vector", 
+                 "vector", 
+                 "matrix", 
+                 "void",
+                 "T")
+    named_arg = ("(?:" + "(?:" + r"|".join([x for x in arg_types]) +")" + r"(?:\[.*?\])?" + ")"
+                 + " " + "[A-Za-z][A-Za-z0-9_]*(?:\[.*\])?")
 
     # re_fitem = re.compile(type_decl + r"\s+" + "(?P<fun>%s)" % fun_name
 
@@ -96,9 +92,9 @@ def parse_manual(src):
     re_fitem_2 = (re.compile(type_decl + r"\s+" + "(?P<fun>%s)" % fun_name
                              + "\((?P<args>.*?)\) *(?P<description>.*)"))
 
-    re_part = re.compile(r"\s*Part\s+(?P<title>%s)\b" % "|".join(PARTS.keys()))
-    re_section = re.compile(r"?[0-9]{1,2}\.\s+(?P<title>.*)")
-    re_subsection = re.compile(r"?[0-9]{1,2}\.[0-9]+\.?\s+(?P<title>.*)")
+    re_part = re.compile(r"^# +(?P<title>.*)")
+    re_section = re.compile(r"## +(?P<title>.*)")
+    re_subsection = re.compile(r"### +(?P<title>.*)")
 
     distr_parts = ('Continuous Distributions', 'Discrete Distributions')
 
@@ -115,7 +111,7 @@ def parse_manual(src):
 
     description = []
     in_fitem = False
-    for line in keeplines:
+    for line in lines:
         m_part = re_part.match(line)
         m_sec = re_section.match(line)
         m_subsec = re_subsection.match(line)
@@ -133,12 +129,12 @@ def parse_manual(src):
                     if (current_part in distr_parts
                         and valid_distribution_name(fname)):
                         distributionlist.add(fname[:-4])
-                    args = [x.split() for x in arglist.split(",")]
-                    if args == [[]]:
+                    if arglist.strip() == "":
                         argtypes = None
                         argnames = None
                         key = ""
                     else:
+                        args = [x.split() for x in re.findall(named_arg, arglist)]
                         argtypes = tuple([x[0] for x in args])
                         argnames = [x[1] for x in args]
                         key = ','.join(argtypes)
@@ -157,8 +153,7 @@ def parse_manual(src):
                 fitemtext += " " + line.strip()
         else:
             if m_part:
-                current_part = PARTS[m_part.group('title')]
-                print(current_part)
+                current_part = m_part.group('title')
                 current_section = None
                 current_subsection = None
             if m_sec:
@@ -186,6 +181,7 @@ def main(src):
         'keywords': KEYWORDS,
         'distributions': distributions
     }
+    print(distributions)
     return data
 
 if __name__ == '__main__':

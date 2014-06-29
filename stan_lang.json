@@ -1,5 +1,6 @@
 {
   "blocks": [
+    "functions",
     "data",
     "transformed data",
     "parameters",
@@ -98,49 +99,52 @@
     "xor_eq"
   ],
   "distributions": [
-    "multi_normal_prec",
-    "scaled_inv_chi_square",
-    "wishart",
     "rayleigh",
+    "von_mises",
+    "neg_binomial",
+    "hypergeometric",
+    "binomial_logit",
+    "wishart",
+    "categorical",
+    "multinomial",
     "poisson",
     "cauchy",
-    "multi_normal_cholesky",
-    "gamma",
-    "logistic",
-    "binomial_logit",
-    "pareto",
-    "bernoulli_logit",
-    "skew_normal",
-    "poisson_log",
-    "inv_wishart",
-    "beta",
-    "exp_mod_normal",
-    "von_mises",
-    "double_exponential",
-    "weibull",
-    "binomial",
-    "normal",
-    "ordered_logistic",
-    "bernoulli",
-    "gaussian_dlm_obs",
-    "dirichlet",
-    "lkj_corr",
-    "uniform",
-    "inv_chi_square",
-    "hypergeometric",
-    "multinomial",
-    "chi_square",
-    "student_t",
-    "beta_binomial",
-    "exponential",
-    "inv_gamma",
-    "categorical_logit",
     "lognormal",
+    "ordered_logistic",
+    "logistic",
+    "chi_square",
+    "poisson_log",
+    "weibull",
+    "lkj_corr",
+    "neg_binomial_2_log",
+    "double_exponential",
+    "gamma",
+    "multi_normal_prec",
+    "scaled_inv_chi_square",
+    "exponential",
+    "inv_wishart",
+    "gaussian_dlm_obs",
+    "bernoulli",
+    "bernoulli_logit",
     "multi_normal",
-    "neg_binomial",
-    "categorical",
+    "student_t",
+    "neg_binomial_2",
+    "multi_normal_cholesky",
+    "categorical_logit",
+    "uniform",
+    "skew_normal",
+    "binomial",
+    "beta",
+    "normal",
+    "multi_gp",
+    "pareto",
+    "exp_mod_normal",
+    "gumbel",
+    "inv_chi_square",
+    "inv_gamma",
+    "beta_binomial",
     "multi_student_t",
-    "gumbel"
+    "dirichlet"
   ],
   "functions": {
     "Phi": {
@@ -168,7 +172,7 @@
         "argtypes": [
           "real"
         ],
-        "description": "Fast approximation of the cumulative unit normal density function of x, defined by \u03a6approx (x) = logit\u22121 (0.07056 x3 + 1.5976 x). This approximation has a maximum absolute error of 0.00014 and may be used instead of Phi for probit regression. See (Bowling et al., 2009) for details.",
+        "description": "Fast approximation of the cumulative unit normal density function of x, defined by \u03a6approx (x) = logit\u22121 (0.07056 x3 + 1.5976 x). This approximation has a maximum absolute error of 0.00014 and may be used instead of Phi for probit regression.",
         "location": [
           "Built-In Functions",
           "Real-Valued Basic Functions",
@@ -416,7 +420,7 @@
           "ints",
           "reals"
         ],
-        "description": "The log Bernoulli probability mass of y given logit chance of success exp(alpha)",
+        "description": "The log Bernoulli probability mass of y given chance of success inv_logit(alpha)",
         "location": [
           "Discrete Distributions",
           "Binary Distributions",
@@ -433,7 +437,7 @@
         "argtypes": [
           "real"
         ],
-        "description": "Generate a Bernoulli variate with chance of success theta; may only be used in generated quantities block",
+        "description": "Generate a Bernoulli variate with chance of success theta",
         "location": [
           "Discrete Distributions",
           "Binary Distributions",
@@ -584,7 +588,7 @@
           "real",
           "real"
         ],
-        "description": "Generate a beta-binomial variate with N trials, prior success count (plus one) of alpha, and prior failure count (plus one) of beta; may only be used in generated quantities block",
+        "description": "Generate a beta-binomial variate with N trials, prior success count (plus one) of alpha, and prior failure count (plus one) of beta",
         "location": [
           "Discrete Distributions",
           "Bounded Discrete Distributions",
@@ -849,7 +853,7 @@
           "int",
           "real"
         ],
-        "description": "Generate a binomial variate with N trials and chance of success theta; may only be used in generated quantities block",
+        "description": "Generate a binomial variate with N trials and chance of success theta",
         "location": [
           "Discrete Distributions",
           "Bounded Discrete Distributions",
@@ -1066,7 +1070,7 @@
         "argtypes": [
           "real"
         ],
-        "description": "The ceiling of x, which is the smallest integer greater than or equal to x, converted to a real value; see warning at start of Section 30.5",
+        "description": "The ceiling of x, which is the smallest integer greater than or equal to x, converted to a real value",
         "location": [
           "Built-In Functions",
           "Real-Valued Basic Functions",
@@ -1633,7 +1637,7 @@
         "argtypes": [
           "vector"
         ],
-        "description": "Generate a Dirichlet variate with prior counts (plus one) alpha; may only be used in generated quantities block",
+        "description": "Generate a Dirichlet variate with prior counts (plus one) alpha",
         "location": [
           "Continuous Distributions",
           "Simplex Distributions",
@@ -2308,7 +2312,7 @@
         "argtypes": [
           "real"
         ],
-        "description": "The absolute value of x; see warning at start of Section 30.5",
+        "description": "The absolute value of x",
         "location": [
           "Built-In Functions",
           "Real-Valued Basic Functions",
@@ -2346,7 +2350,7 @@
           "real",
           "real"
         ],
-        "description": "The positive difference between x and y, which is x - y if x is greater than y and 0 otherwise; see warning at start of Section 30.5",
+        "description": "The positive difference between x and y, which is x - y if x is greater than y and 0 otherwise",
         "location": [
           "Built-In Functions",
           "Real-Valued Basic Functions",
@@ -2363,7 +2367,7 @@
         "argtypes": [
           "real"
         ],
-        "description": "The floor of x, which is the largest integer less than or equal to x, converted to a real value; see warning at start of Section 30.5",
+        "description": "The floor of x, which is the largest integer less than or equal to x, converted to a real value",
         "location": [
           "Built-In Functions",
           "Real-Valued Basic Functions",
@@ -2403,7 +2407,7 @@
           "real",
           "real"
         ],
-        "description": "The maximum of x and y ; see warning at start of Section 30.5",
+        "description": "The maximum of x and y",
         "location": [
           "Built-In Functions",
           "Real-Valued Basic Functions",
@@ -2422,7 +2426,7 @@
           "real",
           "real"
         ],
-        "description": "The minimum of x and y ; see warning at start of Section 30.5",
+        "description": "The minimum of x and y",
         "location": [
           "Built-In Functions",
           "Real-Valued Basic Functions",
@@ -2441,7 +2445,7 @@
           "real",
           "real"
         ],
-        "description": "The real value remainder after dividing x by y ; see warning at start of Section 30.5",
+        "description": "The real value remainder after dividing x by y",
         "location": [
           "Built-In Functions",
           "Real-Valued Basic Functions",
@@ -2838,7 +2842,7 @@
           "real",
           "real"
         ],
-        "description": "Generate a hypergeometric variate with N trials, total success count of a, and total failure count of b; may only be used in generated quantities block",
+        "description": "Generate a hypergeometric variate with N trials, total success count of a, and total failure count of b",
         "location": [
           "Discrete Distributions",
           "Bounded Discrete Distributions",
@@ -3229,7 +3233,7 @@
           "real",
           "matrix"
         ],
-        "description": "The log of the inverse Wishart density for positive-definite matrix W given degrees of freedom nu and scale matrix Sigma",
+        "description": "The log of the inverse Wishart density for positive-definite matrix W given degrees of freedom nu and symmetric and positive-definite scale matrix matrix Sigma",
         "location": [
           "Continuous Distributions",
           "Covariance Matrix Distributions",
@@ -3248,7 +3252,7 @@
           "real",
           "matrix"
         ],
-        "description": "Generate an inverse Wishart variate with degrees of freedom nu and scale matrix Sigma; may only be used in generated quantities block",
+        "description": "Generate an inverse Wishart variate with degrees of freedom nu and symmetric and positive-definite scale matrix matrix Sigma; may only be used in generated quantities block",
         "location": [
           "Continuous Distributions",
           "Covariance Matrix Distributions",
@@ -3356,7 +3360,7 @@
           "int",
           "real"
         ],
-        "description": "Generate a LKJ random correlation matrix of order K with shape eta; may only be used in generated quantities block",
+        "description": "Generate a LKJ random correlation matrix of order K with shape eta",
         "location": [
           "Continuous Distributions",
           "Correlation Matrix Distributions",
@@ -4184,7 +4188,7 @@
         "argtypes": [
           "matrix"
         ],
-        "description": "The sample mean of the values in x; see Section 31.1 for details.",
+        "description": "The sample mean of the values in x",
         "location": [
           "Built-In Functions",
           "Matrix Operations",
@@ -4214,7 +4218,7 @@
         "argtypes": [
           "row_vector"
         ],
-        "description": "The sample mean of the values in x; see Section 31.1 for details.",
+        "description": "The sample mean of the values in x",
         "location": [
           "Built-In Functions",
           "Matrix Operations",
@@ -4229,7 +4233,7 @@
         "argtypes": [
           "vector"
         ],
-        "description": "The sample mean of the values in x; see Section 31.1 for details.",
+        "description": "The sample mean of the values in x",
         "location": [
           "Built-In Functions",
           "Matrix Operations",
@@ -4370,6 +4374,27 @@
         "return": "real"
       }
     },
+    "multi_gp_log": {
+      "vector,matrix,vector": {
+        "argnames": [
+          "y",
+          "Sigma",
+          "w"
+        ],
+        "argtypes": [
+          "vector",
+          "matrix",
+          "vector"
+        ],
+        "description": "The log of the multivariate GP density of matrix y given kernel matrix Sigma and inverses scales w",
+        "location": [
+          "Continuous Distributions",
+          "Distributions over Unbounded Vectors",
+          "Multivariate Gaussian Process Distribution    "
+        ],
+        "return": "real"
+      }
+    },
     "multi_normal_cholesky_log": {
       "vector,vector,matrix": {
         "argnames": [
@@ -4487,7 +4512,7 @@
           "vector",
           "matrix"
         ],
-        "description": "Generate a multivariate Student-t variate with degrees of freedom nu, location mu, and scale matrix Sigma; may only be used in generated quantities block",
+        "description": "Generate a multivariate Student-t variate with degrees of freedom nu, location mu, and scale matrix Sigma",
         "location": [
           "Continuous Distributions",
           "Distributions over Unbounded Vectors",
@@ -4570,6 +4595,86 @@
           "Matrix Arithmetic Operators"
         ],
         "return": "matrix"
+      }
+    },
+    "neg_binomial_2_log": {
+      "ints,reals,reals": {
+        "argnames": [
+          "y",
+          "mu",
+          "phi"
+        ],
+        "argtypes": [
+          "ints",
+          "reals",
+          "reals"
+        ],
+        "description": "The negative binomial probability mass of n given location mu and inverse scale phi.",
+        "location": [
+          "Discrete Distributions",
+          "Unbounded Discrete Distributions",
+          "Negative Binomial Distribution, alternative parameterization    "
+        ],
+        "return": "real"
+      }
+    },
+    "neg_binomial_2_log_log": {
+      "ints,reals,reals": {
+        "argnames": [
+          "y",
+          "eta",
+          "phi"
+        ],
+        "argtypes": [
+          "ints",
+          "reals",
+          "reals"
+        ],
+        "description": "The log negative binomial probability mass of n given log-location eta and inverse scale phi. This is useful for log-linear negative binomial regressions.",
+        "location": [
+          "Discrete Distributions",
+          "Unbounded Discrete Distributions",
+          "Negative Binomial Distribution, alternative parameterization    "
+        ],
+        "return": "real"
+      }
+    },
+    "neg_binomial_2_log_rng": {
+      "real,real": {
+        "argnames": [
+          "eta",
+          "phi"
+        ],
+        "argtypes": [
+          "real",
+          "real"
+        ],
+        "description": "Generate a negative binomial variate with log-location eta and inverse scale phi; may only be used in generated quantities block",
+        "location": [
+          "Discrete Distributions",
+          "Unbounded Discrete Distributions",
+          "Negative Binomial Distribution, alternative parameterization    "
+        ],
+        "return": "int"
+      }
+    },
+    "neg_binomial_2_rng": {
+      "real,real": {
+        "argnames": [
+          "mu",
+          "phi"
+        ],
+        "argtypes": [
+          "real",
+          "real"
+        ],
+        "description": "Generate a negative binomial variate with location mu and inverse scale phi; may only be used in generated quantities block",
+        "location": [
+          "Discrete Distributions",
+          "Unbounded Discrete Distributions",
+          "Negative Binomial Distribution, alternative parameterization    "
+        ],
+        "return": "int"
       }
     },
     "neg_binomial_ccdf_log": {
@@ -6400,6 +6505,40 @@
         "return": "real"
       }
     },
+    "qr_Q": {
+      "matrix": {
+        "argnames": [
+          "A"
+        ],
+        "argtypes": [
+          "matrix"
+        ],
+        "description": "The orthogonal matrix in the QR decomposition of A",
+        "location": [
+          "Built-In Functions",
+          "Matrix Operations",
+          "Linear Algebra Functions and Solvers"
+        ],
+        "return": "matrix"
+      }
+    },
+    "qr_R": {
+      "matrix": {
+        "argnames": [
+          "A"
+        ],
+        "argtypes": [
+          "matrix"
+        ],
+        "description": "The upper triangular matrix in the QR decomposition of A",
+        "location": [
+          "Built-In Functions",
+          "Matrix Operations",
+          "Linear Algebra Functions and Solvers"
+        ],
+        "return": "matrix"
+      }
+    },
     "quad_form": {
       "matrix,matrix": {
         "argnames": [
@@ -6428,6 +6567,78 @@
           "vector"
         ],
         "description": "The quadratic form, i.e., B\u2019 * A * B.",
+        "location": [
+          "Built-In Functions",
+          "Matrix Operations",
+          "Matrix Arithmetic Operators"
+        ],
+        "return": "real"
+      }
+    },
+    "quad_form_diag": {
+      "matrix,row_vector": {
+        "argnames": [
+          "m",
+          "rv"
+        ],
+        "argtypes": [
+          "matrix",
+          "row_vector"
+        ],
+        "description": "The quadratic form using the row vector rv as a diagonal matrix, i.e., diag_matrix(rv) * m * diag_matrix(rv).",
+        "location": [
+          "Built-In Functions",
+          "Matrix Operations",
+          "Matrix Arithmetic Operators"
+        ],
+        "return": "matrix"
+      },
+      "matrix,vector": {
+        "argnames": [
+          "m",
+          "v"
+        ],
+        "argtypes": [
+          "matrix",
+          "vector"
+        ],
+        "description": "The quadratic form using the column vector v as a diagonal matrix, i.e., diag_matrix(v) * m * diag_matrix(v).",
+        "location": [
+          "Built-In Functions",
+          "Matrix Operations",
+          "Matrix Arithmetic Operators"
+        ],
+        "return": "matrix"
+      }
+    },
+    "quad_form_sym": {
+      "matrix,matrix": {
+        "argnames": [
+          "A",
+          "B"
+        ],
+        "argtypes": [
+          "matrix",
+          "matrix"
+        ],
+        "description": "Similarly to quad_form, gives B\u2019 * A * B, but additionally checks if A is symmetric and ensures that the result is also symmetric.",
+        "location": [
+          "Built-In Functions",
+          "Matrix Operations",
+          "Matrix Arithmetic Operators"
+        ],
+        "return": "matrix"
+      },
+      "matrix,vector": {
+        "argnames": [
+          "A",
+          "B"
+        ],
+        "argtypes": [
+          "matrix",
+          "vector"
+        ],
+        "description": "Similarly to quad_form, gives B\u2019 * A * B, but additionally checks if A is symmetric and ensures that the result is also symmetric.",
         "location": [
           "Built-In Functions",
           "Matrix Operations",
@@ -6778,7 +6989,7 @@
         "argtypes": [
           "real"
         ],
-        "description": "The nearest integer to x, converted to a real value; see warning at start of Section 30.5",
+        "description": "The nearest integer to x, converted to a real value",
         "location": [
           "Built-In Functions",
           "Real-Valued Basic Functions",
@@ -7064,7 +7275,7 @@
         "argtypes": [
           "matrix"
         ],
-        "description": "The sample standard deviation of the values in x; see Section 31.1 for details.",
+        "description": "The sample standard deviation of the values in x",
         "location": [
           "Built-In Functions",
           "Matrix Operations",
@@ -7094,7 +7305,7 @@
         "argtypes": [
           "row_vector"
         ],
-        "description": "The sample standard deviation of the values in x; see Section 31.1 for details.",
+        "description": "The sample standard deviation of the values in x",
         "location": [
           "Built-In Functions",
           "Matrix Operations",
@@ -7109,7 +7320,7 @@
         "argtypes": [
           "vector"
         ],
-        "description": "The sample standard deviation of the values in x; see Section 31.1 for details.",
+        "description": "The sample standard deviation of the values in x",
         "location": [
           "Built-In Functions",
           "Matrix Operations",
@@ -7497,6 +7708,130 @@
           "Other functions"
         ],
         "return": "vector"
+      }
+    },
+    "sort_indices_asc": {
+      "int[]": {
+        "argnames": [
+          "v"
+        ],
+        "argtypes": [
+          "int[]"
+        ],
+        "description": "Return an array of indices between 1 and the size of v, sorted to index v in ascending order.",
+        "location": [
+          "Built-In Functions",
+          "Array Operations",
+          "Other functions"
+        ],
+        "return": "int[]"
+      },
+      "real[]": {
+        "argnames": [
+          "v"
+        ],
+        "argtypes": [
+          "real[]"
+        ],
+        "description": "Return an array of indices between 1 and the size of v, sorted to index v in ascending order.",
+        "location": [
+          "Built-In Functions",
+          "Array Operations",
+          "Other functions"
+        ],
+        "return": "int[]"
+      },
+      "row_vector": {
+        "argnames": [
+          "v"
+        ],
+        "argtypes": [
+          "row_vector"
+        ],
+        "description": "Return an array of indices between 1 and the size of v, sorted to index v in ascending order.",
+        "location": [
+          "Built-In Functions",
+          "Matrix Operations",
+          "Other functions"
+        ],
+        "return": "int[]"
+      },
+      "vector": {
+        "argnames": [
+          "v"
+        ],
+        "argtypes": [
+          "vector"
+        ],
+        "description": "Return an array of indices between 1 and the size of v, sorted to index v in ascending order.",
+        "location": [
+          "Built-In Functions",
+          "Matrix Operations",
+          "Other functions"
+        ],
+        "return": "int[]"
+      }
+    },
+    "sort_indices_desc": {
+      "int[]": {
+        "argnames": [
+          "v"
+        ],
+        "argtypes": [
+          "int[]"
+        ],
+        "description": "Return an array of indices between 1 and the size of v, sorted to index v in descending order.",
+        "location": [
+          "Built-In Functions",
+          "Array Operations",
+          "Other functions"
+        ],
+        "return": "int[]"
+      },
+      "real[]": {
+        "argnames": [
+          "v"
+        ],
+        "argtypes": [
+          "real[]"
+        ],
+        "description": "Return an array of indices between 1 and the size of v, sorted to index v in descending order.",
+        "location": [
+          "Built-In Functions",
+          "Array Operations",
+          "Other functions"
+        ],
+        "return": "int[]"
+      },
+      "row_vector": {
+        "argnames": [
+          "v"
+        ],
+        "argtypes": [
+          "row_vector"
+        ],
+        "description": "Return an array of indices between 1 and the size of v, sorted to index v in descending order.",
+        "location": [
+          "Built-In Functions",
+          "Matrix Operations",
+          "Other functions"
+        ],
+        "return": "int[]"
+      },
+      "vector": {
+        "argnames": [
+          "v"
+        ],
+        "argtypes": [
+          "vector"
+        ],
+        "description": "Return an array of indices between 1 and the size of v, sorted to index v in descending order.",
+        "location": [
+          "Built-In Functions",
+          "Matrix Operations",
+          "Other functions"
+        ],
+        "return": "int[]"
       }
     },
     "sqrt": {
@@ -7990,7 +8325,22 @@
         "return": "real"
       }
     },
-    "to_vector": {
+    "to_array_1d": {
+      "int[...]": {
+        "argnames": [
+          "a"
+        ],
+        "argtypes": [
+          "int[...]"
+        ],
+        "description": "Convert the array a (of any dimension up to 10) to a one-dimensional array in row-major order.",
+        "location": [
+          "Built-In Functions",
+          "Mixed Operations",
+          null
+        ],
+        "return": "int[]"
+      },
       "matrix": {
         "argnames": [
           "m"
@@ -7998,26 +8348,304 @@
         "argtypes": [
           "matrix"
         ],
-        "description": "Return the matrix m as a vector in column-major order.",
+        "description": "Convert the matrix m to a one-dimensional array in column-major order.",
         "location": [
           "Built-In Functions",
-          "Matrix Operations",
-          "Broadcast Functions"
+          "Mixed Operations",
+          null
+        ],
+        "return": "real[]"
+      },
+      "real[...]": {
+        "argnames": [
+          "a"
+        ],
+        "argtypes": [
+          "real[...]"
+        ],
+        "description": "Convert the array a (of any dimension up to 10) to a one-dimensional array in row-major order.",
+        "location": [
+          "Built-In Functions",
+          "Mixed Operations",
+          null
+        ],
+        "return": "real[]"
+      },
+      "row_vector": {
+        "argnames": [
+          "v"
+        ],
+        "argtypes": [
+          "row_vector"
+        ],
+        "description": "Convert the row vector v to a one-dimensional array.",
+        "location": [
+          "Built-In Functions",
+          "Mixed Operations",
+          null
+        ],
+        "return": "real[]"
+      },
+      "vector": {
+        "argnames": [
+          "v"
+        ],
+        "argtypes": [
+          "vector"
+        ],
+        "description": "Convert the column vector v to a one-dimensional array.",
+        "location": [
+          "Built-In Functions",
+          "Mixed Operations",
+          null
+        ],
+        "return": "real[]"
+      }
+    },
+    "to_array_2d": {
+      "matrix": {
+        "argnames": [
+          "m"
+        ],
+        "argtypes": [
+          "matrix"
+        ],
+        "description": "Convert the matrix m to a two dimensional array with the same dimensions and indexing order.",
+        "location": [
+          "Built-In Functions",
+          "Mixed Operations",
+          null
+        ],
+        "return": "real[,]"
+      }
+    },
+    "to_matrix": {
+      "int[,]": {
+        "argnames": [
+          "a"
+        ],
+        "argtypes": [
+          "int[,]"
+        ],
+        "description": "Convert the two dimensional array a to a matrix with the same dimensions and indexing order.",
+        "location": [
+          "Built-In Functions",
+          "Mixed Operations",
+          null
+        ],
+        "return": "matrix"
+      },
+      "matrix": {
+        "argnames": [
+          "m"
+        ],
+        "argtypes": [
+          "matrix"
+        ],
+        "description": "Return the matrix m itself.",
+        "location": [
+          "Built-In Functions",
+          "Mixed Operations",
+          null
+        ],
+        "return": "matrix"
+      },
+      "real[,]": {
+        "argnames": [
+          "a"
+        ],
+        "argtypes": [
+          "real[,]"
+        ],
+        "description": "Convert the two dimensional array a to a matrix with the same dimensions and indexing order.",
+        "location": [
+          "Built-In Functions",
+          "Mixed Operations",
+          null
+        ],
+        "return": "matrix"
+      },
+      "row_vector": {
+        "argnames": [
+          "v"
+        ],
+        "argtypes": [
+          "row_vector"
+        ],
+        "description": "Convert the row vector v to a 1 by size(v) matrix.",
+        "location": [
+          "Built-In Functions",
+          "Mixed Operations",
+          null
+        ],
+        "return": "matrix"
+      },
+      "vector": {
+        "argnames": [
+          "v"
+        ],
+        "argtypes": [
+          "vector"
+        ],
+        "description": "Convert the column vector v to a size(v) by 1 matrix.",
+        "location": [
+          "Built-In Functions",
+          "Mixed Operations",
+          null
+        ],
+        "return": "matrix"
+      }
+    },
+    "to_row_vector": {
+      "int[]": {
+        "argnames": [
+          "a"
+        ],
+        "argtypes": [
+          "int[]"
+        ],
+        "description": "Convert the one-dimensional array a to a row vector.",
+        "location": [
+          "Built-In Functions",
+          "Mixed Operations",
+          null
+        ],
+        "return": "row_vector"
+      },
+      "matrix": {
+        "argnames": [
+          "m"
+        ],
+        "argtypes": [
+          "matrix"
+        ],
+        "description": "Convert the matrix m to a row vector in column-major order.",
+        "location": [
+          "Built-In Functions",
+          "Mixed Operations",
+          null
+        ],
+        "return": "row_vector"
+      },
+      "real[]": {
+        "argnames": [
+          "a"
+        ],
+        "argtypes": [
+          "real[]"
+        ],
+        "description": "Convert the one-dimensional array a to a row vector.",
+        "location": [
+          "Built-In Functions",
+          "Mixed Operations",
+          null
+        ],
+        "return": "row_vector"
+      },
+      "row_vector": {
+        "argnames": [
+          "v"
+        ],
+        "argtypes": [
+          "row_vector"
+        ],
+        "description": "Return the row vector v itself.",
+        "location": [
+          "Built-In Functions",
+          "Mixed Operations",
+          null
+        ],
+        "return": "row_vector"
+      },
+      "vector": {
+        "argnames": [
+          "v"
+        ],
+        "argtypes": [
+          "vector"
+        ],
+        "description": "Convert the column vector v to a row vector.",
+        "location": [
+          "Built-In Functions",
+          "Mixed Operations",
+          null
+        ],
+        "return": "row_vector"
+      }
+    },
+    "to_vector": {
+      "int[]": {
+        "argnames": [
+          "a"
+        ],
+        "argtypes": [
+          "int[]"
+        ],
+        "description": "Convert the one-dimensional integer array a to a column vector.",
+        "location": [
+          "Built-In Functions",
+          "Mixed Operations",
+          null
+        ],
+        "return": "vector"
+      },
+      "matrix": {
+        "argnames": [
+          "m"
+        ],
+        "argtypes": [
+          "matrix"
+        ],
+        "description": "Convert the matrix m to a column vector in column-major order.",
+        "location": [
+          "Built-In Functions",
+          "Mixed Operations",
+          null
+        ],
+        "return": "vector"
+      },
+      "real[]": {
+        "argnames": [
+          "a"
+        ],
+        "argtypes": [
+          "real[]"
+        ],
+        "description": "Convert the one-dimensional array a to a column vector.",
+        "location": [
+          "Built-In Functions",
+          "Mixed Operations",
+          null
         ],
         "return": "vector"
       },
       "row_vector": {
         "argnames": [
-          "m"
+          "v"
         ],
         "argtypes": [
           "row_vector"
         ],
-        "description": "Return the row vector m as a vector in column-major order.",
+        "description": "Convert the row vector v to a column vector.",
         "location": [
           "Built-In Functions",
-          "Matrix Operations",
-          "Broadcast Functions"
+          "Mixed Operations",
+          null
+        ],
+        "return": "vector"
+      },
+      "vector": {
+        "argnames": [
+          "v"
+        ],
+        "argtypes": [
+          "vector"
+        ],
+        "description": "Return the column vector v itself.",
+        "location": [
+          "Built-In Functions",
+          "Mixed Operations",
+          null
         ],
         "return": "vector"
       }
@@ -8104,7 +8732,7 @@
         "argtypes": [
           "real"
         ],
-        "description": "The integer nearest to but no larger in magnitude than x, converted to a double value; see warning at start of Section 30.5",
+        "description": "The integer nearest to but no larger in magnitude than x, converted to a double value",
         "location": [
           "Built-In Functions",
           "Real-Valued Basic Functions",
@@ -8224,7 +8852,7 @@
         "argtypes": [
           "matrix"
         ],
-        "description": "The sample variance of the values in x; see Section 31.1 for details.",
+        "description": "The sample variance of the values in x",
         "location": [
           "Built-In Functions",
           "Matrix Operations",
@@ -8254,7 +8882,7 @@
         "argtypes": [
           "row_vector"
         ],
-        "description": "The sample variance of the values in x; see Section 31.1 for details.",
+        "description": "The sample variance of the values in x",
         "location": [
           "Built-In Functions",
           "Matrix Operations",
@@ -8269,7 +8897,7 @@
         "argtypes": [
           "vector"
         ],
-        "description": "The sample variance of the values in x; see Section 31.1 for details.",
+        "description": "The sample variance of the values in x",
         "location": [
           "Built-In Functions",
           "Matrix Operations",
@@ -8449,7 +9077,9 @@
     "while",
     "print",
     "if",
-    "else"
+    "else",
+    "void",
+    "return"
   ],
   "operators": [
     "||",
@@ -8470,7 +9100,8 @@
     "!",
     "-",
     "+",
-    "'"
+    "'",
+    "^"
   ],
   "pseudo_keywords": [
     "lp__"
@@ -8485,7 +9116,9 @@
     "then",
     "else",
     "true",
-    "false"
+    "false",
+    "fvar",
+    "var"
   ],
   "types": [
     "int",
