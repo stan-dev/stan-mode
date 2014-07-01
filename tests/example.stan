@@ -39,7 +39,7 @@ transformed data {
   int thud;
   row_vector grault2;
   matrix qux2;
-  
+
   // all floating point literals should be recognized
   // all operators should be recognized
   // paren should be recognized;

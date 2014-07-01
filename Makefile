@@ -18,9 +18,15 @@ ac-dict/stan-mode: scripts/create_ac_dict.py stan_lang.json
 	$(PYTHON) $^ $@
 
 snippets/stan-mode/.yas-compiled-snippets.el: scripts/create_snippets.py $(yasnippets) stan_lang.json
-	$(PYTHON) $< stan_lang.json snippets
-	$(EMACS) --batch -L lib -l yasnippet --eval '(yas-compile-directory "snippets")'
+	$(PYTHON) $< stan_lang.json snippets-src
+	$(EMACS) --batch -L lib -l yasnippet --eval '(yas-compile-directory "snippets-src")'
 	# better for version control
+	-mkdir -p snippets/stan-mode/
+	cp snippets-src/stan-mode/.yas-compiled-snippets.el snippets/stan-mode/
+	cp snippets-src/stan-mode/.yas-make-groups snippets/stan-mode/
+	cp snippets-src/stan-mode/.yas-parents snippets/stan-mode/
 	$(SED) -i '/^;;; Do not edit!/d' $@
+
+snippets: snippets/stan-mode/.yas-compiled-snippets.el
 
 .PHONY: snippets
