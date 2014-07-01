@@ -8,7 +8,7 @@
 ;;   Daniel Lee <bearlee@alum.mit.edu>
 ;; URL: http://github.com/stan-dev/stan-mode
 ;; Keywords: languanges
-;; Version: 2.1.3
+;; Version: 2.2.0
 ;; Created: 2012-08-18
 
 ;; This file is not part of GNU Emacs.
@@ -62,10 +62,10 @@
   :prefix "stan-"
   :group 'languages)
 
-(defconst stan-mode-version "2.1.1"
+(defconst stan-mode-version "2.2.0"
   "stan-mode version number")
 
-(defconst stan-language-version "2.2.0"
+(defconst stan-language-version "2.3.0"
   "Stan language version supported")
 
 (defun stan-version ()
@@ -394,7 +394,7 @@ This can also be just the name of the stanc executable if it is on the PATH.
   `((,stan-blocks-regexp 1 font-lock-keyword-face)
     (,stan-assign-regexp . font-lock-reference-face)
     ;; Stan types. Look for it to come after the start of a line or semicolon.
-    ( ,(concat "\\(^\\|;\\)\\s-*" (regexp-opt stan-types-list 'words)) 2 font-lock-type-face)
+    ( ,(stan-regexp-opt stan-types-list) . font-lock-type-face)
     ;; keywords
     (,(stan-regexp-opt stan-keywords-list) . font-lock-keyword-face)
     ;; T
@@ -474,9 +474,6 @@ See `compilation-error-regexp-alist' for help on their format.")
   (before flymake-force-check-was-interrupted)
   (setq flymake-check-was-interrupted t))
 (ad-activate 'flymake-post-syntax-check)
-
-(add-hook 'stan-mode-hook
-	  (lambda () (flymake-mode 1)))
 
 ;;; auto-complete mode 
 

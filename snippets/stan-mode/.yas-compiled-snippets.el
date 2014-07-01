@@ -23,6 +23,9 @@
 		       ("for" "for (${1:i} in ${2:1}:${3:N}) {\n    $0\n}\n" "for (...; ...; ...) { ... }" nil
 			("Structure")
 			nil nil nil nil)
+		       ("functions" "functions {\n  $0\n}\n" "functions {...}" nil
+			("Blocks")
+			nil nil nil nil)
 		       ("generated" "generated quantities {\n  $0\n}\n" "generated quantities {...}" nil
 			("Blocks")
 			nil nil nil nil)
@@ -166,6 +169,9 @@
 		       ("lognormal" "lognormal(${1:reals mu}, ${2:reals sigma})$0" "lognormal(reals, reals)" nil
 			("Distributions" "Continuous")
 			nil nil nil nil)
+		       ("multi_gp" "multi_gp(${1:matrix Sigma}, ${2:vector w})$0" "multi_gp(matrix, vector)" nil
+			("Distributions" "Continuous")
+			nil nil nil nil)
 		       ("multi_normal_cholesky" "multi_normal_cholesky(${1:vector mu}, ${2:matrix L})$0" "multi_normal_cholesky(vector, matrix)" nil
 			("Distributions" "Continuous")
 			nil nil nil nil)
@@ -179,6 +185,12 @@
 			("Distributions" "Continuous")
 			nil nil nil nil)
 		       ("multinomial" "multinomial(${1:vector theta}, ${2:int N})$0" "multinomial(vector, int)" nil
+			("Distributions" "Discrete")
+			nil nil nil nil)
+		       ("neg_binomial_2" "neg_binomial_2(${1:reals mu}, ${2:reals phi})$0" "neg_binomial_2(reals, reals)" nil
+			("Distributions" "Discrete")
+			nil nil nil nil)
+		       ("neg_binomial_2_log" "neg_binomial_2_log(${1:reals eta}, ${2:reals phi})$0" "neg_binomial_2_log(reals, reals)" nil
 			("Distributions" "Discrete")
 			nil nil nil nil)
 		       ("neg_binomial" "neg_binomial(${1:reals alpha}, ${2:reals beta})$0" "neg_binomial(reals, reals)" nil
@@ -807,7 +819,7 @@
 		       ("log_sum_exp" "log_sum_exp(${1:real x}, ${2:real y})$0" "log_sum_exp(real, real)" nil
 			("Functions" "Built-In Functions" "Real-Valued Basic Functions" "Composed Functions")
 			nil nil nil nil)
-		       ("log_sum_exp" "log_sum_exp(${1:real x[]})$0" "log_sum_exp(real)" nil
+		       ("log_sum_exp" "log_sum_exp(${1:real x})$0" "log_sum_exp(real)" nil
 			("Functions" "Built-In Functions" "Array Operations" "Reductions")
 			nil nil nil nil)
 		       ("log_sum_exp" "log_sum_exp(${1:row_vector x})$0" "log_sum_exp(row_vector)" nil
@@ -855,13 +867,13 @@
 		       ("max" "max(${1:int x}, ${2:int y})$0" "max(int, int)" nil
 			("Functions" "Built-In Functions" "Integer-Valued Basic Functions" "Bound Functions")
 			nil nil nil nil)
-		       ("max" "max(${1:int x[]})$0" "max(int)" nil
+		       ("max" "max(${1:int x})$0" "max(int)" nil
 			("Functions" "Built-In Functions" "Array Operations" "Reductions")
 			nil nil nil nil)
 		       ("max" "max(${1:matrix x})$0" "max(matrix)" nil
 			("Functions" "Built-In Functions" "Matrix Operations" "Reductions")
 			nil nil nil nil)
-		       ("max" "max(${1:real x[]})$0" "max(real)" nil
+		       ("max" "max(${1:real x})$0" "max(real)" nil
 			("Functions" "Built-In Functions" "Array Operations" "Reductions")
 			nil nil nil nil)
 		       ("max" "max(${1:row_vector x})$0" "max(row_vector)" nil
@@ -885,7 +897,7 @@
 		       ("mean" "mean(${1:matrix x})$0" "mean(matrix)" nil
 			("Functions" "Built-In Functions" "Matrix Operations" "Reductions")
 			nil nil nil nil)
-		       ("mean" "mean(${1:real x[]})$0" "mean(real)" nil
+		       ("mean" "mean(${1:real x})$0" "mean(real)" nil
 			("Functions" "Built-In Functions" "Array Operations" "Reductions")
 			nil nil nil nil)
 		       ("mean" "mean(${1:row_vector x})$0" "mean(row_vector)" nil
@@ -897,13 +909,13 @@
 		       ("min" "min(${1:int x}, ${2:int y})$0" "min(int, int)" nil
 			("Functions" "Built-In Functions" "Integer-Valued Basic Functions" "Bound Functions")
 			nil nil nil nil)
-		       ("min" "min(${1:int x[]})$0" "min(int)" nil
+		       ("min" "min(${1:int x})$0" "min(int)" nil
 			("Functions" "Built-In Functions" "Array Operations" "Reductions")
 			nil nil nil nil)
 		       ("min" "min(${1:matrix x})$0" "min(matrix)" nil
 			("Functions" "Built-In Functions" "Matrix Operations" "Reductions")
 			nil nil nil nil)
-		       ("min" "min(${1:real x[]})$0" "min(real)" nil
+		       ("min" "min(${1:real x})$0" "min(real)" nil
 			("Functions" "Built-In Functions" "Array Operations" "Reductions")
 			nil nil nil nil)
 		       ("min" "min(${1:row_vector x})$0" "min(row_vector)" nil
@@ -917,6 +929,9 @@
 			nil nil nil nil)
 		       ("modified_bessel_second_kind" "modified_bessel_second_kind(${1:int v}, ${2:real z})$0" "modified_bessel_second_kind(int, real)" nil
 			("Functions" "Built-In Functions" "Real-Valued Basic Functions" "Combinatorial Functions")
+			nil nil nil nil)
+		       ("multi_gp_log" "multi_gp_log(${1:vector y}, ${2:matrix Sigma}, ${3:vector w})$0" "multi_gp_log(vector, matrix, vector)" nil
+			("Functions" "Continuous Distributions" "Distributions over Unbounded Vectors" "Multivariate Gaussian Process Distribution    ")
 			nil nil nil nil)
 		       ("multi_normal_cholesky_log" "multi_normal_cholesky_log(${1:vector y}, ${2:vector mu}, ${3:matrix L})$0" "multi_normal_cholesky_log(vector, vector, matrix)" nil
 			("Functions" "Continuous Distributions" "Distributions over Unbounded Vectors" "Multivariate Normal Distribution, Cholesky Parameterization")
@@ -947,6 +962,18 @@
 			nil nil nil nil)
 		       ("multiply_lower_tri_self_transpose" "multiply_lower_tri_self_transpose(${1:matrix x})$0" "multiply_lower_tri_self_transpose(matrix)" nil
 			("Functions" "Built-In Functions" "Matrix Operations" "Matrix Arithmetic Operators")
+			nil nil nil nil)
+		       ("neg_binomial_2_log" "neg_binomial_2_log(${1:ints y}, ${2:reals mu}, ${3:reals phi})$0" "neg_binomial_2_log(ints, reals, reals)" nil
+			("Functions" "Discrete Distributions" "Unbounded Discrete Distributions" "Negative Binomial Distribution, alternative parameterization    ")
+			nil nil nil nil)
+		       ("neg_binomial_2_log_log" "neg_binomial_2_log_log(${1:ints y}, ${2:reals eta}, ${3:reals phi})$0" "neg_binomial_2_log_log(ints, reals, reals)" nil
+			("Functions" "Discrete Distributions" "Unbounded Discrete Distributions" "Negative Binomial Distribution, alternative parameterization    ")
+			nil nil nil nil)
+		       ("neg_binomial_2_log_rng" "neg_binomial_2_log_rng(${1:real eta}, ${2:real phi})$0" "neg_binomial_2_log_rng(real, real)" nil
+			("Functions" "Discrete Distributions" "Unbounded Discrete Distributions" "Negative Binomial Distribution, alternative parameterization    ")
+			nil nil nil nil)
+		       ("neg_binomial_2_rng" "neg_binomial_2_rng(${1:real mu}, ${2:real phi})$0" "neg_binomial_2_rng(real, real)" nil
+			("Functions" "Discrete Distributions" "Unbounded Discrete Distributions" "Negative Binomial Distribution, alternative parameterization    ")
 			nil nil nil nil)
 		       ("neg_binomial_ccdf_log" "neg_binomial_ccdf_log(${1:ints n}, ${2:reals alpha}, ${3:reals beta})$0" "neg_binomial_ccdf_log(ints, reals, reals)" nil
 			("Functions" "Discrete Distributions" "Unbounded Discrete Distributions" "Negative Binomial Distribution")
@@ -1035,13 +1062,13 @@
 		       ("pow" "pow(${1:real x}, ${2:real y})$0" "pow(real, real)" nil
 			("Functions" "Built-In Functions" "Real-Valued Basic Functions" "Power and Logarithm Functions")
 			nil nil nil nil)
-		       ("prod" "prod(${1:int x[]})$0" "prod(int)" nil
+		       ("prod" "prod(${1:int x})$0" "prod(int)" nil
 			("Functions" "Built-In Functions" "Array Operations" "Reductions")
 			nil nil nil nil)
 		       ("prod" "prod(${1:matrix x})$0" "prod(matrix)" nil
 			("Functions" "Built-In Functions" "Matrix Operations" "Reductions")
 			nil nil nil nil)
-		       ("prod" "prod(${1:real x[]})$0" "prod(real)" nil
+		       ("prod" "prod(${1:real x})$0" "prod(real)" nil
 			("Functions" "Built-In Functions" "Array Operations" "Reductions")
 			nil nil nil nil)
 		       ("prod" "prod(${1:row_vector x})$0" "prod(row_vector)" nil
@@ -1050,10 +1077,28 @@
 		       ("prod" "prod(${1:vector x})$0" "prod(vector)" nil
 			("Functions" "Built-In Functions" "Matrix Operations" "Reductions")
 			nil nil nil nil)
+		       ("qr_Q" "qr_Q(${1:matrix A})$0" "qr_Q(matrix)" nil
+			("Functions" "Built-In Functions" "Matrix Operations" "Linear Algebra Functions and Solvers")
+			nil nil nil nil)
+		       ("qr_R" "qr_R(${1:matrix A})$0" "qr_R(matrix)" nil
+			("Functions" "Built-In Functions" "Matrix Operations" "Linear Algebra Functions and Solvers")
+			nil nil nil nil)
 		       ("quad_form" "quad_form(${1:matrix A}, ${2:matrix B})$0" "quad_form(matrix, matrix)" nil
 			("Functions" "Built-In Functions" "Matrix Operations" "Matrix Arithmetic Operators")
 			nil nil nil nil)
 		       ("quad_form" "quad_form(${1:matrix A}, ${2:vector B})$0" "quad_form(matrix, vector)" nil
+			("Functions" "Built-In Functions" "Matrix Operations" "Matrix Arithmetic Operators")
+			nil nil nil nil)
+		       ("quad_form_diag" "quad_form_diag(${1:matrix m}, ${2:row_vector rv})$0" "quad_form_diag(matrix, row_vector)" nil
+			("Functions" "Built-In Functions" "Matrix Operations" "Matrix Arithmetic Operators")
+			nil nil nil nil)
+		       ("quad_form_diag" "quad_form_diag(${1:matrix m}, ${2:vector v})$0" "quad_form_diag(matrix, vector)" nil
+			("Functions" "Built-In Functions" "Matrix Operations" "Matrix Arithmetic Operators")
+			nil nil nil nil)
+		       ("quad_form_sym" "quad_form_sym(${1:matrix A}, ${2:matrix B})$0" "quad_form_sym(matrix, matrix)" nil
+			("Functions" "Built-In Functions" "Matrix Operations" "Matrix Arithmetic Operators")
+			nil nil nil nil)
+		       ("quad_form_sym" "quad_form_sym(${1:matrix A}, ${2:vector B})$0" "quad_form_sym(matrix, vector)" nil
 			("Functions" "Built-In Functions" "Matrix Operations" "Matrix Arithmetic Operators")
 			nil nil nil nil)
 		       ("rank" "rank(${1:int[] v}, ${2:int s})$0" "rank(int[], int)" nil
@@ -1161,7 +1206,7 @@
 		       ("sd" "sd(${1:matrix x})$0" "sd(matrix)" nil
 			("Functions" "Built-In Functions" "Matrix Operations" "Reductions")
 			nil nil nil nil)
-		       ("sd" "sd(${1:real x[]})$0" "sd(real)" nil
+		       ("sd" "sd(${1:real x})$0" "sd(real)" nil
 			("Functions" "Built-In Functions" "Array Operations" "Reductions")
 			nil nil nil nil)
 		       ("sd" "sd(${1:row_vector x})$0" "sd(row_vector)" nil
@@ -1233,6 +1278,30 @@
 		       ("sort_desc" "sort_desc(${1:vector v})$0" "sort_desc(vector)" nil
 			("Functions" "Built-In Functions" "Matrix Operations" "Other functions")
 			nil nil nil nil)
+		       ("sort_indices_asc" "sort_indices_asc(${1:int[] v})$0" "sort_indices_asc(int[])" nil
+			("Functions" "Built-In Functions" "Array Operations" "Other functions")
+			nil nil nil nil)
+		       ("sort_indices_asc" "sort_indices_asc(${1:real[] v})$0" "sort_indices_asc(real[])" nil
+			("Functions" "Built-In Functions" "Array Operations" "Other functions")
+			nil nil nil nil)
+		       ("sort_indices_asc" "sort_indices_asc(${1:row_vector v})$0" "sort_indices_asc(row_vector)" nil
+			("Functions" "Built-In Functions" "Matrix Operations" "Other functions")
+			nil nil nil nil)
+		       ("sort_indices_asc" "sort_indices_asc(${1:vector v})$0" "sort_indices_asc(vector)" nil
+			("Functions" "Built-In Functions" "Matrix Operations" "Other functions")
+			nil nil nil nil)
+		       ("sort_indices_desc" "sort_indices_desc(${1:int[] v})$0" "sort_indices_desc(int[])" nil
+			("Functions" "Built-In Functions" "Array Operations" "Other functions")
+			nil nil nil nil)
+		       ("sort_indices_desc" "sort_indices_desc(${1:real[] v})$0" "sort_indices_desc(real[])" nil
+			("Functions" "Built-In Functions" "Array Operations" "Other functions")
+			nil nil nil nil)
+		       ("sort_indices_desc" "sort_indices_desc(${1:row_vector v})$0" "sort_indices_desc(row_vector)" nil
+			("Functions" "Built-In Functions" "Matrix Operations" "Other functions")
+			nil nil nil nil)
+		       ("sort_indices_desc" "sort_indices_desc(${1:vector v})$0" "sort_indices_desc(vector)" nil
+			("Functions" "Built-In Functions" "Matrix Operations" "Other functions")
+			nil nil nil nil)
 		       ("sqrt" "sqrt(${1:real x})$0" "sqrt(real)" nil
 			("Functions" "Built-In Functions" "Real-Valued Basic Functions" "Power and Logarithm Functions")
 			nil nil nil nil)
@@ -1242,16 +1311,16 @@
 		       ("square" "square(${1:real x})$0" "square(real)" nil
 			("Functions" "Built-In Functions" "Real-Valued Basic Functions" "Power and Logarithm Functions")
 			nil nil nil nil)
-		       ("squared_distance" "squared_distance(${1:row_vector x}, ${2:row_vector y[]})$0" "squared_distance(row_vector, row_vector)" nil
+		       ("squared_distance" "squared_distance(${1:row_vector x}, ${2:row_vector y})$0" "squared_distance(row_vector, row_vector)" nil
 			("Functions" "Built-In Functions" "Array Operations" "Reductions")
 			nil nil nil nil)
-		       ("squared_distance" "squared_distance(${1:row_vector x}, ${2:vector y[]})$0" "squared_distance(row_vector, vector)" nil
+		       ("squared_distance" "squared_distance(${1:row_vector x}, ${2:vector y})$0" "squared_distance(row_vector, vector)" nil
 			("Functions" "Built-In Functions" "Array Operations" "Reductions")
 			nil nil nil nil)
-		       ("squared_distance" "squared_distance(${1:vector x}, ${2:row_vector y[]})$0" "squared_distance(vector, row_vector)" nil
+		       ("squared_distance" "squared_distance(${1:vector x}, ${2:row_vector y})$0" "squared_distance(vector, row_vector)" nil
 			("Functions" "Built-In Functions" "Array Operations" "Reductions")
 			nil nil nil nil)
-		       ("squared_distance" "squared_distance(${1:vector x}, ${2:vector y[]})$0" "squared_distance(vector, vector)" nil
+		       ("squared_distance" "squared_distance(${1:vector x}, ${2:vector y})$0" "squared_distance(vector, vector)" nil
 			("Functions" "Built-In Functions" "Array Operations" "Reductions")
 			nil nil nil nil)
 		       ("step" "step(${1:real x})$0" "step(real)" nil
@@ -1278,13 +1347,13 @@
 		       ("sub_row" "sub_row(${1:matrix x}, ${2:int i}, ${3:int j}, ${4:int n})$0" "sub_row(matrix, int, int, int)" nil
 			("Functions" "Built-In Functions" "Matrix Operations" "Slice and Package Functions")
 			nil nil nil nil)
-		       ("sum" "sum(${1:int x[]})$0" "sum(int)" nil
+		       ("sum" "sum(${1:int x})$0" "sum(int)" nil
 			("Functions" "Built-In Functions" "Array Operations" "Reductions")
 			nil nil nil nil)
 		       ("sum" "sum(${1:matrix x})$0" "sum(matrix)" nil
 			("Functions" "Built-In Functions" "Matrix Operations" "Reductions")
 			nil nil nil nil)
-		       ("sum" "sum(${1:real x[]})$0" "sum(real)" nil
+		       ("sum" "sum(${1:real x})$0" "sum(real)" nil
 			("Functions" "Built-In Functions" "Array Operations" "Reductions")
 			nil nil nil nil)
 		       ("sum" "sum(${1:row_vector x})$0" "sum(row_vector)" nil
@@ -1314,11 +1383,68 @@
 		       ("tgamma" "tgamma(${1:real x})$0" "tgamma(real)" nil
 			("Functions" "Built-In Functions" "Real-Valued Basic Functions" "Combinatorial Functions")
 			nil nil nil nil)
-		       ("to_vector" "to_vector(${1:matrix m})$0" "to_vector(matrix)" nil
-			("Functions" "Built-In Functions" "Matrix Operations" "Broadcast Functions")
+		       ("to_array_1d" "to_array_1d(${1:int[...] a})$0" "to_array_1d(int[...])" nil
+			("Functions" "Built-In Functions" "Mixed Operations")
 			nil nil nil nil)
-		       ("to_vector" "to_vector(${1:row_vector m})$0" "to_vector(row_vector)" nil
-			("Functions" "Built-In Functions" "Matrix Operations" "Broadcast Functions")
+		       ("to_array_1d" "to_array_1d(${1:matrix m})$0" "to_array_1d(matrix)" nil
+			("Functions" "Built-In Functions" "Mixed Operations")
+			nil nil nil nil)
+		       ("to_array_1d" "to_array_1d(${1:real[...] a})$0" "to_array_1d(real[...])" nil
+			("Functions" "Built-In Functions" "Mixed Operations")
+			nil nil nil nil)
+		       ("to_array_1d" "to_array_1d(${1:row_vector v})$0" "to_array_1d(row_vector)" nil
+			("Functions" "Built-In Functions" "Mixed Operations")
+			nil nil nil nil)
+		       ("to_array_1d" "to_array_1d(${1:vector v})$0" "to_array_1d(vector)" nil
+			("Functions" "Built-In Functions" "Mixed Operations")
+			nil nil nil nil)
+		       ("to_array_2d" "to_array_2d(${1:matrix m})$0" "to_array_2d(matrix)" nil
+			("Functions" "Built-In Functions" "Mixed Operations")
+			nil nil nil nil)
+		       ("to_matrix" "to_matrix(${1:int[,] a})$0" "to_matrix(int[,])" nil
+			("Functions" "Built-In Functions" "Mixed Operations")
+			nil nil nil nil)
+		       ("to_matrix" "to_matrix(${1:matrix m})$0" "to_matrix(matrix)" nil
+			("Functions" "Built-In Functions" "Mixed Operations")
+			nil nil nil nil)
+		       ("to_matrix" "to_matrix(${1:real[,] a})$0" "to_matrix(real[,])" nil
+			("Functions" "Built-In Functions" "Mixed Operations")
+			nil nil nil nil)
+		       ("to_matrix" "to_matrix(${1:row_vector v})$0" "to_matrix(row_vector)" nil
+			("Functions" "Built-In Functions" "Mixed Operations")
+			nil nil nil nil)
+		       ("to_matrix" "to_matrix(${1:vector v})$0" "to_matrix(vector)" nil
+			("Functions" "Built-In Functions" "Mixed Operations")
+			nil nil nil nil)
+		       ("to_row_vector" "to_row_vector(${1:int[] a})$0" "to_row_vector(int[])" nil
+			("Functions" "Built-In Functions" "Mixed Operations")
+			nil nil nil nil)
+		       ("to_row_vector" "to_row_vector(${1:matrix m})$0" "to_row_vector(matrix)" nil
+			("Functions" "Built-In Functions" "Mixed Operations")
+			nil nil nil nil)
+		       ("to_row_vector" "to_row_vector(${1:real[] a})$0" "to_row_vector(real[])" nil
+			("Functions" "Built-In Functions" "Mixed Operations")
+			nil nil nil nil)
+		       ("to_row_vector" "to_row_vector(${1:row_vector v})$0" "to_row_vector(row_vector)" nil
+			("Functions" "Built-In Functions" "Mixed Operations")
+			nil nil nil nil)
+		       ("to_row_vector" "to_row_vector(${1:vector v})$0" "to_row_vector(vector)" nil
+			("Functions" "Built-In Functions" "Mixed Operations")
+			nil nil nil nil)
+		       ("to_vector" "to_vector(${1:int[] a})$0" "to_vector(int[])" nil
+			("Functions" "Built-In Functions" "Mixed Operations")
+			nil nil nil nil)
+		       ("to_vector" "to_vector(${1:matrix m})$0" "to_vector(matrix)" nil
+			("Functions" "Built-In Functions" "Mixed Operations")
+			nil nil nil nil)
+		       ("to_vector" "to_vector(${1:real[] a})$0" "to_vector(real[])" nil
+			("Functions" "Built-In Functions" "Mixed Operations")
+			nil nil nil nil)
+		       ("to_vector" "to_vector(${1:row_vector v})$0" "to_vector(row_vector)" nil
+			("Functions" "Built-In Functions" "Mixed Operations")
+			nil nil nil nil)
+		       ("to_vector" "to_vector(${1:vector v})$0" "to_vector(vector)" nil
+			("Functions" "Built-In Functions" "Mixed Operations")
 			nil nil nil nil)
 		       ("trace" "trace(${1:matrix A})$0" "trace(matrix)" nil
 			("Functions" "Built-In Functions" "Matrix Operations" "Linear Algebra Functions and Solvers")
@@ -1353,7 +1479,7 @@
 		       ("variance" "variance(${1:matrix x})$0" "variance(matrix)" nil
 			("Functions" "Built-In Functions" "Matrix Operations" "Reductions")
 			nil nil nil nil)
-		       ("variance" "variance(${1:real x[]})$0" "variance(real)" nil
+		       ("variance" "variance(${1:real x})$0" "variance(real)" nil
 			("Functions" "Built-In Functions" "Array Operations" "Reductions")
 			nil nil nil nil)
 		       ("variance" "variance(${1:row_vector x})$0" "variance(row_vector)" nil

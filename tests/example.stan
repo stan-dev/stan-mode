@@ -1,10 +1,18 @@
 /* 
-A file for testing Stan syntax highlighting. 
+   A file for testing Stan syntax highlighting. 
 
-It is not a real model and will not compile
+   It is not a real model and will not compile
 */
 # another comment
 // also a comment
+functions {
+  real entropy(vector theta) {
+    return sum(theta .* log(theta));
+  }
+  void whatever(real a) {
+    increment_log_prob(1);
+  }
+}
 data {
   // valid name
   int abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_abc;
