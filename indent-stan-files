@@ -1,0 +1,44 @@
+#!/bin/bash
+## Assumes that the stan-mode.el is in the same directory as indent-stan-file.sh
+## The framework for this code is taken from http://www.cslab.pepperdine.edu/warford/BatchIndentationEmacs.html
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+indent-stan () {
+    emacs -batch \
+	  -L $DIR \
+	  --eval="(require 'stan-mode)" \
+	  -f flymake-mode-off \
+	  $1 \
+	  -f stan-mode \
+	  --eval="(indent-region (point-min) (point-max))" \
+	  -f save-buffer 
+}
+
+if [ $# -eq 0 ]
+then
+   echo "indent-stan-files requires at least one argument." 1>&2
+   echo "Usage: indent-stan-files files-to-indent" 1>&2
+   exit 1
+fi
+while [ $# -ge 1 ]
+do
+   if [ -d $1 ]
+   then
+      echo "Argument of indent-stan-files $1 cannot be a directory." 1>&2
+      exit 1
+   fi
+   # Check for existence of file:
+   ls $1 2> /dev/null | grep $1 > /dev/null
+   if [ $? != 0 ]
+   then
+      echo "indent-stan-files: $1 not found." 1>&2
+      exit 1
+   fi
+   echo "Indenting $1 with emacs in batch mode"
+   indent-stan $1
+   echo
+   shift 1
+done
+exit 0
+
+
