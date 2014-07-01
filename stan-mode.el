@@ -387,8 +387,13 @@ This can also be just the name of the stanc executable if it is on the PATH.
 
 (defvar stan-var-decl-regexp
   (concat (stan-regexp-opt stan-types-list)
-          "\\(?:<.*?>\\)?\\(?:\\[.*?\\]\\)?[[:space:]]+\\([A-Za-z0-9_]+\\)")
+          "\\(?:<.*?>\\)?\\(?:\\[.*?\\]\\)?[[:space:]]+\\([A-Za-z0-9_]+\\)[[:space:]]*[[;]")
     "Stan variable declaration regex")
+
+(defvar stan-func-decl-regexp
+  (concat (stan-regexp-opt (append stan-types-list '("void")))
+          "\\(?:<.*?>\\)?\\(?:\\[.*?\\]\\)?[[:space:]]+\\([A-Za-z0-9_]+\\)[[:space:]]*(")
+    "Stan function declaration regex")
 
 (defvar stan-font-lock-keywords
   `((,stan-blocks-regexp 1 font-lock-keyword-face)
@@ -411,6 +416,7 @@ This can also be just the name of the stanc executable if it is on the PATH.
     (,(stan-regexp-opt stan-reserved-list) . font-lock-warning-face)
     ;; Variable declaration
     (,stan-var-decl-regexp 2 font-lock-variable-name-face)
+    (,stan-func-decl-regexp 2 font-lock-variable-name-face)
     ))
 
 ;;; Compilation mode
@@ -428,6 +434,7 @@ See `compilation-error-regexp-alist' for help on their format.")
 
 (defvar stan-imenu-generic-expression
   `(("Variable" ,stan-var-decl-regexp 2)
+    ("Function" ,stan-func-decl-regexp 2)
     ("Block" ,stan-blocks-regexp 1))
   "Stan mode imenu expression")
 
@@ -475,7 +482,7 @@ See `compilation-error-regexp-alist' for help on their format.")
   (setq flymake-check-was-interrupted t))
 (ad-activate 'flymake-post-syntax-check)
 
-;;; auto-complete mode 
+;;; auto-complete mode
 
 (defcustom stan-use-auto-complete t
   "Activate auto-complete mode with Stan files
