@@ -5,6 +5,14 @@
 */
 # another comment
 // also a comment
+functions {
+  real entropy(vector theta) {
+    return sum(theta .* log(theta));
+  }
+  void whatever(real a) {
+    increment_log_prob(1);
+  }
+}
 data {
   // valid name
   int abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_abc;
