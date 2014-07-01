@@ -370,7 +370,6 @@ unit_vector
 upper
 variance
 vector
-void
 von_mises
 von_mises_log
 weibull

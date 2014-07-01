@@ -19,6 +19,9 @@ TYPES = ["int", "real",
          "matrix", "cov_matrix", "corr_matrix", "cholesky_factor_cov",
          "vector", "simplex", "unit_vector", "ordered", "positive_ordered", "row_vector"]
 
+BASIC_TYPES = ["int", "real", "vector", "row_vector", "matrix"]
+FUNCTION_RETURN_TYPES = BASIC_TYPES + ["void"]
+
 BLOCKS = ["functions",
           "data",
           "transformed data",
@@ -28,7 +31,7 @@ BLOCKS = ["functions",
           "generated quantities"]
 
 ## Section 24.1
-KEYWORDS = ["for", "in", "while", "print", "if", "else", "void", "return"]
+KEYWORDS = ["for", "in", "while", "print", "if", "else", "return"]
 PSEUDO_KEYWORDS = ['lp__']
 BOUNDS = ["lower", "upper"]
 
@@ -179,9 +182,10 @@ def main(src):
         'cpp_reserved': CPP_RESERVED,
         'pseudo_keywords': PSEUDO_KEYWORDS,
         'keywords': KEYWORDS,
+        'basic_types': BASIC_TYPES,
+        'function_return_types': FUNCTION_RETURN_TYPES,
         'distributions': distributions
     }
-    print(distributions)
     return data
 
 if __name__ == '__main__':

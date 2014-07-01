@@ -17,6 +17,23 @@
     )
   "List of Stan data types")
 
+(defvar stan-function-return-types-list
+  '(
+    "cholesky_factor_cov"
+    "corr_matrix"
+    "cov_matrix"
+    "int"
+    "matrix"
+    "ordered"
+    "positive_ordered"
+    "real"
+    "row_vector"
+    "simplex"
+    "unit_vector"
+    "vector"
+    )
+  "List of types that Stan functions can return")
+
 (defvar stan-blocks-list
   '(
     "data"
@@ -45,7 +62,6 @@
     "lp__"
     "print"
     "return"
-    "void"
     "while"
     )
   "List of Stan keywords")
@@ -500,6 +516,7 @@
     "using"
     "var"
     "virtual"
+    "void"
     "volatile"
     "wchar_t"
     "xor"
