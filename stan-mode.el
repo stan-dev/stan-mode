@@ -387,12 +387,12 @@ This can also be just the name of the stanc executable if it is on the PATH.
 
 (defvar stan-var-decl-regexp
   (concat (stan-regexp-opt stan-types-list)
-          "\\(?:<.*?>\\)?\\(?:\\[.*?\\]\\)?[[:space:]]+\\([A-Za-z0-9_]+\\)[[:space:]]*[[;]")
+          "\\(?:<.*?>\\)?\\(?:\\[.*?\\]\\)?[[:space:]]+\\([A-Za-z][A-Za-z0-9_]+\\)[[:space:]]*[[;]")
     "Stan variable declaration regex")
 
 (defvar stan-func-decl-regexp
   (concat (stan-regexp-opt (append stan-types-list '("void")))
-          "\\(?:<.*?>\\)?\\(?:\\[.*?\\]\\)?[[:space:]]+\\([A-Za-z0-9_]+\\)[[:space:]]*(")
+          "\\(?:<.*?>\\)?\\(?:\\[.*?\\]\\)?[[:space:]]+\\([A-Za-z][A-Za-z0-9_]+\\)[[:space:]]*(")
     "Stan function declaration regex")
 
 (defvar stan-font-lock-keywords
