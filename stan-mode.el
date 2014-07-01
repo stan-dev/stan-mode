@@ -394,7 +394,7 @@ This can also be just the name of the stanc executable if it is on the PATH.
   `((,stan-blocks-regexp 1 font-lock-keyword-face)
     (,stan-assign-regexp . font-lock-reference-face)
     ;; Stan types. Look for it to come after the start of a line or semicolon.
-    ( ,(concat "\\(^\\|;\\)\\s-*" (regexp-opt stan-types-list 'words)) 2 font-lock-type-face)
+    ( ,(stan-regexp-opt stan-types-list) . font-lock-type-face)
     ;; keywords
     (,(stan-regexp-opt stan-keywords-list) . font-lock-keyword-face)
     ;; T
