@@ -96,6 +96,7 @@ model {
   tmp / tmp;
   tmp .* tmp;
   tmp ./ tmp;
+  tmp ^ tmp;
   ! tmp;
   - tmp;
   + tmp;
