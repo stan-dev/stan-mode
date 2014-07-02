@@ -8,7 +8,7 @@
 ;;   Daniel Lee <bearlee@alum.mit.edu>
 ;; URL: http://github.com/stan-dev/stan-mode
 ;; Keywords: languanges
-;; Version: 2.3.1
+;; Version: 2.3.2
 ;; Created: 2012-08-18
 
 ;; This file is not part of GNU Emacs.
@@ -62,7 +62,7 @@
   :prefix "stan-"
   :group 'languages)
 
-(defconst stan-mode-version "2.3.1"
+(defconst stan-mode-version "2.3.2"
   "stan-mode version number")
 
 (defconst stan-language-version "2.3.0"
@@ -387,19 +387,20 @@ This can also be just the name of the stanc executable if it is on the PATH.
 
 (defvar stan-var-decl-regexp
   (concat (stan-regexp-opt stan-types-list)
-          "\\(?:<.*?>\\)?\\(?:\\[.*?\\]\\)?[[:space:]]+\\([A-Za-z][A-Za-z0-9_]+\\)[[:space:]]*[[;]")
+          "\\(?:<.*?>\\)?\\(?:\\[.*?\\]\\)?[[:space:]]+\\([A-Za-z][A-Za-z0-9_]*\\)[[:space:]]*[[;]")
     "Stan variable declaration regex")
 
 (defvar stan-func-decl-regexp
-  (concat (stan-regexp-opt (append stan-types-list '("void")))
-          "\\(?:<.*?>\\)?\\(?:\\[.*?\\]\\)?[[:space:]]+\\([A-Za-z][A-Za-z0-9_]+\\)[[:space:]]*(")
+  (concat (stan-regexp-opt (append stan-function-return-types-list '("void")))
+          "\\(?:<.*?>\\)?\\(?:\\[.*?\\]\\)?[[:space:]]+\\([A-Za-z][A-Za-z0-9_]*\\)[[:space:]]*(")
     "Stan function declaration regex")
 
 (defvar stan-font-lock-keywords
   `((,stan-blocks-regexp 1 font-lock-keyword-face)
     (,stan-assign-regexp . font-lock-reference-face)
     ;; Stan types. Look for it to come after the start of a line or semicolon.
-    ( ,(stan-regexp-opt stan-types-list) . font-lock-type-face)
+    ( ,(stan-regexp-opt append(stan-types-list stan-function-return-types-list))
+      . font-lock-type-face)
     ;; keywords
     (,(stan-regexp-opt stan-keywords-list) . font-lock-keyword-face)
     ;; T
