@@ -22,10 +22,10 @@ snippets/stan-mode/.yas-compiled-snippets.el: scripts/create_snippets.py $(yasni
 	$(EMACS) --batch -L lib -l yasnippet --eval '(yas-compile-directory "snippets-src")'
 	# better for version control
 	-mkdir -p snippets/stan-mode/
+	$(SED) -i '/^;;; Do not edit!/d' snippets-src/stan-mode/.yas-compiled-snippets.el
 	cp snippets-src/stan-mode/.yas-compiled-snippets.el snippets/stan-mode/
 	cp snippets-src/stan-mode/.yas-make-groups snippets/stan-mode/
 	cp snippets-src/stan-mode/.yas-parents snippets/stan-mode/
-	$(SED) -i '/^;;; Do not edit!/d' $@
 
 snippets: snippets/stan-mode/.yas-compiled-snippets.el
 
