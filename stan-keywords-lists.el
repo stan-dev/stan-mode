@@ -19,18 +19,12 @@
 
 (defvar stan-function-return-types-list
   '(
-    "cholesky_factor_cov"
-    "corr_matrix"
-    "cov_matrix"
     "int"
     "matrix"
-    "ordered"
-    "positive_ordered"
     "real"
     "row_vector"
-    "simplex"
-    "unit_vector"
     "vector"
+    "void"
     )
   "List of types that Stan functions can return")
 
@@ -473,7 +467,6 @@
     "fvar"
     "goto"
     "inline"
-    "int"
     "long"
     "mutable"
     "namespace"
@@ -516,7 +509,6 @@
     "using"
     "var"
     "virtual"
-    "void"
     "volatile"
     "wchar_t"
     "xor"
