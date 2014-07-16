@@ -106,52 +106,54 @@
     "xor_eq"
   ],
   "distributions": [
-    "exponential",
-    "lognormal",
-    "weibull",
-    "inv_chi_square",
-    "multi_normal",
     "lkj_corr",
-    "wishart",
-    "neg_binomial_2",
-    "uniform",
-    "chi_square",
-    "exp_mod_normal",
-    "rayleigh",
-    "binomial_logit",
-    "neg_binomial",
-    "pareto",
-    "cauchy",
+    "multinomial",
     "student_t",
+    "neg_binomial_2_log",
+    "double_exponential",
+    "ordered_logistic",
+    "uniform",
+    "poisson_log",
+    "dirichlet",
+    "skew_normal",
+    "logistic",
+    "gaussian_dlm_obs",
+    "lkj_cov",
+    "poisson",
+    "lognormal",
+    "von_mises",
+    "cauchy",
+    "lkj_corr_cholesky",
+    "rayleigh",
+    "normal",
+    "gamma",
+    "binomial",
+    "exp_mod_normal",
+    "neg_binomial",
+    "chi_square",
+    "inv_wishart",
+    "exponential",
+    "multi_normal_prec",
     "multi_normal_cholesky",
     "hypergeometric",
-    "beta_binomial",
-    "poisson",
-    "poisson_log",
-    "categorical",
-    "gumbel",
-    "categorical_logit",
-    "multi_student_t",
-    "gaussian_dlm_obs",
-    "gamma",
-    "skew_normal",
-    "multi_gp",
-    "binomial",
-    "ordered_logistic",
     "beta",
-    "bernoulli",
-    "inv_wishart",
-    "von_mises",
-    "dirichlet",
-    "logistic",
-    "scaled_inv_chi_square",
+    "multi_gp",
+    "multi_student_t",
+    "categorical_logit",
     "inv_gamma",
-    "normal",
-    "neg_binomial_2_log",
-    "multi_normal_prec",
+    "multi_normal",
     "bernoulli_logit",
-    "multinomial",
-    "double_exponential"
+    "neg_binomial_2",
+    "inv_chi_square",
+    "pareto",
+    "weibull",
+    "categorical",
+    "scaled_inv_chi_square",
+    "binomial_logit",
+    "wishart",
+    "bernoulli",
+    "beta_binomial",
+    "gumbel"
   ],
   "function_return_types": [
     "int",
@@ -3346,6 +3348,44 @@
         "return": "real"
       }
     },
+    "lkj_corr_cholesky_log": {
+      "matrix,real": {
+        "argnames": [
+          "L",
+          "eta"
+        ],
+        "argtypes": [
+          "matrix",
+          "real"
+        ],
+        "description": "The log of the LKJ density for the lower-triangular Cholesky factor L of a correlation matrix given shape eta.",
+        "location": [
+          "Continuous Distributions",
+          "Correlation Matrix Distributions",
+          "LKJ Correlation Distribution"
+        ],
+        "return": "real"
+      }
+    },
+    "lkj_corr_cholesky_rng": {
+      "int,real": {
+        "argnames": [
+          "K",
+          "eta"
+        ],
+        "argtypes": [
+          "int",
+          "real"
+        ],
+        "description": "Generate a random Cholesky factor of a correlation matrix of order K that is distributed LKG with shape eta.",
+        "location": [
+          "Continuous Distributions",
+          "Correlation Matrix Distributions",
+          "LKJ Correlation Distribution"
+        ],
+        "return": "matrix"
+      }
+    },
     "lkj_corr_log": {
       "matrix,real": {
         "argnames": [
@@ -3382,6 +3422,29 @@
           "LKJ Correlation Distribution"
         ],
         "return": "matrix"
+      }
+    },
+    "lkj_cov_log": {
+      "matrix,vector,vector,real": {
+        "argnames": [
+          "W",
+          "mu",
+          "sigma",
+          "eta"
+        ],
+        "argtypes": [
+          "matrix",
+          "vector",
+          "vector",
+          "real"
+        ],
+        "description": "The log of the LKJ density for covariance matrix W is the sum of log of the lognormal density of the standard deviations given location vector mu and scale vector sigma and the log of the lkj corr density of the correlation matrix given shape",
+        "location": [
+          "Continuous Distributions",
+          "Covariance Matrix Distributions",
+          "LKJ Covariance Distribution"
+        ],
+        "return": "real"
       }
     },
     "lmgamma": {
@@ -4411,14 +4474,27 @@
       }
     },
     "multi_normal_cholesky_log": {
-      "vector,vector,matrix": {
+      "matrix": {
         "argnames": [
-          "y",
+          "L"
+        ],
+        "argtypes": [
+          "matrix"
+        ],
+        "description": "The log of the multivariate normal density of vector y given location mu and lower-triangular Cholesky factor of the covariance matrix L",
+        "location": [
+          "Continuous Distributions",
+          "Distributions over Unbounded Vectors",
+          "Multivariate Normal Distribution, Cholesky Parameterization"
+        ],
+        "return": "real"
+      },
+      "vector,matrix": {
+        "argnames": [
           "mu",
           "L"
         ],
         "argtypes": [
-          "vector",
           "vector",
           "matrix"
         ],
@@ -4432,18 +4508,14 @@
       }
     },
     "multi_normal_log": {
-      "vector,vector,matrix": {
+      "matrix": {
         "argnames": [
-          "y",
-          "mu",
           "Sigma"
         ],
         "argtypes": [
-          "vector",
-          "vector",
           "matrix"
         ],
-        "description": "The log of the multivariate normal density of vector y given location mu and covariance matrix Sigma",
+        "description": "The log of the multivariate normal density of vector(s) y given location vectors(s) mu and covariance matrix Sigma",
         "location": [
           "Continuous Distributions",
           "Distributions over Unbounded Vectors",
@@ -4453,15 +4525,11 @@
       }
     },
     "multi_normal_prec_log": {
-      "vector,vector,matrix": {
+      "matrix": {
         "argnames": [
-          "y",
-          "mu",
           "Omega"
         ],
         "argtypes": [
-          "vector",
-          "vector",
           "matrix"
         ],
         "description": "The log of the multivariate normal density of vector y given location mu and positive definite precision matrix Omega",
@@ -4493,17 +4561,13 @@
       }
     },
     "multi_student_t_log": {
-      "vector,real,vector,matrix": {
+      "real,matrix": {
         "argnames": [
-          "y",
           "nu",
-          "mu",
           "Sigma"
         ],
         "argtypes": [
-          "vector",
           "real",
-          "vector",
           "matrix"
         ],
         "description": "The log of the multivariate Student-t density of vector y given degrees of freedom nu, location mu, and scale matrix Sigma",
@@ -5752,6 +5816,91 @@
         ],
         "return": "matrix"
       },
+      "matrix,real": {
+        "argnames": [
+          "x",
+          "y"
+        ],
+        "argtypes": [
+          "matrix",
+          "real"
+        ],
+        "description": "The elementwise quotient of y and x",
+        "location": [
+          "Built-In Functions",
+          "Matrix Operations",
+          "Matrix Arithmetic Operators"
+        ],
+        "return": "matrix"
+      },
+      "real,matrix": {
+        "argnames": [
+          "x",
+          "y"
+        ],
+        "argtypes": [
+          "real",
+          "matrix"
+        ],
+        "description": "The elementwise quotient of y and x",
+        "location": [
+          "Built-In Functions",
+          "Matrix Operations",
+          "Matrix Arithmetic Operators"
+        ],
+        "return": "matrix"
+      },
+      "real,real": {
+        "argnames": [
+          "x",
+          "y"
+        ],
+        "argtypes": [
+          "real",
+          "real"
+        ],
+        "description": "The elementwise quotient of y and x",
+        "location": [
+          "Built-In Functions",
+          "Matrix Operations",
+          "Matrix Arithmetic Operators"
+        ],
+        "return": "vector"
+      },
+      "real,row_vector": {
+        "argnames": [
+          "x",
+          "y"
+        ],
+        "argtypes": [
+          "real",
+          "row_vector"
+        ],
+        "description": "The elementwise quotient of y and x",
+        "location": [
+          "Built-In Functions",
+          "Matrix Operations",
+          "Matrix Arithmetic Operators"
+        ],
+        "return": "row_vector"
+      },
+      "row_vector,real": {
+        "argnames": [
+          "x",
+          "y"
+        ],
+        "argtypes": [
+          "row_vector",
+          "real"
+        ],
+        "description": "The elementwise quotient of y and x",
+        "location": [
+          "Built-In Functions",
+          "Matrix Operations",
+          "Matrix Arithmetic Operators"
+        ],
+        "return": "row_vector"
+      },
       "row_vector,row_vector": {
         "argnames": [
           "x",
@@ -5768,6 +5917,23 @@
           "Matrix Arithmetic Operators"
         ],
         "return": "row_vector"
+      },
+      "vector,real": {
+        "argnames": [
+          "x",
+          "y"
+        ],
+        "argtypes": [
+          "vector",
+          "real"
+        ],
+        "description": "The elementwise quotient of y and x",
+        "location": [
+          "Built-In Functions",
+          "Matrix Operations",
+          "Matrix Arithmetic Operators"
+        ],
+        "return": "vector"
       },
       "vector,vector": {
         "argnames": [
@@ -8942,6 +9108,27 @@
         "return": "real"
       }
     },
+    "von_mises_rng": {
+      "reals,reals,reals": {
+        "argnames": [
+          "y",
+          "mu",
+          "kappa"
+        ],
+        "argtypes": [
+          "reals",
+          "reals",
+          "reals"
+        ],
+        "description": "Generate a Von Mises variate with location mu and scale kappa.",
+        "location": [
+          "Continuous Distributions",
+          "Circular Distributions",
+          "Von Mises Distribution"
+        ],
+        "return": "real"
+      }
+    },
     "weibull_ccdf_log": {
       "reals,reals,reals": {
         "argnames": [
@@ -9057,7 +9244,7 @@
           "real",
           "matrix"
         ],
-        "description": "The log of the Wishart density for positive-definite matrix W given degrees of freedom nu and scale matrix Sigma",
+        "description": "The log of the Wishart density for symmetric and positive-definite matrix W given degrees of freedom nu and symmetric and positive definite scale matrix Sigma",
         "location": [
           "Continuous Distributions",
           "Covariance Matrix Distributions",

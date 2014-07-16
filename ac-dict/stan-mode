@@ -176,8 +176,13 @@ inverse_spd
 lbeta
 lgamma
 lkj_corr
+lkj_corr_cholesky
+lkj_corr_cholesky_log
+lkj_corr_cholesky_rng
 lkj_corr_log
 lkj_corr_rng
+lkj_cov
+lkj_cov_log
 lmgamma
 log
 log10
@@ -372,6 +377,7 @@ variance
 vector
 von_mises
 von_mises_log
+von_mises_rng
 weibull
 weibull_ccdf_log
 weibull_cdf

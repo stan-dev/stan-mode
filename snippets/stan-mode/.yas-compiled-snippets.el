@@ -76,7 +76,9 @@
 		       ("tdata" "transformed data {\n  $0\n}\n" "transformed data {...}" nil
 			("Blocks")
 			nil nil nil nil)
-		       ("tparam" "transformed parameters {\n  $0\n}\n" "transformed parameters{...}" nil nil nil nil nil nil)
+		       ("tparam" "transformed parameters {\n  $0\n}\n" "transformed parameters{...}" nil
+			("Blocks")
+			nil nil nil nil)
 		       ("uvector" "unit_vector[${1:expression}] ${2:variable}${3:[${4:dims}]};\n$0" "unit_vector[] ...;" nil
 			("Types")
 			nil nil nil nil)
@@ -160,7 +162,13 @@
 		       ("inv_wishart" "inv_wishart(${1:real nu}, ${2:matrix Sigma})$0" "inv_wishart(real, matrix)" nil
 			("Distributions" "Continuous")
 			nil nil nil nil)
+		       ("lkj_corr_cholesky" "lkj_corr_cholesky(${1:real eta})$0" "lkj_corr_cholesky(real)" nil
+			("Distributions" "Continuous")
+			nil nil nil nil)
 		       ("lkj_corr" "lkj_corr(${1:real eta})$0" "lkj_corr(real)" nil
+			("Distributions" "Continuous")
+			nil nil nil nil)
+		       ("lkj_cov" "lkj_cov(${1:vector mu}, ${2:vector sigma}, ${3:real eta})$0" "lkj_cov(vector, vector, real)" nil
 			("Distributions" "Continuous")
 			nil nil nil nil)
 		       ("logistic" "logistic(${1:reals mu}, ${2:reals sigma})$0" "logistic(reals, reals)" nil
@@ -172,16 +180,19 @@
 		       ("multi_gp" "multi_gp(${1:matrix Sigma}, ${2:vector w})$0" "multi_gp(matrix, vector)" nil
 			("Distributions" "Continuous")
 			nil nil nil nil)
-		       ("multi_normal_cholesky" "multi_normal_cholesky(${1:vector mu}, ${2:matrix L})$0" "multi_normal_cholesky(vector, matrix)" nil
+		       ("multi_normal_cholesky" "multi_normal_cholesky()$0" "multi_normal_cholesky()" nil
 			("Distributions" "Continuous")
 			nil nil nil nil)
-		       ("multi_normal" "multi_normal(${1:vector mu}, ${2:matrix Sigma})$0" "multi_normal(vector, matrix)" nil
+		       ("multi_normal_cholesky" "multi_normal_cholesky(${1:matrix L})$0" "multi_normal_cholesky(matrix)" nil
 			("Distributions" "Continuous")
 			nil nil nil nil)
-		       ("multi_normal_prec" "multi_normal_prec(${1:vector mu}, ${2:matrix Omega})$0" "multi_normal_prec(vector, matrix)" nil
+		       ("multi_normal" "multi_normal()$0" "multi_normal()" nil
 			("Distributions" "Continuous")
 			nil nil nil nil)
-		       ("multi_student_t" "multi_student_t(${1:real nu}, ${2:vector mu}, ${3:matrix Sigma})$0" "multi_student_t(real, vector, matrix)" nil
+		       ("multi_normal_prec" "multi_normal_prec()$0" "multi_normal_prec()" nil
+			("Distributions" "Continuous")
+			nil nil nil nil)
+		       ("multi_student_t" "multi_student_t(${1:matrix Sigma})$0" "multi_student_t(matrix)" nil
 			("Distributions" "Continuous")
 			nil nil nil nil)
 		       ("multinomial" "multinomial(${1:vector theta}, ${2:int N})$0" "multinomial(vector, int)" nil
@@ -747,11 +758,20 @@
 		       ("lgamma" "lgamma(${1:real x})$0" "lgamma(real)" nil
 			("Functions" "Built-In Functions" "Real-Valued Basic Functions" "Combinatorial Functions")
 			nil nil nil nil)
+		       ("lkj_corr_cholesky_log" "lkj_corr_cholesky_log(${1:matrix L}, ${2:real eta})$0" "lkj_corr_cholesky_log(matrix, real)" nil
+			("Functions" "Continuous Distributions" "Correlation Matrix Distributions" "LKJ Correlation Distribution")
+			nil nil nil nil)
+		       ("lkj_corr_cholesky_rng" "lkj_corr_cholesky_rng(${1:int K}, ${2:real eta})$0" "lkj_corr_cholesky_rng(int, real)" nil
+			("Functions" "Continuous Distributions" "Correlation Matrix Distributions" "LKJ Correlation Distribution")
+			nil nil nil nil)
 		       ("lkj_corr_log" "lkj_corr_log(${1:matrix y}, ${2:real eta})$0" "lkj_corr_log(matrix, real)" nil
 			("Functions" "Continuous Distributions" "Correlation Matrix Distributions" "LKJ Correlation Distribution")
 			nil nil nil nil)
 		       ("lkj_corr_rng" "lkj_corr_rng(${1:int K}, ${2:real eta})$0" "lkj_corr_rng(int, real)" nil
 			("Functions" "Continuous Distributions" "Correlation Matrix Distributions" "LKJ Correlation Distribution")
+			nil nil nil nil)
+		       ("lkj_cov_log" "lkj_cov_log(${1:matrix W}, ${2:vector mu}, ${3:vector sigma}, ${4:real eta})$0" "lkj_cov_log(matrix, vector, vector, real)" nil
+			("Functions" "Continuous Distributions" "Covariance Matrix Distributions" "LKJ Covariance Distribution")
 			nil nil nil nil)
 		       ("lmgamma" "lmgamma(${1:int n}, ${2:real x})$0" "lmgamma(int, real)" nil
 			("Functions" "Built-In Functions" "Real-Valued Basic Functions" "Combinatorial Functions")
@@ -933,19 +953,22 @@
 		       ("multi_gp_log" "multi_gp_log(${1:vector y}, ${2:matrix Sigma}, ${3:vector w})$0" "multi_gp_log(vector, matrix, vector)" nil
 			("Functions" "Continuous Distributions" "Distributions over Unbounded Vectors" "Multivariate Gaussian Process Distribution    ")
 			nil nil nil nil)
-		       ("multi_normal_cholesky_log" "multi_normal_cholesky_log(${1:vector y}, ${2:vector mu}, ${3:matrix L})$0" "multi_normal_cholesky_log(vector, vector, matrix)" nil
+		       ("multi_normal_cholesky_log" "multi_normal_cholesky_log(${1:matrix L})$0" "multi_normal_cholesky_log(matrix)" nil
 			("Functions" "Continuous Distributions" "Distributions over Unbounded Vectors" "Multivariate Normal Distribution, Cholesky Parameterization")
 			nil nil nil nil)
-		       ("multi_normal_log" "multi_normal_log(${1:vector y}, ${2:vector mu}, ${3:matrix Sigma})$0" "multi_normal_log(vector, vector, matrix)" nil
+		       ("multi_normal_cholesky_log" "multi_normal_cholesky_log(${1:vector mu}, ${2:matrix L})$0" "multi_normal_cholesky_log(vector, matrix)" nil
+			("Functions" "Continuous Distributions" "Distributions over Unbounded Vectors" "Multivariate Normal Distribution, Cholesky Parameterization")
+			nil nil nil nil)
+		       ("multi_normal_log" "multi_normal_log(${1:matrix Sigma})$0" "multi_normal_log(matrix)" nil
 			("Functions" "Continuous Distributions" "Distributions over Unbounded Vectors" "Multivariate Normal Distribution")
 			nil nil nil nil)
-		       ("multi_normal_prec_log" "multi_normal_prec_log(${1:vector y}, ${2:vector mu}, ${3:matrix Omega})$0" "multi_normal_prec_log(vector, vector, matrix)" nil
+		       ("multi_normal_prec_log" "multi_normal_prec_log(${1:matrix Omega})$0" "multi_normal_prec_log(matrix)" nil
 			("Functions" "Continuous Distributions" "Distributions over Unbounded Vectors" "Multivariate Normal Distribution, Precision Parameterization")
 			nil nil nil nil)
 		       ("multi_normal_rng" "multi_normal_rng(${1:vector mu}, ${2:matrix Sigma})$0" "multi_normal_rng(vector, matrix)" nil
 			("Functions" "Continuous Distributions" "Distributions over Unbounded Vectors" "Multivariate Normal Distribution")
 			nil nil nil nil)
-		       ("multi_student_t_log" "multi_student_t_log(${1:vector y}, ${2:real nu}, ${3:vector mu}, ${4:matrix Sigma})$0" "multi_student_t_log(vector, real, vector, matrix)" nil
+		       ("multi_student_t_log" "multi_student_t_log(${1:real nu}, ${2:matrix Sigma})$0" "multi_student_t_log(real, matrix)" nil
 			("Functions" "Continuous Distributions" "Distributions over Unbounded Vectors" "Multivariate Student-t Distribution")
 			nil nil nil nil)
 		       ("multi_student_t_rng" "multi_student_t_rng(${1:real nu}, ${2:vector mu}, ${3:matrix Sigma})$0" "multi_student_t_rng(real, vector, matrix)" nil
@@ -1489,6 +1512,9 @@
 			("Functions" "Built-In Functions" "Matrix Operations" "Reductions")
 			nil nil nil nil)
 		       ("von_mises_log" "von_mises_log(${1:reals y}, ${2:reals mu}, ${3:reals kappa})$0" "von_mises_log(reals, reals, reals)" nil
+			("Functions" "Continuous Distributions" "Circular Distributions" "Von Mises Distribution")
+			nil nil nil nil)
+		       ("von_mises_rng" "von_mises_rng(${1:reals y}, ${2:reals mu}, ${3:reals kappa})$0" "von_mises_rng(reals, reals, reals)" nil
 			("Functions" "Continuous Distributions" "Circular Distributions" "Von Mises Distribution")
 			nil nil nil nil)
 		       ("weibull_ccdf_log" "weibull_ccdf_log(${1:reals y}, ${2:reals alpha}, ${3:reals sigma})$0" "weibull_ccdf_log(reals, reals, reals)" nil
