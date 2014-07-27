@@ -28,7 +28,7 @@ data {
   corr_matrix[3] grault;
   cov_matrix[3] garply;
   cholesky_factor_cov[3] waldo;
-  cholesky_factor_cov[3] fred;
+  cholesky_factor_corr[3] fred;
   real RT[1]; // check that T[] doesn't get highlighted
   
   real<lower=-1,upper=1> foo1;
