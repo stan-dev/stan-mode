@@ -16,7 +16,7 @@ PARTS = ("Built-In Functions",
 
 ## Figure 22.2
 TYPES = ["int", "real", 
-         "matrix", "cov_matrix", "corr_matrix", "cholesky_factor_cov",
+         "matrix", "cov_matrix", "corr_matrix", "cholesky_factor_cov", "cholesky_factor_corr",
          "vector", "simplex", "unit_vector", "ordered", "positive_ordered", "row_vector"]
 
 BASIC_TYPES = ["int", "real", "vector", "row_vector", "matrix"]
