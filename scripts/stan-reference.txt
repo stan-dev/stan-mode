@@ -734,31 +734,32 @@ matrix operator.*(matrix x, matrix y)
     The elementwise product of y and x
 
 vector operator./(vector x, vector y)
-    The elementwise quotient of y and x
+     The elementwise quotient of y and x
 
 vector operator./(vector x, real y)
-    The elementwise quotient of y and x
+     The elementwise quotient of y and x
 
-vector operator./(real x, real y)
-    The elementwise quotient of y and x
-    
+vector operator./(real x, vector y)
+     The elementwise quotient of y and x
+
 row_vector operator./(row_vector x, row_vector y)
+     The elementwise quotient of y and x
+
+row_vector operator./(row_vector x, real y)
      The elementwise quotient of y and x
 
 row_vector operator./(real x, row_vector y)
      The elementwise quotient of y and x
 
-row_vector operator./(row_vector x, real y)
-     The elementwise quotient of y and x
-     
 matrix operator./(matrix x, matrix y)
-    The elementwise quotient of y and x
+      The elementwise quotient of y and x
 
 matrix operator./(matrix x, real y)
-    The elementwise quotient of y and x
+      The elementwise quotient of y and x
 
 matrix operator./(real x, matrix y)
-    The elementwise quotient of y and x
+      The elementwise quotient of y and x
+    
     
 
 Elementwise Logarithms
@@ -893,20 +894,20 @@ matrix multiply lower tri self transpose(matrix x)
     symmetric matrix L L . This is a specialization of tcrossprod(x) for lower-triangular
     matrices.
 
-matrix diag pre multiply(vector v, matrix m)
+matrix diag_pre_multiply(vector v, matrix m)
     Return the product of the diagonal matrix formed from the vector v and the matrix
     m, i.e., diag matrix(v) * m.
 
-matrix diag pre multiply(row_vector rv, matrix m)
+matrix diag_pre_multiply(row_vector rv, matrix m)
     Return the product of the diagonal matrix formed from the vector rv and the matrix
     m, i.e., diag matrix(rv) * m.
 
-matrix diag post multiply(matrix m, vector v)
+matrix diag_post_multiply(matrix m, vector v)
     Return the product of the matrix m and the diagonal matrix formed from the vector
     v, i.e., m * diag matrix(v).
 
-matrix diag post multiply(matrix m, row_vector rv)
-    Return the product of the matrix m and the diagonal matrix fromed from the the row
+matrix diag_post_multiply(matrix m, row_vector rv)
+    Return the product of the matrix m and the diagonal matrix formed from the the row
     vector rv, i.e., m * diag matrix(rv).
 
 
@@ -1087,14 +1088,14 @@ T[] segment(T[] sv, int i, int n)
 
 Transposition Postfix Operator
 
-matrix operator’(matrix x)
-    The transpose of the matrix x, written as x’
+matrix operator'(matrix x)
+    The transpose of the matrix x, written as x'
 
-row_vector operator’(vector x)
-     The transpose of the vector x, written as x’
+row_vector operator'(vector x)
+     The transpose of the vector x, written as x'
      
-vector operator’(row_vector x)
-    The transpose of the vector x, written as x’
+vector operator'(row_vector x)
+    The transpose of the row vector x, written as x'
 
 ### Special Matrix Functions
 
@@ -1165,7 +1166,7 @@ matrix inverse spd(matrix A)
 Eigendecomposition
 
 vector eigenvalues sym(matrix A)
-    The vector of eigenvalues of a symmetric matrix A in asscending order
+    The vector of eigenvalues of a symmetric matrix A in ascending order
 
 matrix eigenvectors sym(matrix A)
     The matrix with the (column) eigenvectors of symmetric matrix A in the same order
@@ -1391,11 +1392,11 @@ int hypergeometric rng(int N, real a, real b)
 
 ### Categorical Distribution
 
-real categorical log(ints y, vector theta)
+real categorical_log(ints y, vector theta)
     The log categorical probability mass function with outcome(s) y in 1 : N given
     N -simplex distribution parameter theta.
 
-real categorical logit log(ints y, vector beta)
+real categorical_logit_log(ints y, vector beta)
     The log categorical probability mass function with outcome(s) y in 1 : N given
     log-odds of outcomes beta.
 
@@ -1457,22 +1458,22 @@ int neg_binomial_2_log_rng(real eta, real phi)
 
 ### Poisson Distribution
 
-real poisson log(ints n, reals lambda)
+real poisson_log(ints n, reals lambda)
     The log Poisson probability mass of n given rate lambda
 
-real poisson cdf(ints n, reals lambda)
+real poisson_cdf(ints n, reals lambda)
     The Poisson cumulative distribution function of n given rate lambda
 
-real poisson cdf log(ints n, reals lambda)
+real poisson_cdf_log(ints n, reals lambda)
     The log of the Poisson cumulative distribution function of n given rate lambda
 
-real poisson ccdf log(ints n, reals lambda)
+real poisson_ccdf_log(ints n, reals lambda)
     The log of the Poisson complementary cumulative distribution function of n given
     rate lambda
 
 int poisson rng(real lambda)
-    Generate a poisson variate with rate lambda; may only be used in generated
-    quantities block
+    Generate a Poisson variate with rate lambda; may only be used in generated
+    quantities block.
 
 ### Poisson Distribution, Log Parameterization
 
@@ -1499,24 +1500,27 @@ vector multinomial rng(vector theta, int N)
 
 ### Normal Distribution
 
-real normal log(reals y, reals mu, reals sigma)
+real normal_log(reals y, reals mu, reals sigma)
     The log of the normal density of y given location mu and scale sigma
 
-real normal cdf(reals y, reals mu, reals sigma)
+real normal_cdf(reals y, reals mu, reals sigma)
     The cumulative normal distribution of y given location mu and scale sigma
-
-real normal cdf log(reals y, reals mu, reals sigma)
+    normal_cdf will underflow to 0 for σ below -37.5 and overflow to 1 for σ
+    above 8.25
+    
+real normal_cdf_log(reals y, reals mu, reals sigma)
     The log of the cumulative normal distribution of y given location mu and scale
-    sigma
+    sigma. normal_cdf_log will underflow to 0 for σ below -37.5 and overflow to 1 for σ
+    above 8.25
 
-real normal ccdf log(reals y, reals mu, reals sigma)
-    The log of the complementary cumulative normal distribution of y given location
-    mu and scale sigma
+real normal_ccdf_log(reals y, reals mu, reals sigma)
+    The log of the complementary cumulative normal distribution of y
+    given location mu and scale sigma. normal_ccdf_log will overflow
+    to 0 for σ below y−µ -37.5 and underflow to −∞ for σ above 8.25
 
-real normal rng(real mu, real sigma)
+real normal_rng(real mu, real sigma)
     Generate a normal variate with location mu and scale sigma; may only be used in
     generated quantities block
-
 
 ### Exponentially Modified Normal Distribution
 
@@ -1966,47 +1970,55 @@ real multi_normal_log(vectors y, row_vectors mu, matrix Sigma)
 real multi_normal_log(row_vectors y, vectors mu, matrix Sigma)
     The log of the multivariate normal density of vector(s) y given location vectors(s) mu and
     covariance matrix Sigma
+
+real multi_normal_log(row_vectors y, row_vectors mu, matrix Sigma)
+    The log of the multivariate normal density of row vector(s) y given location row
+    vector(s) mu and covariance matrix Sigma
     
-vector multi normal rng(vector mu, matrix Sigma)
+vector multi_normal_rng(vector mu, matrix Sigma)
     Generate a multivariate normal variate with location mu and covariance matrix
     Sigma; may only be used in generated quantities block
 
 ### Multivariate Normal Distribution, Precision Parameterization
 
 real multi_normal_prec_log(vectors y, vectors mu, matrix Omega)
-    The log of the multivariate normal density of vector y given location mu and positive
-    definite precision matrix Omega
+    The log of the multivariate normal density of vector(s) y given location vector(s)
+    mu and positive definite precision matrix Omega
 
 real multi_normal_prec_log(vectors y, row_vectors mu, matrix Omega)
-    The log of the multivariate normal density of vector y given location mu and positive
-    definite precision matrix Omega
+    The log of the multivariate normal density of vector(s) y given location row
+    vector(s) mu and positive definite precision matrix Omega
 
 real multi_normal_prec_log(row_vectors y, vectors mu, matrix Omega)
-    The log of the multivariate normal density of vector y given location mu and positive
-    definite precision matrix Omega
+    The log of the multivariate normal density of row vector(s) y given location
+    vector(s) mu and positive definite precision matrix Omega
 
 real multi_normal_prec_log(row_vectors y, row_vectors mu, matrix Omega)
-    The log of the multivariate normal density of vector y given location mu and positive
-    definite precision matrix Omega
-    
+    The log of the multivariate normal density of row vector(s) y given location row
+    vector(s) mu and positive definite precision matrix Omega
     
 ### Multivariate Normal Distribution, Cholesky Parameterization
 
-real multi normal cholesky log(vectors y, vectors mu, matrix L)
-    The log of the multivariate normal density of vector y given location mu and
-    lower-triangular Cholesky factor of the covariance matrix L
+real multi_normal_cholesky_log(vectors y, vectors mu, matrix L)
+     The log of the multivariate normal density of vector(s) y given location vector(s)
+     mu and lower-triangular Cholesky factor of the covariance matrix L
 
-real multi normal cholesky log(vectors y, row_vectors mu, matrix L)
-    The log of the multivariate normal density of vector y given location mu and
-    lower-triangular Cholesky factor of the covariance matrix L
+real multi_normal_cholesky_log(vectors y, row_vectors mu, matrix L)
+     The log of the multivariate normal density of vector(s) y given location row
+     vector(s) mu and lower-triangular Cholesky factor of the covariance matrix L
 
-real multi normal cholesky log(row_vectors y, vector mu, matrix L)
-    The log of the multivariate normal density of vector y given location mu and
-    lower-triangular Cholesky factor of the covariance matrix L
+real multi_normal_cholesky_log(row_vectors y, vectors mu, matrix L)
+     The log of the multivariate normal density of row vector(s) y given location
+     vector(s) mu and lower-triangular Cholesky factor of the covariance matrix L
 
-real multi normal cholesky log(row_vectors y, row_vectors mu, matrix L)
-    The log of the multivariate normal density of vector y given location mu and
-    lower-triangular Cholesky factor of the covariance matrix L
+real multi_normal_cholesky_log(row_vectors y, row_vectors mu, matrix L)
+     The log of the multivariate normal density of row vector(s) y given location row
+     vector(s) mu and lower-triangular Cholesky factor of the covariance matrix L
+
+vector multi_normal_cholesky_rng(vector mu, matrix L)
+   Generate a multivariate normal variate with location mu and lower-triangular
+   Cholesky factor of the covariance matrix L; may only be used in generated
+   quantities block
     
 
 ### Multivariate Gaussian Process Distribution    
@@ -2018,24 +2030,24 @@ real multi_gp_log(vector y, matrix Sigma, vector w)
 ### Multivariate Student-t Distribution
 
 real multi_student_t_log(vectors y, real nu, vectors mu, matrix Sigma)
-    The log of the multivariate Student-t density of vector y given degrees of freedom
-    nu, location mu, and scale matrix Sigma
-
-real multi_student_t_log(row_vectors y, real nu, vectors mu, matrix Sigma)
-    The log of the multivariate Student-t density of vector y given degrees of freedom
-    nu, location mu, and scale matrix Sigma
+     The log of the multivariate Student-t density of vector(s) y given degrees of
+     freedom nu, location vector(s) mu, and scale matrix Sigma
 
 real multi_student_t_log(vectors y, real nu, row_vectors mu, matrix Sigma)
-    The log of the multivariate Student-t density of vector y given degrees of freedom
-    nu, location mu, and scale matrix Sigma
+    The log of the multivariate Student-t density of vector(s) y given degrees of
+    freedom nu, location row vector(s) mu, and scale matrix Sigma
+
+real multi_student_t_log(row_vectors y, real nu, vectors mu, matrix Sigma)
+     The log of the multivariate Student-t density of row vector(s) y given degrees
+     of freedom nu, location vector(s) mu, and scale matrix Sigma
 
 real multi_student_t_log(row_vectors y, real nu, row_vectors mu, matrix Sigma)
-    The log of the multivariate Student-t density of vector y given degrees of freedom
-    nu, location mu, and scale matrix Sigma
-    
+     The log of the multivariate Student-t density of row vector(s) y given degrees
+     of freedom nu, location row vector(s) mu, and scale matrix Sigma
+
 vector multi_student_t_rng(real nu, vector mu, matrix Sigma)
-    Generate a multivariate Student-t variate with degrees of freedom nu, location mu,
-    and scale matrix Sigma
+       Generate a multivariate Student-t variate with degrees of freedom nu, location
+       mu, and scale matrix Sigma; may only be used in generated quantities block
 
 ### Gaussian Dynamic Linear Models
 
@@ -2070,17 +2082,24 @@ vector dirichlet rng(vector alpha)
 ### LKJ Correlation Distribution
 
 real lkj_corr_log(matrix y, real eta)
-    The log of the LKJ density for the correlation matrix y given nonnegative shape
-    eta.
-
+     The log of the LKJ density for the correlation matrix y given nonnegative shape
+     eta. The only reason to use this density function is if you want the code to run
+     slower and consume more memory with more risk of numerical errors. Use its
+     Cholesky factor as described in the next section.
+     
 matrix lkj_corr_rng(int K, real eta)
-    Generate a LKJ random correlation matrix of order K with shape eta
+       Generate a LKJ random correlation matrix of order K with shape eta; may only
+       be used in generated quantities block
+
+## Cholesky LKJ Correlation Distribution       
 
 real lkj_corr_cholesky_log(matrix L, real eta)
-    The log of the LKJ density for the lower-triangular Cholesky factor L of a correlation matrix given shape eta.
+     The log of the LKJ density for the lower-triangular Cholesky factor L of a
+     correlation matrix given shape eta.
 
 matrix lkj_corr_cholesky_rng(int K, real eta)
-    Generate a random Cholesky factor of a correlation matrix of order K that is distributed LKG with shape eta.
+     Generate a random Cholesky factor of a correlation matrix of order K that is
+     distributed LKJ with shape eta; may only be used in generated quantities block
     
 
 ## Covariance Matrix Distributions
@@ -2088,28 +2107,31 @@ matrix lkj_corr_cholesky_rng(int K, real eta)
 ### Wishart Distribution
 
 real wishart_log(matrix W, real nu, matrix Sigma)
-    The log of the Wishart density for symmetric and positive-definite matrix W given degrees of
-    freedom nu and symmetric and positive definite scale matrix Sigma
+     The log of the Wishart density for symmetric and positive-definite matrix W
+     given degrees of freedom nu and symmetric and positive-definite scale matrix
+     Sigma
 
 matrix wishart_rng(real nu, matrix Sigma)
-    Generate a Wishart variate with degrees of freedom nu and scale matrix Sigma;
-    may only be used in generated quantities block
+       Generate a Wishart variate with degrees of freedom nu and symmetric and
+       positive-definite scale matrix Sigma.
 
 
 ### Inverse Wishart Distribution
 
-real inv wishart log(matrix W, real nu, matrix Sigma)
-    The log of the inverse Wishart density for positive-definite matrix W given degrees
-    of freedom nu and symmetric and positive-definite scale matrix matrix Sigma
+real inv_wishart_log(matrix W, real nu, matrix Sigma)
+     The log of the inverse Wishart density for symmetric and positive-definite
+     matrix W given degrees of freedom nu and symmetric and positive-definite scale
+     matrix Sigma
 
-matrix inv wishart rng(real nu, matrix Sigma)
-    Generate an inverse Wishart variate with degrees of freedom nu and symmetric and positive-definite scale matrix matrix Sigma; may only be used in generated quantities block
+matrix inv_wishart_rng(real nu, matrix Sigma)
+       Generate an inverse Wishart variate with degrees of freedom nu and symmetric
+       and positive-definite scale matrix Sigma.
 
 ### LKJ Covariance Distribution
 
-real lkj cov log(matrix W, vector mu, vector sigma, real eta)
-     The log of the LKJ density for covariance matrix W is the sum of log of the lognormal
-     density of the standard deviations given location vector mu and scale vector sigma
-     and the log of the lkj corr density of the correlation matrix given shape
+real lkj_cov_log(matrix W, vector mu, vector sigma, real eta)
+     The log of the LKJ density for covariance matrix W is the sum of log of the
+     lognormal density of the standard deviations given location vector mu and scale
+
 
 
