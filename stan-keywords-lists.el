@@ -2,6 +2,7 @@
 
 (defvar stan-types-list
   '(
+    "cholesky_factor_corr"
     "cholesky_factor_cov"
     "corr_matrix"
     "cov_matrix"
@@ -249,6 +250,7 @@
     "modified_bessel_second_kind"
     "multi_gp_log"
     "multi_normal_cholesky_log"
+    "multi_normal_cholesky_rng"
     "multi_normal_log"
     "multi_normal_prec_log"
     "multi_normal_rng"

@@ -106,54 +106,54 @@
     "xor_eq"
   ],
   "distributions": [
-    "lkj_corr",
-    "multinomial",
-    "student_t",
-    "neg_binomial_2_log",
-    "double_exponential",
-    "ordered_logistic",
-    "uniform",
-    "poisson_log",
-    "dirichlet",
-    "skew_normal",
-    "logistic",
-    "gaussian_dlm_obs",
-    "lkj_cov",
-    "poisson",
-    "lognormal",
-    "von_mises",
-    "cauchy",
-    "lkj_corr_cholesky",
-    "rayleigh",
-    "normal",
-    "gamma",
     "binomial",
+    "gamma",
+    "ordered_logistic",
+    "multi_normal_cholesky",
+    "pareto",
+    "lognormal",
+    "logistic",
+    "hypergeometric",
+    "inv_gamma",
+    "multi_gp",
+    "uniform",
     "exp_mod_normal",
+    "neg_binomial_2",
+    "dirichlet",
+    "multi_normal",
+    "lkj_cov",
+    "skew_normal",
+    "bernoulli_logit",
+    "lkj_corr",
+    "poisson_log",
+    "categorical_logit",
+    "normal",
+    "wishart",
+    "double_exponential",
+    "multinomial",
+    "scaled_inv_chi_square",
+    "student_t",
+    "lkj_corr_cholesky",
+    "categorical",
+    "poisson",
+    "gaussian_dlm_obs",
+    "inv_chi_square",
+    "beta_binomial",
+    "beta",
+    "von_mises",
+    "weibull",
+    "neg_binomial_2_log",
+    "multi_student_t",
+    "binomial_logit",
+    "rayleigh",
+    "multi_normal_prec",
+    "gumbel",
+    "exponential",
     "neg_binomial",
     "chi_square",
-    "inv_wishart",
-    "exponential",
-    "multi_normal_prec",
-    "multi_normal_cholesky",
-    "hypergeometric",
-    "beta",
-    "multi_gp",
-    "multi_student_t",
-    "categorical_logit",
-    "inv_gamma",
-    "multi_normal",
-    "bernoulli_logit",
-    "neg_binomial_2",
-    "inv_chi_square",
-    "pareto",
-    "weibull",
-    "categorical",
-    "scaled_inv_chi_square",
-    "binomial_logit",
-    "wishart",
     "bernoulli",
-    "beta_binomial",
-    "gumbel"
+    "inv_wishart",
+    "cauchy"
   ],
   "function_return_types": [
     "int",
@@ -1514,7 +1514,7 @@
           "matrix",
           "row_vector"
         ],
-        "description": "Return the product of the matrix m and the diagonal matrix fromed from the the row vector rv, i.e., m * diag matrix(rv).",
+        "description": "Return the product of the matrix m and the diagonal matrix formed from the the row vector rv, i.e., m * diag matrix(rv).",
         "location": [
           "Built-In Functions",
           "Matrix Operations",
@@ -1959,7 +1959,7 @@
         "argtypes": [
           "matrix"
         ],
-        "description": "The vector of eigenvalues of a symmetric matrix A in asscending order",
+        "description": "The vector of eigenvalues of a symmetric matrix A in ascending order",
         "location": [
           "Built-In Functions",
           "Matrix Operations",
@@ -3250,7 +3250,7 @@
           "real",
           "matrix"
         ],
-        "description": "The log of the inverse Wishart density for positive-definite matrix W given degrees of freedom nu and symmetric and positive-definite scale matrix matrix Sigma",
+        "description": "The log of the inverse Wishart density for symmetric and positive-definite matrix W given degrees of freedom nu and symmetric and positive-definite scale matrix Sigma",
         "location": [
           "Continuous Distributions",
           "Covariance Matrix Distributions",
@@ -3269,7 +3269,7 @@
           "real",
           "matrix"
         ],
-        "description": "Generate an inverse Wishart variate with degrees of freedom nu and symmetric and positive-definite scale matrix matrix Sigma; may only be used in generated quantities block",
+        "description": "Generate an inverse Wishart variate with degrees of freedom nu and symmetric and positive-definite scale matrix Sigma.",
         "location": [
           "Continuous Distributions",
           "Covariance Matrix Distributions",
@@ -3361,8 +3361,8 @@
         "description": "The log of the LKJ density for the lower-triangular Cholesky factor L of a correlation matrix given shape eta.",
         "location": [
           "Continuous Distributions",
-          "Correlation Matrix Distributions",
-          "LKJ Correlation Distribution"
+          "Cholesky LKJ Correlation Distribution       ",
+          null
         ],
         "return": "real"
       }
@@ -3377,11 +3377,11 @@
           "int",
           "real"
         ],
-        "description": "Generate a random Cholesky factor of a correlation matrix of order K that is distributed LKG with shape eta.",
+        "description": "Generate a random Cholesky factor of a correlation matrix of order K that is distributed LKJ with shape eta; may only be used in generated quantities block",
         "location": [
           "Continuous Distributions",
-          "Correlation Matrix Distributions",
-          "LKJ Correlation Distribution"
+          "Cholesky LKJ Correlation Distribution       ",
+          null
         ],
         "return": "matrix"
       }
@@ -3396,7 +3396,7 @@
           "matrix",
           "real"
         ],
-        "description": "The log of the LKJ density for the correlation matrix y given nonnegative shape eta.",
+        "description": "The log of the LKJ density for the correlation matrix y given nonnegative shape eta. The only reason to use this density function is if you want the code to run slower and consume more memory with more risk of numerical errors. Use its Cholesky factor as described in the next section.",
         "location": [
           "Continuous Distributions",
           "Correlation Matrix Distributions",
@@ -3415,7 +3415,7 @@
           "int",
           "real"
         ],
-        "description": "Generate a LKJ random correlation matrix of order K with shape eta",
+        "description": "Generate a LKJ random correlation matrix of order K with shape eta; may only be used in generated quantities block",
         "location": [
           "Continuous Distributions",
           "Correlation Matrix Distributions",
@@ -3438,7 +3438,7 @@
           "vector",
           "real"
         ],
-        "description": "The log of the LKJ density for covariance matrix W is the sum of log of the lognormal density of the standard deviations given location vector mu and scale vector sigma and the log of the lkj corr density of the correlation matrix given shape",
+        "description": "The log of the LKJ density for covariance matrix W is the sum of log of the lognormal density of the standard deviations given location vector mu and scale",
         "location": [
           "Continuous Distributions",
           "Covariance Matrix Distributions",
@@ -4481,14 +4481,16 @@
         "argtypes": [
           "matrix"
         ],
-        "description": "The log of the multivariate normal density of vector y given location mu and lower-triangular Cholesky factor of the covariance matrix L",
+        "description": "The log of the multivariate normal density of row vector(s) y given location row vector(s) mu and lower-triangular Cholesky factor of the covariance matrix L",
         "location": [
           "Continuous Distributions",
           "Distributions over Unbounded Vectors",
           "Multivariate Normal Distribution, Cholesky Parameterization"
         ],
         "return": "real"
-      },
+      }
+    },
+    "multi_normal_cholesky_rng": {
       "vector,matrix": {
         "argnames": [
           "mu",
@@ -4498,13 +4500,13 @@
           "vector",
           "matrix"
         ],
-        "description": "The log of the multivariate normal density of vector y given location mu and lower-triangular Cholesky factor of the covariance matrix L",
+        "description": "Generate a multivariate normal variate with location mu and lower-triangular Cholesky factor of the covariance matrix L; may only be used in generated quantities block",
         "location": [
           "Continuous Distributions",
           "Distributions over Unbounded Vectors",
           "Multivariate Normal Distribution, Cholesky Parameterization"
         ],
-        "return": "real"
+        "return": "vector"
       }
     },
     "multi_normal_log": {
@@ -4515,7 +4517,7 @@
         "argtypes": [
           "matrix"
         ],
-        "description": "The log of the multivariate normal density of vector(s) y given location vectors(s) mu and covariance matrix Sigma",
+        "description": "The log of the multivariate normal density of row vector(s) y given location row vector(s) mu and covariance matrix Sigma",
         "location": [
           "Continuous Distributions",
           "Distributions over Unbounded Vectors",
@@ -4532,7 +4534,7 @@
         "argtypes": [
           "matrix"
         ],
-        "description": "The log of the multivariate normal density of vector y given location mu and positive definite precision matrix Omega",
+        "description": "The log of the multivariate normal density of row vector(s) y given location row vector(s) mu and positive definite precision matrix Omega",
         "location": [
           "Continuous Distributions",
           "Distributions over Unbounded Vectors",
@@ -4570,7 +4572,7 @@
           "real",
           "matrix"
         ],
-        "description": "The log of the multivariate Student-t density of vector y given degrees of freedom nu, location mu, and scale matrix Sigma",
+        "description": "The log of the multivariate Student-t density of row vector(s) y given degrees of freedom nu, location row vector(s) mu, and scale matrix Sigma",
         "location": [
           "Continuous Distributions",
           "Distributions over Unbounded Vectors",
@@ -4591,7 +4593,7 @@
           "vector",
           "matrix"
         ],
-        "description": "Generate a multivariate Student-t variate with degrees of freedom nu, location mu, and scale matrix Sigma",
+        "description": "Generate a multivariate Student-t variate with degrees of freedom nu, location mu, and scale matrix Sigma; may only be used in generated quantities block",
         "location": [
           "Continuous Distributions",
           "Distributions over Unbounded Vectors",
@@ -4884,7 +4886,7 @@
           "reals",
           "reals"
         ],
-        "description": "The log of the complementary cumulative normal distribution of y given location mu and scale sigma",
+        "description": "The log of the complementary cumulative normal distribution of y given location mu and scale sigma. normal_ccdf_log will overflow to 0 for \u03c3 below y\u2212\u00b5 -37.5 and underflow to \u2212\u221e for \u03c3 above 8.25",
         "location": [
           "Continuous Distributions",
           "Unbounded Continuous Distributions",
@@ -4905,7 +4907,7 @@
           "reals",
           "reals"
         ],
-        "description": "The cumulative normal distribution of y given location mu and scale sigma",
+        "description": "The cumulative normal distribution of y given location mu and scale sigma normal_cdf will underflow to 0 for \u03c3 below -37.5 and overflow to 1 for \u03c3 above 8.25",
         "location": [
           "Continuous Distributions",
           "Unbounded Continuous Distributions",
@@ -4926,7 +4928,7 @@
           "reals",
           "reals"
         ],
-        "description": "The log of the cumulative normal distribution of y given location mu and scale sigma",
+        "description": "The log of the cumulative normal distribution of y given location mu and scale sigma. normal_cdf_log will underflow to 0 for \u03c3 below -37.5 and overflow to 1 for \u03c3 above 8.25",
         "location": [
           "Continuous Distributions",
           "Unbounded Continuous Distributions",
@@ -5090,6 +5092,53 @@
           "Logical Functions"
         ],
         "return": "int"
+      }
+    },
+    "operator'": {
+      "matrix": {
+        "argnames": [
+          "x"
+        ],
+        "argtypes": [
+          "matrix"
+        ],
+        "description": "The transpose of the matrix x, written as x'",
+        "location": [
+          "Built-In Functions",
+          "Matrix Operations",
+          "Slice and Package Functions"
+        ],
+        "return": "matrix"
+      },
+      "row_vector": {
+        "argnames": [
+          "x"
+        ],
+        "argtypes": [
+          "row_vector"
+        ],
+        "description": "The transpose of the row vector x, written as x'",
+        "location": [
+          "Built-In Functions",
+          "Matrix Operations",
+          "Slice and Package Functions"
+        ],
+        "return": "vector"
+      },
+      "vector": {
+        "argnames": [
+          "x"
+        ],
+        "argtypes": [
+          "vector"
+        ],
+        "description": "The transpose of the vector x, written as x'",
+        "location": [
+          "Built-In Functions",
+          "Matrix Operations",
+          "Slice and Package Functions"
+        ],
+        "return": "row_vector"
       }
     },
     "operator*": {
@@ -5850,23 +5899,6 @@
         ],
         "return": "matrix"
       },
-      "real,real": {
-        "argnames": [
-          "x",
-          "y"
-        ],
-        "argtypes": [
-          "real",
-          "real"
-        ],
-        "description": "The elementwise quotient of y and x",
-        "location": [
-          "Built-In Functions",
-          "Matrix Operations",
-          "Matrix Arithmetic Operators"
-        ],
-        "return": "vector"
-      },
       "real,row_vector": {
         "argnames": [
           "x",
@@ -5883,6 +5915,23 @@
           "Matrix Arithmetic Operators"
         ],
         "return": "row_vector"
+      },
+      "real,vector": {
+        "argnames": [
+          "x",
+          "y"
+        ],
+        "argtypes": [
+          "real",
+          "vector"
+        ],
+        "description": "The elementwise quotient of y and x",
+        "location": [
+          "Built-In Functions",
+          "Matrix Operations",
+          "Matrix Arithmetic Operators"
+        ],
+        "return": "vector"
       },
       "row_vector,real": {
         "argnames": [
@@ -6568,7 +6617,7 @@
         "argtypes": [
           "real"
         ],
-        "description": "Generate a poisson variate with rate lambda; may only be used in generated quantities block",
+        "description": "Generate a Poisson variate with rate lambda; may only be used in generated quantities block.",
         "location": [
           "Discrete Distributions",
           "Unbounded Discrete Distributions",
@@ -9244,7 +9293,7 @@
           "real",
           "matrix"
         ],
-        "description": "The log of the Wishart density for symmetric and positive-definite matrix W given degrees of freedom nu and symmetric and positive definite scale matrix Sigma",
+        "description": "The log of the Wishart density for symmetric and positive-definite matrix W given degrees of freedom nu and symmetric and positive-definite scale matrix Sigma",
         "location": [
           "Continuous Distributions",
           "Covariance Matrix Distributions",
@@ -9263,7 +9312,7 @@
           "real",
           "matrix"
         ],
-        "description": "Generate a Wishart variate with degrees of freedom nu and scale matrix Sigma; may only be used in generated quantities block",
+        "description": "Generate a Wishart variate with degrees of freedom nu and symmetric and positive-definite scale matrix Sigma.",
         "location": [
           "Continuous Distributions",
           "Covariance Matrix Distributions",
@@ -9328,6 +9377,7 @@
     "cov_matrix",
     "corr_matrix",
     "cholesky_factor_cov",
+    "cholesky_factor_corr",
     "vector",
     "simplex",
     "unit_vector",

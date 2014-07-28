@@ -2,7 +2,10 @@
 ;;; Snippet definitions:
 ;;;
 (yas-define-snippets 'stan-mode
-		     '(("cholesky_factor_cov" "cholesky_factor_cov[${1:expression}${2:${3:, ${4:expression}}}] ${5:variable}${6:[${7:dims}]};\n$0" "cholesky_factor_cov[] ... ;" nil
+		     '(("cholesky_factor_corr" "cholesky_factor_corr[${1:expression}${2:${3:, ${4:expression}}}] ${5:variable}${6:[${7:dims}]};\n$0" "cholesky_factor_corr[] ... ;" nil
+			("Types")
+			nil nil nil nil)
+		       ("cholesky_factor_cov" "cholesky_factor_cov[${1:expression}${2:${3:, ${4:expression}}}] ${5:variable}${6:[${7:dims}]};\n$0" "cholesky_factor_cov[] ... ;" nil
 			("Types")
 			nil nil nil nil)
 		       ("corr_matrix" "corr_matrix[${1:expression}] ${2:variable}${3:[${4:dims}]};\n$0" "corr_matrix[] ... ;" nil
@@ -181,9 +184,6 @@
 			("Distributions" "Continuous")
 			nil nil nil nil)
 		       ("multi_normal_cholesky" "multi_normal_cholesky()$0" "multi_normal_cholesky()" nil
-			("Distributions" "Continuous")
-			nil nil nil nil)
-		       ("multi_normal_cholesky" "multi_normal_cholesky(${1:matrix L})$0" "multi_normal_cholesky(matrix)" nil
 			("Distributions" "Continuous")
 			nil nil nil nil)
 		       ("multi_normal" "multi_normal()$0" "multi_normal()" nil
@@ -759,10 +759,10 @@
 			("Functions" "Built-In Functions" "Real-Valued Basic Functions" "Combinatorial Functions")
 			nil nil nil nil)
 		       ("lkj_corr_cholesky_log" "lkj_corr_cholesky_log(${1:matrix L}, ${2:real eta})$0" "lkj_corr_cholesky_log(matrix, real)" nil
-			("Functions" "Continuous Distributions" "Correlation Matrix Distributions" "LKJ Correlation Distribution")
+			("Functions" "Continuous Distributions" "Cholesky LKJ Correlation Distribution       ")
 			nil nil nil nil)
 		       ("lkj_corr_cholesky_rng" "lkj_corr_cholesky_rng(${1:int K}, ${2:real eta})$0" "lkj_corr_cholesky_rng(int, real)" nil
-			("Functions" "Continuous Distributions" "Correlation Matrix Distributions" "LKJ Correlation Distribution")
+			("Functions" "Continuous Distributions" "Cholesky LKJ Correlation Distribution       ")
 			nil nil nil nil)
 		       ("lkj_corr_log" "lkj_corr_log(${1:matrix y}, ${2:real eta})$0" "lkj_corr_log(matrix, real)" nil
 			("Functions" "Continuous Distributions" "Correlation Matrix Distributions" "LKJ Correlation Distribution")
@@ -956,7 +956,7 @@
 		       ("multi_normal_cholesky_log" "multi_normal_cholesky_log(${1:matrix L})$0" "multi_normal_cholesky_log(matrix)" nil
 			("Functions" "Continuous Distributions" "Distributions over Unbounded Vectors" "Multivariate Normal Distribution, Cholesky Parameterization")
 			nil nil nil nil)
-		       ("multi_normal_cholesky_log" "multi_normal_cholesky_log(${1:vector mu}, ${2:matrix L})$0" "multi_normal_cholesky_log(vector, matrix)" nil
+		       ("multi_normal_cholesky_rng" "multi_normal_cholesky_rng(${1:vector mu}, ${2:matrix L})$0" "multi_normal_cholesky_rng(vector, matrix)" nil
 			("Functions" "Continuous Distributions" "Distributions over Unbounded Vectors" "Multivariate Normal Distribution, Cholesky Parameterization")
 			nil nil nil nil)
 		       ("multi_normal_log" "multi_normal_log(${1:matrix Sigma})$0" "multi_normal_log(matrix)" nil

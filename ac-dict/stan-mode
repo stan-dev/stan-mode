@@ -61,6 +61,7 @@ chi_square_cdf_log
 chi_square_log
 chi_square_rng
 cholesky_decompose
+cholesky_factor_corr
 cholesky_factor_cov
 col
 cols
@@ -229,6 +230,7 @@ multi_gp_log
 multi_normal
 multi_normal_cholesky
 multi_normal_cholesky_log
+multi_normal_cholesky_rng
 multi_normal_log
 multi_normal_prec
 multi_normal_prec_log
