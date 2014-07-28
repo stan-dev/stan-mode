@@ -285,7 +285,6 @@ poisson_rng
 positive_infinity
 positive_ordered
 pow
-print
 prod
 qr_Q
 qr_R

@@ -65,9 +65,6 @@
 (defconst stan-mode-version "2.4.0"
   "stan-mode version number")
 
-(defconst stan-language-version "2.4.0"
-  "Stan language version supported")
-
 (defun stan-version ()
   "Message the current stan-mode version"
   (interactive)

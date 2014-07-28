@@ -8,7 +8,7 @@ import re
 import sys
 
 """ Stan language version """
-VERSION = "2.3.0"
+VERSION = "2.4.0"
 
 PARTS = ("Built-In Functions",
          "Discrete Distributions",
@@ -31,7 +31,8 @@ BLOCKS = ["functions",
           "generated quantities"]
 
 ## Section 24.1
-KEYWORDS = ["for", "in", "while", "print", "if", "else", "return"]
+KEYWORDS = ["for", "in", "while", "if", "else", "return"]
+FUNCTION_LIKE_KEYWORDS = ["print", "increment_log_prob"]
 PSEUDO_KEYWORDS = ['lp__']
 BOUNDS = ["lower", "upper"]
 
@@ -181,6 +182,7 @@ def main(src):
         'bounds': BOUNDS,
         'cpp_reserved': CPP_RESERVED,
         'pseudo_keywords': PSEUDO_KEYWORDS,
+        'function_like_keywords': FUNCTION_LIKE_KEYWORDS,
         'keywords': KEYWORDS,
         'basic_types': BASIC_TYPES,
         'function_return_types': FUNCTION_RETURN_TYPES,
