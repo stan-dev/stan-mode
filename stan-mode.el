@@ -143,6 +143,7 @@ This can also be just the name of the stanc executable if it is on the PATH.
   stan '((postfix "[" "]" "(" ")")
 	  (postfix-if-paren "<" ">")
 	  (postfix "'")
+	  (left-assoc "^")
 	  (prefix "!" "-" "+")
 	  (left-assoc "./" ".*")
 	  (left-assoc "\\")
