@@ -46,6 +46,12 @@
 (require 'cc-mode)
 (require 'cc-langs)
 
+;; Patch for bug in 24.4 related to cc-mode which uses cl
+;; See https://lists.gnu.org/archive/html/bug-gnu-emacs/2014-10/msg01175.html
+(eval-when-compile
+  (if (and (= emacs-major-version 24) (= emacs-minor-version 4))
+      (require 'cl)))
+
 (require 'font-lock)
 (require 'compile)
 (require 'flymake)
