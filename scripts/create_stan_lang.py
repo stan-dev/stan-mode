@@ -8,7 +8,7 @@ import re
 import sys
 
 """ Stan language version """
-VERSION = "2.4.0"
+VERSION = "2.5.0"
 
 PARTS = ("Built-In Functions",
          "Discrete Distributions",

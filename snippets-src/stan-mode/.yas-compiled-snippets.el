@@ -39,6 +39,7 @@
 		       ("int" "int${1:<${2:lower=...,upper=...}>} ${3:variable}${4:[${5:dims}]};\n$0\n" "int ... ;" nil
 			("Types")
 			nil nil nil nil)
+		       ("integrate_ode" "integrate_ode(${1:function},${2},${3},${4},${5},${6},${7});\n$0" "integrate_ode(...);" nil nil nil nil nil nil)
 		       ("<" "<lower=${1:0}>$0" "<lower=...>" nil
 			("Range Constraints")
 			nil nil nil nil)
@@ -67,6 +68,7 @@
 		       ("real" "real${1:<${2:lower=...,upper=...}>} ${3:variable}${4:[${5:dims}]};\n$0" "real ...;" nil
 			("Types")
 			nil nil nil nil)
+		       ("reject" "reject($1);\n$0" "reject(...)" nil nil nil nil nil nil)
 		       ("rvector" "row_vector${1:<${2:lower=...,upper=...}>}[${3:expression}] ${4:variable}${5:[${6:dims}]};\n$0" "row_vector[] ...;" nil
 			("Types")
 			nil nil nil nil)
