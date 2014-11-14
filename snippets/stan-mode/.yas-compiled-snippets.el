@@ -39,7 +39,7 @@
 		       ("int" "int${1:<${2:lower=...,upper=...}>} ${3:variable}${4:[${5:dims}]};\n$0\n" "int ... ;" nil
 			("Types")
 			nil nil nil nil)
-		       ("integrate_ode" "integrate_ode(${1:function},${2},${3},${4},${5},${6},${7});\n$0" "integrate_ode(...);" nil nil nil nil nil nil)
+		       ("integrate_ode" "integrate_ode(${1:function},${2:y0},${3:t0},${4:t},${5:theta},${6:x_r},${7:x_i});\n$0" "integrate_ode(...);" nil nil nil nil nil nil)
 		       ("<" "<lower=${1:0}>$0" "<lower=...>" nil
 			("Range Constraints")
 			nil nil nil nil)
