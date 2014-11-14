@@ -143,6 +143,9 @@
 		       ("exponential" "exponential(${1:reals beta})$0" "exponential(reals)" nil
 			("Distributions" "Continuous")
 			nil nil nil nil)
+		       ("frechet" "frechet(${1:reals alpha}, ${2:reals sigma})$0" "frechet(reals, reals)" nil
+			("Distributions" "Continuous")
+			nil nil nil nil)
 		       ("gamma" "gamma(${1:reals alpha}, ${2:reals beta})$0" "gamma(reals, reals)" nil
 			("Distributions" "Continuous")
 			nil nil nil nil)
@@ -216,6 +219,9 @@
 			("Distributions" "Discrete")
 			nil nil nil nil)
 		       ("pareto" "pareto(${1:reals y}, ${2:reals alpha})$0" "pareto(reals, reals)" nil
+			("Distributions" "Continuous")
+			nil nil nil nil)
+		       ("pareto_type_2" "pareto_type_2(${1:reals mu}, ${2:reals lambda}, ${3:reals alpha})$0" "pareto_type_2(reals, reals, reals)" nil
 			("Distributions" "Continuous")
 			nil nil nil nil)
 		       ("poisson" "poisson(${1:reals lambda})$0" "poisson(reals)" nil
@@ -628,6 +634,21 @@
 		       ("fmod" "fmod(${1:real x}, ${2:real y})$0" "fmod(real, real)" nil
 			("Functions" "Built-In Functions" "Real-Valued Basic Functions" "Step-like Functions")
 			nil nil nil nil)
+		       ("frechet_ccdf_log" "frechet_ccdf_log(${1:reals y}, ${2:reals alpha}, ${3:reals sigma})$0" "frechet_ccdf_log(reals, reals, reals)" nil
+			("Functions" "Continuous Distributions" "Positive Continuous Distributions" "Frechet Distribution")
+			nil nil nil nil)
+		       ("frechet_cdf" "frechet_cdf(${1:reals y}, ${2:reals alpha}, ${3:reals sigma})$0" "frechet_cdf(reals, reals, reals)" nil
+			("Functions" "Continuous Distributions" "Positive Continuous Distributions" "Frechet Distribution")
+			nil nil nil nil)
+		       ("frechet_cdf_log" "frechet_cdf_log(${1:reals y}, ${2:reals alpha}, ${3:reals sigma})$0" "frechet_cdf_log(reals, reals, reals)" nil
+			("Functions" "Continuous Distributions" "Positive Continuous Distributions" "Frechet Distribution")
+			nil nil nil nil)
+		       ("frechet_log" "frechet_log(${1:reals y}, ${2:reals alpha}, ${3:reals sigma})$0" "frechet_log(reals, reals, reals)" nil
+			("Functions" "Continuous Distributions" "Positive Continuous Distributions" "Frechet Distribution")
+			nil nil nil nil)
+		       ("frechet_rng" "frechet_rng(${1:real alpha}, ${2:real sigma})$0" "frechet_rng(real, real)" nil
+			("Functions" "Continuous Distributions" "Positive Continuous Distributions" "Frechet Distribution")
+			nil nil nil nil)
 		       ("gamma_ccdf_log" "gamma_ccdf_log(${1:reals y}, ${2:reals alpha}, ${3:reals beta})$0" "gamma_ccdf_log(reals, reals, reals)" nil
 			("Functions" "Continuous Distributions" "Positive Continuous Distributions" "Gamma Distribution")
 			nil nil nil nil)
@@ -654,6 +675,9 @@
 			nil nil nil nil)
 		       ("gaussian_dlm_obs_log" "gaussian_dlm_obs_log(${1:vector y}, ${2:matrix F}, ${3:matrix G}, ${4:vector V}, ${5:matrix W}, ${6:vector m0}, ${7:matrix C0})$0" "gaussian_dlm_obs_log(vector, matrix, matrix, vector, matrix, vector, matrix)" nil
 			("Functions" "Continuous Distributions" "Distributions over Unbounded Vectors" "Gaussian Dynamic Linear Models")
+			nil nil nil nil)
+		       ("get_lp" "get_lp()$0" "get_lp()" nil
+			("Functions" "Built-In Functions" "Real-Valued Basic Functions" "Log Probability Function")
 			nil nil nil nil)
 		       ("gumbel_ccdf_log" "gumbel_ccdf_log(${1:reals y}, ${2:reals mu}, ${3:reals beta})$0" "gumbel_ccdf_log(reals, reals, reals)" nil
 			("Functions" "Continuous Distributions" "Unbounded Continuous Distributions" "Gumbel Distribution")
@@ -753,6 +777,12 @@
 			nil nil nil nil)
 		       ("inverse_spd" "inverse_spd(${1:matrix A})$0" "inverse_spd(matrix)" nil
 			("Functions" "Built-In Functions" "Matrix Operations" "Linear Algebra Functions and Solvers")
+			nil nil nil nil)
+		       ("is_inf" "is_inf(${1:real x})$0" "is_inf(real)" nil
+			("Functions" "Built-In Functions" "Real-Valued Basic Functions" "Logical Functions")
+			nil nil nil nil)
+		       ("is_nan" "is_nan(${1:real x})$0" "is_nan(real)" nil
+			("Functions" "Built-In Functions" "Real-Valued Basic Functions" "Logical Functions")
 			nil nil nil nil)
 		       ("lbeta" "lbeta(${1:real alpha}, ${2:real beta})$0" "lbeta(real, real)" nil
 			("Functions" "Built-In Functions" "Real-Valued Basic Functions" "Combinatorial Functions")
@@ -1036,6 +1066,9 @@
 		       ("not_a_number" "not_a_number()$0" "not_a_number()" nil
 			("Functions" "Built-In Functions" "Real-Valued Basic Functions" "Special Values")
 			nil nil nil nil)
+		       ("num_elements" "num_elements(${1:T[] x})$0" "num_elements(T[])" nil
+			("Functions" "Built-In Functions" "Array Operations" "Array Size and Dimension Function")
+			nil nil nil nil)
 		       ("ordered_logistic_log" "ordered_logistic_log(${1:int k}, ${2:real eta}, ${3:vector c})$0" "ordered_logistic_log(int, real, vector)" nil
 			("Functions" "Discrete Distributions" "Bounded Discrete Distributions" "Ordered Logistic Distribution")
 			nil nil nil nil)
@@ -1059,6 +1092,21 @@
 			nil nil nil nil)
 		       ("pareto_rng" "pareto_rng(${1:real y}, ${2:real alpha})$0" "pareto_rng(real, real)" nil
 			("Functions" "Continuous Distributions" "Positive Lower-Bounded Probabilities" "Pareto Distribution")
+			nil nil nil nil)
+		       ("pareto_type_2_ccdf_log" "pareto_type_2_ccdf_log(${1:reals y}, ${2:reals mu}, ${3:reals lambda}, ${4:reals alpha})$0" "pareto_type_2_ccdf_log(reals, reals, reals, reals)" nil
+			("Functions" "Continuous Distributions" "Positive Lower-Bounded Probabilities" "Pareto Type 2 Distribution")
+			nil nil nil nil)
+		       ("pareto_type_2_cdf" "pareto_type_2_cdf(${1:reals y}, ${2:reals mu}, ${3:reals lambda}, ${4:reals alpha})$0" "pareto_type_2_cdf(reals, reals, reals, reals)" nil
+			("Functions" "Continuous Distributions" "Positive Lower-Bounded Probabilities" "Pareto Type 2 Distribution")
+			nil nil nil nil)
+		       ("pareto_type_2_cdf_log" "pareto_type_2_cdf_log(${1:reals y}, ${2:reals mu}, ${3:reals lambda}, ${4:reals alpha})$0" "pareto_type_2_cdf_log(reals, reals, reals, reals)" nil
+			("Functions" "Continuous Distributions" "Positive Lower-Bounded Probabilities" "Pareto Type 2 Distribution")
+			nil nil nil nil)
+		       ("pareto_type_2_log" "pareto_type_2_log(${1:reals y}, ${2:reals mu}, ${3:reals lambda}, ${4:reals alpha})$0" "pareto_type_2_log(reals, reals, reals, reals)" nil
+			("Functions" "Continuous Distributions" "Positive Lower-Bounded Probabilities" "Pareto Type 2 Distribution")
+			nil nil nil nil)
+		       ("pareto_type_2_rng" "pareto_type_2_rng(${1:real mu}, ${2:real lambda}, ${3:real alpha})$0" "pareto_type_2_rng(real, real, real)" nil
+			("Functions" "Continuous Distributions" "Positive Lower-Bounded Probabilities" "Pareto Type 2 Distribution")
 			nil nil nil nil)
 		       ("pi" "pi()$0" "pi()" nil
 			("Functions" "Built-In Functions" "Real-Valued Basic Functions" "Mathematical Constants")
@@ -1532,7 +1580,7 @@
 			("Functions" "Continuous Distributions" "Positive Continuous Distributions" "Weibull Distribution")
 			nil nil nil nil)
 		       ("weibull_rng" "weibull_rng(${1:real alpha}, ${2:real sigma})$0" "weibull_rng(real, real)" nil
-			("Functions" "Continuous Distributions" "Positive Continuous Distributions" "Weibull Distribution")
+			("Functions" "Continuous Distributions" "Positive Continuous Distributions" "Frechet Distribution")
 			nil nil nil nil)
 		       ("wishart_log" "wishart_log(${1:matrix W}, ${2:real nu}, ${3:matrix Sigma})$0" "wishart_log(matrix, real, matrix)" nil
 			("Functions" "Continuous Distributions" "Covariance Matrix Distributions" "Wishart Distribution")

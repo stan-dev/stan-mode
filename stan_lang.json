@@ -106,54 +106,56 @@
     "xor_eq"
   ],
   "distributions": [
-    "dirichlet",
-    "multi_normal_cholesky",
-    "categorical",
-    "gaussian_dlm_obs",
-    "lkj_cov",
-    "pareto",
-    "categorical_logit",
-    "gumbel",
-    "wishart",
-    "multi_student_t",
-    "inv_gamma",
-    "inv_chi_square",
-    "uniform",
-    "chi_square",
-    "bernoulli_logit",
-    "student_t",
-    "beta_binomial",
-    "double_exponential",
-    "poisson",
-    "ordered_logistic",
-    "rayleigh",
-    "exp_mod_normal",
-    "multi_normal_prec",
-    "neg_binomial",
     "neg_binomial_2_log",
-    "poisson_log",
-    "scaled_inv_chi_square",
-    "multi_gp",
-    "lkj_corr",
-    "binomial",
-    "inv_wishart",
-    "lognormal",
+    "categorical_logit",
+    "multi_student_t",
     "exponential",
-    "normal",
-    "hypergeometric",
-    "cauchy",
     "multi_normal",
-    "von_mises",
-    "neg_binomial_2",
-    "multinomial",
-    "gamma",
-    "weibull",
-    "lkj_corr_cholesky",
-    "binomial_logit",
+    "inv_wishart",
     "skew_normal",
+    "cauchy",
     "beta",
+    "pareto",
+    "rayleigh",
+    "frechet",
+    "bernoulli_logit",
+    "normal",
+    "binomial_logit",
+    "neg_binomial",
+    "logistic",
+    "gamma",
+    "beta_binomial",
+    "hypergeometric",
+    "dirichlet",
+    "pareto_type_2",
+    "poisson_log",
+    "chi_square",
+    "categorical",
+    "lkj_corr",
+    "inv_chi_square",
+    "gumbel",
+    "multi_normal_prec",
+    "lkj_corr_cholesky",
+    "exp_mod_normal",
+    "neg_binomial_2",
+    "von_mises",
+    "inv_gamma",
+    "gaussian_dlm_obs",
+    "multi_gp",
+    "ordered_logistic",
+    "poisson",
+    "binomial",
+    "weibull",
+    "uniform",
+    "lkj_cov",
     "bernoulli",
-    "logistic"
+    "double_exponential",
+    "wishart",
+    "lognormal",
+    "student_t",
+    "scaled_inv_chi_square",
+    "multi_normal_cholesky",
+    "multinomial"
   ],
   "function_like_keywords": [
     "print",
@@ -2477,6 +2479,109 @@
         "return": "real"
       }
     },
+    "frechet_ccdf_log": {
+      "reals,reals,reals": {
+        "argnames": [
+          "y",
+          "alpha",
+          "sigma"
+        ],
+        "argtypes": [
+          "reals",
+          "reals",
+          "reals"
+        ],
+        "description": "The log of the Fr\u00e9chet complementary cumulative distribution function of y given shape alpha and scale sigma",
+        "location": [
+          "Continuous Distributions",
+          "Positive Continuous Distributions",
+          "Frechet Distribution"
+        ],
+        "return": "real"
+      }
+    },
+    "frechet_cdf": {
+      "reals,reals,reals": {
+        "argnames": [
+          "y",
+          "alpha",
+          "sigma"
+        ],
+        "argtypes": [
+          "reals",
+          "reals",
+          "reals"
+        ],
+        "description": "The Fr\u00e9chet cumulative distribution function of y given shape alpha and scale sigma",
+        "location": [
+          "Continuous Distributions",
+          "Positive Continuous Distributions",
+          "Frechet Distribution"
+        ],
+        "return": "real"
+      }
+    },
+    "frechet_cdf_log": {
+      "reals,reals,reals": {
+        "argnames": [
+          "y",
+          "alpha",
+          "sigma"
+        ],
+        "argtypes": [
+          "reals",
+          "reals",
+          "reals"
+        ],
+        "description": "The log of the Fr\u00e9chet cumulative distribution function of y given shape alpha and scale sigma",
+        "location": [
+          "Continuous Distributions",
+          "Positive Continuous Distributions",
+          "Frechet Distribution"
+        ],
+        "return": "real"
+      }
+    },
+    "frechet_log": {
+      "reals,reals,reals": {
+        "argnames": [
+          "y",
+          "alpha",
+          "sigma"
+        ],
+        "argtypes": [
+          "reals",
+          "reals",
+          "reals"
+        ],
+        "description": "The log of the Fr\u00e9chet density of y given shape alpha and scale sigma",
+        "location": [
+          "Continuous Distributions",
+          "Positive Continuous Distributions",
+          "Frechet Distribution"
+        ],
+        "return": "real"
+      }
+    },
+    "frechet_rng": {
+      "real,real": {
+        "argnames": [
+          "alpha",
+          "sigma"
+        ],
+        "argtypes": [
+          "real",
+          "real"
+        ],
+        "description": "Generate an Fr\u00e9chet variate with shape alpha and scale sigma; may only be used in generated quantities block",
+        "location": [
+          "Continuous Distributions",
+          "Positive Continuous Distributions",
+          "Frechet Distribution"
+        ],
+        "return": "real"
+      }
+    },
     "gamma_ccdf_log": {
       "reals,reals,reals": {
         "argnames": [
@@ -2670,6 +2775,19 @@
           "Continuous Distributions",
           "Distributions over Unbounded Vectors",
           "Gaussian Dynamic Linear Models"
+        ],
+        "return": "real"
+      }
+    },
+    "get_lp": {
+      "": {
+        "argnames": null,
+        "argtypes": null,
+        "description": "Returns the current value of the log probability accumulator.",
+        "location": [
+          "Built-In Functions",
+          "Real-Valued Basic Functions",
+          "Log Probability Function"
         ],
         "return": "real"
       }
@@ -3316,6 +3434,40 @@
           "Linear Algebra Functions and Solvers"
         ],
         "return": "matrix"
+      }
+    },
+    "is_inf": {
+      "real": {
+        "argnames": [
+          "x"
+        ],
+        "argtypes": [
+          "real"
+        ],
+        "description": "Returns 1 if x is infinite (positive or negative) and 0 otherwise.",
+        "location": [
+          "Built-In Functions",
+          "Real-Valued Basic Functions",
+          "Logical Functions"
+        ],
+        "return": "int"
+      }
+    },
+    "is_nan": {
+      "real": {
+        "argnames": [
+          "x"
+        ],
+        "argtypes": [
+          "real"
+        ],
+        "description": "Returns 1 if x is NaN and 0 otherwise.",
+        "location": [
+          "Built-In Functions",
+          "Real-Valued Basic Functions",
+          "Logical Functions"
+        ],
+        "return": "int"
       }
     },
     "lbeta": {
@@ -4996,6 +5148,23 @@
         "return": "real"
       }
     },
+    "num_elements": {
+      "T[]": {
+        "argnames": [
+          "x"
+        ],
+        "argtypes": [
+          "T[]"
+        ],
+        "description": "Returns the total number of elements in the array x including all elements in contained arrays, vectors, and matrices. T can be any array type.",
+        "location": [
+          "Built-In Functions",
+          "Array Operations",
+          "Array Size and Dimension Function"
+        ],
+        "return": "int"
+      }
+    },
     "operator!": {
       "int": {
         "argnames": [
@@ -6503,6 +6672,119 @@
           "Continuous Distributions",
           "Positive Lower-Bounded Probabilities",
           "Pareto Distribution"
+        ],
+        "return": "real"
+      }
+    },
+    "pareto_type_2_ccdf_log": {
+      "reals,reals,reals,reals": {
+        "argnames": [
+          "y",
+          "mu",
+          "lambda",
+          "alpha"
+        ],
+        "argtypes": [
+          "reals",
+          "reals",
+          "reals",
+          "reals"
+        ],
+        "description": "The log of the Pareto Type 2 complementary cumulative distribution function of y given location mu, scale lambda, and shape alpha",
+        "location": [
+          "Continuous Distributions",
+          "Positive Lower-Bounded Probabilities",
+          "Pareto Type 2 Distribution"
+        ],
+        "return": "real"
+      }
+    },
+    "pareto_type_2_cdf": {
+      "reals,reals,reals,reals": {
+        "argnames": [
+          "y",
+          "mu",
+          "lambda",
+          "alpha"
+        ],
+        "argtypes": [
+          "reals",
+          "reals",
+          "reals",
+          "reals"
+        ],
+        "description": "The Pareto Type 2 cumulative distribution function of y given location mu, scale lambda, and shape alpha",
+        "location": [
+          "Continuous Distributions",
+          "Positive Lower-Bounded Probabilities",
+          "Pareto Type 2 Distribution"
+        ],
+        "return": "real"
+      }
+    },
+    "pareto_type_2_cdf_log": {
+      "reals,reals,reals,reals": {
+        "argnames": [
+          "y",
+          "mu",
+          "lambda",
+          "alpha"
+        ],
+        "argtypes": [
+          "reals",
+          "reals",
+          "reals",
+          "reals"
+        ],
+        "description": "The log of the Pareto Type 2 cumulative distribution function of y given location mu, scale lambda, and shape alpha",
+        "location": [
+          "Continuous Distributions",
+          "Positive Lower-Bounded Probabilities",
+          "Pareto Type 2 Distribution"
+        ],
+        "return": "real"
+      }
+    },
+    "pareto_type_2_log": {
+      "reals,reals,reals,reals": {
+        "argnames": [
+          "y",
+          "mu",
+          "lambda",
+          "alpha"
+        ],
+        "argtypes": [
+          "reals",
+          "reals",
+          "reals",
+          "reals"
+        ],
+        "description": "The log of the Pareto Type 2 density of y given location mu, scale lambda, and shape alpha",
+        "location": [
+          "Continuous Distributions",
+          "Positive Lower-Bounded Probabilities",
+          "Pareto Type 2 Distribution"
+        ],
+        "return": "real"
+      }
+    },
+    "pareto_type_2_rng": {
+      "real,real,real": {
+        "argnames": [
+          "mu",
+          "lambda",
+          "alpha"
+        ],
+        "argtypes": [
+          "real",
+          "real",
+          "real"
+        ],
+        "description": "Generate a Pareto Type 2 variate with location mu, scale lambda, and shape alpha; may only be used in generated quantities block",
+        "location": [
+          "Continuous Distributions",
+          "Positive Lower-Bounded Probabilities",
+          "Pareto Type 2 Distribution"
         ],
         "return": "real"
       }
@@ -9282,7 +9564,7 @@
         "location": [
           "Continuous Distributions",
           "Positive Continuous Distributions",
-          "Weibull Distribution"
+          "Frechet Distribution"
         ],
         "return": "real"
       }

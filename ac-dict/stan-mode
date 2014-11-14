@@ -123,6 +123,12 @@ fmax
 fmin
 fmod
 for
+frechet
+frechet_ccdf_log
+frechet_cdf
+frechet_cdf_log
+frechet_log
+frechet_rng
 functions
 gamma
 gamma_ccdf_log
@@ -135,6 +141,7 @@ gamma_rng
 gaussian_dlm_obs
 gaussian_dlm_obs_log
 generated quantities
+get_lp
 gumbel
 gumbel_ccdf_log
 gumbel_cdf
@@ -174,6 +181,8 @@ inv_wishart_log
 inv_wishart_rng
 inverse
 inverse_spd
+is_inf
+is_nan
 lbeta
 lgamma
 lkj_corr
@@ -262,6 +271,7 @@ normal_cdf_log
 normal_log
 normal_rng
 not_a_number
+num_elements
 ordered
 ordered_logistic
 ordered_logistic_log
@@ -274,6 +284,12 @@ pareto_cdf
 pareto_cdf_log
 pareto_log
 pareto_rng
+pareto_type_2
+pareto_type_2_ccdf_log
+pareto_type_2_cdf
+pareto_type_2_cdf_log
+pareto_type_2_log
+pareto_type_2_rng
 pi
 poisson
 poisson_ccdf_log
