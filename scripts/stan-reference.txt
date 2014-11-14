@@ -50,6 +50,8 @@ int int step(int x)
 int int step(real x)
     1 if x is strictly greater than 0, and 0 otherwise
 
+
+
 ### Bound Functions
 
 int min(int x, int y)
@@ -92,7 +94,10 @@ real machine precision()
     The smallest number x such that (x + 1) = 1 in floating-point arithmetic on the
     current hardware platform
 
+### Log Probability Function
 
+real get_lp()
+     Returns the current value of the log probability accumulator.
 
 ### Logical Functions
 
@@ -157,6 +162,11 @@ real if else(int cond, real x, real y)
 real step(real x)
     1 if x is positive and 0 otherwise; equivalent to x > 0.0
     
+int is_inf(real x)
+      Returns 1 if x is infinite (positive or negative) and 0 otherwise.
+
+int is_nan(real x)
+      Returns 1 if x is NaN and 0 otherwise.
 
 ### Real-Valued Arithmetic Operators
 
@@ -529,6 +539,8 @@ real squared distance(row_vector x, row_vector y[])
     The Euclidean distance between x and y
 
 ### Array Size and Dimension Function
+int num_elements(T[] x)
+     Returns the total number of elements in the array x including all elements in contained arrays, vectors, and matrices. T can be any array type. 
 
 int[] dims(T x)
     Returns an integer array containing the dimensions of x; the type of the argument T
@@ -1841,9 +1853,30 @@ real weibull ccdf log(reals y, reals alpha, reals sigma)
     The log of the Weibull complementary cumulative distribution function of y given
     shape alpha and scale sigma
 
+### Frechet Distribution
+
 real weibull rng(real alpha, real sigma)
     Generate a weibull variate with shape alpha and scale sigma; may only be used
     in generated quantities block
+
+real frechet_log(reals y, reals alpha, reals sigma)
+     The log of the Fréchet density of y given shape alpha and scale sigma
+
+real frechet_cdf(reals y, reals alpha, reals sigma)
+     The Fréchet cumulative distribution function of y given shape alpha and scale
+     sigma
+
+real frechet_cdf_log(reals y, reals alpha, reals sigma)
+     The log of the Fréchet cumulative distribution function of y given shape alpha
+     and scale sigma
+
+real frechet_ccdf_log(reals y, reals alpha, reals sigma)
+     The log of the Fréchet complementary cumulative distribution function of y
+     given shape alpha and scale sigma
+
+real frechet_rng(real alpha, real sigma)
+     Generate an Fréchet variate with shape alpha and scale sigma; may only be
+     used in generated quantities block
 
 ## Non-negative Continuous Distributions
 
@@ -1891,6 +1924,32 @@ real pareto ccdf log(reals y, reals y min, reals alpha)
 real pareto rng(real y min, real alpha)
     Generate a Pareto variate with positive minimum value y min and shape alpha;
     may only be used in generated quantities block
+
+### Pareto Type 2 Distribution
+
+real pareto_type_2_log(reals y, reals mu, reals lambda, reals
+alpha)
+     The log of the Pareto Type 2 density of y given location mu, scale lambda, and
+     shape alpha
+
+real pareto_type_2_cdf(reals y, reals mu, reals lambda, reals
+alpha)
+     The Pareto Type 2 cumulative distribution function of y given location mu, scale
+     lambda, and shape alpha
+
+real pareto_type_2_cdf_log(reals y, reals mu, reals lambda, reals
+alpha)
+     The log of the Pareto Type 2 cumulative distribution function of y given
+     location mu, scale lambda, and shape alpha
+
+real pareto_type_2_ccdf_log(reals y, reals mu, reals lambda, reals
+alpha)
+     The log of the Pareto Type 2 complementary cumulative distribution function
+     of y given location mu, scale lambda, and shape alpha
+
+real pareto_type_2_rng(real mu, real lambda, real alpha)
+      Generate a Pareto Type 2 variate with location mu, scale lambda, and shape
+      alpha; may only be used in generated quantities block
 
 
 ## Continuous Distributions on [0, 1]
