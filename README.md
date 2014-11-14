@@ -103,6 +103,8 @@ The file `stan_lang.json` contains Stan keywords as well as the signatures and d
 
 `stan-mode` is free software under the [GPL v3](http://www.gnu.org/licenses/gpl-3.0.html).
 
+The file `stan-lang.json` is available under the Public Domain Dedication and License v1.0 whose full text can be found at: http://www.opendatacommons.org/licenses/pddl/1.0/ - See more at: http://opendatacommons.org/licenses/pddl/#sthash.UJfFWezm.dpuf
+
 <!--  LocalWords:  stan imenu yasnippet flymake MELPA kbd RET init '
  -->
 <!--  LocalWords:  mapc EmacsWiki cd 'load 'stan 'flymake Aquamacs 
