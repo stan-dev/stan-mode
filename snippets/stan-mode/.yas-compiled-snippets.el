@@ -39,7 +39,7 @@
 		       ("int" "int${1:<${2:lower=...,upper=...}>} ${3:variable}${4:[${5:dims}]};\n$0\n" "int ... ;" nil
 			("Types")
 			nil nil nil nil)
-		       ("integrate_ode" "integrate_ode(${1:function},${2},${3},${4},${5},${6},${7});\n$0" "integrate_ode(...);" nil nil nil nil nil nil)
+		       ("integrate_ode" "integrate_ode(${1:function},${2:y0},${3:t0},${4:t},${5:theta},${6:x_r},${7:x_i});\n$0" "integrate_ode(...);" nil nil nil nil nil nil)
 		       ("<" "<lower=${1:0}>$0" "<lower=...>" nil
 			("Range Constraints")
 			nil nil nil nil)
@@ -276,6 +276,36 @@
 			nil nil nil nil)
 		       ("acosh" "acosh(${1:real x})$0" "acosh(real)" nil
 			("Functions" "Built-In Functions" "Real-Valued Basic Functions" "Hyperbolic Trigonometric Functions")
+			nil nil nil nil)
+		       ("append_col" "append_col(${1:matrix x}, ${2:matrix y})$0" "append_col(matrix, matrix)" nil
+			("Functions" "Built-In Functions" "Matrix Operations" "Slice and Package Functions")
+			nil nil nil nil)
+		       ("append_col" "append_col(${1:matrix x}, ${2:vector y})$0" "append_col(matrix, vector)" nil
+			("Functions" "Built-In Functions" "Matrix Operations" "Slice and Package Functions")
+			nil nil nil nil)
+		       ("append_col" "append_col(${1:row_vector x}, ${2:row_vector y})$0" "append_col(row_vector, row_vector)" nil
+			("Functions" "Built-In Functions" "Matrix Operations" "Slice and Package Functions")
+			nil nil nil nil)
+		       ("append_col" "append_col(${1:vector x}, ${2:matrix y})$0" "append_col(vector, matrix)" nil
+			("Functions" "Built-In Functions" "Matrix Operations" "Slice and Package Functions")
+			nil nil nil nil)
+		       ("append_col" "append_col(${1:vector x}, ${2:vector y})$0" "append_col(vector, vector)" nil
+			("Functions" "Built-In Functions" "Matrix Operations" "Slice and Package Functions")
+			nil nil nil nil)
+		       ("append_row" "append_row(${1:matrix x}, ${2:matrix y})$0" "append_row(matrix, matrix)" nil
+			("Functions" "Built-In Functions" "Matrix Operations" "Slice and Package Functions")
+			nil nil nil nil)
+		       ("append_row" "append_row(${1:matrix x}, ${2:row_vector y})$0" "append_row(matrix, row_vector)" nil
+			("Functions" "Built-In Functions" "Matrix Operations" "Slice and Package Functions")
+			nil nil nil nil)
+		       ("append_row" "append_row(${1:row_vector x}, ${2:matrix y})$0" "append_row(row_vector, matrix)" nil
+			("Functions" "Built-In Functions" "Matrix Operations" "Slice and Package Functions")
+			nil nil nil nil)
+		       ("append_row" "append_row(${1:row_vector x}, ${2:row_vector y})$0" "append_row(row_vector, row_vector)" nil
+			("Functions" "Built-In Functions" "Matrix Operations" "Slice and Package Functions")
+			nil nil nil nil)
+		       ("append_row" "append_row(${1:vector x}, ${2:vector y})$0" "append_row(vector, vector)" nil
+			("Functions" "Built-In Functions" "Matrix Operations" "Slice and Package Functions")
 			nil nil nil nil)
 		       ("asin" "asin(${1:real x})$0" "asin(real)" nil
 			("Functions" "Built-In Functions" "Real-Valued Basic Functions" "Trigonometric Functions")

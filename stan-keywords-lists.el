@@ -74,6 +74,8 @@
     "abs"
     "acos"
     "acosh"
+    "append_col"
+    "append_row"
     "asin"
     "asinh"
     "atan"

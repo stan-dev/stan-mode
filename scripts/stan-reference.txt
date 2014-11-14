@@ -1098,6 +1098,46 @@ T[] segment(T[] sv, int i, int n)
     elements i through through i + n - 1. Applies to up to three-dimensional arrays
     containing any type of elements T.
 
+Concatenation Operations
+
+matrix append_col(matrix x, matrix y)
+     Combine matrices x and y by columns. The matrices must have the same
+     number of rows.
+
+matrix append_col(matrix x, vector y)
+     Combine matrix x and vector y by columns. The matrix and the vector must
+     have the same number of rows.
+
+matrix append_col(vector x, matrix y)
+     Combine vector x and matrix y by columns. The vector and the matrix must
+     have the same number of rows.
+
+matrix append_col(vector x, vector y)
+     Combine vectors x and y by columns. The vectors must have the same number
+     of rows.
+
+row_vector append_col(row_vector x, row_vector y)
+     Combine row vectors x and y of any size into another row vector.
+
+matrix append_row(matrix x, matrix y)
+     Combine matrices x and y by columns. The matrices must have the same
+     number of rows.
+
+matrix append_row(matrix x, row_vector y)
+     Combine matrix x and row vector y by columns. The matrix and the row vector
+     must have the same number of rows.
+
+matrix append_row(row_vector x, matrix y)
+     Combine row vector x and matrix y by columns. The row vector and the matrix
+     must have the same number of rows.
+
+matrix append_row(row_vector x, row_vector y)
+     Combine row vectors x and y by columns. The row vectors must have the same
+     number of rows.
+
+vector append_row(vector x, vector y)
+     Combine vectors x and y of any size into another vector.
+
 Transposition Postfix Operator
 
 matrix operator'(matrix x)

@@ -168,7 +168,7 @@ def parse_manual(src):
             elif m_fitem:
                 fitemtext = line.strip()
                 in_fitem = True
-    return (functionlist, list(distributionlist))
+    return (functionlist, sorted(list(distributionlist)))
 
 def main(src):
     functions, distributions = parse_manual(src)
