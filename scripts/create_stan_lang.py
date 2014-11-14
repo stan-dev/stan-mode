@@ -32,7 +32,7 @@ BLOCKS = ["functions",
 
 ## Section 24.1
 KEYWORDS = ["for", "in", "while", "if", "else", "return"]
-FUNCTION_LIKE_KEYWORDS = ["print", "increment_log_prob", "reject", "ode_solve"]
+FUNCTION_LIKE_KEYWORDS = ["print", "increment_log_prob", "reject", "integrate_ode"]
 PSEUDO_KEYWORDS = ['lp__']
 BOUNDS = ["lower", "upper"]
 
