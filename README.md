@@ -8,8 +8,9 @@ Its current features include:
 - syntax highlighting
 - indentation
 - `imenu-mode` support
-- `autocomplete-mode` support
-- `yasnippet-mode` support
+- `autocomplete` support
+- `yasnippet` support
+- `flycheck` support
 
 ## Installing
 
