@@ -10,7 +10,7 @@
 ;; Keywords: languanges
 ;; Version: 3.0.0
 ;; Created: 2012-08-18
-;; Package-Requires: ((auto-complete "1.4.0"))
+;; Package-Requires: ((auto-complete "1.4.0") (yasnippet "0.8.0") (flycheck "0.16.0"))
 
 ;; This file is not part of GNU Emacs.
 
@@ -39,7 +39,7 @@
 ;;   (require 'stan-mode)
 ;;
 ;; This mode currently has support for syntax-highlighting, indentation,
-;; imenu, auto-complete mode, and snippets for yasnippet-mode.
+;; imenu, compile-mode, auto-complete mode, yasnippet-mode, and flycheck-mode.
 ;;
 
 ;;; Code:
@@ -58,6 +58,7 @@
 ;; non-built-in Dependencies
 (require 'auto-complete)
 (require 'yasnippet)
+(require 'flycheck)
 
 ;; Contains keywords and functions
 (require 'stan-keywords-lists)
@@ -430,14 +431,14 @@ This can also be just the name of the stanc executable if it is on the PATH.
 ;;; Compilation mode
 
 ;; ;; FIX ME: New error messages not amenable to parsing.
-;; (defvar stan-compilation-regexp
-;;   '("ERROR at line \\([0-9]+\\)" nil 1 nil nil)
-;;   "Specifications for matching parse errors in Stan.
-;; See `compilation-error-regexp-alist' for help on their format.")
+(defvar stan-compilation-regexp
+  '((stan-input-file . '("Input file=\\(.*\\)$" nil 1 nil nil))
+    (stan-error . '("ERROR at line \\([0-9]+\\)" 1 nil nil nil)))
+  "Specifications for matching parse errors in Stan.
+See `compilation-error-regexp-alist' for help on their format.")
 
-;; (add-to-list 'compilation-error-regexp-alist-alist
-;;              (cons 'stan stan-compilation-regexp))
-;; (add-to-list 'compilation-error-regexp-alist 'stan)
+(add-to-list 'compilation-error-regexp-alist-alist stan-compilation-regexp)
+(add-to-list 'compilation-error-regexp-alist '(stan-input-file stan-error))
 
 ;;; Imenu mode
 
@@ -486,6 +487,28 @@ This can also be just the name of the stanc executable if it is on the PATH.
     (add-to-list 'ac-sources 'ac-source-yasnippet))
   (yas-load-directory stan-snippets-dir)
   )
+
+;;; flycheck-mode
+
+;; use flycheck instead of flymake
+
+(flycheck-define-checker stan-stanc
+  "A Stan syntax checker using stanc
+
+See http://mc-stan.org/cmdstan.html"
+  :command ("stanc" source)
+  :error-patterns
+  ((error
+    line-start "Input file=" (file-name) "\n"
+    (zero-or-more anything)
+    "SYNTAX ERROR" (one-or-more not-newline) "\n"
+    (message (one-or-more anything))
+    "ERROR at line " line
+    ))
+  :modes stan-mode)
+
+(add-to-list 'flycheck-checkers 'stan-stanc)
+
 
 ;;; Mode initialization
 
