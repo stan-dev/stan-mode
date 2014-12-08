@@ -8,7 +8,7 @@
 ;;   Daniel Lee <bearlee@alum.mit.edu>
 ;; URL: http://github.com/stan-dev/stan-mode
 ;; Keywords: languanges
-;; Version: 2.5.2
+;; Version: 3.0.0
 ;; Created: 2012-08-18
 ;; Package-Requires: ((auto-complete "1.4.0"))
 
@@ -70,7 +70,7 @@
   :prefix "stan-"
   :group 'languages)
 
-(defconst stan-mode-version "2.5.2"
+(defconst stan-mode-version "3.0.0"
   "stan-mode version number")
 
 (defun stan-version ()

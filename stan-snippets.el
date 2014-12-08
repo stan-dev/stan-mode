@@ -5,9 +5,9 @@
 ;; Author: Jeffrey Arnold <jeffrey.arnold@gmail.com>
 ;; URL: http://github.com/stan-dev/stan-mode
 ;; Keywords: languages
-;; Version: 2.5.2
+;; Version: 3.0.0
 ;; Created: 2012-08-18
-;; Package-Requires: ((yasnippet "0.8.0") (stan-mode "2.5.2"))
+;; Package-Requires: ((yasnippet "0.8.0") (stan-mode "3.0.0"))
 
 ;; This file is not part of GNU Emacs.
 
@@ -37,6 +37,12 @@
 ;;; Code:
 (require 'yasnippet)
 (require 'stan-mode)
+
+(defconst stan-snippets-version "3.0.0"
+  "stan-snippets-version")
+
+(defconst stan-snippets-stan-lang-version "2.5.0"
+  "Stan language version supported by stan-snippets-mode")
 
 (defvar stan-snippets-dir
   (expand-file-name "snippets"
