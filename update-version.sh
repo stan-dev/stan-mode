@@ -1,6 +1,6 @@
 #!/bin/bash
 # Update version numbers for stan-mode and stan-snippets packages
-if [ "$#" -ne 1 ]; then
+if [ -z "$1" ]; then
     echo "usage: $0 VERSION"
 fi
 echo "Bumping stan-mode and stan-snippets version numbers to $1"
