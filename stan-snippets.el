@@ -55,7 +55,10 @@
 (defun stan-snippets-initialize ()
   (when (boundp 'yas-snippet-dirs)
       (add-to-list 'yas-snippet-dirs stan-snippets-dir t))
-  (yas-load-directory stan-snippets-dir))
+  (when stan--load-auto-complete
+    (add-to-list 'ac-sources 'ac-source-yasnippet))
+  (yas-load-directory stan-snippets-dir)
+  )
 
 ;;;###autoload
 (eval-after-load "yasnippet"

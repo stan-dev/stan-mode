@@ -10,6 +10,7 @@
 ;; Keywords: languanges
 ;; Version: 2.5.2
 ;; Created: 2012-08-18
+;; Package-Requires: ((auto-complete "1.4.0"))
 
 ;; This file is not part of GNU Emacs.
 
@@ -55,6 +56,8 @@
 (require 'font-lock)
 (require 'compile)
 (require 'flymake)
+
+(require 'auto-complete)
 
 ;; Contains keywords and functions
 (require 'stan-keywords-lists)
@@ -487,39 +490,18 @@ See `compilation-error-regexp-alist' for help on their format.")
   (setq flymake-check-was-interrupted t))
 (ad-activate 'flymake-post-syntax-check)
 
-;;; auto-complete mode
-
-(defcustom stan-use-auto-complete t
-  "Activate auto-complete mode with Stan files
-
-This only has an effect if auto-complete is installed.
-"
-  :type 'boolean
-  :group 'stan-mode)
-
 ;; defined to avoid compile warnings
-(defvar ac-modes)
-(defvar ac-dictionary-directories)
-(defvar ac-sources)
+;;; Auto-complete mode
 
-(defvar stan--load-auto-complete
-      (and (require 'auto-complete nil 'noerror)
-	   (require 'auto-complete-config nil 'noerror)
-	   stan-use-auto-complete))
-
-(when stan--load-auto-complete
-  (setq ac-modes (append ac-modes '(stan-mode)))
-  (add-to-list 'ac-dictionary-directories
-	       (expand-file-name "ac-dict"
-				 (file-name-directory
-				  (or load-file-name (buffer-file-name))))))
+(add-to-list 'ac-dictionary-directories
+	     (expand-file-name "ac-dict"
+			       (file-name-directory
+				(or load-file-name (buffer-file-name)))))
 
 (defun stan-ac-mode-setup ()
-  (when stan--load-auto-complete
-    (setq ac-sources '(ac-source-yasnippet
-		       ac-source-imenu
-		       ac-source-dictionary
-		       ac-source-words-in-buffer))))
+  (setq ac-sources '(ac-source-imenu
+		     ac-source-dictionary
+		     ac-source-words-in-buffer)))
 
 
 ;;; Mode initialization
