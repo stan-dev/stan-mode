@@ -39,9 +39,8 @@
 ;;   (require 'stan-mode)
 ;;
 ;; This mode currently has support for syntax-highlighting, indentation,
-;; imenu, and auto-complete mode.
+;; imenu, auto-complete mode, and snippets for yasnippet-mode.
 ;;
-;; See `stan-snippets` for yasnippet support.
 
 ;;; Code:
 (require 'cc-mode)
@@ -56,7 +55,9 @@
 (require 'font-lock)
 ;; (require 'compile)
 
+;; non-built-in Dependencies
 (require 'auto-complete)
+(require 'yasnippet)
 
 ;; Contains keywords and functions
 (require 'stan-keywords-lists)
@@ -451,7 +452,7 @@ This can also be just the name of the stanc executable if it is on the PATH.
   :type 'boolean
   :group 'stan-mode)
 
-;;; Auto-complete mode
+;;; auto-complete mode
 
 (add-to-list 'ac-dictionary-directories
 	     (expand-file-name "ac-dict"
@@ -463,6 +464,28 @@ This can also be just the name of the stanc executable if it is on the PATH.
 		     ac-source-dictionary
 		     ac-source-words-in-buffer)))
 
+;;; yasnippet-mode
+
+(defvar stan-snippets-dir
+  (expand-file-name "snippets"
+                    (file-name-directory
+                     (or load-file-name (buffer-file-name))))
+  "Directory containing stan-mode snippets.")
+
+(add-hook
+ 'stan-mode-hook
+ (lambda ()
+   ;; this is needed to expand functions with _ in them.
+   (setq-local yas-key-syntaxes (list "w_" "w_." "w_.()" "^ "))
+   ))
+
+(defun stan-snippets-initialize ()
+  (when (boundp 'yas-snippet-dirs)
+      (add-to-list 'yas-snippet-dirs stan-snippets-dir t))
+  (when stan--load-auto-complete
+    (add-to-list 'ac-sources 'ac-source-yasnippet))
+  (yas-load-directory stan-snippets-dir)
+  )
 
 ;;; Mode initialization
 
@@ -517,6 +540,10 @@ Key bindings:
   (run-hooks 'c-mode-common-hook 'stan-mode-hook)
   (c-update-modeline)
   )
+
+;;;###autoload
+(eval-after-load "yasnippet"
+  '(stan-snippets-initialize))
 
 ;;;###autoload
 (add-to-list 'auto-mode-alist '("\\.stan\\'" . stan-mode))
