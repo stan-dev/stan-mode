@@ -39,7 +39,7 @@
 ;;   (require 'stan-mode)
 ;;
 ;; This mode currently has support for syntax-highlighting, indentation,
-;; imenu, flymake, and compilation error checking.
+;; imenu, and auto-complete mode.
 ;;
 ;; See `stan-snippets` for yasnippet support.
 
@@ -54,8 +54,7 @@
       (require 'cl)))
 
 (require 'font-lock)
-(require 'compile)
-(require 'flymake)
+;; (require 'compile)
 
 (require 'auto-complete)
 
@@ -429,14 +428,15 @@ This can also be just the name of the stanc executable if it is on the PATH.
 
 ;;; Compilation mode
 
-(defvar stan-compilation-regexp
-  '("LOCATION: file=\\([^;]+\\); line=\\([0-9]+\\), column=\\([0-9]+\\)" 1 2 3 nil)
-  "Specifications for matching parse errors in Stan.
-See `compilation-error-regexp-alist' for help on their format.")
+;; ;; FIX ME: New error messages not amenable to parsing.
+;; (defvar stan-compilation-regexp
+;;   '("ERROR at line \\([0-9]+\\)" nil 1 nil nil)
+;;   "Specifications for matching parse errors in Stan.
+;; See `compilation-error-regexp-alist' for help on their format.")
 
-(add-to-list 'compilation-error-regexp-alist-alist
-             (cons 'stan stan-compilation-regexp))
-(add-to-list 'compilation-error-regexp-alist 'stan)
+;; (add-to-list 'compilation-error-regexp-alist-alist
+;;              (cons 'stan stan-compilation-regexp))
+;; (add-to-list 'compilation-error-regexp-alist 'stan)
 
 ;;; Imenu mode
 
@@ -451,46 +451,6 @@ See `compilation-error-regexp-alist' for help on their format.")
   :type 'boolean
   :group 'stan-mode)
 
-;;; flymake-mode
-
-(defvar flymake-stan-stanc-path
-  stan-stanc-path
-  "Stanc executable to use when running flymake")
-
-(defvar flymake-stan-temp-output-file-name nil
-  "Name of the temporary output file produced by stanc when running flymake")
-
-(defun flymake-stan-init ()
-  (let* ((temp-file (flymake-init-create-temp-buffer-copy
-                     'flymake-create-temp-inplace))
-         (local-file (file-relative-name
-                      temp-file
-                      (file-name-directory buffer-file-name))))
-    (setq flymake-stan-temp-output-file-name
-          (make-temp-file "flymake-stan-" nil ".cpp"))
-    (list flymake-stan-stanc-path
-          (list (concat "--o=" flymake-stan-temp-output-file-name) local-file))))
-
-(defun flymake-stan-cleanup ()
-  (flymake-safe-delete-file flymake-stan-temp-output-file-name)
-  (flymake-simple-cleanup))
-
-(push '(".+\\.stan$"
-	flymake-stan-init
-	flymake-stan-cleanup
-	flymake-get-real-file-name)
-      flymake-allowed-file-name-masks)
-
-;; This is needed. Otherwise the non-zero return code by
-;; stanc causes an error.
-;; Solution from http://pastebin.com/2Pp4bj9p
-;; TODO: make it local to this mode
-(defadvice flymake-post-syntax-check
-  (before flymake-force-check-was-interrupted)
-  (setq flymake-check-was-interrupted t))
-(ad-activate 'flymake-post-syntax-check)
-
-;; defined to avoid compile warnings
 ;;; Auto-complete mode
 
 (add-to-list 'ac-dictionary-directories
