@@ -117,7 +117,7 @@ model {
   if (0)
     reject("this is a rejection");
 
-  // integrate
+  // integrate ode
   integrate_ode();
   
 }
