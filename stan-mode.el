@@ -53,7 +53,7 @@
       (require 'cl)))
 
 (require 'font-lock)
-;; (require 'compile)
+(require 'compile)
 
 ;; non-built-in Dependencies
 (require 'auto-complete)
@@ -96,7 +96,7 @@
   :type 'string
   :group 'stan-mode)
 
-(defcustom stan-stanc-path
+(defcustom stan-stanc-bin
   (if (member system-type '(windows-nt cygwin ms-dos))
       "stanc.exe"
     "stanc")
@@ -430,7 +430,6 @@ This can also be just the name of the stanc executable if it is on the PATH.
 
 ;;; Compilation mode
 
-;; ;; FIX ME: New error messages not amenable to parsing.
 (defvar stan-compilation-regexp
   '((stan-input-file . '("Input file=\\(.*\\)$" nil 1 nil nil))
     (stan-error . '("ERROR at line \\([0-9]+\\)" 1 nil nil nil)))
@@ -496,7 +495,7 @@ See `compilation-error-regexp-alist' for help on their format.")
   "A Stan syntax checker using stanc
 
 See http://mc-stan.org/cmdstan.html"
-  :command ("stanc" source)
+  :command (stan-stanc-bin source)
   :error-patterns
   ((error
     line-start "Input file=" (file-name) "\n"
