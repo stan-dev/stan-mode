@@ -7,7 +7,7 @@
 ;; Keywords: languages
 ;; Version: 3.0.0
 ;; Created: 2012-08-18
-;; Package-Requires: ((yasnippet "0.8.0") (stan-mode "3.0.0"))
+;; Package-Requires: ((stan-mode "3.0.0"))
 
 ;; This file is not part of GNU Emacs.
 
@@ -28,48 +28,15 @@
 
 ;;; Commentary:
 
-;; Adds Yasnippet support for stan.
+;; Deprecated. The functionality of this package has been moved into
+;; stan-mode.
 ;;
 ;; Usage:
 ;; 
 ;;   (require 'stan-snippets)
 
 ;;; Code:
-(require 'yasnippet)
 (require 'stan-mode)
 
-(defconst stan-snippets-version "3.0.0"
-  "stan-snippets-version")
-
-(defconst stan-snippets-stan-lang-version "2.5.0"
-  "Stan language version supported by stan-snippets-mode")
-
-(defvar stan-snippets-dir
-  (expand-file-name "snippets"
-                    (file-name-directory
-                     (or load-file-name (buffer-file-name))))
-  "Directory containing stan-mode snippets.")
-
-(add-hook
- 'stan-mode-hook
- (lambda () 
-   ;; this is needed to expand functions with _ in them.
-   (setq-local yas-key-syntaxes (list "w_" "w_." "w_.()" "^ "))
-   ))
-
-;;;###autoload
-(defun stan-snippets-initialize ()
-  (when (boundp 'yas-snippet-dirs)
-      (add-to-list 'yas-snippet-dirs stan-snippets-dir t))
-  (when stan--load-auto-complete
-    (add-to-list 'ac-sources 'ac-source-yasnippet))
-  (yas-load-directory stan-snippets-dir)
-  )
-
-;;;###autoload
-(eval-after-load "yasnippet"
-  '(stan-snippets-initialize))
-
 (provide 'stan-snippets)
-
 ;;; stan-snippets.el ends here
