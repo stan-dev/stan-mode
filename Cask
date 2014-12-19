@@ -9,5 +9,3 @@
  (depends-on "shut-up") ;; quiet emacs
  )
 
-
-
