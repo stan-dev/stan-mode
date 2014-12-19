@@ -480,10 +480,8 @@ See `compilation-error-regexp-alist' for help on their format.")
    ))
 
 (defun stan-snippets-initialize ()
-  (when (boundp 'yas-snippet-dirs)
-      (add-to-list 'yas-snippet-dirs stan-snippets-dir t))
-  (when stan--load-auto-complete
-    (add-to-list 'ac-sources 'ac-source-yasnippet))
+  (add-to-list 'yas-snippet-dirs stan-snippets-dir t)
+  (add-to-list 'ac-sources 'ac-source-yasnippet)
   (yas-load-directory stan-snippets-dir)
   )
 
@@ -532,7 +530,11 @@ Key bindings:
   ;; `c-init-language-vars' is a macro that is expanded at compile
   ;; time to a large `setq' with all the language variables and their
   ;; customized values for our language.
-  (c-init-language-vars stan-mode)
+  ;; This gives the warning:
+  ;; Warning: (lambda nil ...) quoted with ' rather than with #'
+  ;; But I cannot figure out where it is, it must be in cc-mode
+  (with-no-warnings
+    (c-init-language-vars stan-mode))
   ;; `c-common-init' initializes most of the components of a CC Mode
   ;; buffer, including setup of the mode menu, font-lock, etc.
   ;; There's also a lower level routine `c-basic-common-init' that
@@ -544,10 +546,6 @@ Key bindings:
 
   ;; syntax highlighting
   (setq font-lock-defaults '((stan-font-lock-keywords)))
-
-  ;; compilation error mode
-  (make-local-variable 'compilation-error-regexp-alist)
-  (setq compilation-error-regexp-alist '(stan))
 
   ;; imenu
   (when stan-use-imenu
