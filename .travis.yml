@@ -1,7 +1,9 @@
 language: emacs-lisp
 env:
-  - EMACS=emacs24
-  - EMACS=emacs-snapshot EMACSFLAGS="--eval '(setq byte-compile-error-on-warn t)'"
+  - EMACS=emacs
+before_install:
+  - curl -fsSkL https://raw.github.com/rejeep/cask.el/master/go | python
+  - export PATH="/home/travis/.cask/bin:$PATH"
 install:
   # Install our packages
   - make EMACS=$EMACS deps
