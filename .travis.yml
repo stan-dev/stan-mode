@@ -1,0 +1,13 @@
+language: emacs-lisp
+env:
+  - EMACS=emacs24
+  - EMACS=emacs-snapshot EMACSFLAGS="--eval '(setq byte-compile-error-on-warn t)'"
+install:
+  # Install our packages
+  - make EMACS=$EMACS deps
+script:
+  # Byte-compile the file
+  - make EMACS=$EMACS EMACSFLAGS="${EMACSFLAGS}" compile
+branches:
+  - master
+  - develop
