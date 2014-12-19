@@ -10,7 +10,7 @@
 ;; Keywords: languanges
 ;; Version: 3.0.0
 ;; Created: 2012-08-18
-;; Package-Requires: ((auto-complete "1.4.0") (flycheck "0.16.0"))
+;; Package-Requires: ((auto-complete "1.4.0"))
 
 ;; This file is not part of GNU Emacs.
 
@@ -39,7 +39,7 @@
 ;;   (require 'stan-mode)
 ;;
 ;; This mode currently has support for syntax-highlighting, indentation,
-;; imenu, compile-mode, auto-complete mode, and flycheck-mode.
+;; imenu, compile-mode, and auto-complete mode.
 ;;
 
 ;;; Code:
@@ -469,27 +469,6 @@ See `compilation-error-regexp-alist' for help on their format.")
   (setq ac-sources '(ac-source-imenu
 		     ac-source-dictionary
 		     ac-source-words-in-buffer)))
-
-;;; flycheck-mode
-
-;; use flycheck instead of flymake
-
-(flycheck-define-checker stan-stanc
-  "A Stan syntax checker using stanc
-
-See http://mc-stan.org/cmdstan.html"
-  :command (stan-stanc-bin source)
-  :error-patterns
-  ((error
-    line-start "Input file=" (file-name) "\n"
-    (zero-or-more anything)
-    "SYNTAX ERROR" (one-or-more not-newline) "\n"
-    (message (one-or-more anything))
-    "ERROR at line " line
-    ))
-  :modes stan-mode)
-
-(add-to-list 'flycheck-checkers 'stan-stanc)
 
 
 ;;; Mode initialization
