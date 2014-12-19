@@ -10,7 +10,7 @@
 ;; Keywords: languanges
 ;; Version: 3.0.0
 ;; Created: 2012-08-18
-;; Package-Requires: ((auto-complete "1.4.0") (yasnippet "0.8.0") (flycheck "0.16.0"))
+;; Package-Requires: ((auto-complete "1.4.0") (flycheck "0.16.0"))
 
 ;; This file is not part of GNU Emacs.
 
@@ -39,7 +39,7 @@
 ;;   (require 'stan-mode)
 ;;
 ;; This mode currently has support for syntax-highlighting, indentation,
-;; imenu, compile-mode, auto-complete mode, yasnippet-mode, and flycheck-mode.
+;; imenu, compile-mode, auto-complete mode, and flycheck-mode.
 ;;
 
 ;;; Code:
@@ -57,7 +57,6 @@
 
 ;; non-built-in Dependencies
 (require 'auto-complete)
-(require 'yasnippet)
 (require 'flycheck)
 
 ;; Contains keywords and functions
@@ -464,27 +463,6 @@ See `compilation-error-regexp-alist' for help on their format.")
 		     ac-source-dictionary
 		     ac-source-words-in-buffer)))
 
-;;; yasnippet-mode
-
-(defvar stan-snippets-dir
-  (expand-file-name "snippets"
-                    (file-name-directory
-                     (or load-file-name (buffer-file-name))))
-  "Directory containing stan-mode snippets.")
-
-(add-hook
- 'stan-mode-hook
- (lambda ()
-   ;; this is needed to expand functions with _ in them.
-   (setq-local yas-key-syntaxes (list "w_" "w_." "w_.()" "^ "))
-   ))
-
-(defun stan-snippets-initialize ()
-  (add-to-list 'yas-snippet-dirs stan-snippets-dir t)
-  (add-to-list 'ac-sources 'ac-source-yasnippet)
-  (yas-load-directory stan-snippets-dir)
-  )
-
 ;;; flycheck-mode
 
 ;; use flycheck instead of flymake
@@ -557,9 +535,6 @@ Key bindings:
   (c-update-modeline)
   )
 
-;;;###autoload
-(eval-after-load "yasnippet"
-  '(stan-snippets-initialize))
 
 ;;;###autoload
 (add-to-list 'auto-mode-alist '("\\.stan\\'" . stan-mode))
