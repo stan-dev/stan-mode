@@ -10,7 +10,6 @@
 ;; Keywords: languanges
 ;; Version: 3.0.0
 ;; Created: 2012-08-18
-;; Package-Requires: ((auto-complete "1.4.0"))
 
 ;; This file is not part of GNU Emacs.
 
@@ -56,13 +55,8 @@
       (require 'cl))
   )
 
-
 (require 'font-lock)
 (require 'compile)
-
-;; non-built-in Dependencies
-(require 'auto-complete)
-(require 'flycheck)
 
 ;; Contains keywords and functions
 (require 'stan-keywords-lists)
@@ -458,19 +452,6 @@ See `compilation-error-regexp-alist' for help on their format.")
   :type 'boolean
   :group 'stan-mode)
 
-;;; auto-complete mode
-
-(add-to-list 'ac-dictionary-directories
-	     (expand-file-name "ac-dict"
-			       (file-name-directory
-				(or load-file-name (buffer-file-name)))))
-
-(defun stan-ac-mode-setup ()
-  (setq ac-sources '(ac-source-imenu
-		     ac-source-dictionary
-		     ac-source-words-in-buffer)))
-
-
 ;;; Mode initialization
 
 ;;;###autoload
@@ -512,9 +493,6 @@ Key bindings:
       (progn
 	(setq imenu-generic-expression stan-imenu-generic-expression)
 	(imenu-add-menubar-index)))
-
-  ;; auto-complete
-  (stan-ac-mode-setup)
 
   ;; conclusion
   (run-hooks 'c-mode-common-hook 'stan-mode-hook)

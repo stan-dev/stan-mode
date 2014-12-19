@@ -1,4 +1,4 @@
-;;; flycheck-stan.el --- Add Stan support for Flycheck
+;;; ac-stan.el --- Major mode for editing Stan files
 
 ;; Copyright (C) 2014  Jeffrey Arnold
 
@@ -7,8 +7,8 @@
 ;; URL: http://github.com/stan-dev/stan-mode
 ;; Keywords: languanges
 ;; Version: 0.0.1
-;; Created: 2014-12-19
-;; Package-Requires: ((flycheck "0.16.0"))
+;; Created: 2014-12-18
+;; Package-Requires: ((stan-snippets "3.0.0"))
 
 ;; This file is not part of GNU Emacs.
 
@@ -28,32 +28,21 @@
 ;; along with this program.  If not, see
 ;; <http://www.gnu.org/licenses/>
 
-;;; Commentary:
-;;
-;; This requires CmdStan to be installed, and stanc to be on your
-;; PATH.
-;;
 ;;; Code:
-(require 'stan-mode)
-(require 'flycheck)
+(require 'auto-complete)
+(require 'stan-snippets)
 
-(flycheck-define-checker stan-stanc
-  "A Stan syntax checker using stanc
+(add-to-list 'ac-dictionary-directories
+	     (expand-file-name "ac-dict"
+			       (file-name-directory
+				(or load-file-name (buffer-file-name)))))
 
-See http://mc-stan.org/cmdstan.html"
-  :command (stan-stanc-bin source)
-  :error-patterns
-  ((error
-    line-start "Input file=" (file-name) "\n"
-    (zero-or-more anything)
-    "SYNTAX ERROR" (one-or-more not-newline) "\n"
-    (message (one-or-more anything))
-    "ERROR at line " line
-    ))
-  :modes stan-mode)
+(defun stan-ac-mode-setup ()
+  (setq ac-sources '(ac-source-imenu
+		     ac-source-yasnippet
+		     ac-source-dictionary
+		     ac-source-words-in-buffer)))
 
-(add-to-list 'flycheck-checkers 'stan-stanc)
+(provide 'ac-stan)
 
-(provide 'flycheck-stan)
-
-;;; flycheck-stan.el ends here
+;;; ac-stan.el ends here

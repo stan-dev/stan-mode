@@ -53,7 +53,6 @@
 
 (defun stan-snippets-initialize ()
   (add-to-list 'yas-snippet-dirs stan-snippets-dir t)
-  (add-to-list 'ac-sources 'ac-source-yasnippet)
   (yas-load-directory stan-snippets-dir)
   )
 
