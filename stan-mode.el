@@ -530,11 +530,7 @@ Key bindings:
   ;; `c-init-language-vars' is a macro that is expanded at compile
   ;; time to a large `setq' with all the language variables and their
   ;; customized values for our language.
-  ;; This gives the warning:
-  ;; Warning: (lambda nil ...) quoted with ' rather than with #'
-  ;; But I cannot figure out where it is, it must be in cc-mode
-  (with-no-warnings
-    (c-init-language-vars stan-mode))
+  (c-init-language-vars stan-mode)
   ;; `c-common-init' initializes most of the components of a CC Mode
   ;; buffer, including setup of the mode menu, font-lock, etc.
   ;; There's also a lower level routine `c-basic-common-init' that
