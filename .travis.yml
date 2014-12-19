@@ -8,6 +8,3 @@ install:
 script:
   # Byte-compile the file
   - make EMACS=$EMACS EMACSFLAGS="${EMACSFLAGS}" compile
-branches:
-  - master
-  - develop
