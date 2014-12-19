@@ -29,7 +29,7 @@
 ;;; Commentary:
 
 ;; Yasnippet support for the Stan language.
-;;
+
 ;; Usage:
 ;; 
 ;;   (require 'stan-snippets)

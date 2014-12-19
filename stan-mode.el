@@ -44,13 +44,18 @@
 
 ;;; Code:
 (require 'cc-mode)
+;; only needed for definition of c-populate-syntax-table
+;; Otherwise, the warning
+;; Warning: the function `c-populate-syntax-table' might not be defined at runtime.
 (require 'cc-langs)
 
-;; Patch for bug in 24.4 related to cc-mode which uses cl
-;; See https://lists.gnu.org/archive/html/bug-gnu-emacs/2014-10/msg01175.html
 (eval-when-compile
-  (if (and (= emacs-major-version 24) (= emacs-minor-version 4))
-      (require 'cl)))
+  ;; Bug in cc-mode when compiling in Emacs 24.3 and 24.4 when batch-byte-compiling.
+  ;; See http://debbugs.gnu.org/db/18/18845.html 
+  (if (and (= emacs-major-version 24) (< emacs-minor-version 5))
+      (require 'cl))
+  )
+
 
 (require 'font-lock)
 (require 'compile)
@@ -113,7 +118,9 @@ This can also be just the name of the stanc executable if it is on the PATH.
 ;; This mode does not inherit properties from other modes. So, we do not use
 ;; the usual `c-add-language' function.
 (eval-and-compile
-  (put 'stan-mode 'c-mode-prefix "stan-"))
+  ;; (c-add-language 'stan-mode 'c++-mode)
+  (put 'stan-mode 'c-mode-prefix "stan-")
+  )
 
 ;; Lexer level syntax
 (c-lang-defconst c-symbol-start
