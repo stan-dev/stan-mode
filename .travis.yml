@@ -1,6 +1,7 @@
 language: emacs-lisp
 env:
-  - EMACS=emacs
+  - EMACS=emacs24
+  - EMACS=emacs-snapshot
 before_install:
   - curl -fsSkL https://raw.github.com/rejeep/cask.el/master/go | python
   - export PATH="/home/travis/.cask/bin:$PATH"
