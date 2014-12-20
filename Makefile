@@ -1,14 +1,14 @@
-PYTHON = python3
-EMACS = emacs
-EMACSFLAGS =
-CASK = cask
-SED = sed
+PYTHON ?= python3
+EMACS ?= emacs
+EMACSFLAGS ?=
+CASK ?= cask
+SED ?= sed
 VERSION := $(shell EMACS=$(EMACS) $(CASK) version)
 PKGDIR := $(shell EMACS=$(EMACS) $(CASK) package-directory)
 
 export EMACS
 
-SRCS = stan-mode.el stan-keywords-lists.el
+SRCS = stan-mode.el stan-keywords-lists.el stan-snippets.el
 OBJECTS = $(SRCS:.el=.elc)
 
 EMACSBATCH = $(EMACS) -Q --batch $(EMACSFLAGS)
@@ -73,3 +73,4 @@ $(PKGDIR) : Cask
 
 %.elc : %.el $(PKGDIR)
 	$(CASK) exec $(EMACSBATCH) -L . -f batch-byte-compile $<
+
