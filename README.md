@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/stan-dev/stan-mode.svg)](https://travis-ci.org/stan-dev/stan-mode)
 [![MELPA](http://melpa.org/packages/stan-mode-badge.svg)](http://melpa.org/#/stan-mode)
 [![MELPA Stable](http://stable.melpa.org/packages/stan-mode-badge.svg)](http://stable.melpa.org/#/stan-mode)
 

@@ -11,6 +11,7 @@
 ;; Version: 3.0.0
 ;; Created: 2012-08-18
 ;; Package-Requires: ((auto-complete "1.4.0") (yasnippet "0.8.0") (flycheck "0.16.0"))
+;; 
 
 ;; This file is not part of GNU Emacs.
 
