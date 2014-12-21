@@ -1,0 +1,11 @@
+(source gnu)
+(source melpa)
+
+(package-file "stan-snippets.el")
+
+(files "stan-snippets.el" "snippets")
+
+(development
+ (depends-on "shut-up") ;; quiet emacs
+ )
+

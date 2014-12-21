@@ -8,7 +8,7 @@
 ;; Keywords: languanges
 ;; Version: 0.0.1
 ;; Created: 2014-12-19
-;; Package-Requires: ((flycheck "0.16.0"))
+;; Package-Requires: ((flycheck "0.16.0") (stan-mode "3.0.0"))
 
 ;; This file is not part of GNU Emacs.
 

@@ -1,0 +1,10 @@
+(source gnu)
+(source melpa)
+
+(package-file "ac-stan.el")
+(files "ac-stan.el")
+
+(development
+ (depends-on "shut-up") ;; quiet emacs
+ )
+
