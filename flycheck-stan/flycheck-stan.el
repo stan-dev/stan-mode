@@ -33,6 +33,8 @@
 ;; Add a Stan syntax checker to Flycheck which uses stanc.
 ;;
 ;;; Code:
+(require 'rx)
+
 (require 'flycheck)
 (require 'stan-mode)
 
@@ -42,13 +44,10 @@
 See http://mc-stan.org/cmdstan.html"
   :command ("stanc" source)
   :error-patterns
-  ((error
-    line-start "Input file=" (file-name) "\n"
-    (zero-or-more anything)
-    "SYNTAX ERROR" (one-or-more not-newline) "\n"
-    (message (one-or-more anything))
-    "ERROR at line " line
-    ))
+  ((error ;; line-start "Input file=" (file-name) "\n"
+	  ;; (one-or-more (or anything "\n" "\r"))
+	  "ERROR at line " line )
+   )
   :modes stan-mode)
 
 (add-to-list 'flycheck-checkers 'stan-stanc)
