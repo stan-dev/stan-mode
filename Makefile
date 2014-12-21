@@ -1,4 +1,4 @@
-PACKAGES := stan-lang stan-mode ac-mode stan-snippets
+PACKAGES := stan-mode ac-mode stan-snippets
 
 build-stan-lang :
 	make -C stan-lang
@@ -6,7 +6,7 @@ build-stan-lang :
 build : build-stan-lang
 	$(foreach pkg,$(PACKAGES),make -C $(pkg) build-src ; )
 
-compile : build
+compile :
 	$(foreach pkg,$(PACKAGES),make -C $(pkg) compile ; )
 
 dist : 
