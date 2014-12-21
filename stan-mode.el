@@ -10,8 +10,7 @@
 ;; Keywords: languanges
 ;; Version: 3.0.0
 ;; Created: 2012-08-18
-;; Package-Requires: ((auto-complete "1.4.0") (yasnippet "0.8.0") (flycheck "0.16.0"))
-;; 
+;; Package-Requires: ((auto-complete "1.4.0"))
 
 ;; This file is not part of GNU Emacs.
 
@@ -40,31 +39,24 @@
 ;;   (require 'stan-mode)
 ;;
 ;; This mode currently has support for syntax-highlighting, indentation,
-;; imenu, compile-mode, auto-complete mode, yasnippet-mode, and flycheck-mode.
+;; imenu, and auto-complete mode.
 ;;
+;; See `stan-snippets` for yasnippet support.
 
 ;;; Code:
 (require 'cc-mode)
-;; only needed for definition of c-populate-syntax-table
-;; Otherwise, the warning
-;; Warning: the function `c-populate-syntax-table' might not be defined at runtime.
 (require 'cc-langs)
 
+;; Patch for bug in 24.4 related to cc-mode which uses cl
+;; See https://lists.gnu.org/archive/html/bug-gnu-emacs/2014-10/msg01175.html
 (eval-when-compile
-  ;; Bug in cc-mode when compiling in Emacs 24.3 and 24.4 when batch-byte-compiling.
-  ;; See http://debbugs.gnu.org/db/18/18845.html 
-  (if (and (= emacs-major-version 24) (< emacs-minor-version 5))
-      (require 'cl))
-  )
-
+  (if (and (= emacs-major-version 24) (= emacs-minor-version 4))
+      (require 'cl)))
 
 (require 'font-lock)
-(require 'compile)
+;; (require 'compile)
 
-;; non-built-in Dependencies
 (require 'auto-complete)
-(require 'yasnippet)
-(require 'flycheck)
 
 ;; Contains keywords and functions
 (require 'stan-keywords-lists)
@@ -102,7 +94,7 @@
   :type 'string
   :group 'stan-mode)
 
-(defcustom stan-stanc-bin
+(defcustom stan-stanc-path
   (if (member system-type '(windows-nt cygwin ms-dos))
       "stanc.exe"
     "stanc")
@@ -120,9 +112,7 @@ This can also be just the name of the stanc executable if it is on the PATH.
 ;; This mode does not inherit properties from other modes. So, we do not use
 ;; the usual `c-add-language' function.
 (eval-and-compile
-  ;; (c-add-language 'stan-mode 'c++-mode)
-  (put 'stan-mode 'c-mode-prefix "stan-")
-  )
+  (put 'stan-mode 'c-mode-prefix "stan-"))
 
 ;; Lexer level syntax
 (c-lang-defconst c-symbol-start
@@ -438,14 +428,15 @@ This can also be just the name of the stanc executable if it is on the PATH.
 
 ;;; Compilation mode
 
-(defvar stan-compilation-regexp
-  '((stan-input-file . '("Input file=\\(.*\\)$" nil 1 nil nil))
-    (stan-error . '("ERROR at line \\([0-9]+\\)" 1 nil nil nil)))
-  "Specifications for matching parse errors in Stan.
-See `compilation-error-regexp-alist' for help on their format.")
+;; ;; FIX ME: New error messages not amenable to parsing.
+;; (defvar stan-compilation-regexp
+;;   '("ERROR at line \\([0-9]+\\)" nil 1 nil nil)
+;;   "Specifications for matching parse errors in Stan.
+;; See `compilation-error-regexp-alist' for help on their format.")
 
-(add-to-list 'compilation-error-regexp-alist-alist stan-compilation-regexp)
-(add-to-list 'compilation-error-regexp-alist '(stan-input-file stan-error))
+;; (add-to-list 'compilation-error-regexp-alist-alist
+;;              (cons 'stan stan-compilation-regexp))
+;; (add-to-list 'compilation-error-regexp-alist 'stan)
 
 ;;; Imenu mode
 
@@ -460,7 +451,7 @@ See `compilation-error-regexp-alist' for help on their format.")
   :type 'boolean
   :group 'stan-mode)
 
-;;; auto-complete mode
+;;; Auto-complete mode
 
 (add-to-list 'ac-dictionary-directories
 	     (expand-file-name "ac-dict"
@@ -471,54 +462,6 @@ See `compilation-error-regexp-alist' for help on their format.")
   (setq ac-sources '(ac-source-imenu
 		     ac-source-dictionary
 		     ac-source-words-in-buffer)))
-
-;;; yasnippet-mode
-
-(defvar stan-snippets-dir
-  (expand-file-name "snippets"
-                    (file-name-directory
-                     (or load-file-name (buffer-file-name))))
-  "Directory containing stan-mode snippets.")
-
-(add-hook
- 'stan-mode-hook
- (lambda ()
-   ;; this is needed to expand functions with _ in them.
-   (setq-local yas-key-syntaxes (list "w_" "w_." "w_.()" "^ "))
-   ))
-
-;;;###autoload
-(defun stan-snippets-initialize ()
-  (add-to-list 'yas-snippet-dirs stan-snippets-dir t)
-  (add-to-list 'ac-sources 'ac-source-yasnippet)
-  (yas-load-directory stan-snippets-dir)
-  )
-
-;;;###autoload
-(eval-after-load "yasnippet"
-  '(stan-snippets-initialize))
-
-
-;;; flycheck-mode
-
-;; use flycheck instead of flymake
-
-(flycheck-define-checker stan-stanc
-  "A Stan syntax checker using stanc
-
-See http://mc-stan.org/cmdstan.html"
-  :command (stan-stanc-bin source)
-  :error-patterns
-  ((error
-    line-start "Input file=" (file-name) "\n"
-    (zero-or-more anything)
-    "SYNTAX ERROR" (one-or-more not-newline) "\n"
-    (message (one-or-more anything))
-    "ERROR at line " line
-    ))
-  :modes stan-mode)
-
-(add-to-list 'flycheck-checkers 'stan-stanc)
 
 
 ;;; Mode initialization
@@ -556,6 +499,10 @@ Key bindings:
 
   ;; syntax highlighting
   (setq font-lock-defaults '((stan-font-lock-keywords)))
+
+  ;; compilation error mode
+  (make-local-variable 'compilation-error-regexp-alist)
+  (setq compilation-error-regexp-alist '(stan))
 
   ;; imenu
   (when stan-use-imenu

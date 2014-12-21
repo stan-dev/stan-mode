@@ -1,7 +1,3 @@
-[![Build Status](https://travis-ci.org/stan-dev/stan-mode.svg)](https://travis-ci.org/stan-dev/stan-mode)
-[![MELPA](http://melpa.org/packages/stan-mode-badge.svg)](http://melpa.org/#/stan-mode)
-[![MELPA Stable](http://stable.melpa.org/packages/stan-mode-badge.svg)](http://stable.melpa.org/#/stan-mode)
-
 # Emacs support for Stan
 
 This repository contains several packages providing support for editing [Stan](https://code.google.com/p/stan/) in Emacs.
@@ -11,33 +7,66 @@ Its current features include:
 
 - syntax highlighting
 - indentation
+- `compilation-mode` support
 - `imenu-mode` support
-- `autocomplete` support
-- `yasnippet` support
-- `flycheck` support
+- `flymake-mode` support
+- `autocomplete-mode` support (if installed)
+
+Two other packages contain additional functionality but are dependent on additional Emacs packages.
+
+- `stan-snippets`: Adds [yasnippet](https://github.com/capitaomorte/yasnippet) snippets
+
 
 ## Installing
 
-The recommended way to install `stan-mode` is using the built-in package manager of Emacs 24, `package.el`.
-This allows for easy updating of `stan-mode` from within emacs.
-For more information on `package.el`, see the
-[EmacsWiki](http://emacswiki.org/emacs/ELPA)
+### Via package.el
 
-The stan packages are available from [MELPA](http://melpa.org) or [MELPA stable](http://stable.melpa.org).
-If you're not already using MELPA, follow its installation [instructions](http://melpa.org/#/getting-started).
+The is the recommended way to install `stan-mode` is using the built-in package manager of Emacs 24, `package.el`. This allows for easy updating of `stan-mode` from within emacs.
+If you are using Emacs 23, you will need to install `package.el`.
 
-You can install `stan-mode` with the following command:
+The stan packages are available from [MELPA](http://melpa.milkbox.net).
+If you're not already using MELPA, follow its installation [instructions](http://melpa.milkbox.net/#/getting-started).
+
+You can install the modes with the following commands:
 
 <kbd>M-x package-install [RET] stan-mode [RET]</kbd>
 
-Add the following to your [Cask](https://github.com/cask/cask) file:
+<kbd>M-x package-install [RET] stan-snippets [RET]</kbd>
+
+Or add the following to your Emacs initialization file (`.emacs` or `init.el`):
 
 ```el
-(source gnu)
-(source melpa)
-
-(depends-on "stan-mode")
+(package-refresh-contents)
+(mapc
+ (lambda (p)
+   (unless (package-installed-p p)
+     (package-install p)))
+ '(stan-mode stan-snippets))
 ```
+
+If the installation doesn't work try refreshing the package list:
+
+<kbd>M-x package-refresh-contents [RET]</kbd>
+
+For more information on `package.el`, see the
+[EmacsWiki](http://emacswiki.org/emacs/ELPA)
+
+### Manually
+
+Download the files to a local directory, and add lines to your `.emacs` file to add that directory to the `load-path`, and `require` the library.
+
+For example, use the `git clone` command, which will create a directory `stan-mode`,
+```console
+$ cd ~/.emacs.d/plugins
+$ git clone git://github.com/stan-dev/stan-mode.git
+```
+
+Include the following lines in your `.emacs` file,
+```el
+(add-to-list 'load-path "~/.emacs.d/plugins/stan-mode/")
+```
+
+For Aquamacs on Mac OS X, those lines alternatively could also be placed in the following preferences file `~/Library/Preferences/Aquamacs Emacs/Preferences.el`.
 
 ## Usage
 
@@ -45,6 +74,25 @@ Add the following line to your Emacs initialization file,
 ```el
 (require 'stan-mode)
 ```
+If you have [autocomplete](http://cx4a.org/software/auto-complete/) installed and would like to activate `stan-mode`'s support for it, add the following line
+```el
+(setq stan-use-auto-complete t)
+```
+
+``stan-mode`` supports flymake for on the fly syntax checking.
+This requires a `stanc` executable, as built with ``CmdStan``.
+If `stanc` is not in your `PATH` you need to either add it or set the variable `stan-stanc-path` to its location,
+```el
+(setq stan-stanc-path "/path/to/stanc")
+```
+
+Support for yasnippet snippets is contained in a separate package ``stan-snippets``.
+This contains snippets to complete **all** functions with their arguments, as well as blocks, and a few other elements of the language.
+You can activate snippet support by adding the following line to your Emacs initialization file,
+```el
+(require 'stan-snippets)
+```
+
 
 ## Developers
 
