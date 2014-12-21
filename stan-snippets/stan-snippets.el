@@ -4,7 +4,7 @@
 
 ;; Author: Jeffrey Arnold <jeffrey.arnold@gmail.com>
 ;; URL: http://github.com/stan-dev/stan-mode
-;; Keywords: languages
+;; Keywords:  snippets
 ;; Version: 3.0.0
 ;; Created: 2012-08-18
 ;; Package-Requires: ((stan-mode "3.0.0") (yasnippet "0.8.0"))
@@ -28,7 +28,9 @@
 
 ;;; Commentary:
 
-;; Yasnippet support for the Stan language.
+;; Yasnippets for Stan. This includes snippets for blocks, control structures,
+;; and all functions.
+;; 
 
 ;; Usage:
 ;; 
@@ -39,9 +41,8 @@
 (require 'yasnippet)
 
 (defvar stan-snippets-dir
-  (expand-file-name "snippets"
-                    (file-name-directory
-                     (or load-file-name (buffer-file-name))))
+  (file-name-directory
+   (or load-file-name (buffer-file-name)))
   "Directory containing stan-mode snippets.")
 
 (add-hook
@@ -51,13 +52,14 @@
    (setq-local yas-key-syntaxes (list "w_" "w_." "w_.()" "^ "))
    ))
 
+;;;###autoload
 (defun stan-snippets-initialize ()
-  (add-to-list 'yas-snippet-dirs stan-snippets-dir t)
-  (yas-load-directory stan-snippets-dir)
-  )
+  (let ((snip-dir (expand-file-name "snippets" stan-snippets-dir)))
+    (add-to-list 'yas-snippet-dirs stan-snippets-dir t)
+    (yas-load-directory snip-dir)))
 
 ;;;###autoload
-(eval-after-load "yasnippet"
+(eval-after-load 'yasnippet
   '(stan-snippets-initialize))
 
 (provide 'stan-snippets)

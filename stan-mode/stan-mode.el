@@ -34,11 +34,13 @@
 ;; This is a major mode for the Stan modeling language for Bayesian
 ;; statistics. (See URL `http://mc-stan.org/`).
 ;;
-;; Usage:
-;;   (require 'stan-mode)
-;;
 ;; This mode currently has support for syntax-highlighting, indentation,
 ;; imenu, compile-mode, and auto-complete mode.
+
+;; Usage:
+;; 
+;;   (require 'stan-mode)
+;;
 ;;
 
 ;;; Code:
