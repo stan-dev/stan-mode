@@ -5,6 +5,7 @@ export EMACS
 EMACSFLAGS ?=
 VERSION := $(shell EMACS=$(EMACS) $(CASK) version)
 PKGDIR := $(shell EMACS=$(EMACS) $(CASK) package-directory)
+DISTDIR = dist
 
 STAN_LANG = ../stan-lang/stan_lang.json
 
@@ -20,11 +21,17 @@ compile: $(OBJECTS)
 stan-keyword-lists.el: create_stan_keywords_lists.py $(STAN_LANG)
 	$(PYTHON) $^ $@
 
+dist :
+	$(CASK) package
+
 clean-elc :
 	rm -rf $(OBJECTS)
 
 clean-deps:
 	rm -rf .cask/
+
+clean-dist: 
+	rm -rf $(DISTDIR)
 
 $(PKGDIR) : Cask
 	$(CASK) install

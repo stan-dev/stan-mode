@@ -28,6 +28,11 @@
 ;; along with this program.  If not, see
 ;; <http://www.gnu.org/licenses/>
 
+;; Commentary:
+;; 
+;; Auto-complete mode support for Stan.
+;; 
+
 ;;; Code:
 (require 'auto-complete)
 (require 'stan-mode)

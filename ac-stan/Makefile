@@ -5,6 +5,7 @@ export EMACS
 EMACSFLAGS ?=
 VERSION := $(shell EMACS=$(EMACS) $(CASK) version)
 PKGDIR := $(shell EMACS=$(EMACS) $(CASK) package-directory)
+DISTDIR = dist
 
 STAN_LANG = ../stan-lang/stan_lang.json
 
@@ -15,16 +16,26 @@ OBJECTS = $(SRCS:.el=.elc)
 
 all: $(objects) ac-dict/stan-mode
 
+.PHONY : compile dist deps clean-elc clean-deps clean-dist
+
 compile: $(OBJECTS)
+
+dist : 
+	$(CASK) package
 
 ac-dict/stan-mode: create_ac_dict.py $(STAN_LANG)
 	$(PYTHON) $^ $@
 
-clean-elc: 
+clean-elc : 
 	rm -rf $(OBJECTS)
 
-clean-deps:
+clean-deps :
 	rm -rf .cask/
+
+clean-dist :
+	rm -rf $(DISTDIR)
+
+deps : $(PKGDIR)
 
 $(PKGDIR) : Cask
 	$(CASK) install

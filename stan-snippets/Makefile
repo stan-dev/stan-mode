@@ -6,6 +6,7 @@ export EMACS
 EMACSFLAGS ?=
 VERSION := $(shell EMACS=$(EMACS) $(CASK) version)
 PKGDIR := $(shell EMACS=$(EMACS) $(CASK) package-directory)
+DISTDIR = dist
 
 STAN_LANG = ../stan-lang/stan_lang.json
 
@@ -18,7 +19,7 @@ COMPILED_SNIPPETS = snippets/stan-mode/.yas-compiled-snippets.el
 SRCS = stan-snippets.el $(COMPILED_SNIPPETS)
 OBJECTS = $(SRCS:.el=.elc)
 
-.PHONY : compile clean-elc clean-deps snippets
+.PHONY : compile dist deps clean-elc clean-deps clean-dist snippets 
 
 compile: $(OBJECTS)
 
@@ -34,11 +35,19 @@ $(COMPILED_SNIPPETS) : create_snippets.py $(STAN_LANG) $(SNIPPETS)
 	cp $(SRC_SNIPPETS_DIR)/stan-mode/.yas-make-groups snippets/stan-mode/
 	cp $(SRC_SNIPPETS_DIR)/stan-mode/.yas-parents snippets/stan-mode/
 
+dist : 
+	$(CASK) package
+
 clean-elc: 
 	rm -rf $(OBJECTS)
 
 clean-deps:
 	rm -rf .cask/
+
+clean-dist: 
+	rm -rf $(DISTDIR)
+
+deps : $(PKGDIR)
 
 $(PKGDIR) : Cask
 	$(CASK) install

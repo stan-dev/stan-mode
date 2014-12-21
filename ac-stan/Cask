@@ -2,7 +2,7 @@
 (source melpa)
 
 (package-file "ac-stan.el")
-(files "ac-stan.el")
+(files "ac-stan.el" "ac-dict")
 
 (development
  (depends-on "shut-up") ;; quiet emacs
