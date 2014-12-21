@@ -34,8 +34,19 @@
 ;; PATH.
 ;;
 ;;; Code:
-(require 'stan-mode)
 (require 'flycheck)
+(require 'stan-mode)
+
+(defcustom stan-stanc-bin
+  (if (member system-type '(windows-nt cygwin ms-dos))
+      "stanc.exe"
+    "stanc")
+  "Path to stanc executable
+
+This can also be just the name of the stanc executable if it is on the PATH.
+"
+  :type 'string
+  :group 'flycheck-stan)
 
 (flycheck-define-checker stan-stanc
   "A Stan syntax checker using stanc
