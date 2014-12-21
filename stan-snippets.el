@@ -5,9 +5,9 @@
 ;; Author: Jeffrey Arnold <jeffrey.arnold@gmail.com>
 ;; URL: http://github.com/stan-dev/stan-mode
 ;; Keywords: languages
-;; Version: 3.0.0
+;; Version: 4.0.0
 ;; Created: 2012-08-18
-;; Package-Requires: ((yasnippet "0.8.0") (stan-mode "3.0.0"))
+;; Package-Requires: ((yasnippet "0.8.0") (stan-mode "4.0.0"))
 
 ;; This file is not part of GNU Emacs.
 
