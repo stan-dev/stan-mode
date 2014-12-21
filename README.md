@@ -1,6 +1,3 @@
-[![MELPA](http://melpa.org/packages/stan-mode-badge.svg)](http://melpa.org/#/stan-mode)
-[![MELPA Stable](http://stable.melpa.org/packages/stan-mode-badge.svg)](http://stable.melpa.org/#/stan-mode)
-
 # Emacs support for Stan
 
 This repository contains several Emacs packages to make editing [Stan](https://code.google.com/p/stan/) files easier.

@@ -12,3 +12,13 @@ compile : build
 dist : 
 	$(foreach pkg,$(PACKAGES),make -C $(pkg) dist ; )
 
+clean : clean-dist clean-deps clean-elc
+
+clean-dist : 
+	$(foreach pkg,$(PACKAGES),make -C $(pkg) clean-dist ; )
+
+clean-deps : 
+	$(foreach pkg,$(PACKAGES),make -C $(pkg) clean-deps ; )
+
+clean-elc : 
+	$(foreach pkg,$(PACKAGES),make -C $(pkg) clean-elc ; )
