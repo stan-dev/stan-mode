@@ -44,9 +44,10 @@
 See http://mc-stan.org/cmdstan.html"
   :command ("stanc" source)
   :error-patterns
-  ((error ;; line-start "Input file=" (file-name) "\n"
-	  ;; (one-or-more (or anything "\n" "\r"))
-	  "ERROR at line " line )
+  ((error
+    ;; line-start "Input file=" (file-name) "\n"
+    ;; (one-or-more (or anything "\n" "\r"))
+    "ERROR at line " line )
    )
   :modes stan-mode)
 
