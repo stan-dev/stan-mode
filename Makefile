@@ -1,6 +1,9 @@
 .PHONY: stan-mode ac-mode flycheck-stan stan-snippets
 
-all: stan-mode ac-mode flycheck-stan stan-snippets
+all: stan-lang stan-mode ac-mode flycheck-stan stan-snippets 
+
+stan-lang:
+	make -C stan-lang
 
 stan-mode:
 	make -C stan-mode compile
@@ -11,5 +14,5 @@ flycheck-stan:
 stan-snippets:
 	make -C stan-snippets compile
 
-ac-stan:
+ac-stan: 
 	make -C ac-stan compile
