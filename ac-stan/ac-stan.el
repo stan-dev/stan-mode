@@ -30,7 +30,7 @@
 
 ;; Commentary:
 ;; 
-;; Auto-complete mode support for Stan. This mode uses `imenu-mode'
+;; Auto-complete mode support for Stan. This mode uses `imenu-mode',
 ;; snippets from `stan-yasnippet', and a dictionary to generate completion
 ;; candidates.
 ;; 
