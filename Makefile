@@ -1,4 +1,4 @@
-PACKAGES := stan-lang stan-mode ac-mode flycheck-stan stan-snippets
+PACKAGES := stan-lang stan-mode ac-mode stan-snippets
 
 build-stan-lang :
 	make -C stan-lang
