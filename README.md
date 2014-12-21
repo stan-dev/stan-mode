@@ -14,7 +14,7 @@ This repository contains several Emacs packages to make editing [Stan](https://c
   - [imenu](http://www.emacswiki.org/emacs/ImenuMode) support for blocks, variables, and user-defined functions.
 
 - `flycheck-stan`: Adds Stan support for [https://github.com/flycheck/flycheck](flycheck). Flycheck is an on-the-fly syntax checker.
-- `stan-snippets`: Adds Stan support for [yasnippet](https://github.com/capitaomorte/yasnippet). Yasnippet is a teplate system for Emacs. Snippets are defined for blocks, control structures, and *all* the built-in functions and distributions.
+- `stan-snippets`: Adds Stan support for [yasnippet](https://github.com/capitaomorte/yasnippet). Yasnippet is a template system for Emacs. Snippets are defined for blocks, control structures, and *all* the built-in functions and distributions.
 - `ac-stan`: Add Stan support for [autocomplete-mode](http://cx4a.org/software/auto-complete/).
 
 ## Installing
@@ -29,39 +29,41 @@ If you're not already using MELPA, follow its installation [instructions](http:/
 You can install `stan-mode` with the following commands:
 
 <kbd>M-x package-install [RET] stan-mode [RET]</kbd>
+
 <kbd>M-x package-install [RET] flycheck-stan [RET]</kbd>
+
 <kbd>M-x package-install [RET] stan-snippets [RET]</kbd>
+
 <kbd>M-x package-install [RET] ac-stan [RET]</kbd>
 
 ## Usage
 
 ### stan-mode
 
-To use add the following to your `init.el` file:
+To use, add the following to your `init.el` file:
 ```elisp
 (require 'stan-mode)
 ```
 
 ### stan-snippets
 
-To use add the following to your `init.el` file:
+To use, add the following to your `init.el` file:
 ```elisp
 (require 'stan-snippets)
 ```
 
 ### ac-stan
 
-To use it, add the following add the following to your `init.el`:
+To use, add the following add the following to your `init.el`:
 ```elisp
 (require 'ac-stan)
 ```
 
 ### flycheck-stan
 
-To use `flycheck-stan`, you need to install [CmdStan](http://mc-stan.org/cmdstan.html).
-`flycheck-stan` uses the `stanc` binary to check the syntax, so it must either be in the `PATH`, or you need to set `stan-stanc-bin` to the path to `stanc`.
-
-To use it, add the following add the following to your `init.el`:
+`flycheck-stan` uses the `stanc` binary to check the syntax, so you need to install [CmdStan](http://mc-stan.org/cmdstan.html).
+For `flycheck-stan` to work, `stanc` must either be in the `PATH` or you need to set `stan-stanc-bin` to the path to it.
+Add the following add the following to your `init.el`:
 ```elisp
 (require 'flycheck-stan)
 (add-hook 'stan-mode-hook 'flycheck-mode)
@@ -74,7 +76,7 @@ The file `stan-lang/stan_lang.json` contains the keywords and all the signatures
 
 ## License
 
-`*.el` files are free software under the [GPL v3](http://www.gnu.org/licenses/gpl-3.0.html).
+All packages are free software under the [GPL v3](http://www.gnu.org/licenses/gpl-3.0.html).
 
 The file `stan-lang/stan-lang.json` is available under the Public Domain Dedication and License v1.0 whose full text can be found at: http://www.opendatacommons.org/licenses/pddl/1.0/ - See more at: http://opendatacommons.org/licenses/pddl/#sthash.UJfFWezm.dpuf
 
@@ -84,5 +86,7 @@ The file `stan-lang/stan-lang.json` is available under the Public Domain Dedicat
  -->
 <!--  LocalWords:  GPL stanc ' 'load 'stan autocomplete setq 'flymake
  -->
-<!--  LocalWords:  lang json el emacs
+<!--  LocalWords:  lang json el emacs CmdStan flycheck elisp 'stan v3
+ -->
+<!--  LocalWords:  'ac 'flycheck v1
  -->
