@@ -2,8 +2,10 @@
 
 This repository contains several Emacs packages to make editing [Stan](https://code.google.com/p/stan/) files easier.
 
+## stan-mode
+
 - `stan-mode` is a major mode for editing Stan files.
-  Its current features include:
+   Its current features include:
 
   - syntax highlighting
   - indentation
@@ -14,14 +16,13 @@ This repository contains several Emacs packages to make editing [Stan](https://c
 
 ## Installing
 
-The recommended way to install `stan-mode` is using the built-in package manager of Emacs 24, `package.el`.
-This allows for easy updating of `stan-mode` from within emacs.
+The recommended way to install these packages is using the built-in package manager of Emacs 24, `package.el`.
 For more information on `package.el`, see the [EmacsWiki](http://emacswiki.org/emacs/ELPA)
 
-The stan packages are available from [MELPA](http://melpa.org) or [MELPA stable](http://stable.melpa.org).
+These packages are available from [MELPA](http://melpa.org) or [MELPA stable](http://stable.melpa.org).
 If you're not already using MELPA, follow its installation [instructions](http://melpa.org/#/getting-started).
 
-You can install the packages with the following commands:
+You can then install the packages using the following commands:
 
 <kbd>M-x package-install [RET] stan-mode [RET]</kbd>
 
