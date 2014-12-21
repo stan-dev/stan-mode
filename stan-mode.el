@@ -94,18 +94,6 @@
   :type 'string
   :group 'stan-mode)
 
-(defcustom stan-stanc-path
-  (if (member system-type '(windows-nt cygwin ms-dos))
-      "stanc.exe"
-    "stanc")
-  "Path to stanc executable
-
-This can also be just the name of the stanc executable if it is on the PATH.
-"
-  :type 'string
-  :group 'stan-mode)
-
-
 
 ;;; cc-mode Language support
 
