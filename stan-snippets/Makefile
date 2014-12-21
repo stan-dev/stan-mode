@@ -9,8 +9,9 @@ OBJECTS = $(SRCS:.el=.elc)
 
 -include ../common.mk
 
-.PHONY : snippets
-snippets : $(COMPILED_SNIPPETS)
+.PHONY : build-src
+
+build-src : $(COMPILED_SNIPPETS)
 
 $(COMPILED_SNIPPETS) : create_snippets.py $(STAN_LANG) $(SNIPPETS)
 	$(PYTHON) $< $(STAN_LANG) $(SNIPPETS_DIR)

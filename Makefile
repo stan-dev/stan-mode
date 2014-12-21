@@ -1,18 +1,14 @@
-.PHONY: stan-mode ac-mode flycheck-stan stan-snippets
+PACKAGES := stan-lang stan-mode ac-mode flycheck-stan stan-snippets
 
-all: stan-lang stan-mode ac-mode flycheck-stan stan-snippets 
-
-stan-lang:
+build-stan-lang :
 	make -C stan-lang
 
-stan-mode:
-	make -C stan-mode compile
+build : build-stan-lang
+	$(foreach pkg,$(PACKAGES),make -C $(pkg) build-src ; )
 
-flycheck-stan:
-	make -C flycheck-stan compile
+compile : build
+	$(foreach pkg,$(PACKAGES),make -C $(pkg) compile ; )
 
-stan-snippets:
-	make -C stan-snippets compile
+dist : 
+	$(foreach pkg,$(PACKAGES),make -C $(pkg) dist ; )
 
-ac-stan: 
-	make -C ac-stan compile
