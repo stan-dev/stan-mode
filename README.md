@@ -41,21 +41,21 @@ You can install the packages with the following commands:
 ### stan-mode
 
 To use, add the following to your `init.el` file:
-```elisp
+```lisp
 (require 'stan-mode)
 ```
 
 ### stan-snippets
 
 To use, add the following to your `init.el` file:
-```elisp
+```lisp
 (require 'stan-snippets)
 ```
 
 ### ac-stan
 
 To use, add the following add the following to your `init.el`:
-```elisp
+```lisp
 (require 'ac-stan)
 ```
 
@@ -64,7 +64,7 @@ To use, add the following add the following to your `init.el`:
 `flycheck-stan` uses the `stanc` binary to check the syntax, so you need to install [CmdStan](http://mc-stan.org/cmdstan.html).
 For `flycheck-stan` to work, `stanc` must either be in the `PATH` or you need to set `stan-stanc-bin` to the path to it.
 Add the following add the following to your `init.el`:
-```elisp
+```lisp
 (require 'flycheck-stan)
 (add-hook 'stan-mode-hook 'flycheck-mode)
 ```
@@ -86,7 +86,7 @@ The file `stan-lang/stan-lang.json` is available under the Public Domain Dedicat
  -->
 <!--  LocalWords:  GPL stanc ' 'load 'stan autocomplete setq 'flymake
  -->
-<!--  LocalWords:  lang json el emacs CmdStan flycheck elisp 'stan v3
+<!--  LocalWords:  lang json el emacs CmdStan flycheck 'stan v3
  -->
 <!--  LocalWords:  'ac 'flycheck v1
  -->
