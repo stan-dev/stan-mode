@@ -26,7 +26,7 @@ For more information on `package.el`, see the [EmacsWiki](http://emacswiki.org/e
 The stan packages are available from [MELPA](http://melpa.org) or [MELPA stable](http://stable.melpa.org).
 If you're not already using MELPA, follow its installation [instructions](http://melpa.org/#/getting-started).
 
-You can install `stan-mode` with the following commands:
+You can install the packages with the following commands:
 
 <kbd>M-x package-install [RET] stan-mode [RET]</kbd>
 
