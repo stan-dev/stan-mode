@@ -6,7 +6,7 @@
 ;; Maintainer: Jeffrey Arnold <jeffrey.arnold@gmail.com>,
 ;; URL: http://github.com/stan-dev/stan-mode
 ;; Keywords: languanges
-;; Version: 0.0.1
+;; Version: 1.0.0
 ;; Created: 2014-12-19
 ;; Package-Requires: ((flycheck "0.16.0") (stan-mode "3.0.0"))
 
