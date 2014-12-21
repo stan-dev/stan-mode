@@ -487,11 +487,17 @@ See `compilation-error-regexp-alist' for help on their format.")
    (setq-local yas-key-syntaxes (list "w_" "w_." "w_.()" "^ "))
    ))
 
+;;;###autoload
 (defun stan-snippets-initialize ()
   (add-to-list 'yas-snippet-dirs stan-snippets-dir t)
   (add-to-list 'ac-sources 'ac-source-yasnippet)
   (yas-load-directory stan-snippets-dir)
   )
+
+;;;###autoload
+(eval-after-load "yasnippet"
+  '(stan-snippets-initialize))
+
 
 ;;; flycheck-mode
 
@@ -564,10 +570,6 @@ Key bindings:
   (run-hooks 'c-mode-common-hook 'stan-mode-hook)
   (c-update-modeline)
   )
-
-;;;###autoload
-(eval-after-load "yasnippet"
-  '(stan-snippets-initialize))
 
 ;;;###autoload
 (add-to-list 'auto-mode-alist '("\\.stan\\'" . stan-mode))
