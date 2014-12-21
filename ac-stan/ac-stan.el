@@ -30,7 +30,9 @@
 
 ;; Commentary:
 ;; 
-;; Auto-complete mode support for Stan.
+;; Auto-complete mode support for Stan. This mode uses `imenu-mode'
+;; snippets from `stan-yasnippet', and a dictionary to generate completion
+;; candidates.
 ;; 
 
 ;;; Code:
@@ -46,8 +48,7 @@
 (defun stan-ac-mode-setup ()
   (setq ac-sources '(ac-source-imenu
 		     ac-source-yasnippet
-		     ac-source-dictionary
-		     ac-source-words-in-buffer)))
+		     ac-source-dictionary)))
 
 (provide 'ac-stan)
 
