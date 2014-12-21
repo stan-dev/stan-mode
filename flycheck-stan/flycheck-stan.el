@@ -51,7 +51,7 @@ This can also be just the name of the stanc executable if it is on the PATH.
   "A Stan syntax checker using stanc
 
 See http://mc-stan.org/cmdstan.html"
-  :command (stan-stanc-bin source)
+  :command ("stanc" source)
   :error-patterns
   ((error
     line-start "Input file=" (file-name) "\n"
