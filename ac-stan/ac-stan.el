@@ -46,9 +46,13 @@
 				(or load-file-name (buffer-file-name)))))
 
 (defun stan-ac-mode-setup ()
+  (auto-complete-mode t)
+  (yas-minor-mode-on)
   (setq ac-sources '(ac-source-imenu
 		     ac-source-yasnippet
 		     ac-source-dictionary)))
+
+(add-to-list 'ac-modes 'stan-mode)
 
 (provide 'ac-stan)
 

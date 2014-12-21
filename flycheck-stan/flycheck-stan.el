@@ -30,8 +30,7 @@
 
 ;;; Commentary:
 ;;
-;; This requires CmdStan to be installed, and stanc to be on your
-;; PATH.
+;; Add a Stan syntax checker to Flycheck which uses stanc.
 ;;
 ;;; Code:
 (require 'flycheck)

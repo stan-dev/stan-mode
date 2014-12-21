@@ -3,16 +3,19 @@
 
 # Emacs support for Stan
 
-This repository contains several packages providing support for editing [Stan](https://code.google.com/p/stan/) in Emacs.
+This repository contains several Emacs packages to make editing [Stan](https://code.google.com/p/stan/) files easier.
 
 - `stan-mode` is a major mode for editing Stan files.
   Its current features include:
 
   - syntax highlighting
   - indentation
-  - `imenu-mode` support
+  - [Compilation Mode](https://www.gnu.org/software/emacs/manual/html_node/emacs/Compilation-Mode.html) support if the stan file is compiled using `CmdStan`.
+  - [imenu](http://www.emacswiki.org/emacs/ImenuMode) support for blocks, variables, and user-defined functions.
 
-- `stan
+- `flycheck-stan`: Adds Stan support for [https://github.com/flycheck/flycheck](flycheck). Flycheck is an on-the-fly syntax checker.
+- `stan-snippets`: Adds Stan support for [yasnippet](https://github.com/capitaomorte/yasnippet). Yasnippet is a teplate system for Emacs. Snippets are defined for blocks, control structures, and *all* the built-in functions and distributions.
+- `ac-stan`: Add Stan support for [autocomplete-mode](http://cx4a.org/software/auto-complete/).
 
 ## Installing
 
@@ -34,15 +37,35 @@ You can install `stan-mode` with the following commands:
 
 ### stan-mode
 
-```el
+To use add the following to your `init.el` file:
+```elisp
 (require 'stan-mode)
 ```
 
 ### stan-snippets
 
+To use add the following to your `init.el` file:
+```elisp
+(require 'stan-snippets)
+```
+
 ### ac-stan
 
+To use it, add the following add the following to your `init.el`:
+```elisp
+(require 'ac-stan)
+```
+
 ### flycheck-stan
+
+To use `flycheck-stan`, you need to install [CmdStan](http://mc-stan.org/cmdstan.html).
+`flycheck-stan` uses the `stanc` binary to check the syntax, so it must either be in the `PATH`, or you need to set `stan-stanc-bin` to the path to `stanc`.
+
+To use it, add the following add the following to your `init.el`:
+```elisp
+(require 'flycheck-stan)
+(add-hook 'stan-mode-hook 'flycheck-mode)
+```
 
 ## Developers
 
