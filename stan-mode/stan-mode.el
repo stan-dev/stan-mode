@@ -35,7 +35,7 @@
 ;; statistics. (See URL `http://mc-stan.org/`).
 ;;
 ;; This mode currently has support for syntax-highlighting, indentation,
-;; imenu, compile-mode, and auto-complete mode.
+;; and imenu.
 
 ;; Usage:
 ;; 

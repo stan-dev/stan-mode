@@ -7,10 +7,8 @@ This repository contains several Emacs packages to make editing [Stan](https://c
 
   - syntax highlighting
   - indentation
-  - [Compilation Mode](https://www.gnu.org/software/emacs/manual/html_node/emacs/Compilation-Mode.html) support if the stan file is compiled using `CmdStan`.
   - [imenu](http://www.emacswiki.org/emacs/ImenuMode) support for blocks, variables, and user-defined functions.
 
-- `flycheck-stan`: Adds Stan support for [https://github.com/flycheck/flycheck](flycheck). Flycheck is an on-the-fly syntax checker.
 - `stan-snippets`: Adds Stan support for [yasnippet](https://github.com/capitaomorte/yasnippet). Yasnippet is a template system for Emacs. Snippets are defined for blocks, control structures, and *all* the built-in functions and distributions.
 - `ac-stan`: Add Stan support for [autocomplete-mode](http://cx4a.org/software/auto-complete/).
 
@@ -26,8 +24,6 @@ If you're not already using MELPA, follow its installation [instructions](http:/
 You can install the packages with the following commands:
 
 <kbd>M-x package-install [RET] stan-mode [RET]</kbd>
-
-<kbd>M-x package-install [RET] flycheck-stan [RET]</kbd>
 
 <kbd>M-x package-install [RET] stan-snippets [RET]</kbd>
 
@@ -54,16 +50,6 @@ To use, add the following to your `init.el` file:
 To use, add the following add the following to your `init.el`:
 ```lisp
 (require 'ac-stan)
-```
-
-### flycheck-stan
-
-`flycheck-stan` uses the `stanc` binary to check the syntax, so you need to install [CmdStan](http://mc-stan.org/cmdstan.html).
-For `flycheck-stan` to work, `stanc` must either be in the `PATH` or you need to set `stan-stanc-bin` to the path to it.
-Add the following add the following to your `init.el`:
-```lisp
-(require 'flycheck-stan)
-(add-hook 'stan-mode-hook 'flycheck-mode)
 ```
 
 ## Developers
