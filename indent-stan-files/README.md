@@ -4,15 +4,18 @@ The Bash script `indent-stan-file` uses Emacs `stan-mode` to indent a Stan model
 
 ## Install
 
-1. Download the 
+1. Download this directory however you so desire.
 2. If not already installed, install Cask using the instructions [here](http://cask.readthedocs.org/en/latest/).
 3. In the `indent-stan-files` directory, run `make build` to install Emacs dependencies.
 
 ## Usage
 
+The script `indent-stan-files` only indents one model file at a time.
+To indent a file in place:
 ```console
-indent-stan-files foo.stan
+indent-stan-files intputfile.stan
 ```
-
-The script `indent-stan-files` can indent multiple files, but indents files in place.
-
+To indent a file and save it to another file:
+```console
+indent-stan-files intputfile.stan outputfile.stan
+```
