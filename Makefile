@@ -1,6 +1,14 @@
 PYTHON = python3
-EMACS = emacs
 SED = sed
+
+CASK = cask
+EMACS = emacs
+EMACSFLAGS = 
+EMACSBATCH = $(EMACS) -Q --batch $(EMACSFLAGS)
+PKGDIR := $(shell EMACS=$(EMACS) $(CASK) package-directory)
+
+SRCS = stan-keywords-lists.el stan-mode.el  stan-snippets.el
+OBJECTS = $(SRCS:%.el=%.elc)
 
 ## text file of Stan reference manual created with pdftotext --layout 
 REFERENCE = scripts/stan-reference.txt
@@ -30,3 +38,20 @@ snippets/stan-mode/.yas-compiled-snippets.el: scripts/create_snippets.py $(yasni
 snippets: snippets/stan-mode/.yas-compiled-snippets.el
 
 .PHONY: snippets
+
+compile : $(OBJECTS)
+
+deps : $(PKGDIR)
+
+clean-elc :
+	rm -rf $(OBJECTS)
+
+clean-deps :
+	rm -rf .cask/
+
+$(PKGDIR) : Cask
+	$(CASK) install
+	touch $(PKGDIR)
+
+%.elc : %.el $(PKGDIR)
+	$(CASK) exec $(EMACSBATCH) -L . -f batch-byte-compile $<
