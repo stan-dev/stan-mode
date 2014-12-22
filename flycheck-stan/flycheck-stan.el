@@ -45,10 +45,11 @@ See http://mc-stan.org/cmdstan.html"
   :command ("stanc" source)
   :error-patterns
   ((error
-    ;; line-start "Input file=" (file-name) "\n"
-    ;; (one-or-more (or anything "\n" "\r"))
-    "ERROR at line " line )
-   )
+    "Input file=" (file-name) "\n"
+    ;; "Output file=" (1+ not-newline) (\? "\r") "\n"
+    (* (and anything))
+    ;;"ERROR at line " line
+    ))
   :modes stan-mode)
 
 (add-to-list 'flycheck-checkers 'stan-stanc)
