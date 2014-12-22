@@ -1,0 +1,66 @@
+#!/bin/bash
+emacs=${EMACS:=emacs}
+# emacsflags=${EMACSFLAGS:=}
+cask=${CASK:=cask}
+emacsbatch="${EMACS} -Q --batch ${EMACSFLAGS}"
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+PWD=$(pwd)
+
+echo $DIR
+echo $PWD
+
+# From http://stackoverflow.com/questions/3915040/bash-fish-command-to-print-absolute-path-to-a-file
+get_abs_filename() {
+  # $1 : relative filename
+  echo "$(cd "$(dirname "$1")" && pwd)/$(basename "$1")"
+}
+
+# See http://stackoverflow.com/questions/592620/how-to-check-if-a-program-exists-from-a-bash-script
+command-exists () {
+    hash $1 2>/dev/null 
+}
+
+indent-stan () {
+    cd ${DIR}
+    ${cask} \
+	exec ${emacs} \
+        -Q --batch \
+	--eval="(require 'stan-mode)" \
+	-f flymake-mode-off \
+	$1 \
+	-f stan-mode \
+	--eval="(indent-region (point-min) (point-max))" \
+	-f save-buffer 
+}
+
+if [ $# -eq 0 ]
+then
+   echo "indent-stan-files requires at least one argument." 1>&2
+   echo "Usage: indent-stan-files files-to-indent" 1>&2
+   exit 1
+fi
+command-exists ${emacs} || { echo echo >&2 "${emacs} not found. Put the path to the directory in which emacs is installed in the PATH or set the environment variable EMACS to the path to the emacs binary. Aborting."; exit 1; }
+command-exists ${cask} || { echo >&2 "${cask} not found. Put the path to the directory in which cask is installed in the PATH. See http://cask.readthedocs.org/en/latest/guide/installation.html to install cask. Aborting."; exit 1; }
+while [ $# -ge 1 ]
+do
+   if [ -d $1 ]
+   then
+      echo "Argument of indent-stan-files $1 cannot be a directory." 1>&2
+      exit 1
+   fi
+   # Check for existence of file:
+   ls $1 2> /dev/null | grep $1 > /dev/null
+   if [ $? != 0 ]
+   then
+      echo "indent-stan-files: $1 not found." 1>&2
+      exit 1
+   fi
+   # echo "Indenting $1 with emacs in batch mode"
+   filename=$(get_abs_filename "$1")
+   indent-stan "${filename}"
+   echo
+   shift 1
+done
+exit 0
+
