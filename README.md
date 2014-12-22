@@ -7,14 +7,10 @@ Its current features include:
 
 - syntax highlighting
 - indentation
-- `compilation-mode` support
 - `imenu-mode` support
-- `flymake-mode` support
 - `autocomplete-mode` support (if installed)
 
-Two other packages contain additional functionality but are dependent on additional Emacs packages.
-
-- `stan-snippets`: Adds [yasnippet](https://github.com/capitaomorte/yasnippet) snippets
+`stan-snippets` adds [yasnippet](https://github.com/capitaomorte/yasnippet) snippets.
 
 
 ## Installing
@@ -77,13 +73,6 @@ Add the following line to your Emacs initialization file,
 If you have [autocomplete](http://cx4a.org/software/auto-complete/) installed and would like to activate `stan-mode`'s support for it, add the following line
 ```el
 (setq stan-use-auto-complete t)
-```
-
-``stan-mode`` supports flymake for on the fly syntax checking.
-This requires a `stanc` executable, as built with ``CmdStan``.
-If `stanc` is not in your `PATH` you need to either add it or set the variable `stan-stanc-path` to its location,
-```el
-(setq stan-stanc-path "/path/to/stanc")
 ```
 
 Support for yasnippet snippets is contained in a separate package ``stan-snippets``.
