@@ -8,9 +8,8 @@
 ;;   Daniel Lee <bearlee@alum.mit.edu>
 ;; URL: http://github.com/stan-dev/stan-mode
 ;; Keywords: languanges
-;; Version: 4.0.0
+;; Version: 4.0.1
 ;; Created: 2012-08-18
-;; Package-Requires: ((auto-complete "1.4.0"))
 
 ;; This file is not part of GNU Emacs.
 
@@ -39,7 +38,7 @@
 ;;   (require 'stan-mode)
 ;;
 ;; This mode currently has support for syntax-highlighting, indentation,
-;; imenu, and auto-complete mode.
+;; imenu.
 ;;
 ;; See `stan-snippets` for yasnippet support.
 
@@ -54,9 +53,7 @@
       (require 'cl)))
 
 (require 'font-lock)
-;; (require 'compile)
-
-(require 'auto-complete)
+(require 'compile)
 
 ;; Contains keywords and functions
 (require 'stan-keywords-lists)
@@ -70,7 +67,7 @@
   :prefix "stan-"
   :group 'languages)
 
-(defconst stan-mode-version "4.0.0"
+(defconst stan-mode-version "4.0.1"
   "stan-mode version number")
 
 (defun stan-version ()
@@ -414,18 +411,6 @@
     (,stan-func-decl-regexp 2 font-lock-variable-name-face)
     ))
 
-;;; Compilation mode
-
-;; ;; FIX ME: New error messages not amenable to parsing.
-;; (defvar stan-compilation-regexp
-;;   '("ERROR at line \\([0-9]+\\)" nil 1 nil nil)
-;;   "Specifications for matching parse errors in Stan.
-;; See `compilation-error-regexp-alist' for help on their format.")
-
-;; (add-to-list 'compilation-error-regexp-alist-alist
-;;              (cons 'stan stan-compilation-regexp))
-;; (add-to-list 'compilation-error-regexp-alist 'stan)
-
 ;;; Imenu mode
 
 (defvar stan-imenu-generic-expression
@@ -439,17 +424,38 @@
   :type 'boolean
   :group 'stan-mode)
 
-;;; Auto-complete mode
+;;; auto-complete mode
 
-(add-to-list 'ac-dictionary-directories
-	     (expand-file-name "ac-dict"
-			       (file-name-directory
-				(or load-file-name (buffer-file-name)))))
+(defcustom stan-use-auto-complete t
+  "Activate auto-complete mode with Stan files
+
+This only has an effect if auto-complete is installed.
+"
+  :type 'boolean
+  :group 'stan-mode)
+
+;; defined to avoid compile warnings
+(defvar ac-modes)
+(defvar ac-dictionary-directories)
+(defvar ac-sources)
+
+(defvar stan--load-auto-complete
+      (and (require 'auto-complete nil 'noerror)
+	   (require 'auto-complete-config nil 'noerror)
+	   stan-use-auto-complete))
+
+(when stan--load-auto-complete
+  (setq ac-modes (append ac-modes '(stan-mode)))
+  (add-to-list 'ac-dictionary-directories
+	       (expand-file-name "ac-dict"
+				 (file-name-directory
+				  (or load-file-name (buffer-file-name))))))
 
 (defun stan-ac-mode-setup ()
-  (setq ac-sources '(ac-source-imenu
-		     ac-source-dictionary
-		     ac-source-words-in-buffer)))
+  (when stan--load-auto-complete
+    (setq ac-sources '(ac-source-imenu
+		       ac-source-dictionary
+		       ac-source-words-in-buffer))))
 
 
 ;;; Mode initialization
