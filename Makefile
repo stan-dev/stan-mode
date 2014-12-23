@@ -15,6 +15,9 @@ checkdoc :
 dist : 
 	$(foreach pkg,$(PACKAGES),make -C $(pkg) dist ; )
 
+deps :
+	$(foreach pkg,$(PACKAGES),make -C $(pkg) deps ; )
+
 clean : clean-dist clean-deps clean-elc
 
 clean-dist : 
