@@ -12,7 +12,7 @@ This repository contains several Emacs packages to make editing [Stan](https://c
   - [imenu](http://www.emacswiki.org/emacs/ImenuMode) support for blocks, variables, and user-defined functions.
 
 - `stan-snippets`: Adds Stan support for [yasnippet](https://github.com/capitaomorte/yasnippet). Yasnippet is a template system for Emacs. Snippets are defined for blocks, control structures, and *all* the built-in functions and distributions.
-- `ac-stan`: Add Stan support for [autocomplete-mode](http://cx4a.org/software/auto-complete/).
+<!-- - `ac-stan`: Add Stan support for [autocomplete-mode](http://cx4a.org/software/auto-complete/). -->
 
 ## Installing
 
@@ -28,7 +28,7 @@ You can then install the packages using the following commands:
 
 <kbd>M-x package-install [RET] stan-snippets [RET]</kbd>
 
-<kbd>M-x package-install [RET] ac-stan [RET]</kbd>
+<!-- <kbd>M-x package-install [RET] ac-stan [RET]</kbd> -->
 
 ## stan-mode
 
@@ -60,18 +60,18 @@ Else, to use `yasnippet` only for `stan-mode`:
 
 See the documenation for [yasnippet](https://github.com/capitaomorte/yasnippet) for more information on using `yasnippet-mode`.
 
-## ac-stan
+<!-- ## ac-stan -->
 
-To use, add the following add the following to your `init.el`:
-```lisp
-(require 'ac-stan)
-```
-To use `auto-complete` mode,
-```lisp
-(require 'auto-complete-config)
-(ac-config-default)
-```
-See the Auto Complete Mode [documentation](http://cx4a.org/software/auto-complete/manual.html) for more information on using `autocomplete-mode`.
+<!-- To use, add the following add the following to your `init.el`: -->
+<!-- ```lisp -->
+<!-- (require 'ac-stan) -->
+<!-- ``` -->
+<!-- To use `auto-complete` mode, -->
+<!-- ```lisp -->
+<!-- (require 'auto-complete-config) -->
+<!-- (ac-config-default) -->
+<!-- ``` -->
+<!-- See the Auto Complete Mode [documentation](http://cx4a.org/software/auto-complete/manual.html) for more information on using `autocomplete-mode`. -->
 
 ## Developers
 
