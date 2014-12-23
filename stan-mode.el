@@ -43,9 +43,6 @@
 ;; See `stan-snippets` for yasnippet support.
 
 ;;; Code:
-(defconst stan-language-version "2.5.0"
-  "Stan modeling language version supported by `stan-mode'")
-
 (defconst stan-mode-version "4.0.1"
   "stan-mode version number")
 
