@@ -38,5 +38,4 @@ $(PKGDIR) : Cask
 
 %.elc : %.el $(PKGDIR)
 	$(CASK) exec $(EMACSBATCH) -L . \
-	--eval "(setq byte-compile-error-on-warn t)" \
 	-f batch-byte-compile $<
