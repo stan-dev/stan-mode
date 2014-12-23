@@ -1,8 +1,8 @@
 # Emacs support for Stan
 
-This repository contains several Emacs packages to make editing [Stan](https://code.google.com/p/stan/) files easier.
+[![Build Status](https://travis-ci.org/stan-dev/stan-mode.svg?branch=master)](https://travis-ci.org/stan-dev/stan-mode)
 
-## stan-mode
+This repository contains several Emacs packages to make editing [Stan](https://code.google.com/p/stan/) files easier.
 
 - `stan-mode` is a major mode for editing Stan files.
    Its current features include:
@@ -30,23 +30,27 @@ You can then install the packages using the following commands:
 
 <kbd>M-x package-install [RET] ac-stan [RET]</kbd>
 
-## Usage
+## stan-mode
 
-### stan-mode
+[![MELPA](http://melpa.org/packages/stan-mode-badge.svg)](http://melpa.org/#/stan-mode)
+[![MELPA Stable](http://stable.melpa.org/packages/stan-mode-badge.svg)](http://stable.melpa.org/#/stan-mode)
 
 To use, add the following to your `init.el` file:
 ```lisp
 (require 'stan-mode)
 ```
 
-### stan-snippets
+## stan-snippets
+
+[![MELPA](http://melpa.org/packages/stan-snippets-badge.svg)](http://melpa.org/#/stan-snippets)
+[![MELPA Stable](http://stable.melpa.org/packages/stan-snippets-badge.svg)](http://stable.melpa.org/#/stan-snippets)
 
 To use, add the following to your `init.el` file:
 ```lisp
 (require 'stan-snippets)
 ```
 
-### ac-stan
+## ac-stan
 
 To use, add the following add the following to your `init.el`:
 ```lisp
