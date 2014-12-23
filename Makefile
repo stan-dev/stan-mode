@@ -28,3 +28,11 @@ clean-deps :
 
 clean-elc : 
 	$(foreach pkg,$(PACKAGES),make -C $(pkg) clean-elc ; )
+
+.PHONY: snippets
+snippets:
+	-mkdir -p snippets/stan-mode
+	cp -v stan-snippets/snippets/stan-mode/.yas-compiled-snippets.el snippets/stan-mode
+	cp -v stan-snippets/snippets/stan-mode/.yas-make-groups snippets/stan-mode
+	cp -v stan-snippets/snippets/stan-mode/.yas-parents snippets/stan-mode
+
