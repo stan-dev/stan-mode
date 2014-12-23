@@ -275,7 +275,7 @@ Set `stan-comment-end' to the associated comment end."
     (modify-syntax-entry ?\n "> b"  table)
     (modify-syntax-entry ?'  "." table)
     table)
-  "Default syntax table  stan-mode buffers.")
+  "Default syntax table for `stan-mode' buffers.")
 
 (defvar stan-mode-syntax-table nil
   "Syntax table used in `stan-mode' buffers.")
@@ -507,3 +507,4 @@ Key bindings:
 (provide 'stan-mode)
 
 ;;; stan-mode.el ends here
+
