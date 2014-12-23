@@ -13,6 +13,7 @@ This repository contains several Emacs packages and tools to make editing [Stan]
 
 - `stan-snippets`: Adds Stan support for [yasnippet](https://github.com/capitaomorte/yasnippet). Yasnippet is a template system for Emacs. Snippets are defined for blocks, control structures, and *all* the built-in functions and distributions.
 - `indent-stan-files`: A shell script that uses `stan-mode` to indent a file. See its [README](https://github.com/stan-dev/stan-mode/blob/develop/indent-stan-files/README.md).
+- `stan-lang`: The file `stan_lang.json` contains all keywords, functions (with their signatures and documentation) in the Stan modeling language. This is used to generate the keyword lists and snippets used by the modes. It could also be useful for developers designing tools for Stan, e.g. other editor modes.
 <!-- - `ac-stan`: Add Stan support for [autocomplete-mode](http://cx4a.org/software/auto-complete/). -->
 
 ## Installing
@@ -85,11 +86,6 @@ See the documenation for [yasnippet](https://github.com/capitaomorte/yasnippet) 
 <!-- (ac-config-default) -->
 <!-- ``` -->
 <!-- See the Auto Complete Mode [documentation](http://cx4a.org/software/auto-complete/manual.html) for more information on using `autocomplete-mode`. -->
-
-## Developers
-
-This may be of use to developers which would like to support the Stan modeling language in other editors or applications.
-The file `stan-lang/stan_lang.json` contains the keywords and all the signatures and documentation of all the functions of Stan.
 
 ## License
 
