@@ -43,6 +43,10 @@
 ;;
 
 ;;; Code:
+
+(defconst stan-language-version "2.5.0"
+  "Stan modeling language version supported by `stan-mode'.")
+
 (require 'cc-mode)
 ;; only needed for definition of c-populate-syntax-table
 ;; Otherwise, the warning
