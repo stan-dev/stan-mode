@@ -94,6 +94,7 @@ Set `stan-comment-end' to the associated comment end."
   :type 'string
   :group 'stan-mode)
 
+;;;###autoload
 (defun stan-version ()
   "Message the current `stan-mode' version."
   (interactive)
