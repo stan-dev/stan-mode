@@ -46,7 +46,7 @@ then
    exit 1
 fi
 
-# Check for existence of file
+# Check for existence of a file
 ls $1 2> /dev/null | grep $1 > /dev/null
 if [ $? != 0 ]
 then

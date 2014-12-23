@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/stan-dev/stan-mode.svg?branch=master)](https://travis-ci.org/stan-dev/stan-mode)
 
-This repository contains several Emacs packages to make editing [Stan](https://code.google.com/p/stan/) files easier.
+This repository contains several Emacs packages and tools to make editing [Stan](https://code.google.com/p/stan/) files easier.
 
 - `stan-mode` is a major mode for editing Stan files.
    Its current features include:
@@ -12,6 +12,7 @@ This repository contains several Emacs packages to make editing [Stan](https://c
   - [imenu](http://www.emacswiki.org/emacs/ImenuMode) support for blocks, variables, and user-defined functions.
 
 - `stan-snippets`: Adds Stan support for [yasnippet](https://github.com/capitaomorte/yasnippet). Yasnippet is a template system for Emacs. Snippets are defined for blocks, control structures, and *all* the built-in functions and distributions.
+- `indent-stan-files`: A shell script that uses `stan-mode` to indent a file. See its [README](https://github.com/stan-dev/stan-mode/blob/develop/indent-stan-files/README.md).
 <!-- - `ac-stan`: Add Stan support for [autocomplete-mode](http://cx4a.org/software/auto-complete/). -->
 
 ## Installing
