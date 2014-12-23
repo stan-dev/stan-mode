@@ -32,6 +32,10 @@ You can then install the packages using the following commands:
 
 <!-- <kbd>M-x package-install [RET] ac-stan [RET]</kbd> -->
 
+If the installation does not work, try refreshing the package list:
+
+<kbd>M-x package-refresh-contents [RET]</kbd>
+
 ## stan-mode
 
 [![MELPA](http://melpa.org/packages/stan-mode-badge.svg)](http://melpa.org/#/stan-mode)
