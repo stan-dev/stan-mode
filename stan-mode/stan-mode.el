@@ -331,8 +331,8 @@ Set 'stan-comment-end' to the associated comment end."
       ["Indent Line or Region"	c-indent-line-or-region t]
       ["Fill Comment Paragraph" c-fill-paragraph t]
       "----"
-      ["Backward Statement"	c-beginning-of-statement t]
-      ["Forward Statement"	c-end-of-statement t]
+      ["Backward Statement"	stan-beginning-of-statement t]
+      ["Forward Statement"	stan-end-of-statement t]
       ["Backward Block"	        stan-beginning-of-block t]
       ["Forward Block"	        stan-end-of-block t]
       ["Mark Block"	        stan-mark-block t]
