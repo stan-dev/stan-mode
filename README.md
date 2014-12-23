@@ -18,9 +18,9 @@ This repository contains several Emacs packages and tools to make editing [Stan]
 
 ## Installing
 
-The recommended way to install these packages is using the built-in package manager of Emacs 24, `package.el`.
-For more information on `package.el`, see the [EmacsWiki](http://emacswiki.org/emacs/ELPA)
+### package.el
 
+The recommended way to install these packages is using the built-in package manager: `package.el`.
 These packages are available from [MELPA](http://melpa.org) or [MELPA stable](http://stable.melpa.org).
 If you're not already using MELPA, follow its installation [instructions](http://melpa.org/#/getting-started).
 
@@ -36,6 +36,34 @@ If the installation does not work, try refreshing the package list:
 
 <kbd>M-x package-refresh-contents [RET]</kbd>
 
+Or add the following to you `init.el`:
+```lisp
+(package-refresh-contents)
+(mapc
+ (lambda (p)
+   (unless (package-installed-p p)
+     (package-install p)))
+ '(stan-mode stan-snippets))
+```
+
+### Cask
+
+Another way to manage dependencies is to to use [Cask](https://github.com/cask/cask).
+See its [docs](http://cask.readthedocs.org/en/latest/guide/introduction.html#emacs-configuration) for an argument as to why to use Cask to manage your configuration.
+
+Simply add the following to your Cask file:
+```lisp
+(source melpa)
+;; (source melpa-stable)
+(depends-on "stan-mode")
+(depends-on "stan-snippets")
+```
+and from the command line in the same directory as the Cask file use `cask` to install the packages,
+```console
+$ cask install
+```
+See the Cask [documentation](http://cask.readthedocs.org/en/latest/index.html) for more information.
+
 ## stan-mode
 
 [![MELPA](http://melpa.org/packages/stan-mode-badge.svg)](http://melpa.org/#/stan-mode)
@@ -45,18 +73,11 @@ To use, add the following to your `init.el` file:
 ```lisp
 (require 'stan-mode)
 ```
+
 If you have [autocomplete](http://cx4a.org/software/auto-complete/) installed and would like to activate `stan-mode`'s support for it, add the following line
 ```el
 (setq stan-use-auto-complete t)
 ```
-
-Support for yasnippet snippets is contained in a separate package ``stan-snippets``.
-This contains snippets to complete **all** functions with their arguments, as well as blocks, and a few other elements of the language.
-You can activate snippet support by adding the following line to your Emacs initialization file,
-```el
-(require 'stan-snippets)
-```
-
 
 ## stan-snippets
 
