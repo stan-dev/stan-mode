@@ -44,9 +44,6 @@
 
 ;;; Code:
 
-(defconst stan-language-version "2.5.0"
-  "Stan modeling language version supported by `stan-mode'.")
-
 (require 'cc-mode)
 ;; only needed for definition of c-populate-syntax-table
 ;; Otherwise, the warning
@@ -94,195 +91,187 @@ Set `stan-comment-end' to the associated comment end."
   :type 'string
   :group 'stan-mode)
 
-;;;###autoload
-(defun stan-version ()
-  "Message the current `stan-mode' version."
-  (interactive)
-  (message "stan-mode %s; supports Stan modeling language v. %s"
-	   (pkg-info-version-info 'stan-mode) stan-language-version))
-
 ;;; cc-mode Language support
 
 ;; This mode does not inherit properties from other modes. So, we do not use
 ;; the usual `c-add-language' function.
 (eval-and-compile
-  ;; (c-add-language 'stan-mode 'c++-mode)
-  (put 'stan-mode 'c-mode-prefix "stan-")
+  (c-add-language 'stan-mode 'c++-mode)
+  ;; (put 'stan-mode 'c-mode-prefix "stan-")
   )
 
 ;; Lexer level syntax
-(c-lang-defconst c-symbol-start
-  stan (concat "[" c-alpha "]"))
+;; (c-lang-defconst c-symbol-start
+;;   stan (concat "[" c-alpha "]"))
 
-(c-lang-defconst c-symbol-chars
-  stan (concat  c-alnum "_"))
+;; (c-lang-defconst c-symbol-chars
+;;   stan (concat  c-alnum "_"))
 
-;; Since I cannot set two types of line comments in a language,
-;; treat # as a cpp-macro, but kill as much of the functionality as possible
-;; Set # to a comment in the syntax table.
-(c-lang-defconst c-opt-cpp-prefix
-  stan "#")
-(c-lang-defconst c-opt-cpp-prefix
-  stan "\\s *#\\s *")
-(c-lang-defconst c-anchored-cpp-prefix
-  stan "^\\s *\\(#\\)\\s *")
-(c-lang-defconst c-cpp-message-directives
-  stan nil)
-(c-lang-defconst c-cpp-include-directives
-  stan nil)
-(c-lang-defconst c-cpp-macro-define
-  stan nil)
-(c-lang-defconst c-cpp-expr-directives
-  stan nil)
-(c-lang-defconst c-cpp-expr-functions
-  stan nil)
+;; ;; Since I cannot set two types of line comments in a language,
+;; ;; treat # as a cpp-macro, but kill as much of the functionality as possible
+;; ;; Set # to a comment in the syntax table.
+;; (c-lang-defconst c-opt-cpp-prefix
+;;   stan "#")
+;; (c-lang-defconst c-opt-cpp-prefix
+;;   stan "\\s *#\\s *")
+;; (c-lang-defconst c-anchored-cpp-prefix
+;;   stan "^\\s *\\(#\\)\\s *")
+;; (c-lang-defconst c-cpp-message-directives
+;;   stan nil)
+;; (c-lang-defconst c-cpp-include-directives
+;;   stan nil)
+;; (c-lang-defconst c-cpp-macro-define
+;;   stan nil)
+;; (c-lang-defconst c-cpp-expr-directives
+;;   stan nil)
+;; (c-lang-defconst c-cpp-expr-functions
+;;   stan nil)
 
-(c-lang-defconst c-assignment-operators
-  stan '("<-" "~"))
+;; (c-lang-defconst c-assignment-operators
+;;   stan '("<-" "~"))
 
-(c-lang-defconst c-operators
-  stan '((postfix "[" "]" "(" ")")
-	  (postfix-if-paren "<" ">")
-	  (postfix "'")
-	  (left-assoc "^")
-	  (prefix "!" "-" "+")
-	  (left-assoc "./" ".*")
-	  (left-assoc "\\")
-	  (left-assoc "/" "*")
-	  (left-assoc "+" "-")
-	  (left-assoc "<" "<=" ">" ">=")
-	  (left-assoc "!=" "==")
-	  (left-assoc "&&")
-	  (left-assoc "||")
-	  ))
+;; (c-lang-defconst c-operators
+;;   stan '((postfix "[" "]" "(" ")")
+;; 	  (postfix-if-paren "<" ">")
+;; 	  (postfix "'")
+;; 	  (left-assoc "^")
+;; 	  (prefix "!" "-" "+")
+;; 	  (left-assoc "./" ".*")
+;; 	  (left-assoc "\\")
+;; 	  (left-assoc "/" "*")
+;; 	  (left-assoc "+" "-")
+;; 	  (left-assoc "<" "<=" ">" ">=")
+;; 	  (left-assoc "!=" "==")
+;; 	  (left-assoc "&&")
+;; 	  (left-assoc "||")
+;; 	  ))
 
-;; tokens in syntax or parenthesis syntax classes that have uses
-;; other than as expression operators
-;; As with most of cc-mode, I don't fully understand this
-;; c++ doesn't include <> so I won't
-(c-lang-defconst c-other-op-syntax-tokens
-  stan (append '("#") (c-lang-const c-other-op-syntax-tokens)))
+;; ;; tokens in syntax or parenthesis syntax classes that have uses
+;; ;; other than as expression operators
+;; ;; As with most of cc-mode, I don't fully understand this
+;; ;; c++ doesn't include <> so I won't
+;; (c-lang-defconst c-other-op-syntax-tokens
+;;   stan (append '("#") (c-lang-const c-other-op-syntax-tokens)))
 
-(c-lang-defconst c-stmt-delim-chars
-  stan "^;{}")
+;; (c-lang-defconst c-stmt-delim-chars
+;;   stan "^;{}")
 
-(c-lang-defconst c-stmt-delim-chars-with-comma
-  stan "^;{},")
+;; (c-lang-defconst c-stmt-delim-chars-with-comma
+;;   stan "^;{},")
 
-;;; Syntatic whitespace
+;; ;;; Syntatic whitespace
 
-;; cannot get cc-mode to recognize both // and # as comments
-;; setting the regex constants directly does not work either
-;; thus # is set as a cpp-macro and the c-offset-alist style
-;; altered
-(c-lang-defconst c-line-comment-starter
-  stan "//")
+;; ;; cannot get cc-mode to recognize both // and # as comments
+;; ;; setting the regex constants directly does not work either
+;; ;; thus # is set as a cpp-macro and the c-offset-alist style
+;; ;; altered
+;; (c-lang-defconst c-line-comment-starter
+;;   stan "//")
 
-(c-lang-defconst c-block-comment-starter
-  stan "/*")
+;; (c-lang-defconst c-block-comment-starter
+;;   stan "/*")
 
-(c-lang-defconst c-block-comment-ender
-  stan "*/")
+;; (c-lang-defconst c-block-comment-ender
+;;   stan "*/")
 
-;;; Keyword lists
+;; ;;; Keyword lists
 
-(c-lang-defconst c-primitive-type-kwds
-  stan stan-types-list)
+;; (c-lang-defconst c-primitive-type-kwds
+;;   stan stan-types-list)
 
-;; no prefixes for primitivesx
-(c-lang-defconst c-primitive-type-prefix-kwds
-  stan nil)
+;; ;; no prefixes for primitivesx
+;; (c-lang-defconst c-primitive-type-prefix-kwds
+;;   stan nil)
 
-;; no type definitions
-(c-lang-defconst c-tyepdef-kwds
-  stan nil)
+;; ;; no type definitions
+;; (c-lang-defconst c-tyepdef-kwds
+;;   stan nil)
 
-;; no type modifiers
-(c-lang-defconst c-type-modifier-kwds
-  stan nil)
+;; ;; no type modifiers
+;; (c-lang-defconst c-type-modifier-kwds
+;;   stan nil)
 
-(c-lang-defconst c-modifier-kwds
-  stan nil)
+;; (c-lang-defconst c-modifier-kwds
+;;   stan nil)
 
-(c-lang-defconst c-protection-kwds
-  stan nil)
+;; (c-lang-defconst c-protection-kwds
+;;   stan nil)
 
-;; Treat blocks as classes
-;; I tried setting them to c-block-decls-with-vars but then the
-;; syntatic symbols for the context were things like indata, inparameters, ...
-;; which was more of a pain to deal with.
-(c-lang-defconst c-class-decl-kwds
-  stan stan-blocks-list)
+;; ;; Treat blocks as classes
+;; ;; I tried setting them to c-block-decls-with-vars but then the
+;; ;; syntatic symbols for the context were things like indata, inparameters, ...
+;; ;; which was more of a pain to deal with.
+;; (c-lang-defconst c-class-decl-kwds
+;;   stan stan-blocks-list)
 
-(c-lang-defconst c-block-decls-with-vars
-  stan nil)
+;; (c-lang-defconst c-block-decls-with-vars
+;;   stan nil)
 
-(c-lang-defconst c-paren-non-type-kwds
-  stan nil)
+;; (c-lang-defconst c-paren-non-type-kwds
+;;   stan nil)
 
-(c-lang-defconst c-block-stmt-1-kwds
-  "Statement keywords followed directly by a substatement."
-  stan '("else"))
+;; (c-lang-defconst c-block-stmt-1-kwds
+;;   "Statement keywords followed directly by a substatement."
+;;   stan '("else"))
 
-(c-lang-defconst c-block-stmt-2-kwds
-  "Statement keywords followed by a paren sexp and then by a substatement."
-  stan '("for" "if" "while"))
+;; (c-lang-defconst c-block-stmt-2-kwds
+;;   "Statement keywords followed by a paren sexp and then by a substatement."
+;;   stan '("for" "if" "while"))
 
-;; ignore break, continue, goto, return
-(c-lang-defconst c-simple-stmt-kwds
-  stan nil)
+;; ;; ignore break, continue, goto, return
+;; (c-lang-defconst c-simple-stmt-kwds
+;;   stan nil)
 
-;; for in Stan does not have ; separated expressions
-(c-lang-defconst c-paren-stmt-kwds
-  stan nil)
+;; ;; for in Stan does not have ; separated expressions
+;; (c-lang-defconst c-paren-stmt-kwds
+;;   stan nil)
 
-;; No case construct
-(c-lang-defconst c-case-kwds
-  stan nil)
+;; ;; No case construct
+;; (c-lang-defconst c-case-kwds
+;;   stan nil)
 
-;; No colon terminated label statements
-(c-lang-defconst c-label-kwds
-  stan nil)
+;; ;; No colon terminated label statements
+;; (c-lang-defconst c-label-kwds
+;;   stan nil)
 
-;; No keywords followed by label id, e.g. goto
-(c-lang-defconst c-before-label-kwds
-  stan nil)
+;; ;; No keywords followed by label id, e.g. goto
+;; (c-lang-defconst c-before-label-kwds
+;;   stan nil)
 
-(c-lang-defconst c-constant-kwds
-  stan '("lp__")) ;; lp__ is very not-constant but is a non-used defined variable that is exposed.
+;; (c-lang-defconst c-constant-kwds
+;;   stan '("lp__")) ;; lp__ is very not-constant but is a non-used defined variable that is exposed.
 
-;;; cc-mode indentation
+;; ;;; cc-mode indentation
 
-(defvar stan-style
-  '("gnu"
-    ;; # comments have syntatic class cpp-macro
-    (c-offsets-alist . ((cpp-macro . 0)))))
+;; (defvar stan-style
+;;   '("gnu"
+;;     ;; # comments have syntatic class cpp-macro
+;;     (c-offsets-alist . ((cpp-macro . 0)))))
 
-(c-add-style "stan" stan-style)
+;; (c-add-style "stan" stan-style)
 
-(setq c-default-style
-      (append c-default-style '((stan-mode . "stan"))))
+;; (setq c-default-style
+;;       (append c-default-style '((stan-mode . "stan"))))
 
 ;;; Syntax table
-(defconst stan-mode-syntax-table-default
-  (let ((table (funcall (c-lang-const c-make-mode-syntax-table stan))))
-    ;; treat <> as operators only
-    ;; TODO: use syntax-propertize-function to determine context of <>
-    (modify-syntax-entry ?< ".")
-    (modify-syntax-entry ?> ".")
-    ;; Mark single
-    (modify-syntax-entry ?#  "< b"  table)
-    (modify-syntax-entry ?\n "> b"  table)
-    (modify-syntax-entry ?'  "." table)
-    table)
-  "Default syntax table for `stan-mode' buffers.")
+
+;; (defvar stan-mode-syntax-table nil
+;;   "Syntax table used in `stan-mode' buffers.")
 
 (defvar stan-mode-syntax-table nil
-  "Syntax table used in `stan-mode' buffers.")
-
+  "Syntax table used in d-mode buffers.")
 (or stan-mode-syntax-table
-    (setq stan-mode-syntax-table stan-mode-syntax-table-default))
-
+    (setq stan-mode-syntax-table
+	 (let ((table (funcall (c-lang-const c-make-mode-syntax-table stan))))
+	   ;; always treat < > as operators
+	   (modify-syntax-entry ?< "." stan-mode-syntax-table)
+	   (modify-syntax-entry ?> "." stan-mode-syntax-table)
+	   ;; # comments
+	   (modify-syntax-entry ?#  "< b" stan-mode-syntaxtable)
+	   (modify-syntax-entry ?\n "> b" stan-mode-syntax-table)
+	   ;; ' is an operator, not a string
+	   (modify-syntax-entry ?'  "." stan-mode-syntax-table)
+	   table)))
 ;;; Movement
 
 ;; map functions to c movement functions
@@ -485,6 +474,7 @@ Key bindings:
   ;; this will use manual highlighting
   (c-basic-common-init 'stan-mode c-default-style)
   (easy-menu-add stan-menu)
+
 
   ;; syntax highlighting
   (setq font-lock-defaults '((stan-font-lock-keywords)))
