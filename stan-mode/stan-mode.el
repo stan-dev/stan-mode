@@ -75,30 +75,30 @@
   :prefix "stan-"
   :group 'languages)
 
-(defun stan-version ()
-  "Message the current 'stan-mode' version."
-  (interactive)
-  (message "stan-mode version %s; supports Stan v. %s)"
-	   stan-mode-version stan-language-version))
-
 (defcustom stan-mode-hook nil
-  "Hook run when entering 'stan-mode'."
+  "Hook run when entering `stan-mode'."
   :type 'hook
   :group 'stan-mode)
 
 (defcustom stan-comment-start "//"
-  "Comment style to use in 'stan-mode'.
+  "Comment style to use in `stan-mode'.
 
-'stan-comment-start' should be set to either \"//\" or \"#\",
+`stan-comment-start' should be set to either \"//\" or \"#\",
 depending on the style of comments you prefer.
-Set 'stan-comment-end' to the associated comment end."
+Set `stan-comment-end' to the associated comment end."
   :type 'string
   :group 'stan-mode)
 
 (defcustom stan-comment-end ""
-  "Comment style to use in 'stan-mode'."
+  "Comment style to use in `stan-mode'."
   :type 'string
   :group 'stan-mode)
+
+(defun stan-version ()
+  "Message the current `stan-mode' version."
+  (interactive)
+  (message "stan-mode %s; supports Stan modeling language v. %s"
+	   (pkg-info-version-info 'stan-mode) stan-language-version))
 
 ;;; cc-mode Language support
 
