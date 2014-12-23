@@ -485,7 +485,7 @@ Key bindings:
   (setq font-lock-defaults '((stan-font-lock-keywords)))
 
   ;; imenu
-  (when stan-use-imenu
+  (when stan-imenu-p
       (progn
 	(setq imenu-generic-expression stan-imenu-generic-expression)
 	(imenu-add-menubar-index)))
