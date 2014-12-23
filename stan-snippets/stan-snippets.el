@@ -43,7 +43,7 @@
 (defvar stan-snippets-dir
   (file-name-directory
    (or load-file-name (buffer-file-name)))
-  "Directory containing stan-mode snippets.")
+  "Directory containing `stan-mode' snippets.")
 
 (add-hook
  'stan-mode-hook

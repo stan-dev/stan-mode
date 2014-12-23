@@ -49,6 +49,16 @@ To use, add the following to your `init.el` file:
 ```lisp
 (require 'stan-snippets)
 ```
+To use `yasnippet` globally:
+```lisp
+(yas-global-mode 1)
+```
+Else, to use `yasnippet` only for `stan-mode`:
+```lisp
+(add-hook 'stan-mode-hook '(lambda () (yas-minor-mode)))
+```
+
+See the documenation for [yasnippet](https://github.com/capitaomorte/yasnippet) for more information on using `yasnippet-mode`.
 
 ## ac-stan
 
@@ -56,6 +66,12 @@ To use, add the following add the following to your `init.el`:
 ```lisp
 (require 'ac-stan)
 ```
+To use `auto-complete` mode,
+```lisp
+(require 'auto-complete-config)
+(ac-config-default)
+```
+See the Auto Complete Mode [documentation](http://cx4a.org/software/auto-complete/manual.html) for more information on using `autocomplete-mode`.
 
 ## Developers
 
