@@ -32,10 +32,10 @@
 ;;; Commentary:
 
 ;; This is a major mode for the Stan modeling language for Bayesian
-;; statistics.  (See URL `http://mc-stan.org/`).
+;; statistics.  (See URL `http://mc-stan.org/').
 
 ;; This major mode supports syntax-highlighting, indentation,
-;; 'imenu-mode', and 'compilation-mode'.
+;; `imenu-mode', and `compilation-mode'.
 
 ;; Usage:
 
@@ -273,7 +273,7 @@ Set 'stan-comment-end' to the associated comment end."
   "Default syntax table  stan-mode buffers.")
 
 (defvar stan-mode-syntax-table nil
-  "Syntax table used in 'stan-mode' buffers.")
+  "Syntax table used in `stan-mode' buffers.")
 
 (or stan-mode-syntax-table
     (setq stan-mode-syntax-table stan-mode-syntax-table-default))
@@ -291,7 +291,7 @@ Set 'stan-comment-end' to the associated comment end."
 ;;; Abbrev table
 
 (defvar stan-mode-abbrev-table nil
-  "Abbreviation table used in 'stan-mode' buffers.")
+  "Abbreviation table used in `stan-mode' buffers.")
 
 (c-define-abbrev-table 'stan-mode-abbrev-table
   ;; Keywords that if they occur first on a line might alter the
@@ -311,7 +311,7 @@ Set 'stan-comment-end' to the associated comment end."
     (define-key map (kbd "C-M-e") 'stan-end-of-block)
     (define-key map (kbd "C-M-h") 'stan-mark-block)
     map)
-  "Keymap used in 'stan-mode' buffers.")
+  "Keymap used in `stan-mode' buffers.")
 
 ;;; Menu
 
@@ -381,8 +381,8 @@ Set 'stan-comment-end' to the associated comment end."
 (defun stan-regexp-opt (strings)
   "Return a regexp to match a string in the list STRINGS.
 
-This is a simple wrapper for ` was needed since 'regexp-opt' string in Aquamacs
-does not accept the 'word' option."
+This is a simple wrapper for ` was needed since `regexp-opt' string in Aquamacs
+does not accept the `word' option."
   (concat "\\_<\\(" (regexp-opt strings) "\\)\\_>"))
 
 (defvar stan-var-decl-regexp
@@ -439,12 +439,12 @@ See `compilation-error-regexp-alist' for a description of the format.")
   `(("Variable" ,stan-var-decl-regexp 2)
     ("Function" ,stan-func-decl-regexp 2)
     ("Block" ,stan-blocks-regexp 1))
-  "List of definition matchers for creating an Imenu index in 'stan-mode'.
+  "List of definition matchers for creating an Imenu index in `stan-mode'.
 
-See 'imenu-generic-expression' for a description of the format.")
+See `imenu-generic-expression' for a description of the format.")
 
 (defcustom stan-imenu-p t
-  "Turn on 'imenu-mode' in 'stan-mode'."
+  "Turn on `imenu-mode' in `stan-mode'."
   :type 'boolean
   :group 'stan-mode)
 
