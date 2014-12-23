@@ -38,6 +38,7 @@
 ;;; Code:
 (require 'auto-complete)
 (require 'stan-mode)
+(require 'yasnippet)
 (require 'stan-snippets)
 
 (add-to-list 'ac-dictionary-directories
