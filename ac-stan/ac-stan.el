@@ -28,9 +28,9 @@
 ;; along with this program.  If not, see
 ;; <http://www.gnu.org/licenses/>
 
-;; Commentary:
-;; 
-;; Auto-complete mode support for Stan. This mode uses `imenu-mode',
+;;; Commentary:
+
+;; Auto-complete mode support for `stan-mode'.  This mode uses `imenu-mode',
 ;; snippets from `stan-yasnippet', and a dictionary to generate completion
 ;; candidates.
 ;; 
@@ -46,6 +46,7 @@
 				(or load-file-name (buffer-file-name)))))
 
 (defun stan-ac-mode-setup ()
+  "Setup `auto-complete' mode for `stan-mode'."
   (auto-complete-mode t)
   (yas-minor-mode-on)
   (setq ac-sources '(ac-source-imenu

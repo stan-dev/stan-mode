@@ -28,7 +28,7 @@
 
 ;;; Commentary:
 
-;; Yasnippets for Stan. This includes snippets for blocks, control structures,
+;; Yasnippets for Stan.  This includes snippets for blocks, control structures,
 ;; and all functions.
 ;; 
 
@@ -54,6 +54,7 @@
 
 ;;;###autoload
 (defun stan-snippets-initialize ()
+  "Initialize `stan-snippets'."
   (let ((snip-dir (expand-file-name "snippets" stan-snippets-dir)))
     (add-to-list 'yas-snippet-dirs stan-snippets-dir t)
     (yas-load-directory snip-dir)))
