@@ -37,4 +37,6 @@ $(PKGDIR) : Cask
 	touch $(PKGDIR)
 
 %.elc : %.el $(PKGDIR)
-	$(CASK) exec $(EMACSBATCH) -L . -f batch-byte-compile $<
+	$(CASK) exec $(EMACSBATCH) -L . \
+	--eval "(setq byte-compile-error-on-warn t)" \
+	-f batch-byte-compile $<
