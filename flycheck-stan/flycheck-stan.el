@@ -46,13 +46,19 @@ See http://mc-stan.org/cmdstan.html"
   :error-patterns
   ((error
     "Input file=" (file-name) "\n"
-    ;; "Output file=" (1+ not-newline) (\? "\r") "\n"
-    (* (and anything))
-    ;;"ERROR at line " line
+    "Output file=" (1+ not-newline) "\n"
+    (1+ (or not-newline "\n" "\r"))
+    "ERROR at line " line
     ))
+;; These regexp work: 
+;; "Input file=\(.*\)
+;; Output file=\(?:.*\)
+;; \(?:
+;; \|.\)*Error at line \([0-9]+\)"
+;; '(and "Input file=" (group (1+ any)) "\n" "Output file=" (1+ any)  "\n" (1+ (or any "\n" "\r")) "ERROR at line " (group (1+ (in "0-9"))))
   :modes stan-mode)
 
-(add-to-list 'flycheck-checkers 'stan-stanc)
+;; (add-to-list 'flycheck-checkers 'stan-stanc)
 
 (provide 'flycheck-stan)
 

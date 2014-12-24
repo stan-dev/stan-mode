@@ -1,0 +1,21 @@
+stanc /home/jrnold/workspace/stan-mode/flycheck-stan/example.stan
+Model name=example_model
+Input file=/home/jrnold/workspace/stan-mode/flycheck-stan/example.stan
+Output file=example_model.cpp
+
+SYNTAX ERROR, MESSAGE(S) FROM PARSER:
+variable "sdfkal" does not exist.
+variable "sdfkal" does not exist.
+variable "sdfkal" does not exist.
+variable "sdfkal" does not exist.
+
+ERROR at line 6
+  4:    }
+  5:    model {
+  6:    sdfkal
+        ^
+  7:      y ~ normal(0, 1);
+
+
+
+Execute "stanc --help" for more information
