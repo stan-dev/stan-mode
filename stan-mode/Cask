@@ -2,8 +2,7 @@
 (source melpa)
 
 (package-file "stan-mode.el")
-
-(files "stan-mode.el" "stan-keywords-lists.el")
+(depends-on "yasnippet")
 
 (development
  (depends-on "shut-up") ;; quiet emacs

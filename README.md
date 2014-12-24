@@ -1,61 +1,116 @@
 # Emacs support for Stan
 
-This repository contains several Emacs packages to make editing [Stan](https://code.google.com/p/stan/) files easier.
+[![Build Status](https://travis-ci.org/stan-dev/stan-mode.svg?branch=master)](https://travis-ci.org/stan-dev/stan-mode)
+
+This repository contains several Emacs packages and tools to make editing [Stan](https://code.google.com/p/stan/) files easier.
 
 - `stan-mode` is a major mode for editing Stan files.
-  Its current features include:
+   Its current features include:
 
   - syntax highlighting
   - indentation
   - [imenu](http://www.emacswiki.org/emacs/ImenuMode) support for blocks, variables, and user-defined functions.
 
 - `stan-snippets`: Adds Stan support for [yasnippet](https://github.com/capitaomorte/yasnippet). Yasnippet is a template system for Emacs. Snippets are defined for blocks, control structures, and *all* the built-in functions and distributions.
-- `ac-stan`: Add Stan support for [autocomplete-mode](http://cx4a.org/software/auto-complete/).
+- `indent-stan-files`: A shell script that uses `stan-mode` to indent a file. See its [README](https://github.com/stan-dev/stan-mode/blob/develop/indent-stan-files/README.md).
+- `stan-lang`: The file `stan_lang.json` contains all keywords, functions (with their signatures and documentation) in the Stan modeling language. This is used to generate the keyword lists and snippets used by the modes. It could also be useful for developers designing tools for Stan, e.g. other editor modes.
+<!-- - `ac-stan`: Add Stan support for [autocomplete-mode](http://cx4a.org/software/auto-complete/). -->
 
 ## Installing
 
-The recommended way to install `stan-mode` is using the built-in package manager of Emacs 24, `package.el`.
-This allows for easy updating of `stan-mode` from within emacs.
-For more information on `package.el`, see the [EmacsWiki](http://emacswiki.org/emacs/ELPA)
+### package.el
 
-The stan packages are available from [MELPA](http://melpa.org) or [MELPA stable](http://stable.melpa.org).
+The recommended way to install these packages is using the built-in package manager: `package.el`.
+These packages are available from [MELPA](http://melpa.org) or [MELPA stable](http://stable.melpa.org).
 If you're not already using MELPA, follow its installation [instructions](http://melpa.org/#/getting-started).
 
-You can install the packages with the following commands:
+You can then install the packages using the following commands:
 
 <kbd>M-x package-install [RET] stan-mode [RET]</kbd>
 
 <kbd>M-x package-install [RET] stan-snippets [RET]</kbd>
 
-<kbd>M-x package-install [RET] ac-stan [RET]</kbd>
+<!-- <kbd>M-x package-install [RET] ac-stan [RET]</kbd> -->
 
-## Usage
+If the installation does not work, try refreshing the package list:
 
-### stan-mode
+<kbd>M-x package-refresh-contents [RET]</kbd>
+
+Or add the following to you `init.el`:
+```lisp
+(package-refresh-contents)
+(mapc
+ (lambda (p)
+   (unless (package-installed-p p)
+     (package-install p)))
+ '(stan-mode stan-snippets))
+```
+
+### Cask
+
+Another way to manage dependencies is to to use [Cask](https://github.com/cask/cask).
+See its [docs](http://cask.readthedocs.org/en/latest/guide/introduction.html#emacs-configuration) for an argument as to why to use Cask to manage your configuration.
+
+Simply add the following to your Cask file:
+```lisp
+(source melpa)
+;; (source melpa-stable)
+(depends-on "stan-mode")
+(depends-on "stan-snippets")
+```
+and from the command line in the same directory as the Cask file use `cask` to install the packages,
+```console
+$ cask install
+```
+See the Cask [documentation](http://cask.readthedocs.org/en/latest/index.html) for more information.
+
+## stan-mode
+
+[![MELPA](http://melpa.org/packages/stan-mode-badge.svg)](http://melpa.org/#/stan-mode)
+[![MELPA Stable](http://stable.melpa.org/packages/stan-mode-badge.svg)](http://stable.melpa.org/#/stan-mode)
 
 To use, add the following to your `init.el` file:
 ```lisp
 (require 'stan-mode)
 ```
 
-### stan-snippets
+If you have [autocomplete](http://cx4a.org/software/auto-complete/) installed and would like to activate `stan-mode`'s support for it, add the following line
+```el
+(setq stan-use-auto-complete t)
+```
+
+## stan-snippets
+
+[![MELPA](http://melpa.org/packages/stan-snippets-badge.svg)](http://melpa.org/#/stan-snippets)
+[![MELPA Stable](http://stable.melpa.org/packages/stan-snippets-badge.svg)](http://stable.melpa.org/#/stan-snippets)
 
 To use, add the following to your `init.el` file:
 ```lisp
 (require 'stan-snippets)
 ```
-
-### ac-stan
-
-To use, add the following add the following to your `init.el`:
+To use `yasnippet` globally:
 ```lisp
-(require 'ac-stan)
+(yas-global-mode 1)
+```
+Else, to use `yasnippet` only for `stan-mode`:
+```lisp
+(add-hook 'stan-mode-hook '(lambda () (yas-minor-mode)))
 ```
 
-## Developers
+See the documenation for [yasnippet](https://github.com/capitaomorte/yasnippet) for more information on using `yasnippet-mode`.
 
-This may be of use to developers which would like to support the Stan modeling language in other editors or applications.
-The file `stan-lang/stan_lang.json` contains the keywords and all the signatures and documentation of all the functions of Stan.
+<!-- ## ac-stan -->
+
+<!-- To use, add the following add the following to your `init.el`: -->
+<!-- ```lisp -->
+<!-- (require 'ac-stan) -->
+<!-- ``` -->
+<!-- To use `auto-complete` mode, -->
+<!-- ```lisp -->
+<!-- (require 'auto-complete-config) -->
+<!-- (ac-config-default) -->
+<!-- ``` -->
+<!-- See the Auto Complete Mode [documentation](http://cx4a.org/software/auto-complete/manual.html) for more information on using `autocomplete-mode`. -->
 
 ## License
 

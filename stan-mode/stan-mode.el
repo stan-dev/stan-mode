@@ -8,7 +8,7 @@
 ;;   Daniel Lee <bearlee@alum.mit.edu>
 ;; URL: http://github.com/stan-dev/stan-mode
 ;; Keywords: languanges
-;; Version: 4.0.0
+;; Version: 5.0.0
 ;; Created: 2012-08-18
 
 ;; This file is not part of GNU Emacs.
@@ -30,20 +30,20 @@
 ;; <http://www.gnu.org/licenses/>
 
 ;;; Commentary:
-;;
+
 ;; This is a major mode for the Stan modeling language for Bayesian
-;; statistics. (See URL `http://mc-stan.org/`).
-;;
-;; This mode currently has support for syntax-highlighting, indentation,
-;; and imenu.
+;; statistics.  (See URL `http://mc-stan.org/').
+
+;; This major mode supports syntax-highlighting, indentation,
+;; `imenu-mode', and `compilation-mode'.
 
 ;; Usage:
-;; 
+
 ;;   (require 'stan-mode)
-;;
 ;;
 
 ;;; Code:
+
 (require 'cc-mode)
 ;; only needed for definition of c-populate-syntax-table
 ;; Otherwise, the warning
@@ -52,7 +52,7 @@
 
 (eval-when-compile
   ;; Bug in cc-mode when compiling in Emacs 24.3 and 24.4 when batch-byte-compiling.
-  ;; See http://debbugs.gnu.org/db/18/18845.html 
+  ;; See http://debbugs.gnu.org/db/18/18845.html
   (if (and (= emacs-major-version 24) (< emacs-minor-version 5))
       (require 'cl))
   )
@@ -67,32 +67,27 @@
 ;; Customizable Variables
 ;;
 (defgroup stan-mode nil
-  "A mode for Stan"
+  "A major mode for Stan."
   :tag "Stan"
   :prefix "stan-"
   :group 'languages)
 
-(defconst stan-mode-version "3.0.0"
-  "stan-mode version number")
-
-(defun stan-version ()
-  "Message the current stan-mode version"
-  (interactive)
-  (message "stan-mode version %s; supports Stan v. %s)"
-	   stan-mode-version stan-language-version))
-
 (defcustom stan-mode-hook nil
-  "Hook run when entering stan-mode"
+  "Hook run when entering `stan-mode'."
   :type 'hook
   :group 'stan-mode)
 
 (defcustom stan-comment-start "//"
-  "Stan comment style to use"
+  "Comment style to use in `stan-mode'.
+
+`stan-comment-start' should be set to either \"//\" or \"#\",
+depending on the style of comments you prefer.
+Set `stan-comment-end' to the associated comment end."
   :type 'string
   :group 'stan-mode)
 
 (defcustom stan-comment-end ""
-  "Stan comment style to use"
+  "Comment style to use in `stan-mode'."
   :type 'string
   :group 'stan-mode)
 
@@ -105,7 +100,7 @@
   (put 'stan-mode 'c-mode-prefix "stan-")
   )
 
-;; Lexer level syntax
+;; ;; Lexer level syntax
 (c-lang-defconst c-symbol-start
   stan (concat "[" c-alpha "]"))
 
@@ -248,10 +243,11 @@
 
 ;;; cc-mode indentation
 
-(defvar stan-style
+(defconst stan-style
   '("gnu"
     ;; # comments have syntatic class cpp-macro
-    (c-offsets-alist . ((cpp-macro . 0)))))
+    (c-offsets-alist . ((cpp-macro . 0))))
+  "The default Stan indentation style.")
 
 (c-add-style "stan" stan-style)
 
@@ -259,7 +255,8 @@
       (append c-default-style '((stan-mode . "stan"))))
 
 ;;; Syntax table
-(defconst stan-mode-syntax-table-default
+
+(defvar stan-mode-syntax-table
   (let ((table (funcall (c-lang-const c-make-mode-syntax-table stan))))
     ;; treat <> as operators only
     ;; TODO: use syntax-propertize-function to determine context of <>
@@ -272,17 +269,23 @@
     table)
   "Default Syntax table for stan-mode buffers.")
 
-(defvar stan-mode-syntax-table nil
-  "Syntax table used in stan-mode buffers.")
-
-;; use user-specified syntax table else default
-(or stan-mode-syntax-table
-    (setq stan-mode-syntax-table stan-mode-syntax-table-default))
+;; (defvar stan-mode-syntax-table
+;;   (let ((table (copy-syntax-table c-mode-syntax-table)))
+;;     ;; treat <> as operators only
+;;     ;; TODO: use syntax-propertize-function to determine context of <>
+;;     (modify-syntax-entry ?< ".")
+;;     (modify-syntax-entry ?> ".")
+;;     ;; Mark single
+;;     (modify-syntax-entry ?#  "< b"  table)
+;;     (modify-syntax-entry ?\n "> b"  table)
+;;     (modify-syntax-entry ?'  "." table)
+;;     table)
+;;   "Default Syntax table for stan-mode buffers.")
 
 ;;; Movement
 
 ;; map functions to c movement functions
-;; these are saved as separate variables incase the code changes in the future
+;; these are saved as separate variables in case the code changes in the future
 (defvar stan-beginning-of-statement 'c-beginning-of-statement)
 (defvar stan-end-of-statement 'c-end-of-statement)
 (defvar stan-beginning-of-block 'c-beginning-of-defun)
@@ -292,7 +295,7 @@
 ;;; Abbrev table
 
 (defvar stan-mode-abbrev-table nil
-  "Abbreviation table used in stan-mode buffers.")
+  "Abbreviation table used in `stan-mode' buffers.")
 
 (c-define-abbrev-table 'stan-mode-abbrev-table
   ;; Keywords that if they occur first on a line might alter the
@@ -312,7 +315,7 @@
     (define-key map (kbd "C-M-e") 'stan-end-of-block)
     (define-key map (kbd "C-M-h") 'stan-mark-block)
     map)
-  "Keymap used in stan-mode buffers.")
+  "Keymap used in `stan-mode' buffers.")
 
 ;;; Menu
 
@@ -332,8 +335,8 @@
       ["Indent Line or Region"	c-indent-line-or-region t]
       ["Fill Comment Paragraph" c-fill-paragraph t]
       "----"
-      ["Backward Statement"	c-beginning-of-statement t]
-      ["Forward Statement"	c-end-of-statement t]
+      ["Backward Statement"	stan-beginning-of-statement t]
+      ["Forward Statement"	stan-end-of-statement t]
       ["Backward Block"	        stan-beginning-of-block t]
       ["Forward Block"	        stan-end-of-block t]
       ["Mark Block"	        stan-mark-block t]
@@ -366,7 +369,7 @@
 ;; <- and~ s
 (defvar stan-assign-regexp
   "\\(<-\\|~\\)"
-  "Assigment operators")
+  "Regular expression for assigment operators in Stan.")
 
 ;; Stan parser will accept
 ;; "transformedparameters", "transformed parameters", "transformed     parameters",
@@ -377,20 +380,25 @@
 	   (lambda (x) (replace-regexp-in-string " " "[[:space:]]*" x))
 	   stan-blocks-list "\\|")
 	  "\\)[[:space:]]*{")
-  "Stan blocks declaration regexp")
+  "Regular expression for the start of blocks in Stan.")
 
-(defun stan-regexp-opt (string)
-  (concat "\\_<\\(" (regexp-opt string) "\\)\\_>"))
+(defun stan-regexp-opt (strings)
+  "Return a regexp to match a string in the list STRINGS.
+
+This is a simple wrapper for ` was needed since `regexp-opt' string in Aquamacs
+does not accept the `word' option."
+  (concat "\\_<\\(" (regexp-opt strings) "\\)\\_>"))
 
 (defvar stan-var-decl-regexp
   (concat (stan-regexp-opt stan-types-list)
-          "\\(?:<.*?>\\)?\\(?:\\[.*?\\]\\)?[[:space:]]+\\([A-Za-z][A-Za-z0-9_]*\\)[[:space:]]*[[;]")
-    "Stan variable declaration regex")
+          "\\(?:<.*?>\\)?\\(?:\\[.*?\\]\\)?[[:space:]]+"
+	  "\\([A-Za-z][A-Za-z0-9_]*\\)[[:space:]]*[[;]")
+    "Regular expression for variable declarations in Stan.")
 
 (defvar stan-func-decl-regexp
   (concat (stan-regexp-opt (append stan-function-return-types-list '("void")))
           "\\(?:<.*?>\\)?\\(?:\\[.*?\\]\\)?[[:space:]]+\\([A-Za-z][A-Za-z0-9_]*\\)[[:space:]]*(")
-    "Stan function declaration regex")
+    "Regular expression for user-defined functions in Stan.")
 
 (defvar stan-font-lock-keywords
   `((,stan-blocks-regexp 1 font-lock-keyword-face)
@@ -423,7 +431,8 @@
   '((stan-input-file . '("Input file=\\(.*\\)$" nil 1 nil nil))
     (stan-error . '("ERROR at line \\([0-9]+\\)" 1 nil nil nil)))
   "Specifications for matching parse errors in Stan.
-See `compilation-error-regexp-alist' for help on their format.")
+
+See `compilation-error-regexp-alist' for a description of the format.")
 
 (add-to-list 'compilation-error-regexp-alist-alist stan-compilation-regexp)
 (add-to-list 'compilation-error-regexp-alist '(stan-input-file stan-error))
@@ -434,17 +443,47 @@ See `compilation-error-regexp-alist' for help on their format.")
   `(("Variable" ,stan-var-decl-regexp 2)
     ("Function" ,stan-func-decl-regexp 2)
     ("Block" ,stan-blocks-regexp 1))
-  "Stan mode imenu expression")
+  "List of definition matchers for creating an Imenu index in `stan-mode'.
 
-(defcustom stan-use-imenu t
-  "Turn on imenu-mode for Stan files"
+See `imenu-generic-expression' for a description of the format.")
+
+;;; Auto-complete mode
+
+(defcustom stan-use-auto-complete t
+  "Activate `auto-complete' in `stan-mode'.
+
+This only has an effect if auto-complete is installed."
   :type 'boolean
   :group 'stan-mode)
+
+;; defined to avoid compile warnings
+(defvar ac-modes)
+(defvar ac-dictionary-directories)
+(defvar ac-sources)
+
+(defvar stan--load-auto-complete
+      (and (require 'auto-complete nil 'noerror)
+	   (require 'auto-complete-config nil 'noerror)
+	   stan-use-auto-complete))
+
+(when stan--load-auto-complete
+  (setq ac-modes (append ac-modes '(stan-mode)))
+  (add-to-list 'ac-dictionary-directories
+	       (expand-file-name "ac-dict"
+				 (file-name-directory
+				  (or load-file-name (buffer-file-name))))))
+
+(defun stan-ac-mode-setup ()
+  "Setup `autocomplete-mode' from `stan-mode'."
+  (when stan--load-auto-complete
+    (setq ac-sources '(ac-source-imenu
+		       ac-source-dictionary
+		       ac-source-words-in-buffer))))
 
 ;;; Mode initialization
 
 ;;;###autoload
-(defun stan-mode ()
+(define-derived-mode stan-mode prog-mode "Stan"
   "A major mode for editing Stan files.
 
 The hook `c-mode-common-hook' is run with no args at mode
@@ -452,18 +491,17 @@ initialization, then `stan-mode-hook'.
 
 Key bindings:
 \\{stan-mode-map}"
-  (interactive)
-  (kill-all-local-variables)
+  :group 'stan-mode
+  :syntax-table stan-mode-syntax-table
+  :abbrev-table stan-mode-abbrev-table
   (c-initialize-cc-mode t)
-  (set-syntax-table stan-mode-syntax-table)
-  (setq major-mode 'stan-mode
-	mode-name "Stan"
-	local-abbrev-table stan-mode-abbrev-table
-	abbrev-mode t)
   (use-local-map stan-mode-map)
   ;; `c-init-language-vars' is a macro that is expanded at compile
   ;; time to a large `setq' with all the language variables and their
   ;; customized values for our language.
+  ;; TODO: This gives the error message:
+  ;;   Warning: (lambda nil ...) quoted with ' rather than with #'
+  ;; I think it is in cc-mode.
   (c-init-language-vars stan-mode)
   ;; `c-common-init' initializes most of the components of a CC Mode
   ;; buffer, including setup of the mode menu, font-lock, etc.
@@ -472,22 +510,23 @@ Key bindings:
   ;; analysis and similar things working.
   ;; this will use manual highlighting
   (c-basic-common-init 'stan-mode c-default-style)
+  ;; (c-set-style  "stan")
   (easy-menu-add stan-menu)
+  (c-update-modeline)
 
   ;; syntax highlighting
   (setq font-lock-defaults '((stan-font-lock-keywords)))
 
   ;; imenu
-  (when stan-use-imenu
-      (progn
-	(setq imenu-generic-expression stan-imenu-generic-expression)
-	(imenu-add-menubar-index)))
+  (setq imenu-generic-expression stan-imenu-generic-expression)
+  (imenu-add-menubar-index)
+
+  ;; auto-complete
+  (stan-ac-mode-setup)
 
   ;; conclusion
   (run-hooks 'c-mode-common-hook 'stan-mode-hook)
-  (c-update-modeline)
   )
-
 
 ;;;###autoload
 (add-to-list 'auto-mode-alist '("\\.stan\\'" . stan-mode))
@@ -495,3 +534,4 @@ Key bindings:
 (provide 'stan-mode)
 
 ;;; stan-mode.el ends here
+

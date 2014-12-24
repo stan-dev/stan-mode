@@ -8,7 +8,7 @@
 ;; Keywords: languages,completion
 ;; Version: 1.0.0
 ;; Created: 2014-12-18
-;; Package-Requires: ((auto-complete "1.4.0") (stan-mode "3.0.0") (stan-snippets "3.0.0"))
+;; Package-Requires: ((auto-complete "1.4.0") (stan-mode "5.0.0") (stan-snippets "4.0.0"))
 
 ;; This file is not part of GNU Emacs.
 
@@ -28,9 +28,9 @@
 ;; along with this program.  If not, see
 ;; <http://www.gnu.org/licenses/>
 
-;; Commentary:
-;; 
-;; Auto-complete mode support for Stan. This mode uses `imenu-mode',
+;;; Commentary:
+
+;; Auto-complete mode support for `stan-mode'.  This mode uses `imenu-mode',
 ;; snippets from `stan-yasnippet', and a dictionary to generate completion
 ;; candidates.
 ;; 
@@ -38,6 +38,7 @@
 ;;; Code:
 (require 'auto-complete)
 (require 'stan-mode)
+(require 'yasnippet)
 (require 'stan-snippets)
 
 (add-to-list 'ac-dictionary-directories
@@ -46,6 +47,7 @@
 				(or load-file-name (buffer-file-name)))))
 
 (defun stan-ac-mode-setup ()
+  "Setup `auto-complete' mode for `stan-mode'."
   (auto-complete-mode t)
   (yas-minor-mode-on)
   (setq ac-sources '(ac-source-imenu

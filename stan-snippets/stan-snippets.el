@@ -7,7 +7,7 @@
 ;; Keywords:  snippets
 ;; Version: 4.0.0
 ;; Created: 2012-08-18
-;; Package-Requires: ((stan-mode "3.0.0") (yasnippet "0.8.0"))
+;; Package-Requires: ((stan-mode "5.0.0") (yasnippet "0.8.0"))
 
 ;; This file is not part of GNU Emacs.
 
@@ -28,7 +28,7 @@
 
 ;;; Commentary:
 
-;; Yasnippets for Stan. This includes snippets for blocks, control structures,
+;; Yasnippets for Stan.  This includes snippets for blocks, control structures,
 ;; and all functions.
 ;; 
 
@@ -43,7 +43,7 @@
 (defvar stan-snippets-dir
   (file-name-directory
    (or load-file-name (buffer-file-name)))
-  "Directory containing stan-mode snippets.")
+  "Directory containing `stan-mode' snippets.")
 
 (add-hook
  'stan-mode-hook
@@ -54,6 +54,7 @@
 
 ;;;###autoload
 (defun stan-snippets-initialize ()
+  "Initialize `stan-snippets'."
   (let ((snip-dir (expand-file-name "snippets" stan-snippets-dir)))
     (add-to-list 'yas-snippet-dirs stan-snippets-dir t)
     (yas-load-directory snip-dir)))

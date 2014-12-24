@@ -107,18 +107,11 @@ model {
   // normal_log as a function
   lp__ <- lp__ + normal_log(plugh, 0, 1);
   increment_log_prob(normal_log(plugh, 0, 1));
-
+  
   // print statement and string literal
   print("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_~@#$%^&*`'-+={}[].,;: ");
   print("Hello, world!");
   print("");
-
-  // reject
-  if (0)
-    reject("this is a rejection");
-
-  // integrate ode
-  integrate_ode();
   
 }
 generated quantities {
