@@ -12,9 +12,6 @@ import sys
 import subprocess as sp
 from os import path
 
-DISTRIBUTION_PARTS = ('Discrete Distributions', 'Continuous Distributions')
-""" Names of Documentation Parts that can contain distributions """
-
 EXCLUDED_FUNCTIONS = ["increment_log_prob"]
 
 TEMPLATE = """# name: {funcname}({sig})
@@ -62,13 +59,16 @@ def make_group_function(x):
 def make_group_dist(x):
     return 'Distributions.%s' % x['location'][0].split()[0]
 
+def clean_signature(x):
+    return re.sub(r"[\[\]]", "", '-'.join(x))
+
 def write_function_snippets(dst, functions, excluded):
     dir_create_or_clean(dst)
     for funcname, sigs in functions.items():
         if not funcname in excluded:
             for sig, v in sigs.items():
                 if v['argtypes']:
-                    cleansig = re.sub(r"[\[\]]", "", '-'.join(v['argtypes']))
+                    cleansig = clean_signature(v['argtypes'])
                     filename = path.join(dst,
                                          '%s-%s.yasnippet' 
                                          % (funcname, cleansig))
@@ -77,7 +77,7 @@ def write_function_snippets(dst, functions, excluded):
                 snippet = TEMPLATE.format(funcname = funcname,
                                           sig = make_sig(v),
                                           args = make_args(v),
-                                          group = make_group_function(v))
+                                          group = "Functions")
                 with open(filename, 'w') as f:
                     f.write(snippet)
             
@@ -88,13 +88,13 @@ def write_distribution_snippets(dst, functions, distributions):
         if funcname in distribution_funcs:
             distname = funcname[:-4]
             for sig, v in sigs.items():
-                cleansig = re.sub(r"[\[\]]", "", '-'.join(v['argtypes']))
+                cleansig = clean_signature(v['argtypes'])
                 filename = path.join(dst,
                                      '%s-%s.yasnippet' % (funcname, cleansig))
                 snippet = TEMPLATE.format(funcname = distname,
                                           sig = make_dist_sig(v),
                                           args = make_dist_args(v),
-                                          group = make_group_dist(v))
+                                          group = "Distributions")
                 with open(filename, 'w') as f:
                     f.write(snippet)
         
@@ -109,5 +109,4 @@ if __name__ == '__main__':
     excluded = EXCLUDED_FUNCTIONS + ['operator' + x for x in data['operators']]
 
     write_function_snippets(function_dir, data['functions'], excluded)
-    write_distribution_snippets(dist_dir, data['functions'], 
-                                data['distributions'])
+    write_distribution_snippets(dist_dir, data['functions'], data['distributions'])

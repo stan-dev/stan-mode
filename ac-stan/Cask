@@ -3,6 +3,7 @@
 
 (package-file "ac-stan.el")
 (files "ac-stan.el" "ac-dict")
+(depends-on "auto-complete")
 
 (development
  (depends-on "shut-up") ;; quiet emacs

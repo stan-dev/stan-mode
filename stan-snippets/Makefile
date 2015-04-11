@@ -11,13 +11,13 @@ OBJECTS = $(SRCS:.el=.elc)
 
 .PHONY : build-src
 
-build-src : $(COMPILED_SNIPPETS)
+build-src : build-snippets
 
 # This will run every time since deps touches the PKGDIR
-$(COMPILED_SNIPPETS) : create_snippets.py $(STAN_LANG) $(SNIPPETS) deps
-	$(PYTHON) $< $(STAN_LANG) $(SNIPPETS_DIR)
+build-snippets :
+	$(PYTHON) create_snippets.py $(STAN_LANG) $(SNIPPETS_DIR)
 	$(CASK) exec $(EMACS) --batch -l yasnippet --eval '(yas-compile-directory "$(SNIPPETS_DIR)")'
 	# better for version control
 	$(SED) -i '/^;;; Do not edit!/d' $(COMPILED_SNIPPETS)
 
-
+.PHONY: $(COMPILED_SNIPPETS)

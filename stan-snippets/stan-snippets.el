@@ -1,11 +1,11 @@
 ;;; stan-snippets.el --- Yasnippets for Stan
 
-;; Copyright (C) 2012, 2013, 2014  Jeffrey Arnold
+;; Copyright (C) 2012, 2013, 2014, 2015  Jeffrey Arnold
 
 ;; Author: Jeffrey Arnold <jeffrey.arnold@gmail.com>
 ;; URL: http://github.com/stan-dev/stan-mode
 ;; Keywords:  snippets
-;; Version: 4.0.0
+;; Version: 4.1.0
 ;; Created: 2012-08-18
 ;; Package-Requires: ((stan-mode "5.0.0") (yasnippet "0.8.0"))
 
