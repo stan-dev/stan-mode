@@ -14,99 +14,82 @@ from os import path
 
 EXCLUDED_FUNCTIONS = ["increment_log_prob"]
 
-TEMPLATE = """# name: {funcname}({sig})
+FUNC_TEMPLATE = """# name: {funcname}
 # key: {funcname}
-# group: {group}
+# group: Functions
 # --
 {funcname}({args})$0"""
+
+DIST_TEMPLATE = """# name: {funcname}
+# key: {funcname}
+# group: Distributions
+# --
+{funcname}({args})$0"""
+
 
 def dir_create_or_clean(dst):
     if path.exists(dst):
         shutil.rmtree(dst)
     os.makedirs(dst)
 
-def make_sig(x):
-    if x['argtypes']:
-        return ', '.join(x['argtypes'])
+def get_unique_function_args(data):
+    excluded = EXCLUDED_FUNCTIONS + ['operator' + x for x in data['operators']]
+    functions = [f for f in data['functions'] if f not in excluded]
+    funcargs = set()
+    for f in functions:
+        for sig in data['functions'][f]:
+            funcargs.add((f, tuple(data['functions'][f][sig]['argnames'])))
+    return funcargs
+
+def format_args_for_yasnippet(x):
+    def clean_arg(x):
+        return re.sub("\[.*?\]", "", x)
+    if (len(x)):
+        return ', '.join('${%d:%s}' % (i + 1, clean_arg(j)) for i, j in enumerate(x))
     else:
         return ''
 
-def make_dist_sig(x):
-    if x['argtypes']:
-            return ', '.join(x['argtypes'][1:])
-    else:
-        return ''
+def create_function_snippet(x):
+    """ Write a single function to a filename """
+    return FUNC_TEMPLATE.format(funcname = x[0], 
+                                args = format_args_for_yasnippet(x[1]))
 
-def make_args(x):
-    if x['argnames']:
-        argnames = [re.sub(r"\[.*\]", "", y) for y in x['argnames']]
-        return ', '.join(['${%d:%s}' % (y[0] + 1, ' '.join(y[1])) 
-                          for y in enumerate(zip(x['argtypes'], argnames))])
-    else:
-        return ""
+def write_all_function_snippets(functions, dst):
+    for fxn in functions:
+        filename = os.path.join(dst, '%s(%s).yasnippet' % (fxn[0], ','.join(fxn[1])))
+        with open(filename, 'w') as f:
+            f.write(create_function_snippet(fxn))
 
-def make_dist_args(x):
-    if x['argnames']:
-        return ', '.join(['${%d:%s}' % (y[0] + 1, ' '.join(y[1])) 
-                          for y in enumerate(zip(x['argtypes'][1:], 
-                                                 x['argnames'][1:]))])
-    else:
-        return ""
+def get_distribution_name(funcname):
+    return re.sub('_log$', '', funcname)
 
-def make_group_function(x):
-    return 'Functions.%s' % '.'.join(y for y in x['location'] if y)
+def create_distribution_snippet(x):
+    """ Write a single function to a filename """
+    return DIST_TEMPLATE.format(funcname = x[0], 
+                                args = format_args_for_yasnippet(x[1]))
 
-def make_group_dist(x):
-    return 'Distributions.%s' % x['location'][0].split()[0]
+def write_all_distribution_snippets(functions, dst):
+    for fxn in functions:
+        filename = os.path.join(dst, '%s(%s).yasnippet' % (fxn[0], ','.join(fxn[1])))
+        with open(filename, 'w') as f:
+            f.write(create_distribution_snippet(fxn))
 
-def clean_signature(x):
-    return re.sub(r"[\[\]]", "", '-'.join(x))
-
-def write_function_snippets(dst, functions, excluded):
-    dir_create_or_clean(dst)
-    for funcname, sigs in functions.items():
-        if not funcname in excluded:
-            for sig, v in sigs.items():
-                if v['argtypes']:
-                    cleansig = clean_signature(v['argtypes'])
-                    filename = path.join(dst,
-                                         '%s-%s.yasnippet' 
-                                         % (funcname, cleansig))
-                else:
-                    filename = path.join(dst, '%s.yasnippet' % funcname)
-                snippet = TEMPLATE.format(funcname = funcname,
-                                          sig = make_sig(v),
-                                          args = make_args(v),
-                                          group = "Functions")
-                with open(filename, 'w') as f:
-                    f.write(snippet)
-            
-def write_distribution_snippets(dst, functions, distributions):
-    dir_create_or_clean(dst)
-    distribution_funcs = ['%s_log' % x for x in distributions]
-    for funcname, sigs in functions.items():
-        if funcname in distribution_funcs:
-            distname = funcname[:-4]
-            for sig, v in sigs.items():
-                cleansig = clean_signature(v['argtypes'])
-                filename = path.join(dst,
-                                     '%s-%s.yasnippet' % (funcname, cleansig))
-                snippet = TEMPLATE.format(funcname = distname,
-                                          sig = make_dist_sig(v),
-                                          args = make_dist_args(v),
-                                          group = "Distributions")
-                with open(filename, 'w') as f:
-                    f.write(snippet)
-        
-if __name__ == '__main__':
-    src, dst = sys.argv[1:3]
-    function_dir = path.join(dst, 'stan-mode', 'functions')
-    dist_dir = path.join(dst, 'stan-mode', 'distributions')
-
+def main(src, dst):
     with open(src, 'r') as f:
         data = json.load(f)
+    functions = get_unique_function_args(data)
+    distributions = set()
+    for fxn in functions:
+        if get_distribution_name(fxn[0]) in data['distributions']:
+            distributions.add((get_distribution_name(fxn[0]), fxn[1][1:]))
+    dst_subdir = os.path.join(dst, 'stan-mode', 'functions')
+    dir_create_or_clean(dst_subdir)
+    write_all_function_snippets(functions, dst_subdir)
+    write_all_distribution_snippets(distributions, dst_subdir)
+        
+if __name__ == '__main__':
+    main(*sys.argv[1:3])
+    pass
+    # function_dir = path.join(dst, 'stan-mode', 'functions')
+    # dist_dir = path.join(dst, 'stan-mode', 'distributions')
 
-    excluded = EXCLUDED_FUNCTIONS + ['operator' + x for x in data['operators']]
-
-    write_function_snippets(function_dir, data['functions'], excluded)
-    write_distribution_snippets(dist_dir, data['functions'], data['distributions'])

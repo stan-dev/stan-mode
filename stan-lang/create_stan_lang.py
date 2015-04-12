@@ -147,16 +147,16 @@ def parse_functions(src):
                 continue
             else:
                 args = parse_args(funargs)
-        f = {
-            'name': funname,
-            'return': funret,
-            'argtypes': [x[0] for x in args],
-            'argnames': [x[1] for x in args],
-        }
-        signature = ','.join(f['argtypes'])
-        if funname not in functions:
-            functions[funname] = {}
-        functions[funname][signature] = f
+            f = {
+                'name': funname,
+                'return': funret,
+                'argtypes': [x[0] for x in args],
+                'argnames': [x[1] for x in args],
+            }
+            signature = ','.join(f['argtypes'])
+            if funname not in functions:
+                functions[funname] = {}
+            functions[funname][signature] = f
     return (functions, list(distributions))
 
 def main(src, dst):
