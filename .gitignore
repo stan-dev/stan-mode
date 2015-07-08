@@ -2,3 +2,4 @@
 .cask
 dist/
 *.elc
+*.bak
