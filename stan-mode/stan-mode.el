@@ -50,12 +50,7 @@
 ;; Warning: the function `c-populate-syntax-table' might not be defined at runtime.
 (require 'cc-langs)
 
-(eval-when-compile
-  ;; Bug in cc-mode when compiling in Emacs 24.3 and 24.4 when batch-byte-compiling.
-  ;; See http://debbugs.gnu.org/db/18/18845.html
-  (if (and (= emacs-major-version 24) (< emacs-minor-version 5))
-      (require 'cl))
-  )
+(require 'cl)
 
 (require 'font-lock)
 (require 'compile)
