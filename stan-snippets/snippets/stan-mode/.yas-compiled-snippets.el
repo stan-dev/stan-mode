@@ -46,7 +46,7 @@
 		       ("<" "<lower=${1:0},upper=${2:1}>$0" "<lower=..., upper=...>" nil
 			("Range Constraints")
 			nil nil nil nil)
-		       ("matrix" "matrix{1:<${2:lower=...,upper=...}>}[$3, $4] ${5:variable}${6:[${7:dims}]};\n$0" "matrix[] ...;" nil
+		       ("matrix" "matrix${1:<${2:lower=...,upper=...}>}[$3, $4] ${5:variable}${6:[${7:dims}]};\n$0" "matrix[] ...;" nil
 			("Types")
 			nil nil nil nil)
 		       ("model" "model {\n  $0\n}\n" "model {...}" nil
