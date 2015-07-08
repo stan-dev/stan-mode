@@ -55,6 +55,7 @@ def create_function_snippet(x):
                                 args = format_args_for_yasnippet(x[1]))
 
 def write_all_function_snippets(functions, dst):
+    dir_create_or_clean(dst)
     for fxn in functions:
         filename = os.path.join(dst, '%s(%s).yasnippet' % (fxn[0], ','.join(fxn[1])))
         with open(filename, 'w') as f:
@@ -69,6 +70,7 @@ def create_distribution_snippet(x):
                                 args = format_args_for_yasnippet(x[1]))
 
 def write_all_distribution_snippets(functions, dst):
+    dir_create_or_clean(dst)
     for fxn in functions:
         filename = os.path.join(dst, '%s(%s).yasnippet' % (fxn[0], ','.join(fxn[1])))
         with open(filename, 'w') as f:
@@ -82,14 +84,9 @@ def main(src, dst):
     for fxn in functions:
         if get_distribution_name(fxn[0]) in data['distributions']:
             distributions.add((get_distribution_name(fxn[0]), fxn[1][1:]))
-    dst_subdir = os.path.join(dst, 'stan-mode', 'functions')
-    dir_create_or_clean(dst_subdir)
-    write_all_function_snippets(functions, dst_subdir)
-    write_all_distribution_snippets(distributions, dst_subdir)
+    write_all_function_snippets(functions, os.path.join(dst, 'stan-mode', 'functions'))
+    write_all_distribution_snippets(distributions, os.path.join(dst, 'stan-mode', 'distributions'))
         
 if __name__ == '__main__':
     main(*sys.argv[1:3])
-    pass
-    # function_dir = path.join(dst, 'stan-mode', 'functions')
-    # dist_dir = path.join(dst, 'stan-mode', 'distributions')
 
