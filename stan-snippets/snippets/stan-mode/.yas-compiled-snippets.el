@@ -26,6 +26,9 @@
 		       ("for" "for (${1:i} in ${2:1}:${3:N}) {\n    $0\n}\n" "for (...; ...; ...) { ... }" nil
 			("Structure")
 			nil nil nil nil)
+		       ("fun" "${1:return} ${2:name} (${args}) {\n  $0\n}\n" "new function" nil
+			("Blocks")
+			nil nil nil nil)
 		       ("functions" "functions {\n  $0\n}\n" "functions {...}" nil
 			("Blocks")
 			nil nil nil nil)
