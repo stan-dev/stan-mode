@@ -1,3 +1,5 @@
+Phi
+Phi_approx
 abs
 acos
 acosh
@@ -292,8 +294,6 @@ pareto_type_2_cdf
 pareto_type_2_cdf_log
 pareto_type_2_log
 pareto_type_2_rng
-phi 
-phi_approx 
 pi
 poisson
 poisson_ccdf_log
@@ -407,6 +407,8 @@ weibull_cdf_log
 weibull_log
 weibull_rng
 while
+wiener
+wiener_log
 wishart
 wishart_log
 wishart_rng

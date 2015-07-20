@@ -106,56 +106,57 @@
     "xor_eq"
   ],
   "distributions": [
-    "gumbel",
-    "multi_normal_cholesky",
-    "binomial_logit",
     "neg_binomial",
-    "exp_mod_normal",
-    "multi_normal_prec",
-    "chi_square",
-    "student_t",
-    "bernoulli",
-    "beta",
-    "gaussian_dlm_obs",
-    "multinomial",
-    "pareto_type_2",
-    "frechet",
-    "poisson",
-    "uniform",
-    "multi_gp_cholesky",
-    "multi_student_t",
-    "beta_binomial",
-    "categorical_logit",
-    "hypergeometric",
-    "inv_chi_square",
-    "weibull",
-    "neg_binomial_2_log",
     "exponential",
-    "categorical",
-    "inv_wishart",
-    "multi_normal",
-    "pareto",
+    "uniform",
     "ordered_logistic",
-    "gamma",
-    "skew_normal",
-    "lkj_corr",
-    "wishart",
-    "neg_binomial_2",
-    "normal",
-    "rayleigh",
-    "inv_gamma",
-    "poisson_log",
     "logistic",
-    "lkj_corr_cholesky",
-    "dirichlet",
-    "von_mises",
-    "cauchy",
-    "lognormal",
-    "scaled_inv_chi_square",
-    "binomial",
-    "bernoulli_logit",
     "double_exponential",
-    "multi_gp"
+    "gaussian_dlm_obs",
+    "neg_binomial_2_log",
+    "skew_normal",
+    "weibull",
+    "beta_binomial",
+    "bernoulli",
+    "von_mises",
+    "lognormal",
+    "categorical",
+    "multi_gp",
+    "multi_gp_cholesky",
+    "beta",
+    "multi_student_t",
+    "poisson_log",
+    "student_t",
+    "normal",
+    "inv_chi_square",
+    "dirichlet",
+    "lkj_corr_cholesky",
+    "scaled_inv_chi_square",
+    "bernoulli_logit",
+    "multi_normal_prec",
+    "cauchy",
+    "gumbel",
+    "frechet",
+    "neg_binomial_2",
+    "wiener",
+    "inv_gamma",
+    "categorical_logit",
+    "multi_normal_cholesky",
+    "pareto_type_2",
+    "binomial",
+    "gamma",
+    "chi_square",
+    "pareto",
+    "hypergeometric",
+    "lkj_corr",
+    "inv_wishart",
+    "exp_mod_normal",
+    "multi_normal",
+    "multinomial",
+    "wishart",
+    "binomial_logit",
+    "poisson",
+    "rayleigh"
   ],
   "function_like_keywords": [
     "print",
@@ -172,6 +173,30 @@
     "void"
   ],
   "functions": {
+    "Phi": {
+      "real": {
+        "argnames": [
+          "x"
+        ],
+        "argtypes": [
+          "real"
+        ],
+        "name": "Phi",
+        "return": "real"
+      }
+    },
+    "Phi_approx": {
+      "real": {
+        "argnames": [
+          "x"
+        ],
+        "argtypes": [
+          "real"
+        ],
+        "name": "Phi_approx",
+        "return": "real"
+      }
+    },
     "abs": {
       "int": {
         "argnames": [
@@ -404,20 +429,6 @@
         "return": "real"
       }
     },
-    "bernoulli": {
-      "ints,reals": {
-        "argnames": [
-          "y",
-          "alpha"
-        ],
-        "argtypes": [
-          "ints",
-          "reals"
-        ],
-        "name": "bernoulli",
-        "return": "real"
-      }
-    },
     "bernoulli_ccdf_log": {
       "ints,reals": {
         "argnames": [
@@ -474,20 +485,6 @@
         "return": "real"
       }
     },
-    "bernoulli_logit": {
-      "ints,reals": {
-        "argnames": [
-          "y",
-          "alpha"
-        ],
-        "argtypes": [
-          "ints",
-          "reals"
-        ],
-        "name": "bernoulli_logit",
-        "return": "real"
-      }
-    },
     "bernoulli_logit_log": {
       "ints,reals": {
         "argnames": [
@@ -539,40 +536,6 @@
           "real"
         ],
         "name": "bessel_second_kind",
-        "return": "real"
-      }
-    },
-    "beta": {
-      "reals,reals,reals": {
-        "argnames": [
-          "theta",
-          "alpha",
-          "beta"
-        ],
-        "argtypes": [
-          "reals",
-          "reals",
-          "reals"
-        ],
-        "name": "beta",
-        "return": "real"
-      }
-    },
-    "beta_binomial": {
-      "ints,ints,reals,reals": {
-        "argnames": [
-          "n",
-          "N",
-          "alpha",
-          "beta"
-        ],
-        "argtypes": [
-          "ints",
-          "ints",
-          "reals",
-          "reals"
-        ],
-        "name": "beta_binomial",
         "return": "real"
       }
     },
@@ -756,22 +719,6 @@
         "return": "real"
       }
     },
-    "binomial": {
-      "ints,ints,reals": {
-        "argnames": [
-          "n",
-          "N",
-          "alpha"
-        ],
-        "argtypes": [
-          "ints",
-          "ints",
-          "reals"
-        ],
-        "name": "binomial",
-        "return": "real"
-      }
-    },
     "binomial_ccdf_log": {
       "ints,ints,reals": {
         "argnames": [
@@ -850,22 +797,6 @@
         "return": "real"
       }
     },
-    "binomial_logit": {
-      "ints,ints,reals": {
-        "argnames": [
-          "n",
-          "N",
-          "alpha"
-        ],
-        "argtypes": [
-          "ints",
-          "ints",
-          "reals"
-        ],
-        "name": "binomial_logit",
-        "return": "real"
-      }
-    },
     "binomial_logit_log": {
       "ints,ints,reals": {
         "argnames": [
@@ -916,20 +847,6 @@
         "return": "matrix"
       }
     },
-    "categorical": {
-      "ints,vector": {
-        "argnames": [
-          "y",
-          "beta"
-        ],
-        "argtypes": [
-          "ints",
-          "vector"
-        ],
-        "name": "categorical",
-        "return": "real"
-      }
-    },
     "categorical_log": {
       "ints,vector": {
         "argnames": [
@@ -941,20 +858,6 @@
           "vector"
         ],
         "name": "categorical_log",
-        "return": "real"
-      }
-    },
-    "categorical_logit": {
-      "ints,vector": {
-        "argnames": [
-          "y",
-          "beta"
-        ],
-        "argtypes": [
-          "ints",
-          "vector"
-        ],
-        "name": "categorical_logit",
         "return": "real"
       }
     },
@@ -982,22 +885,6 @@
         ],
         "name": "categorical_rng",
         "return": "int"
-      }
-    },
-    "cauchy": {
-      "reals,reals,reals": {
-        "argnames": [
-          "y",
-          "mu",
-          "sigma"
-        ],
-        "argtypes": [
-          "reals",
-          "reals",
-          "reals"
-        ],
-        "name": "cauchy",
-        "return": "real"
       }
     },
     "cauchy_ccdf_log": {
@@ -1099,20 +986,6 @@
           "real"
         ],
         "name": "ceil",
-        "return": "real"
-      }
-    },
-    "chi_square": {
-      "reals,reals": {
-        "argnames": [
-          "y",
-          "nu"
-        ],
-        "argtypes": [
-          "reals",
-          "reals"
-        ],
-        "name": "chi_square",
         "return": "real"
       }
     },
@@ -1492,20 +1365,6 @@
         "return": "int[]"
       }
     },
-    "dirichlet": {
-      "vector,vector": {
-        "argnames": [
-          "theta",
-          "alpha"
-        ],
-        "argtypes": [
-          "vector",
-          "vector"
-        ],
-        "name": "dirichlet",
-        "return": "real"
-      }
-    },
     "dirichlet_log": {
       "vector,vector": {
         "argnames": [
@@ -1651,22 +1510,6 @@
           "vector"
         ],
         "name": "dot_self",
-        "return": "real"
-      }
-    },
-    "double_exponential": {
-      "reals,reals,reals": {
-        "argnames": [
-          "y",
-          "mu",
-          "sigma"
-        ],
-        "argtypes": [
-          "reals",
-          "reals",
-          "reals"
-        ],
-        "name": "double_exponential",
         "return": "real"
       }
     },
@@ -1858,24 +1701,6 @@
         "return": "real"
       }
     },
-    "exp_mod_normal": {
-      "reals,reals,reals,reals": {
-        "argnames": [
-          "y",
-          "mu",
-          "sigma",
-          "lambda"
-        ],
-        "argtypes": [
-          "reals",
-          "reals",
-          "reals",
-          "reals"
-        ],
-        "name": "exp_mod_normal",
-        "return": "real"
-      }
-    },
     "exp_mod_normal_ccdf_log": {
       "reals,reals,reals,reals": {
         "argnames": [
@@ -1973,20 +1798,6 @@
           "real"
         ],
         "name": "expm1",
-        "return": "real"
-      }
-    },
-    "exponential": {
-      "reals,reals": {
-        "argnames": [
-          "y",
-          "beta"
-        ],
-        "argtypes": [
-          "reals",
-          "reals"
-        ],
-        "name": "exponential",
         "return": "real"
       }
     },
@@ -2168,22 +1979,6 @@
         "return": "real"
       }
     },
-    "frechet": {
-      "reals,reals,reals": {
-        "argnames": [
-          "y",
-          "alpha",
-          "sigma"
-        ],
-        "argtypes": [
-          "reals",
-          "reals",
-          "reals"
-        ],
-        "name": "frechet",
-        "return": "real"
-      }
-    },
     "frechet_ccdf_log": {
       "reals,reals,reals": {
         "argnames": [
@@ -2259,20 +2054,6 @@
           "real"
         ],
         "name": "frechet_rng",
-        "return": "real"
-      }
-    },
-    "gamma": {
-      "real,real": {
-        "argnames": [
-          "a",
-          "z"
-        ],
-        "argtypes": [
-          "real",
-          "real"
-        ],
-        "name": "gamma",
         "return": "real"
       }
     },
@@ -2382,30 +2163,6 @@
         "return": "real"
       }
     },
-    "gaussian_dlm_obs": {
-      "matrix,matrix,matrix,vector,matrix,vector,matrix": {
-        "argnames": [
-          "y",
-          "F",
-          "G",
-          "V",
-          "W",
-          "m0",
-          "C0"
-        ],
-        "argtypes": [
-          "matrix",
-          "matrix",
-          "matrix",
-          "vector",
-          "matrix",
-          "vector",
-          "matrix"
-        ],
-        "name": "gaussian_dlm_obs",
-        "return": "real"
-      }
-    },
     "gaussian_dlm_obs_log": {
       "matrix,matrix,matrix,matrix,matrix,vector,matrix": {
         "argnames": [
@@ -2457,22 +2214,6 @@
         "argnames": [],
         "argtypes": [],
         "name": "get_lp",
-        "return": "real"
-      }
-    },
-    "gumbel": {
-      "reals,reals,reals": {
-        "argnames": [
-          "y",
-          "mu",
-          "beta"
-        ],
-        "argtypes": [
-          "reals",
-          "reals",
-          "reals"
-        ],
-        "name": "gumbel",
         "return": "real"
       }
     },
@@ -2592,24 +2333,6 @@
         "return": "vector"
       }
     },
-    "hypergeometric": {
-      "int,int,int,int": {
-        "argnames": [
-          "n",
-          "N",
-          "a",
-          "b"
-        ],
-        "argtypes": [
-          "int",
-          "int",
-          "int",
-          "int"
-        ],
-        "name": "hypergeometric",
-        "return": "real"
-      }
-    },
     "hypergeometric_log": {
       "int,int,int,int": {
         "argnames": [
@@ -2708,20 +2431,6 @@
         "return": "real"
       }
     },
-    "inv_chi_square": {
-      "reals,reals": {
-        "argnames": [
-          "y",
-          "nu"
-        ],
-        "argtypes": [
-          "reals",
-          "reals"
-        ],
-        "name": "inv_chi_square",
-        "return": "real"
-      }
-    },
     "inv_chi_square_ccdf_log": {
       "reals,reals": {
         "argnames": [
@@ -2799,22 +2508,6 @@
           "real"
         ],
         "name": "inv_cloglog",
-        "return": "real"
-      }
-    },
-    "inv_gamma": {
-      "reals,reals,reals": {
-        "argnames": [
-          "y",
-          "alpha",
-          "beta"
-        ],
-        "argtypes": [
-          "reals",
-          "reals",
-          "reals"
-        ],
-        "name": "inv_gamma",
         "return": "real"
       }
     },
@@ -2932,22 +2625,6 @@
         "return": "real"
       }
     },
-    "inv_wishart": {
-      "matrix,real,matrix": {
-        "argnames": [
-          "W",
-          "nu",
-          "Sigma"
-        ],
-        "argtypes": [
-          "matrix",
-          "real",
-          "matrix"
-        ],
-        "name": "inv_wishart",
-        "return": "real"
-      }
-    },
     "inv_wishart_log": {
       "matrix,real,matrix": {
         "argnames": [
@@ -3049,34 +2726,6 @@
           "real"
         ],
         "name": "lgamma",
-        "return": "real"
-      }
-    },
-    "lkj_corr": {
-      "matrix,real": {
-        "argnames": [
-          "y",
-          "eta"
-        ],
-        "argtypes": [
-          "matrix",
-          "real"
-        ],
-        "name": "lkj_corr",
-        "return": "real"
-      }
-    },
-    "lkj_corr_cholesky": {
-      "matrix,real": {
-        "argnames": [
-          "L",
-          "eta"
-        ],
-        "argtypes": [
-          "matrix",
-          "real"
-        ],
-        "name": "lkj_corr_cholesky",
         "return": "real"
       }
     },
@@ -3436,22 +3085,6 @@
         "return": "real"
       }
     },
-    "logistic": {
-      "reals,reals,reals": {
-        "argnames": [
-          "y",
-          "mu",
-          "sigma"
-        ],
-        "argtypes": [
-          "reals",
-          "reals",
-          "reals"
-        ],
-        "name": "logistic",
-        "return": "real"
-      }
-    },
     "logistic_ccdf_log": {
       "reals,reals,reals": {
         "argnames": [
@@ -3539,22 +3172,6 @@
           "real"
         ],
         "name": "logit",
-        "return": "real"
-      }
-    },
-    "lognormal": {
-      "reals,reals,reals": {
-        "argnames": [
-          "y",
-          "mu",
-          "sigma"
-        ],
-        "argtypes": [
-          "reals",
-          "reals",
-          "reals"
-        ],
-        "name": "lognormal",
         "return": "real"
       }
     },
@@ -3894,38 +3511,6 @@
         "return": "real"
       }
     },
-    "multi_gp": {
-      "matrix,matrix,vector": {
-        "argnames": [
-          "y",
-          "Sigma",
-          "w"
-        ],
-        "argtypes": [
-          "matrix",
-          "matrix",
-          "vector"
-        ],
-        "name": "multi_gp",
-        "return": "real"
-      }
-    },
-    "multi_gp_cholesky": {
-      "matrix,matrix,vector": {
-        "argnames": [
-          "y",
-          "L",
-          "w"
-        ],
-        "argtypes": [
-          "matrix",
-          "matrix",
-          "vector"
-        ],
-        "name": "multi_gp_cholesky",
-        "return": "real"
-      }
-    },
     "multi_gp_cholesky_log": {
       "matrix,matrix,vector": {
         "argnames": [
@@ -3955,30 +3540,6 @@
           "vector"
         ],
         "name": "multi_gp_log",
-        "return": "real"
-      }
-    },
-    "multi_normal": {
-      "matrix": {
-        "argnames": [
-          "Omega"
-        ],
-        "argtypes": [
-          "matrix"
-        ],
-        "name": "multi_normal",
-        "return": "real"
-      }
-    },
-    "multi_normal_cholesky": {
-      "matrix": {
-        "argnames": [
-          "L"
-        ],
-        "argtypes": [
-          "matrix"
-        ],
-        "name": "multi_normal_cholesky",
         "return": "real"
       }
     },
@@ -4020,18 +3581,6 @@
         "return": "real"
       }
     },
-    "multi_normal_prec": {
-      "matrix": {
-        "argnames": [
-          "Omega"
-        ],
-        "argtypes": [
-          "matrix"
-        ],
-        "name": "multi_normal_prec",
-        "return": "real"
-      }
-    },
     "multi_normal_prec_log": {
       "matrix": {
         "argnames": [
@@ -4056,20 +3605,6 @@
         ],
         "name": "multi_normal_rng",
         "return": "vector"
-      }
-    },
-    "multi_student_t": {
-      "real,matrix": {
-        "argnames": [
-          "nu",
-          "Sigma"
-        ],
-        "argtypes": [
-          "real",
-          "matrix"
-        ],
-        "name": "multi_student_t",
-        "return": "real"
       }
     },
     "multi_student_t_log": {
@@ -4100,20 +3635,6 @@
         ],
         "name": "multi_student_t_rng",
         "return": "vector"
-      }
-    },
-    "multinomial": {
-      "int[],vector": {
-        "argnames": [
-          "y",
-          "theta"
-        ],
-        "argtypes": [
-          "int[]",
-          "vector"
-        ],
-        "name": "multinomial",
-        "return": "real"
       }
     },
     "multinomial_log": {
@@ -4170,36 +3691,6 @@
         "return": "matrix"
       }
     },
-    "neg_binomial": {
-      "ints,reals,reals": {
-        "argnames": [
-          "n",
-          "alpha",
-          "beta"
-        ],
-        "argtypes": [
-          "ints",
-          "reals",
-          "reals"
-        ],
-        "name": "neg_binomial",
-        "return": "real"
-      }
-    },
-    "neg_binomial_2": {
-      "real,real": {
-        "argnames": [
-          "eta",
-          "phi"
-        ],
-        "argtypes": [
-          "real",
-          "real"
-        ],
-        "name": "neg_binomial_2",
-        "return": "real"
-      }
-    },
     "neg_binomial_2_ccdf_log": {
       "ints,reals,reals": {
         "argnames": [
@@ -4252,7 +3743,7 @@
       "ints,reals,reals": {
         "argnames": [
           "y",
-          "eta",
+          "mu",
           "phi"
         ],
         "argtypes": [
@@ -4391,22 +3882,6 @@
         "argnames": [],
         "argtypes": [],
         "name": "negative_infinity",
-        "return": "real"
-      }
-    },
-    "normal": {
-      "reals,reals,reals": {
-        "argnames": [
-          "y",
-          "mu",
-          "sigma"
-        ],
-        "argtypes": [
-          "reals",
-          "reals",
-          "reals"
-        ],
-        "name": "normal",
         "return": "real"
       }
     },
@@ -5530,7 +5005,7 @@
         "return": "vector"
       }
     },
-    "operator^ ": {
+    "operator^": {
       "real,real": {
         "argnames": [
           "x",
@@ -5540,7 +5015,7 @@
           "real",
           "real"
         ],
-        "name": "operator^ ",
+        "name": "operator^",
         "return": "real"
       }
     },
@@ -5568,22 +5043,6 @@
         ],
         "name": "operator||",
         "return": "int"
-      }
-    },
-    "ordered_logistic": {
-      "int,real,vector": {
-        "argnames": [
-          "k",
-          "eta",
-          "c"
-        ],
-        "argtypes": [
-          "int",
-          "real",
-          "vector"
-        ],
-        "name": "ordered_logistic",
-        "return": "real"
       }
     },
     "ordered_logistic_log": {
@@ -5627,22 +5086,6 @@
           "real"
         ],
         "name": "owens_t",
-        "return": "real"
-      }
-    },
-    "pareto": {
-      "reals,reals,reals": {
-        "argnames": [
-          "y",
-          "y_min",
-          "alpha"
-        ],
-        "argtypes": [
-          "reals",
-          "reals",
-          "reals"
-        ],
-        "name": "pareto",
         "return": "real"
       }
     },
@@ -5721,24 +5164,6 @@
           "real"
         ],
         "name": "pareto_rng",
-        "return": "real"
-      }
-    },
-    "pareto_type_2": {
-      "reals,reals,reals,reals": {
-        "argnames": [
-          "y",
-          "mu",
-          "lambda",
-          "alpha"
-        ],
-        "argtypes": [
-          "reals",
-          "reals",
-          "reals",
-          "reals"
-        ],
-        "name": "pareto_type_2",
         "return": "real"
       }
     },
@@ -5830,47 +5255,11 @@
         "return": "real"
       }
     },
-    "phi ": {
-      "real": {
-        "argnames": [
-          "x"
-        ],
-        "argtypes": [
-          "real"
-        ],
-        "name": "phi ",
-        "return": "real"
-      }
-    },
-    "phi_approx ": {
-      "real": {
-        "argnames": [
-          "x"
-        ],
-        "argtypes": [
-          "real"
-        ],
-        "name": "phi_approx ",
-        "return": "real"
-      }
-    },
     "pi": {
       "": {
         "argnames": [],
         "argtypes": [],
         "name": "pi",
-        "return": "real"
-      }
-    },
-    "poisson": {
-      "real": {
-        "argnames": [
-          "alpha"
-        ],
-        "argtypes": [
-          "real"
-        ],
-        "name": "poisson",
         "return": "real"
       }
     },
@@ -5920,7 +5309,7 @@
       "ints,reals": {
         "argnames": [
           "n",
-          "alpha"
+          "lambda"
         ],
         "argtypes": [
           "ints",
@@ -6192,20 +5581,6 @@
         ],
         "name": "rank",
         "return": "int"
-      }
-    },
-    "rayleigh": {
-      "reals,reals": {
-        "argnames": [
-          "y",
-          "sigma"
-        ],
-        "argtypes": [
-          "reals",
-          "reals"
-        ],
-        "name": "rayleigh",
-        "return": "real"
       }
     },
     "rayleigh_ccdf_log": {
@@ -6530,22 +5905,6 @@
         "return": "vector"
       }
     },
-    "scaled_inv_chi_square": {
-      "reals,reals,reals": {
-        "argnames": [
-          "y",
-          "nu",
-          "sigma"
-        ],
-        "argtypes": [
-          "reals",
-          "reals",
-          "reals"
-        ],
-        "name": "scaled_inv_chi_square",
-        "return": "real"
-      }
-    },
     "scaled_inv_chi_square_ccdf_log": {
       "reals,reals,reals": {
         "argnames": [
@@ -6756,24 +6115,6 @@
         ],
         "name": "size",
         "return": "int"
-      }
-    },
-    "skew_normal": {
-      "reals,reals,reals,reals": {
-        "argnames": [
-          "y",
-          "mu",
-          "sigma",
-          "alpha"
-        ],
-        "argtypes": [
-          "reals",
-          "reals",
-          "reals",
-          "reals"
-        ],
-        "name": "skew_normal",
-        "return": "real"
       }
     },
     "skew_normal_ccdf_log": {
@@ -7135,24 +6476,6 @@
           "real"
         ],
         "name": "step",
-        "return": "real"
-      }
-    },
-    "student_t": {
-      "reals,reals,reals,reals": {
-        "argnames": [
-          "y",
-          "nu",
-          "mu",
-          "sigma"
-        ],
-        "argtypes": [
-          "reals",
-          "reals",
-          "reals",
-          "reals"
-        ],
-        "name": "student_t",
         "return": "real"
       }
     },
@@ -7704,22 +7027,6 @@
         "return": "real"
       }
     },
-    "uniform": {
-      "reals,reals,reals": {
-        "argnames": [
-          "y",
-          "alpha",
-          "beta"
-        ],
-        "argtypes": [
-          "reals",
-          "reals",
-          "reals"
-        ],
-        "name": "uniform",
-        "return": "real"
-      }
-    },
     "uniform_ccdf_log": {
       "reals,reals,reals": {
         "argnames": [
@@ -7840,22 +7147,6 @@
         "return": "real"
       }
     },
-    "von_mises": {
-      "reals,reals,reals": {
-        "argnames": [
-          "y",
-          "mu",
-          "kappa"
-        ],
-        "argtypes": [
-          "reals",
-          "reals",
-          "reals"
-        ],
-        "name": "von_mises",
-        "return": "real"
-      }
-    },
     "von_mises_log": {
       "reals,reals,reals": {
         "argnames": [
@@ -7883,22 +7174,6 @@
           "reals"
         ],
         "name": "von_mises_rng",
-        "return": "real"
-      }
-    },
-    "weibull": {
-      "reals,reals,reals": {
-        "argnames": [
-          "y",
-          "alpha",
-          "sigma"
-        ],
-        "argtypes": [
-          "reals",
-          "reals",
-          "reals"
-        ],
-        "name": "weibull",
         "return": "real"
       }
     },
@@ -7980,19 +7255,23 @@
         "return": "real"
       }
     },
-    "wishart": {
-      "matrix,real,matrix": {
+    "wiener_log": {
+      "reals,reals,reals,reals,reals": {
         "argnames": [
-          "W",
-          "nu",
-          "Sigma"
+          "y",
+          "alpha",
+          "tau",
+          "beta",
+          "delta"
         ],
         "argtypes": [
-          "matrix",
-          "real",
-          "matrix"
+          "reals",
+          "reals",
+          "reals",
+          "reals",
+          "reals"
         ],
-        "name": "wishart",
+        "name": "wiener_log",
         "return": "real"
       }
     },

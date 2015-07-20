@@ -26,7 +26,7 @@
 		       ("for" "for (${1:i} in ${2:1}:${3:N}) {\n    $0\n}\n" "for (...; ...; ...) { ... }" nil
 			("Structure")
 			nil nil nil nil)
-		       ("fun" "${1:return} ${2:name} (${args}) {\n  $0\n}\n" "new function" nil
+		       ("fun" "${1:return} ${2:name} (${args}) {\n  $0\n}\n" "User-defined function" nil
 			("Blocks")
 			nil nil nil nil)
 		       ("functions" "functions {\n  $0\n}\n" "functions {...}" nil
@@ -104,10 +104,7 @@
 ;;; Snippet definitions:
 ;;;
 (yas-define-snippets 'stan-mode
-		     '(("bernoulli" "bernoulli(${1:alpha})$0" "bernoulli" nil
-			("Distributions")
-			nil nil nil nil)
-		       ("bernoulli" "bernoulli(${1:theta})$0" "bernoulli" nil
+		     '(("bernoulli" "bernoulli(${1:theta})$0" "bernoulli" nil
 			("Distributions")
 			nil nil nil nil)
 		       ("bernoulli_logit" "bernoulli_logit(${1:alpha})$0" "bernoulli_logit" nil
@@ -119,16 +116,10 @@
 		       ("beta_binomial" "beta_binomial(${1:N}, ${2:alpha}, ${3:beta})$0" "beta_binomial" nil
 			("Distributions")
 			nil nil nil nil)
-		       ("binomial" "binomial(${1:N}, ${2:alpha})$0" "binomial" nil
-			("Distributions")
-			nil nil nil nil)
 		       ("binomial" "binomial(${1:N}, ${2:theta})$0" "binomial" nil
 			("Distributions")
 			nil nil nil nil)
 		       ("binomial_logit" "binomial_logit(${1:N}, ${2:alpha})$0" "binomial_logit" nil
-			("Distributions")
-			nil nil nil nil)
-		       ("categorical" "categorical(${1:beta})$0" "categorical" nil
 			("Distributions")
 			nil nil nil nil)
 		       ("categorical" "categorical(${1:theta})$0" "categorical" nil
@@ -159,9 +150,6 @@
 			("Distributions")
 			nil nil nil nil)
 		       ("gamma" "gamma(${1:alpha}, ${2:beta})$0" "gamma" nil
-			("Distributions")
-			nil nil nil nil)
-		       ("gamma" "gamma(${1:z})$0" "gamma" nil
 			("Distributions")
 			nil nil nil nil)
 		       ("gaussian_dlm_obs" "gaussian_dlm_obs(${1:F}, ${2:G}, ${3:V}, ${4:W}, ${5:m0}, ${6:C0})$0" "gaussian_dlm_obs" nil
@@ -218,10 +206,7 @@
 		       ("neg_binomial" "neg_binomial(${1:alpha}, ${2:beta})$0" "neg_binomial" nil
 			("Distributions")
 			nil nil nil nil)
-		       ("neg_binomial_2" "neg_binomial_2(${1:eta}, ${2:phi})$0" "neg_binomial_2" nil
-			("Distributions")
-			nil nil nil nil)
-		       ("neg_binomial_2" "neg_binomial_2(${1:phi})$0" "neg_binomial_2" nil
+		       ("neg_binomial_2" "neg_binomial_2(${1:mu}, ${2:phi})$0" "neg_binomial_2" nil
 			("Distributions")
 			nil nil nil nil)
 		       ("neg_binomial_2_log" "neg_binomial_2_log(${1:eta}, ${2:phi})$0" "neg_binomial_2_log" nil
@@ -239,10 +224,7 @@
 		       ("pareto_type_2" "pareto_type_2(${1:mu}, ${2:lambda}, ${3:alpha})$0" "pareto_type_2" nil
 			("Distributions")
 			nil nil nil nil)
-		       ("poisson" "poisson()$0" "poisson" nil
-			("Distributions")
-			nil nil nil nil)
-		       ("poisson" "poisson(${1:alpha})$0" "poisson" nil
+		       ("poisson" "poisson(${1:lambda})$0" "poisson" nil
 			("Distributions")
 			nil nil nil nil)
 		       ("poisson_log" "poisson_log(${1:alpha})$0" "poisson_log" nil
@@ -269,6 +251,9 @@
 		       ("weibull" "weibull(${1:alpha}, ${2:sigma})$0" "weibull" nil
 			("Distributions")
 			nil nil nil nil)
+		       ("wiener" "wiener(${1:alpha}, ${2:tau}, ${3:beta}, ${4:delta})$0" "wiener" nil
+			("Distributions")
+			nil nil nil nil)
 		       ("wishart" "wishart(${1:nu}, ${2:Sigma})$0" "wishart" nil
 			("Distributions")
 			nil nil nil nil)))
@@ -277,7 +262,13 @@
 ;;; Snippet definitions:
 ;;;
 (yas-define-snippets 'stan-mode
-		     '(("abs" "abs(${1:x})$0" "abs" nil
+		     '(("Phi" "Phi(${1:x})$0" "Phi" nil
+			("Functions")
+			nil nil nil nil)
+		       ("Phi_approx" "Phi_approx(${1:x})$0" "Phi_approx" nil
+			("Functions")
+			nil nil nil nil)
+		       ("abs" "abs(${1:x})$0" "abs" nil
 			("Functions")
 			nil nil nil nil)
 		       ("acos" "acos(${1:x})$0" "acos" nil
@@ -307,9 +298,6 @@
 		       ("atanh" "atanh(${1:x})$0" "atanh" nil
 			("Functions")
 			nil nil nil nil)
-		       ("bernoulli" "bernoulli(${1:y}, ${2:alpha})$0" "bernoulli" nil
-			("Functions")
-			nil nil nil nil)
 		       ("bernoulli_ccdf_log" "bernoulli_ccdf_log(${1:y}, ${2:theta})$0" "bernoulli_ccdf_log" nil
 			("Functions")
 			nil nil nil nil)
@@ -322,9 +310,6 @@
 		       ("bernoulli_log" "bernoulli_log(${1:y}, ${2:theta})$0" "bernoulli_log" nil
 			("Functions")
 			nil nil nil nil)
-		       ("bernoulli_logit" "bernoulli_logit(${1:y}, ${2:alpha})$0" "bernoulli_logit" nil
-			("Functions")
-			nil nil nil nil)
 		       ("bernoulli_logit_log" "bernoulli_logit_log(${1:y}, ${2:alpha})$0" "bernoulli_logit_log" nil
 			("Functions")
 			nil nil nil nil)
@@ -335,12 +320,6 @@
 			("Functions")
 			nil nil nil nil)
 		       ("bessel_second_kind" "bessel_second_kind(${1:v}, ${2:x})$0" "bessel_second_kind" nil
-			("Functions")
-			nil nil nil nil)
-		       ("beta" "beta(${1:theta}, ${2:alpha}, ${3:beta})$0" "beta" nil
-			("Functions")
-			nil nil nil nil)
-		       ("beta_binomial" "beta_binomial(${1:n}, ${2:N}, ${3:alpha}, ${4:beta})$0" "beta_binomial" nil
 			("Functions")
 			nil nil nil nil)
 		       ("beta_binomial_ccdf_log" "beta_binomial_ccdf_log(${1:n}, ${2:N}, ${3:alpha}, ${4:beta})$0" "beta_binomial_ccdf_log" nil
@@ -376,9 +355,6 @@
 		       ("binary_log_loss" "binary_log_loss(${1:y}, ${2:y_hat})$0" "binary_log_loss" nil
 			("Functions")
 			nil nil nil nil)
-		       ("binomial" "binomial(${1:n}, ${2:N}, ${3:alpha})$0" "binomial" nil
-			("Functions")
-			nil nil nil nil)
 		       ("binomial_ccdf_log" "binomial_ccdf_log(${1:n}, ${2:N}, ${3:theta})$0" "binomial_ccdf_log" nil
 			("Functions")
 			nil nil nil nil)
@@ -394,9 +370,6 @@
 		       ("binomial_log" "binomial_log(${1:n}, ${2:N}, ${3:theta})$0" "binomial_log" nil
 			("Functions")
 			nil nil nil nil)
-		       ("binomial_logit" "binomial_logit(${1:n}, ${2:N}, ${3:alpha})$0" "binomial_logit" nil
-			("Functions")
-			nil nil nil nil)
 		       ("binomial_logit_log" "binomial_logit_log(${1:n}, ${2:N}, ${3:alpha})$0" "binomial_logit_log" nil
 			("Functions")
 			nil nil nil nil)
@@ -406,22 +379,13 @@
 		       ("block" "block(${1:x}, ${2:i}, ${3:j}, ${4:n_rows}, ${5:n_cols})$0" "block" nil
 			("Functions")
 			nil nil nil nil)
-		       ("categorical" "categorical(${1:y}, ${2:beta})$0" "categorical" nil
-			("Functions")
-			nil nil nil nil)
 		       ("categorical_log" "categorical_log(${1:y}, ${2:theta})$0" "categorical_log" nil
-			("Functions")
-			nil nil nil nil)
-		       ("categorical_logit" "categorical_logit(${1:y}, ${2:beta})$0" "categorical_logit" nil
 			("Functions")
 			nil nil nil nil)
 		       ("categorical_logit_log" "categorical_logit_log(${1:y}, ${2:beta})$0" "categorical_logit_log" nil
 			("Functions")
 			nil nil nil nil)
 		       ("categorical_rng" "categorical_rng(${1:theta})$0" "categorical_rng" nil
-			("Functions")
-			nil nil nil nil)
-		       ("cauchy" "cauchy(${1:y}, ${2:mu}, ${3:sigma})$0" "cauchy" nil
 			("Functions")
 			nil nil nil nil)
 		       ("cauchy_ccdf_log" "cauchy_ccdf_log(${1:y}, ${2:mu}, ${3:sigma})$0" "cauchy_ccdf_log" nil
@@ -443,9 +407,6 @@
 			("Functions")
 			nil nil nil nil)
 		       ("ceil" "ceil(${1:x})$0" "ceil" nil
-			("Functions")
-			nil nil nil nil)
-		       ("chi_square" "chi_square(${1:y}, ${2:nu})$0" "chi_square" nil
 			("Functions")
 			nil nil nil nil)
 		       ("chi_square_ccdf_log" "chi_square_ccdf_log(${1:y}, ${2:nu})$0" "chi_square_ccdf_log" nil
@@ -523,9 +484,6 @@
 		       ("dims" "dims(${1:x})$0" "dims" nil
 			("Functions")
 			nil nil nil nil)
-		       ("dirichlet" "dirichlet(${1:theta}, ${2:alpha})$0" "dirichlet" nil
-			("Functions")
-			nil nil nil nil)
 		       ("dirichlet_log" "dirichlet_log(${1:theta}, ${2:alpha})$0" "dirichlet_log" nil
 			("Functions")
 			nil nil nil nil)
@@ -539,9 +497,6 @@
 			("Functions")
 			nil nil nil nil)
 		       ("dot_self" "dot_self(${1:x})$0" "dot_self" nil
-			("Functions")
-			nil nil nil nil)
-		       ("double_exponential" "double_exponential(${1:y}, ${2:mu}, ${3:sigma})$0" "double_exponential" nil
 			("Functions")
 			nil nil nil nil)
 		       ("double_exponential_ccdf_log" "double_exponential_ccdf_log(${1:y}, ${2:mu}, ${3:sigma})$0" "double_exponential_ccdf_log" nil
@@ -580,9 +535,6 @@
 		       ("exp2" "exp2(${1:x})$0" "exp2" nil
 			("Functions")
 			nil nil nil nil)
-		       ("exp_mod_normal" "exp_mod_normal(${1:y}, ${2:mu}, ${3:sigma}, ${4:lambda})$0" "exp_mod_normal" nil
-			("Functions")
-			nil nil nil nil)
 		       ("exp_mod_normal_ccdf_log" "exp_mod_normal_ccdf_log(${1:y}, ${2:mu}, ${3:sigma}, ${4:lambda})$0" "exp_mod_normal_ccdf_log" nil
 			("Functions")
 			nil nil nil nil)
@@ -599,9 +551,6 @@
 			("Functions")
 			nil nil nil nil)
 		       ("expm1" "expm1(${1:x})$0" "expm1" nil
-			("Functions")
-			nil nil nil nil)
-		       ("exponential" "exponential(${1:y}, ${2:beta})$0" "exponential" nil
 			("Functions")
 			nil nil nil nil)
 		       ("exponential_ccdf_log" "exponential_ccdf_log(${1:y}, ${2:beta})$0" "exponential_ccdf_log" nil
@@ -643,9 +592,6 @@
 		       ("fmod" "fmod(${1:x}, ${2:y})$0" "fmod" nil
 			("Functions")
 			nil nil nil nil)
-		       ("frechet" "frechet(${1:y}, ${2:alpha}, ${3:sigma})$0" "frechet" nil
-			("Functions")
-			nil nil nil nil)
 		       ("frechet_ccdf_log" "frechet_ccdf_log(${1:y}, ${2:alpha}, ${3:sigma})$0" "frechet_ccdf_log" nil
 			("Functions")
 			nil nil nil nil)
@@ -659,9 +605,6 @@
 			("Functions")
 			nil nil nil nil)
 		       ("frechet_rng" "frechet_rng(${1:alpha}, ${2:sigma})$0" "frechet_rng" nil
-			("Functions")
-			nil nil nil nil)
-		       ("gamma" "gamma(${1:a}, ${2:z})$0" "gamma" nil
 			("Functions")
 			nil nil nil nil)
 		       ("gamma_ccdf_log" "gamma_ccdf_log(${1:y}, ${2:alpha}, ${3:beta})$0" "gamma_ccdf_log" nil
@@ -685,16 +628,10 @@
 		       ("gamma_rng" "gamma_rng(${1:alpha}, ${2:beta})$0" "gamma_rng" nil
 			("Functions")
 			nil nil nil nil)
-		       ("gaussian_dlm_obs" "gaussian_dlm_obs(${1:y}, ${2:F}, ${3:G}, ${4:V}, ${5:W}, ${6:m0}, ${7:C0})$0" "gaussian_dlm_obs" nil
-			("Functions")
-			nil nil nil nil)
 		       ("gaussian_dlm_obs_log" "gaussian_dlm_obs_log(${1:y}, ${2:F}, ${3:G}, ${4:V}, ${5:W}, ${6:m0}, ${7:C0})$0" "gaussian_dlm_obs_log" nil
 			("Functions")
 			nil nil nil nil)
 		       ("get_lp" "get_lp()$0" "get_lp" nil
-			("Functions")
-			nil nil nil nil)
-		       ("gumbel" "gumbel(${1:y}, ${2:mu}, ${3:beta})$0" "gumbel" nil
 			("Functions")
 			nil nil nil nil)
 		       ("gumbel_ccdf_log" "gumbel_ccdf_log(${1:y}, ${2:mu}, ${3:beta})$0" "gumbel_ccdf_log" nil
@@ -721,9 +658,6 @@
 		       ("head" "head(${1:v}, ${2:n})$0" "head" nil
 			("Functions")
 			nil nil nil nil)
-		       ("hypergeometric" "hypergeometric(${1:n}, ${2:N}, ${3:a}, ${4:b})$0" "hypergeometric" nil
-			("Functions")
-			nil nil nil nil)
 		       ("hypergeometric_log" "hypergeometric_log(${1:n}, ${2:N}, ${3:a}, ${4:b})$0" "hypergeometric_log" nil
 			("Functions")
 			nil nil nil nil)
@@ -742,9 +676,6 @@
 		       ("inv" "inv(${1:x})$0" "inv" nil
 			("Functions")
 			nil nil nil nil)
-		       ("inv_chi_square" "inv_chi_square(${1:y}, ${2:nu})$0" "inv_chi_square" nil
-			("Functions")
-			nil nil nil nil)
 		       ("inv_chi_square_ccdf_log" "inv_chi_square_ccdf_log(${1:y}, ${2:nu})$0" "inv_chi_square_ccdf_log" nil
 			("Functions")
 			nil nil nil nil)
@@ -761,9 +692,6 @@
 			("Functions")
 			nil nil nil nil)
 		       ("inv_cloglog" "inv_cloglog(${1:y})$0" "inv_cloglog" nil
-			("Functions")
-			nil nil nil nil)
-		       ("inv_gamma" "inv_gamma(${1:y}, ${2:alpha}, ${3:beta})$0" "inv_gamma" nil
 			("Functions")
 			nil nil nil nil)
 		       ("inv_gamma_ccdf_log" "inv_gamma_ccdf_log(${1:y}, ${2:alpha}, ${3:beta})$0" "inv_gamma_ccdf_log" nil
@@ -790,9 +718,6 @@
 		       ("inv_square" "inv_square(${1:x})$0" "inv_square" nil
 			("Functions")
 			nil nil nil nil)
-		       ("inv_wishart" "inv_wishart(${1:W}, ${2:nu}, ${3:Sigma})$0" "inv_wishart" nil
-			("Functions")
-			nil nil nil nil)
 		       ("inv_wishart_log" "inv_wishart_log(${1:W}, ${2:nu}, ${3:Sigma})$0" "inv_wishart_log" nil
 			("Functions")
 			nil nil nil nil)
@@ -815,12 +740,6 @@
 			("Functions")
 			nil nil nil nil)
 		       ("lgamma" "lgamma(${1:x})$0" "lgamma" nil
-			("Functions")
-			nil nil nil nil)
-		       ("lkj_corr" "lkj_corr(${1:y}, ${2:eta})$0" "lkj_corr" nil
-			("Functions")
-			nil nil nil nil)
-		       ("lkj_corr_cholesky" "lkj_corr_cholesky(${1:L}, ${2:eta})$0" "lkj_corr_cholesky" nil
 			("Functions")
 			nil nil nil nil)
 		       ("lkj_corr_cholesky_log" "lkj_corr_cholesky_log(${1:L}, ${2:eta})$0" "lkj_corr_cholesky_log" nil
@@ -898,9 +817,6 @@
 		       ("log_sum_exp" "log_sum_exp(${1:x})$0" "log_sum_exp" nil
 			("Functions")
 			nil nil nil nil)
-		       ("logistic" "logistic(${1:y}, ${2:mu}, ${3:sigma})$0" "logistic" nil
-			("Functions")
-			nil nil nil nil)
 		       ("logistic_ccdf_log" "logistic_ccdf_log(${1:y}, ${2:mu}, ${3:sigma})$0" "logistic_ccdf_log" nil
 			("Functions")
 			nil nil nil nil)
@@ -917,9 +833,6 @@
 			("Functions")
 			nil nil nil nil)
 		       ("logit" "logit(${1:x})$0" "logit" nil
-			("Functions")
-			nil nil nil nil)
-		       ("lognormal" "lognormal(${1:y}, ${2:mu}, ${3:sigma})$0" "lognormal" nil
 			("Functions")
 			nil nil nil nil)
 		       ("lognormal_ccdf_log" "lognormal_ccdf_log(${1:y}, ${2:mu}, ${3:sigma})$0" "lognormal_ccdf_log" nil
@@ -976,22 +889,10 @@
 		       ("modified_bessel_second_kind" "modified_bessel_second_kind(${1:v}, ${2:z})$0" "modified_bessel_second_kind" nil
 			("Functions")
 			nil nil nil nil)
-		       ("multi_gp" "multi_gp(${1:y}, ${2:Sigma}, ${3:w})$0" "multi_gp" nil
-			("Functions")
-			nil nil nil nil)
-		       ("multi_gp_cholesky" "multi_gp_cholesky(${1:y}, ${2:L}, ${3:w})$0" "multi_gp_cholesky" nil
-			("Functions")
-			nil nil nil nil)
 		       ("multi_gp_cholesky_log" "multi_gp_cholesky_log(${1:y}, ${2:L}, ${3:w})$0" "multi_gp_cholesky_log" nil
 			("Functions")
 			nil nil nil nil)
 		       ("multi_gp_log" "multi_gp_log(${1:y}, ${2:Sigma}, ${3:w})$0" "multi_gp_log" nil
-			("Functions")
-			nil nil nil nil)
-		       ("multi_normal" "multi_normal(${1:Omega})$0" "multi_normal" nil
-			("Functions")
-			nil nil nil nil)
-		       ("multi_normal_cholesky" "multi_normal_cholesky(${1:L})$0" "multi_normal_cholesky" nil
 			("Functions")
 			nil nil nil nil)
 		       ("multi_normal_cholesky_log" "multi_normal_cholesky_log(${1:L})$0" "multi_normal_cholesky_log" nil
@@ -1003,25 +904,16 @@
 		       ("multi_normal_log" "multi_normal_log(${1:Sigma})$0" "multi_normal_log" nil
 			("Functions")
 			nil nil nil nil)
-		       ("multi_normal_prec" "multi_normal_prec(${1:Omega})$0" "multi_normal_prec" nil
-			("Functions")
-			nil nil nil nil)
 		       ("multi_normal_prec_log" "multi_normal_prec_log(${1:Omega})$0" "multi_normal_prec_log" nil
 			("Functions")
 			nil nil nil nil)
 		       ("multi_normal_rng" "multi_normal_rng(${1:mu}, ${2:Sigma})$0" "multi_normal_rng" nil
 			("Functions")
 			nil nil nil nil)
-		       ("multi_student_t" "multi_student_t(${1:nu}, ${2:Sigma})$0" "multi_student_t" nil
-			("Functions")
-			nil nil nil nil)
 		       ("multi_student_t_log" "multi_student_t_log(${1:nu}, ${2:Sigma})$0" "multi_student_t_log" nil
 			("Functions")
 			nil nil nil nil)
 		       ("multi_student_t_rng" "multi_student_t_rng(${1:nu}, ${2:mu}, ${3:Sigma})$0" "multi_student_t_rng" nil
-			("Functions")
-			nil nil nil nil)
-		       ("multinomial" "multinomial(${1:y}, ${2:theta})$0" "multinomial" nil
 			("Functions")
 			nil nil nil nil)
 		       ("multinomial_log" "multinomial_log(${1:y}, ${2:theta})$0" "multinomial_log" nil
@@ -1036,12 +928,6 @@
 		       ("multiply_lower_tri_self_transpose" "multiply_lower_tri_self_transpose(${1:x})$0" "multiply_lower_tri_self_transpose" nil
 			("Functions")
 			nil nil nil nil)
-		       ("neg_binomial" "neg_binomial(${1:n}, ${2:alpha}, ${3:beta})$0" "neg_binomial" nil
-			("Functions")
-			nil nil nil nil)
-		       ("neg_binomial_2" "neg_binomial_2(${1:eta}, ${2:phi})$0" "neg_binomial_2" nil
-			("Functions")
-			nil nil nil nil)
 		       ("neg_binomial_2_ccdf_log" "neg_binomial_2_ccdf_log(${1:n}, ${2:mu}, ${3:phi})$0" "neg_binomial_2_ccdf_log" nil
 			("Functions")
 			nil nil nil nil)
@@ -1051,7 +937,7 @@
 		       ("neg_binomial_2_cdf_log" "neg_binomial_2_cdf_log(${1:n}, ${2:mu}, ${3:phi})$0" "neg_binomial_2_cdf_log" nil
 			("Functions")
 			nil nil nil nil)
-		       ("neg_binomial_2_log" "neg_binomial_2_log(${1:y}, ${2:eta}, ${3:phi})$0" "neg_binomial_2_log" nil
+		       ("neg_binomial_2_log" "neg_binomial_2_log(${1:y}, ${2:mu}, ${3:phi})$0" "neg_binomial_2_log" nil
 			("Functions")
 			nil nil nil nil)
 		       ("neg_binomial_2_log_log" "neg_binomial_2_log_log(${1:y}, ${2:eta}, ${3:phi})$0" "neg_binomial_2_log_log" nil
@@ -1081,9 +967,6 @@
 		       ("negative_infinity" "negative_infinity()$0" "negative_infinity" nil
 			("Functions")
 			nil nil nil nil)
-		       ("normal" "normal(${1:y}, ${2:mu}, ${3:sigma})$0" "normal" nil
-			("Functions")
-			nil nil nil nil)
 		       ("normal_ccdf_log" "normal_ccdf_log(${1:y}, ${2:mu}, ${3:sigma})$0" "normal_ccdf_log" nil
 			("Functions")
 			nil nil nil nil)
@@ -1105,12 +988,6 @@
 		       ("num_elements" "num_elements(${1:x})$0" "num_elements" nil
 			("Functions")
 			nil nil nil nil)
-		       ("operator^ " "operator^ (${1:x}, ${2:y})$0" "operator^ " nil
-			("Functions")
-			nil nil nil nil)
-		       ("ordered_logistic" "ordered_logistic(${1:k}, ${2:eta}, ${3:c})$0" "ordered_logistic" nil
-			("Functions")
-			nil nil nil nil)
 		       ("ordered_logistic_log" "ordered_logistic_log(${1:k}, ${2:eta}, ${3:c})$0" "ordered_logistic_log" nil
 			("Functions")
 			nil nil nil nil)
@@ -1118,9 +995,6 @@
 			("Functions")
 			nil nil nil nil)
 		       ("owens_t" "owens_t(${1:h}, ${2:a})$0" "owens_t" nil
-			("Functions")
-			nil nil nil nil)
-		       ("pareto" "pareto(${1:y}, ${2:y_min}, ${3:alpha})$0" "pareto" nil
 			("Functions")
 			nil nil nil nil)
 		       ("pareto_ccdf_log" "pareto_ccdf_log(${1:y}, ${2:y_min}, ${3:alpha})$0" "pareto_ccdf_log" nil
@@ -1138,9 +1012,6 @@
 		       ("pareto_rng" "pareto_rng(${1:y_min}, ${2:alpha})$0" "pareto_rng" nil
 			("Functions")
 			nil nil nil nil)
-		       ("pareto_type_2" "pareto_type_2(${1:y}, ${2:mu}, ${3:lambda}, ${4:alpha})$0" "pareto_type_2" nil
-			("Functions")
-			nil nil nil nil)
 		       ("pareto_type_2_ccdf_log" "pareto_type_2_ccdf_log(${1:y}, ${2:mu}, ${3:lambda}, ${4:alpha})$0" "pareto_type_2_ccdf_log" nil
 			("Functions")
 			nil nil nil nil)
@@ -1156,16 +1027,7 @@
 		       ("pareto_type_2_rng" "pareto_type_2_rng(${1:mu}, ${2:lambda}, ${3:alpha})$0" "pareto_type_2_rng" nil
 			("Functions")
 			nil nil nil nil)
-		       ("phi " "phi (${1:x})$0" "phi " nil
-			("Functions")
-			nil nil nil nil)
-		       ("phi_approx " "phi_approx (${1:x})$0" "phi_approx " nil
-			("Functions")
-			nil nil nil nil)
 		       ("pi" "pi()$0" "pi" nil
-			("Functions")
-			nil nil nil nil)
-		       ("poisson" "poisson(${1:alpha})$0" "poisson" nil
 			("Functions")
 			nil nil nil nil)
 		       ("poisson_ccdf_log" "poisson_ccdf_log(${1:n}, ${2:lambda})$0" "poisson_ccdf_log" nil
@@ -1177,7 +1039,7 @@
 		       ("poisson_cdf_log" "poisson_cdf_log(${1:n}, ${2:lambda})$0" "poisson_cdf_log" nil
 			("Functions")
 			nil nil nil nil)
-		       ("poisson_log" "poisson_log(${1:n}, ${2:alpha})$0" "poisson_log" nil
+		       ("poisson_log" "poisson_log(${1:n}, ${2:lambda})$0" "poisson_log" nil
 			("Functions")
 			nil nil nil nil)
 		       ("poisson_log_log" "poisson_log_log(${1:n}, ${2:alpha})$0" "poisson_log_log" nil
@@ -1220,9 +1082,6 @@
 			("Functions")
 			nil nil nil nil)
 		       ("rank" "rank(${1:v}, ${2:s})$0" "rank" nil
-			("Functions")
-			nil nil nil nil)
-		       ("rayleigh" "rayleigh(${1:y}, ${2:sigma})$0" "rayleigh" nil
 			("Functions")
 			nil nil nil nil)
 		       ("rayleigh_ccdf_log" "rayleigh_ccdf_log(${1:y}, ${2:sigma})$0" "rayleigh_ccdf_log" nil
@@ -1282,9 +1141,6 @@
 		       ("rows_dot_self" "rows_dot_self(${1:x})$0" "rows_dot_self" nil
 			("Functions")
 			nil nil nil nil)
-		       ("scaled_inv_chi_square" "scaled_inv_chi_square(${1:y}, ${2:nu}, ${3:sigma})$0" "scaled_inv_chi_square" nil
-			("Functions")
-			nil nil nil nil)
 		       ("scaled_inv_chi_square_ccdf_log" "scaled_inv_chi_square_ccdf_log(${1:y}, ${2:nu}, ${3:sigma})$0" "scaled_inv_chi_square_ccdf_log" nil
 			("Functions")
 			nil nil nil nil)
@@ -1322,9 +1178,6 @@
 			("Functions")
 			nil nil nil nil)
 		       ("size" "size(${1:x})$0" "size" nil
-			("Functions")
-			nil nil nil nil)
-		       ("skew_normal" "skew_normal(${1:y}, ${2:mu}, ${3:sigma}, ${4:alpha})$0" "skew_normal" nil
 			("Functions")
 			nil nil nil nil)
 		       ("skew_normal_ccdf_log" "skew_normal_ccdf_log(${1:y}, ${2:mu}, ${3:sigma}, ${4:alpha})$0" "skew_normal_ccdf_log" nil
@@ -1373,9 +1226,6 @@
 			("Functions")
 			nil nil nil nil)
 		       ("step" "step(${1:x})$0" "step" nil
-			("Functions")
-			nil nil nil nil)
-		       ("student_t" "student_t(${1:y}, ${2:nu}, ${3:mu}, ${4:sigma})$0" "student_t" nil
 			("Functions")
 			nil nil nil nil)
 		       ("student_t_ccdf_log" "student_t_ccdf_log(${1:y}, ${2:nu}, ${3:mu}, ${4:sigma})$0" "student_t_ccdf_log" nil
@@ -1480,9 +1330,6 @@
 		       ("trunc" "trunc(${1:x})$0" "trunc" nil
 			("Functions")
 			nil nil nil nil)
-		       ("uniform" "uniform(${1:y}, ${2:alpha}, ${3:beta})$0" "uniform" nil
-			("Functions")
-			nil nil nil nil)
 		       ("uniform_ccdf_log" "uniform_ccdf_log(${1:y}, ${2:alpha}, ${3:beta})$0" "uniform_ccdf_log" nil
 			("Functions")
 			nil nil nil nil)
@@ -1504,16 +1351,10 @@
 		       ("variance" "variance(${1:x})$0" "variance" nil
 			("Functions")
 			nil nil nil nil)
-		       ("von_mises" "von_mises(${1:y}, ${2:mu}, ${3:kappa})$0" "von_mises" nil
-			("Functions")
-			nil nil nil nil)
 		       ("von_mises_log" "von_mises_log(${1:y}, ${2:mu}, ${3:kappa})$0" "von_mises_log" nil
 			("Functions")
 			nil nil nil nil)
 		       ("von_mises_rng" "von_mises_rng(${1:mu}, ${2:kappa})$0" "von_mises_rng" nil
-			("Functions")
-			nil nil nil nil)
-		       ("weibull" "weibull(${1:y}, ${2:alpha}, ${3:sigma})$0" "weibull" nil
 			("Functions")
 			nil nil nil nil)
 		       ("weibull_ccdf_log" "weibull_ccdf_log(${1:y}, ${2:alpha}, ${3:sigma})$0" "weibull_ccdf_log" nil
@@ -1531,7 +1372,7 @@
 		       ("weibull_rng" "weibull_rng(${1:alpha}, ${2:sigma})$0" "weibull_rng" nil
 			("Functions")
 			nil nil nil nil)
-		       ("wishart" "wishart(${1:W}, ${2:nu}, ${3:Sigma})$0" "wishart" nil
+		       ("wiener_log" "wiener_log(${1:y}, ${2:alpha}, ${3:tau}, ${4:beta}, ${5:delta})$0" "wiener_log" nil
 			("Functions")
 			nil nil nil nil)
 		       ("wishart_log" "wishart_log(${1:W}, ${2:nu}, ${3:Sigma})$0" "wishart_log" nil
