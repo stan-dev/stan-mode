@@ -6,7 +6,7 @@
 
 ;;; Code:
 
-(defconst stan-language-version "2.6.2"
+(defconst stan-language-version "2.7.0"
   "Stan modeling language version supported by `stan-mode'.")
 
 (defvar stan-types-list
