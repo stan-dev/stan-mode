@@ -183,7 +183,11 @@ def main(src, dst):
         'basic_types': BASIC_TYPES,
         'function_return_types': FUNCTION_RETURN_TYPES,
         'distributions': distributions,
+<<<<<<< HEAD
         'nondistribution_log_functions': NOT_DISTRIBUTIONS
+=======
+        'not_a_function': NOT_FUNCTIONS
+>>>>>>> 150e9ae5770119df4b6326739f560fc72ee2bf19
     }
     with open(dst, 'w') as f:
         json.dump(data, f, sort_keys = True, indent = 2, separators = (',', ': '))
