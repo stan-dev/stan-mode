@@ -65,6 +65,13 @@ FUNCTION_LIKE_KEYWORDS = [
 PSEUDO_KEYWORDS = ['lp__']
 BOUNDS = ["lower", "upper"]
 
+# Functions ending in _log (other than c?cdf_log) that are not distributions
+# See https://github.com/stan-dev/stan/blob/develop/src/stan/lang/grammars/statement_grammar_def.hpp
+NOT_DISTRIBUTIONS = [
+    "multiply_log",
+    "binomial_coefficient_log"
+]
+
 ## Section 22.2
 CPP_RESERVED = ["alignas", "alignof", "and", "and_eq", "asm", "auto", "bitand", "bitor", "bool",
                 "break", "case", "catch", "char", "char16_t", "char32_t", "class", "compl",
@@ -175,7 +182,8 @@ def main(src, dst):
         'keywords': KEYWORDS,
         'basic_types': BASIC_TYPES,
         'function_return_types': FUNCTION_RETURN_TYPES,
-        'distributions': distributions
+        'distributions': distributions,
+        'not_a_function': NOT_FUNCTIONS
     }
     with open(dst, 'w') as f:
         json.dump(data, f, sort_keys = True, indent = 2, separators = (',', ': '))
