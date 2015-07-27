@@ -5,7 +5,7 @@
 ;; Author: Jeffrey Arnold <jeffrey.arnold@gmail.com>
 ;; URL: http://github.com/stan-dev/stan-mode
 ;; Keywords:  snippets
-;; Version: 5.1.1
+;; Version: 5.1.2
 ;; Created: 2012-08-18
 ;; Package-Requires: ((stan-mode "5.2.1") (yasnippet "0.8.0"))
 
@@ -38,6 +38,7 @@
 
 ;;; Code:
 (require 'stan-mode)
+(require 'yasnippet)
 
 (defvar stan-snippets-root
   (file-name-directory
@@ -54,7 +55,7 @@
 ;;;###autoload
 (defun stan-snippets-initialize ()
   "Initialize `stan-snippets'."
-  (let ((snip-dir (expand-file-name "snippets" stan-snippets-dir)))
+  (let ((snip-dir (expand-file-name "snippets" stan-snippets-root)))
     (when (boundp 'yas-snippet-dirs)
       (add-to-list 'yas-snippet-dirs snip-dir t))
     (yas-load-directory snip-dir)))
@@ -63,7 +64,6 @@
 (eval-after-load 'yasnippet
   '(stan-snippets-initialize))
 
-(require 'yasnippet)
 (provide 'stan-snippets)
 
 ;;; stan-snippets.el ends here
