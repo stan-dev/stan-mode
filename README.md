@@ -14,7 +14,6 @@ This repository contains several Emacs packages and tools to make editing [Stan]
 - `stan-snippets`: Adds Stan support for [yasnippet](https://github.com/capitaomorte/yasnippet). Yasnippet is a template system for Emacs. Snippets are defined for blocks, control structures, and *all* the built-in functions and distributions.
 - `indent-stan-files`: A shell script that uses `stan-mode` to indent a file. See its [README](https://github.com/stan-dev/stan-mode/blob/develop/indent-stan-files/README.md).
 - `stan-lang`: The file `stan_lang.json` contains all keywords, functions (with their signatures and documentation) in the Stan modeling language. This is used to generate the keyword lists and snippets used by the modes. It could also be useful for developers designing tools for Stan, e.g. other editor modes.
-<!-- - `ac-stan`: Add Stan support for [autocomplete-mode](http://cx4a.org/software/auto-complete/). -->
 
 ## Installing
 
@@ -74,11 +73,6 @@ To use, add the following to your `init.el` file:
 (require 'stan-mode)
 ```
 
-If you have [autocomplete](http://cx4a.org/software/auto-complete/) installed and would like to activate `stan-mode`'s support for it, add the following line
-```el
-(setq stan-use-auto-complete t)
-```
-
 ## stan-snippets
 
 [![MELPA](http://melpa.org/packages/stan-snippets-badge.svg)](http://melpa.org/#/stan-snippets)
@@ -111,6 +105,12 @@ See the documenation for [yasnippet](https://github.com/capitaomorte/yasnippet) 
 <!-- (ac-config-default) -->
 <!-- ``` -->
 <!-- See the Auto Complete Mode [documentation](http://cx4a.org/software/auto-complete/manual.html) for more information on using `autocomplete-mode`. -->
+
+## Auto Complete mode
+
+`stan-mode` does not directly support [autocomplete](http://cx4a.org/software/auto-complete/).
+However a dictionary compatible with autocomplete-mode is available for stan-mode.
+To use autcomplete with stan, download the [stan-mode](https://raw.githubusercontent.com/stan-dev/stan-mode/master/ac-stan/ac-dict/stan-mode), and follow the autocomplete directions for using a [major-mode dictionary](http://auto-complete.org/doc/manual.html#major-mode-dictionary-and-extension-dictionary).
 
 ## License
 
