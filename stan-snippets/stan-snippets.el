@@ -38,12 +38,11 @@
 
 ;;; Code:
 (require 'stan-mode)
-(require 'yasnippet)
 
-(defvar stan-snippets-dir
+(defvar stan-snippets-root
   (file-name-directory
    (or load-file-name (buffer-file-name)))
-  "Directory containing `stan-mode' snippets.")
+  "Root directory containing `stan-mode' snippets.")
 
 (add-hook
  'stan-mode-hook
@@ -56,13 +55,15 @@
 (defun stan-snippets-initialize ()
   "Initialize `stan-snippets'."
   (let ((snip-dir (expand-file-name "snippets" stan-snippets-dir)))
-    (add-to-list 'yas-snippet-dirs stan-snippets-dir t)
+    (when (boundp 'yas-snippet-dirs)
+      (add-to-list 'yas-snippet-dirs snip-dir t))
     (yas-load-directory snip-dir)))
 
 ;;;###autoload
 (eval-after-load 'yasnippet
   '(stan-snippets-initialize))
 
+(require 'yasnippet)
 (provide 'stan-snippets)
 
 ;;; stan-snippets.el ends here
