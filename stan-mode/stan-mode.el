@@ -8,7 +8,7 @@
 ;;   Daniel Lee <bearlee@alum.mit.edu>
 ;; URL: http://github.com/stan-dev/stan-mode
 ;; Keywords: languanges
-;; Version: 5.2.1
+;; Version: 6.0.0
 ;; Created: 2012-08-18
 
 ;; This file is not part of GNU Emacs.
@@ -442,39 +442,6 @@ See `compilation-error-regexp-alist' for a description of the format.")
 
 See `imenu-generic-expression' for a description of the format.")
 
-;;; Auto-complete mode
-
-(defcustom stan-use-auto-complete t
-  "Activate `auto-complete' in `stan-mode'.
-
-This only has an effect if auto-complete is installed."
-  :type 'boolean
-  :group 'stan-mode)
-
-;; defined to avoid compile warnings
-(defvar ac-modes)
-(defvar ac-dictionary-directories)
-(defvar ac-sources)
-
-(defvar stan--load-auto-complete
-      (and (require 'auto-complete nil 'noerror)
-	   (require 'auto-complete-config nil 'noerror)
-	   stan-use-auto-complete))
-
-(when stan--load-auto-complete
-  (setq ac-modes (append ac-modes '(stan-mode)))
-  (add-to-list 'ac-dictionary-directories
-	       (expand-file-name "ac-dict"
-				 (file-name-directory
-				  (or load-file-name (buffer-file-name))))))
-
-(defun stan-ac-mode-setup ()
-  "Setup `autocomplete-mode' from `stan-mode'."
-  (when stan--load-auto-complete
-    (setq ac-sources '(ac-source-imenu
-		       ac-source-dictionary
-		       ac-source-words-in-buffer))))
-
 ;;; Mode initialization
 
 ;;;###autoload
@@ -515,9 +482,6 @@ Key bindings:
   ;; imenu
   (setq imenu-generic-expression stan-imenu-generic-expression)
   (imenu-add-menubar-index)
-
-  ;; auto-complete
-  (stan-ac-mode-setup)
 
   ;; conclusion
   (run-hooks 'c-mode-common-hook 'stan-mode-hook)

@@ -7,7 +7,7 @@
 ;; Keywords:  snippets
 ;; Version: 5.1.2
 ;; Created: 2012-08-18
-;; Package-Requires: ((stan-mode "5.2.1") (yasnippet "0.8.0"))
+;; Package-Requires: ((stan-mode "6.0.0") (yasnippet "0.8.0"))
 
 ;; This file is not part of GNU Emacs.
 
