@@ -5,7 +5,7 @@
 ;; Author: Jeffrey Arnold <jeffrey.arnold@gmail.com>
 ;; URL: http://github.com/stan-dev/stan-mode
 ;; Keywords:  snippets
-;; Version: 5.1.2
+;; Version: 6.0.0
 ;; Created: 2012-08-18
 ;; Package-Requires: ((stan-mode "6.0.0") (yasnippet "0.8.0"))
 
