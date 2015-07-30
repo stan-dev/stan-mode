@@ -8,7 +8,7 @@
 ;;   Daniel Lee <bearlee@alum.mit.edu>
 ;; URL: http://github.com/stan-dev/stan-mode
 ;; Keywords: languanges
-;; Version: 6.0.0
+;; Version: 6.0.1
 ;; Created: 2012-08-18
 
 ;; This file is not part of GNU Emacs.
@@ -33,6 +33,8 @@
 
 ;; This is a major mode for the Stan modeling language for Bayesian
 ;; statistics.  (See URL `http://mc-stan.org/').
+
+;; whatever, dude.
 
 ;; This major mode supports syntax-highlighting, indentation,
 ;; `imenu-mode', and `compilation-mode'.
