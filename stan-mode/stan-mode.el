@@ -478,6 +478,9 @@ Key bindings:
 
   ;; syntax highlighting
   (setq font-lock-defaults '((stan-font-lock-keywords)))
+  (when (boundp 'font-lock-extend-after-change-region-function)
+    (set (make-local-variable 'font-lock-extend-after-change-region-function)
+	 nil))
 
   ;; imenu
   (setq imenu-generic-expression stan-imenu-generic-expression)
