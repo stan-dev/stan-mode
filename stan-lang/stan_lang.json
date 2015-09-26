@@ -106,57 +106,57 @@
     "xor_eq"
   ],
   "distributions": [
-    "frechet",
-    "ordered_logistic",
-    "multi_normal_prec",
-    "gamma",
-    "bernoulli",
-    "binomial_logit",
-    "skew_normal",
-    "gaussian_dlm_obs",
-    "poisson_log",
-    "rayleigh",
-    "wiener",
-    "exp_mod_normal",
-    "multi_gp",
-    "neg_binomial_2",
     "gumbel",
-    "student_t",
-    "multi_normal_cholesky",
-    "neg_binomial",
-    "neg_binomial_2_log",
-    "multinomial",
-    "double_exponential",
+    "binomial",
+    "uniform",
+    "cauchy",
+    "multi_normal",
+    "rayleigh",
+    "dirichlet",
+    "inv_wishart",
+    "skew_normal",
+    "hypergeometric",
+    "gaussian_dlm_obs",
     "multi_student_t",
+    "wishart",
+    "lkj_corr",
+    "multi_gp_cholesky",
+    "pareto_type_2",
+    "bernoulli",
+    "exp_mod_normal",
+    "neg_binomial_2",
+    "bernoulli_logit",
+    "double_exponential",
+    "gamma",
+    "logistic",
+    "multi_normal_cholesky",
+    "beta_binomial",
+    "student_t",
+    "frechet",
+    "multi_normal_prec",
+    "beta",
+    "normal",
+    "categorical_logit",
+    "pareto",
+    "wiener",
+    "neg_binomial_2_log",
+    "multi_gp",
+    "exponential",
+    "lkj_corr_cholesky",
+    "lognormal",
     "weibull",
     "inv_chi_square",
-    "cauchy",
-    "logistic",
-    "lkj_corr_cholesky",
-    "multi_gp_cholesky",
-    "beta",
-    "categorical",
-    "inv_wishart",
-    "exponential",
+    "neg_binomial",
     "inv_gamma",
-    "lkj_corr",
-    "beta_binomial",
     "scaled_inv_chi_square",
-    "normal",
-    "binomial",
-    "categorical_logit",
-    "uniform",
-    "poisson",
     "von_mises",
-    "lognormal",
-    "bernoulli_logit",
-    "multi_normal",
-    "dirichlet",
+    "binomial_logit",
+    "poisson_log",
+    "multinomial",
+    "poisson",
     "chi_square",
-    "pareto_type_2",
-    "pareto",
-    "wishart",
-    "hypergeometric"
+    "ordered_logistic",
+    "categorical"
   ],
   "function_like_keywords": [
     "print",
@@ -1218,6 +1218,84 @@
           "matrix"
         ],
         "name": "crossprod",
+        "return": "matrix"
+      }
+    },
+    "csr_extract_u": {
+      "matrix": {
+        "argnames": [
+          "a"
+        ],
+        "argtypes": [
+          "matrix"
+        ],
+        "name": "csr_extract_u",
+        "return": "int[]"
+      }
+    },
+    "csr_extract_v": {
+      "matrix": {
+        "argnames": [
+          "a"
+        ],
+        "argtypes": [
+          "matrix"
+        ],
+        "name": "csr_extract_v",
+        "return": "int[]"
+      }
+    },
+    "csr_extract_w": {
+      "matrix": {
+        "argnames": [
+          "a"
+        ],
+        "argtypes": [
+          "matrix"
+        ],
+        "name": "csr_extract_w",
+        "return": "vector"
+      }
+    },
+    "csr_matrix_times_vector": {
+      "int,int,vector,int[],int[],vector": {
+        "argnames": [
+          "m",
+          "n",
+          "w",
+          "v",
+          "u",
+          "b"
+        ],
+        "argtypes": [
+          "int",
+          "int",
+          "vector",
+          "int[]",
+          "int[]",
+          "vector"
+        ],
+        "name": "csr_matrix_times_vector",
+        "return": "vector"
+      }
+    },
+    "csr_to_dense_matrix": {
+      "int,int,int,int,int": {
+        "argnames": [
+          "m",
+          "n",
+          "w",
+          "v",
+          "u"
+        ],
+        "argtypes": [
+          "int",
+          "int",
+          "int",
+          "int",
+          "int"
+        ],
+        "name": "csr_to_dense_matrix",
         "return": "matrix"
       }
     },
@@ -2601,6 +2679,18 @@
         "return": "real"
       }
     },
+    "inv_phi": {
+      "real": {
+        "argnames": [
+          "p"
+        ],
+        "argtypes": [
+          "real"
+        ],
+        "name": "inv_phi",
+        "return": "real"
+      }
+    },
     "inv_sqrt": {
       "real": {
         "argnames": [
@@ -3662,7 +3752,7 @@
           "int"
         ],
         "name": "multinomial_rng",
-        "return": "vector"
+        "return": "int[]"
       }
     },
     "multiply_log": {
@@ -7372,5 +7462,5 @@
     "corr_matrix",
     "cov_matrix"
   ],
-  "version": "2.7.0"
+  "version": "2.8.0"
 }

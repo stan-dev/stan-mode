@@ -8,9 +8,9 @@ import json
 import re
 import sys
 
-""" Stan language version """
-VERSION = "2.7.0"
+regex_version = re.compile(r"stan-functions-(\d+\.\d+\.\d+)\.txt")
 
+""" Stan language version """
 ## Figure 22.2
 TYPES = [
     "int",
@@ -168,8 +168,9 @@ def parse_functions(src):
 
 def main(src, dst):
     functions, distributions = parse_functions(src)
+    version = regex_version.search(src).group(1)
     data = {
-        'version': VERSION,
+        'version': version,
         'functions': functions,
         'operators': OPERATORS,
         'blocks': BLOCKS,

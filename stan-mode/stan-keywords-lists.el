@@ -6,7 +6,7 @@
 
 ;;; Code:
 
-(defconst stan-language-version "2.7.0"
+(defconst stan-language-version "2.8.0"
   "Stan modeling language version supported by `stan-mode'.")
 
 (defvar stan-types-list
@@ -136,6 +136,11 @@
     "cos"
     "cosh"
     "crossprod"
+    "csr_extract_u"
+    "csr_extract_v"
+    "csr_extract_w"
+    "csr_matrix_times_vector"
+    "csr_to_dense_matrix"
     "cumulative_sum"
     "determinant"
     "diag_matrix"
@@ -218,6 +223,7 @@
     "inv_gamma_log"
     "inv_gamma_rng"
     "inv_logit"
+    "inv_phi"
     "inv_sqrt"
     "inv_square"
     "inv_wishart_log"

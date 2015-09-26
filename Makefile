@@ -1,5 +1,7 @@
 PACKAGES := stan-mode ac-stan stan-snippets
 
+all: build
+
 build-stan-lang :
 	make -C stan-lang
 
