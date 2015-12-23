@@ -1,4 +1,6 @@
 STAN_LANG = ../stan-lang/stan_lang.json
+# This requires GNU sed
+SED = sed
 
 SNIPPETS_DIR = snippets
 SNIPPETS = $(shell find $(SNIPPETS_DIR) -type f -name "*.yasnippet")

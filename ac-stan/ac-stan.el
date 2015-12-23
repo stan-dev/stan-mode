@@ -6,9 +6,9 @@
 ;; Maintainer: Jeffrey Arnold <jeffrey.arnold@gmail.com>,
 ;; URL: http://github.com/stan-dev/stan-mode
 ;; Keywords: languages,completion
-;; Version: 1.2.0
+;; Version: 8.0.0
 ;; Created: 2014-12-18
-;; Package-Requires: ((auto-complete "1.4.0") (stan-mode "5.0.0") (stan-snippets "4.0.0"))
+;; Package-Requires: ((auto-complete "1.4.0") (stan-mode "8.0.0") (stan-snippets "8.0.0"))
 
 ;; This file is not part of GNU Emacs.
 
