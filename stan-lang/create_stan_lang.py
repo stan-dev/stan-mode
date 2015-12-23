@@ -8,8 +8,6 @@ import json
 import re
 import sys
 
-""" Stan language version """
-VERSION = "2.7.0"
 
 ## Figure 22.2
 TYPES = [
@@ -111,6 +109,7 @@ OPERATORS = [
     "+",
     "^",
     "'",
+    ":" # for indexes
     # also () []
 ]
 
@@ -168,8 +167,10 @@ def parse_functions(src):
 
 def main(src, dst):
     functions, distributions = parse_functions(src)
+    version = re.search(r"-([0-9]+\.[0.9]+\.[0-9]+)\.txt$", src).group(1)
+    print("Stan version: %s" % version)
     data = {
-        'version': VERSION,
+        'version': version,
         'functions': functions,
         'operators': OPERATORS,
         'blocks': BLOCKS,
