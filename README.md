@@ -111,6 +111,30 @@ See the documenation for [yasnippet](https://github.com/capitaomorte/yasnippet) 
 However a dictionary compatible with autocomplete-mode is available for stan-mode.
 To use autcomplete with stan, download the [stan-mode](https://raw.githubusercontent.com/stan-dev/stan-mode/master/ac-stan/ac-dict/stan-mode), and follow the autocomplete directions for using a [major-mode dictionary](http://auto-complete.org/doc/manual.html#major-mode-dictionary-and-extension-dictionary).
 
+## Updating packages
+
+To update stan-mode when a  version of the Stan language comes out:
+
+1. Replace `stan-lang/stan-functions-*.txt` with the newest version from CmdStan.
+2. Build the emacs files
+``` shell
+$ make
+```
+3. Save and commit the changes
+4. Bump the version number of the emacs packages. For example, to bump to 8.0.0. This is different than the Stan language version.
+
+``` shell
+$ ./update-versions.sh 8.0.0
+```
+5. Tag the commit and push the tag
+
+``` shell
+$ git tag v8.0.0
+$ git push --tags
+```
+
+
+
 ## License
 
 All packages are free software under the [GPL v3](http://www.gnu.org/licenses/gpl-3.0.html).
