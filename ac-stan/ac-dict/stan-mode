@@ -74,6 +74,11 @@ cos
 cosh
 cov_matrix
 crossprod
+csr_extract_u
+csr_extract_v
+csr_extract_w
+csr_matrix_times_vector
+csr_to_dense_matrix
 cumulative_sum
 data
 determinant
@@ -175,6 +180,7 @@ inv_gamma_cdf_log
 inv_gamma_log
 inv_gamma_rng
 inv_logit
+inv_phi
 inv_sqrt
 inv_square
 inv_wishart
