@@ -83,8 +83,10 @@ CPP_RESERVED = ["alignas", "alignof", "and", "and_eq", "asm", "auto", "bitand", 
                 "typeid", "typename", "union", "unsigned", "using", "virtual", "void", "volatile",
                 "wchar_t", "while", "xor", "xor_eq"]
 
-## Section 22.2
-RESERVED = ["for", "in", "while", "repeat", "until", "if", "then", "else", "true", "false", "fvar", "var"]
+## Stan Reserved Words Section 22.2
+RESERVED = ["for", "in", "while", "repeat", "until", "if", "then", "else", "true", "false",
+            "fvar", "var",
+            "STAN_MAJOR", "STAN_MINOR", "STAN_PATCH", "STAN_MATH_MAJOR", "STAN_MATH_MINOR", "STAN_MATH_PATH"]
 
 ## Section 22.5
 OPERATORS = [
@@ -142,6 +144,7 @@ def parse_functions(src):
         data = [row for row in reader][2:]
 
     distributions = set()
+    constants = set()
     functions = {}
 
     for row in data:
@@ -159,11 +162,13 @@ def parse_functions(src):
                 'argtypes': [x[0] for x in args],
                 'argnames': [x[1] for x in args],
             }
+            if len(f['argtypes']) == 0:
+                constants.add(funname)
             signature = ','.join(f['argtypes'])
             if funname not in functions:
                 functions[funname] = {}
             functions[funname][signature] = f
-    return (functions, list(distributions))
+    return (functions, sorted(list(distributions)), sorted(list(constants)))
 
 def main(src, dst):
     functions, distributions = parse_functions(src)
@@ -176,15 +181,16 @@ def main(src, dst):
         'blocks': BLOCKS,
         'types': TYPES,
         'reserved': RESERVED,
-        'bounds': BOUNDS,
         'cpp_reserved': CPP_RESERVED,
+        'bounds': BOUNDS,
         'pseudo_keywords': PSEUDO_KEYWORDS,
         'function_like_keywords': FUNCTION_LIKE_KEYWORDS,
         'keywords': KEYWORDS,
         'basic_types': BASIC_TYPES,
         'function_return_types': FUNCTION_RETURN_TYPES,
         'distributions': distributions,
-        'nondistribution_log_functions': NOT_DISTRIBUTIONS
+        'nondistribution_log_functions': NOT_DISTRIBUTIONS,
+        'constants' : constants
     }
     with open(dst, 'w') as f:
         json.dump(data, f, sort_keys = True, indent = 2, separators = (',', ': '))
