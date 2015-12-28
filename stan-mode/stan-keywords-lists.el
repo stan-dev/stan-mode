@@ -478,6 +478,12 @@
 
 (defvar stan-reserved-list
   '(
+    "STAN_MAJOR"
+    "STAN_MATH_MAJOR"
+    "STAN_MATH_MINOR"
+    "STAN_MATH_PATH"
+    "STAN_MINOR"
+    "STAN_PATCH"
     "alignas"
     "alignof"
     "and"

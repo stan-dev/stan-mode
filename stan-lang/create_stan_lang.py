@@ -171,7 +171,7 @@ def parse_functions(src):
     return (functions, sorted(list(distributions)), sorted(list(constants)))
 
 def main(src, dst):
-    functions, distributions = parse_functions(src)
+    functions, distributions, constants = parse_functions(src)
     version = re.search(r"-([0-9]+\.[0.9]+\.[0-9]+)\.txt$", src).group(1)
     print("Stan version: %s" % version)
     data = {
