@@ -231,6 +231,7 @@ lognormal_rng
 lower
 lp__
 machine_precision
+matrix
 max
 mdivide_left_tri_low
 mdivide_right_tri_low
@@ -334,7 +335,7 @@ return
 rising_factorial
 round
 row
-row_vectormatrix
+row_vector
 rows
 rows_dot_product
 rows_dot_self
