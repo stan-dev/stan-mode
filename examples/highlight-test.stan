@@ -71,11 +71,10 @@ model {
   foo <- 0.23497;
   foo <- 1234.56789;
   foo <- .6;
-  foo <- 7e8;
   foo <- 2.0e9;
 
   // sampling distributions
-  y <- normal_log(alpha, beta);  
+  y ~ normal_log(alpha, beta);  
   foo <- normal_log(y, alpha, beta);
   foo <- normal_cdf(y, alpha, beta);
   foo <- normal_cdf_log(y, alpha, beta);  
