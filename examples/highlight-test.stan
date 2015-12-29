@@ -14,8 +14,13 @@ functions {
   }
 }
 data {
-  // valid name
-  int abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_abc;
+  // valid names
+  real abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_abc;
+  real a;
+  real a3;
+  real Sigma;
+  real my_cpp_style_variable;
+  real myCamelCaseVariable;
   // invalid names
   int a__;
   int 1a;
@@ -64,14 +69,19 @@ transformed parameters {
 model {
   real foo;
   int bar;
-  // valid integer literal
+  // valid integer literals
   bar <- 0;
-  bar <- 123;
-  // valid real literal
-  foo <- 0.23497;
-  foo <- 1234.56789;
-  foo <- .6;
-  foo <- 2.0e9;
+  bar <- 1;
+  bar <- -1;
+  bar <- 256;
+  bar <- -127098;
+  // valid real literals
+  foo <- 0.0;
+  foo <- 1.0;
+  foo <- 3.14;
+  foo <- -217.9387;
+  foo <- 2.7e3;
+  foo <- -2E-5;
 
   // sampling distributions
   y ~ normal_log(alpha, beta);  

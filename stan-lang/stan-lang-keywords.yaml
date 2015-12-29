@@ -1,0 +1,195 @@
+# These come from the sections of the Stan Reference
+# - Ch. 29: Modeling Language Syntax
+# - Ch. 25: Expressions
+# - https://github.com/stan-dev/stan/blob/develop/src/stan/lang/grammars/statement_grammar_def.hpp
+types:
+  basic:
+    - "int"
+    - "real"
+    - "vector"
+    - "row_vector"
+    - "matrix"
+  variable:
+    - "int"
+    - "real"
+    - "vector"
+    - "ordered"
+    - "positive_ordered"
+    - "simplex"
+    - "unit_vector"
+    - "row_vector"
+    - "matrix"
+    - "cholesky_factor_corr"
+    - "cholesky_factor_cov"
+    - "corr_matrix"
+    - "cov_matrix"
+  return:
+    - "int"
+    - "real"
+    - "vector"
+    - "row_vector"
+    - "matrix"
+    - "void"
+
+blocks :
+    - "functions"
+    - "data"
+    - "transformed data"
+    - "parameters"
+    - "transformed parameters"
+    - "model"
+    - "generated quantities"
+
+keywords:
+  control:
+    - "for"
+    - "in"
+    - "while"
+    - "if"
+    - "else"
+  other:
+    - "return"
+  functions:
+    - "print"
+    - "increment_log_prob"
+    - "reject"
+    - "integrate_ode"
+  range_constraints:
+    - "lower"
+    - "upper"
+    
+special_variables : ['lp__']
+
+# Functions ending in _log (other than c?cdf_log) that are not distributions
+not_distributions : [ "multiply_log", "binomial_coefficient_log" ]
+
+reserved:
+  cpp:
+    - "alignas"
+    - "alignof"
+    - "and"
+    - "and_eq"
+    - "asm"
+    - "auto"
+    - "bitand"
+    - "bitor"
+    - "bool"
+    - "break"
+    - "case"
+    - "catch"
+    - "char"
+    - "char16_t"
+    - "char32_t"
+    - "class"
+    - "compl"
+    - "const"
+    - "constexpr"
+    - "const_cast"
+    - "continue"
+    - "decltype"
+    - "default"
+    - "delete"
+    - "do"
+    - "double"
+    - "dynamic_cast"
+    - "else"
+    - "enum"
+    - "explicit"
+    - "export"
+    - "extern"
+    - "false"
+    - "float"
+    - "for"
+    - "friend"
+    - "goto"
+    - "if"
+    - "inline"
+    - "int"
+    - "long"
+    - "mutable"
+    - "namespace"
+    - "new"
+    - "noexcept"
+    - "not"
+    - "not_eq"
+    - "nullptr"
+    - "operator"
+    - "or"
+    - "or_eq"
+    - "private"
+    - "protected"
+    - "public"
+    - "register"
+    - "reinterpret_cast"
+    - "return"
+    - "short"
+    - "signed"
+    - "sizeof"
+    - "static"
+    - "static_assert"
+    - "static_cast"
+    - "struct"
+    - "switch"
+    - "template"
+    - "this"
+    - "thread_local"
+    - "throw"
+    - "true"
+    - "try"
+    - "typedef"
+    - "typeid"
+    - "typename"
+    - "union"
+    - "unsigned"
+    - "using"
+    - "virtual"
+    - "void"
+    - "volatile"
+    - "wchar_t"
+    - "while"
+    - "xor"
+    - "xor_eq"
+  stan:
+  - for
+  - in
+  - while
+  - repeat
+  - until
+  - if
+  - then
+  - else
+  - "true"
+  - "false"
+  - var
+  - fvar
+  - STAN_MAJOR
+  - STAN_MINOR
+  - STAN_PATCH
+  - STAN_MATH_MAJOR
+  - STAN_MATH_MINOR
+  - STAN_MATH_PATCH
+
+operators:
+    - "||"
+    - "&&"
+    - "=="
+    - "!="
+    - "<"
+    - "<="
+    - ">"
+    - ">="
+    - "+"
+    - "-"
+    - "*"
+    - "/"
+    - "%"
+    - "\\"
+    - ".*"
+    - "./"
+    - "!"
+    - "-"
+    - "+"
+    - "^"
+    - "'"
+    - ":"
+
