@@ -18,7 +18,7 @@ TYPES = [
     "positive_ordered",
     "simplex",
     "unit_vector",
-    "row_vector"
+    "row_vector",
     "matrix",
     "cholesky_factor_corr",
     "cholesky_factor_cov",
