@@ -16,7 +16,9 @@ _TEMPLATE = """;;; {el_file} -- variables used by `stan-mode'
 
 (defvar stan-types-list
   {types}
-  "List of data types in Stan.")
+  "List of data types in Stan.
+
+   This includes both variable declariations and function return types.")
 
 (defvar stan-function-return-types-list
   {return_types}
@@ -26,9 +28,9 @@ _TEMPLATE = """;;; {el_file} -- variables used by `stan-mode'
   {blocks}
   "List of the names of blocks in Stan.")
 
-(defvar stan-bounds-list
-  {bounds}
-  "List of bounds statements in Stan.")
+(defvar stan-range-constraints-list
+  {range_constraints}
+  "List of range constraint keywords in Stan.")
 
 (defvar stan-keywords-list
   {keywords}
@@ -76,7 +78,7 @@ def read_json(filename):
     types = sorted(data['types']['variable'])
     return_types = sorted(data['types']['return'])
     blocks = sorted(data['blocks'])
-    bounds = sorted(data['keywords']['range_constraints'])
+    range_constraints = sorted(data['keywords']['range_constraints'])
     excluded_functions = data['keywords']['functions'] + data['operator_functions']
     functions = sorted([x for x in data['functions']
                         if x not in excluded_functions])
@@ -84,7 +86,7 @@ def read_json(filename):
     
     return {
         'blocks' : sexp(sorted(blocks)),
-        'bounds' : sexp(sorted(bounds)),
+        'range_constraints' : sexp(sorted(range_constraints)),
         'distributions' : sexp(sorted(distributions)),
         'functions' : sexp(sorted(functions)),
         'keywords' : sexp(sorted(keywords)),
