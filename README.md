@@ -75,6 +75,7 @@ To use, add the following to your `init.el` file:
 
 ## stan-snippets
 
+[![License GPL 3](https://img.shields.io/badge/license-GPL_3-blue.svg)][COPYING]
 [![MELPA](http://melpa.org/packages/stan-snippets-badge.svg)](http://melpa.org/#/stan-snippets)
 [![MELPA Stable](http://stable.melpa.org/packages/stan-snippets-badge.svg)](http://stable.melpa.org/#/stan-snippets)
 
@@ -107,6 +108,8 @@ See the documenation for [yasnippet](https://github.com/capitaomorte/yasnippet) 
 <!-- See the Auto Complete Mode [documentation](http://cx4a.org/software/auto-complete/manual.html) for more information on using `autocomplete-mode`. -->
 
 ## Auto Complete mode
+
+[![License GPL 3](https://img.shields.io/badge/license-GPL_3-blue.svg)][COPYING]
 
 `stan-mode` does not directly support [autocomplete](http://cx4a.org/software/auto-complete/).
 However a dictionary compatible with autocomplete-mode is available for stan-mode.
