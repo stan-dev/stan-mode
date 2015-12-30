@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.org/stan-dev/stan-mode.svg?branch=master)](https://travis-ci.org/stan-dev/stan-mode)
 
+![Example Stan file with font-lock](example.png)
+
 This repository contains several Emacs packages and tools to make editing [Stan](https://code.google.com/p/stan/) files easier.
 
 - `stan-mode` is a major mode for editing Stan files.
