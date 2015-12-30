@@ -1,7 +1,7 @@
 # Emacs support for Stan
 
 [![Build Status](https://travis-ci.org/stan-dev/stan-mode.svg?branch=master)](https://travis-ci.org/stan-dev/stan-mode)
-[![License GPL 3](https://img.shields.io/badge/license-GPL_3-blue.svg)][COPYING]]
+[![License GPL 3](https://img.shields.io/badge/license-GPL_3-blue.svg)](COPYING)
 
 ![Example Stan file with font-lock](example.png)
 
