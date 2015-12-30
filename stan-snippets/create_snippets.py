@@ -12,8 +12,6 @@ import sys
 import subprocess as sp
 from os import path
 
-EXCLUDED_FUNCTIONS = ["increment_log_prob"]
-
 FUNC_TEMPLATE = """# name: {funcname}
 # key: {funcname}
 # group: Functions
@@ -32,32 +30,35 @@ def dir_create_or_clean(dst):
         shutil.rmtree(dst)
     os.makedirs(dst)
 
+
+def format_args_for_yasnippet(x):
+    def clean(x):
+        return re.sub(r'\[.*\]', '', x)
+    if (x[0] == ''):
+        return ''        
+    else:
+        return ', '.join('${%d:%s}' % (i + 1, clean(j)) for i, j in enumerate(x))
+    
+    
 def get_unique_function_args(data):
-    excluded = EXCLUDED_FUNCTIONS + ['operator' + x for x in data['operators']]
+    excluded = data['keywords']['functions'] + data['operator_functions']
     functions = [f for f in data['functions'] if f not in excluded]
     funcargs = set()
     for f in functions:
         for sig in data['functions'][f]:
-            funcargs.add((f, tuple(data['functions'][f][sig]['argnames'])))
+            args = ','.join([x['name'] for x in data['functions'][f][sig]['args']])
+            funcargs.add((f, args)) 
     return funcargs
-
-def format_args_for_yasnippet(x):
-    def clean_arg(x):
-        return re.sub("\[.*?\]", "", x)
-    if (len(x)):
-        return ', '.join('${%d:%s}' % (i + 1, clean_arg(j)) for i, j in enumerate(x))
-    else:
-        return ''
 
 def create_function_snippet(x):
     """ Write a single function to a filename """
     return FUNC_TEMPLATE.format(funcname = x[0], 
-                                args = format_args_for_yasnippet(x[1]))
+                                args = format_args_for_yasnippet(x[1].split(',')))
 
 def write_all_function_snippets(functions, dst):
     dir_create_or_clean(dst)
     for fxn in functions:
-        filename = os.path.join(dst, '%s(%s).yasnippet' % (fxn[0], ','.join(fxn[1])))
+        filename = os.path.join(dst, '%s(%s).yasnippet' % (fxn[0], fxn[1]))
         with open(filename, 'w') as f:
             f.write(create_function_snippet(fxn))
 
@@ -67,12 +68,12 @@ def get_distribution_name(funcname):
 def create_distribution_snippet(x):
     """ Write a single function to a filename """
     return DIST_TEMPLATE.format(funcname = x[0], 
-                                args = format_args_for_yasnippet(x[1]))
+                                args = format_args_for_yasnippet(x[1].split(',')))
 
 def write_all_distribution_snippets(functions, dst):
     dir_create_or_clean(dst)
     for fxn in functions:
-        filename = os.path.join(dst, '%s(%s).yasnippet' % (fxn[0], ','.join(fxn[1])))
+        filename = os.path.join(dst, '%s(%s).yasnippet' % fxn)
         with open(filename, 'w') as f:
             f.write(create_distribution_snippet(fxn))
 
@@ -83,7 +84,7 @@ def main(src, dst):
     distributions = set()
     for fxn in functions:
         if get_distribution_name(fxn[0]) in data['distributions']:
-            distributions.add((get_distribution_name(fxn[0]), fxn[1][1:]))
+            distributions.add((get_distribution_name(fxn[0]), ','.join(fxn[1].split(',')[1:])))
     write_all_function_snippets(functions, os.path.join(dst, 'stan-mode', 'functions'))
     write_all_distribution_snippets(distributions, os.path.join(dst, 'stan-mode', 'distributions'))
         

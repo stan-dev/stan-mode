@@ -5,13 +5,21 @@ import os
 from os import path
 
 def gen_dictwords(data):
-    dictwords = list()
-    for k in ('keywords', 'pseudo_keywords', 'distributions', 'bounds', 'types',
-              'blocks'):
-        dictwords += data[k]
-    dictwords += [x for x in data['functions'].keys() 
-                  if not re.match('operator', x)]
-    return '\n'.join(sorted(list(set(dictwords))))
+    words = set()
+    for k in data['keywords']:
+        for x in data['keywords'][k]:
+            words.add(x)
+    for k in data['types']:
+        for x in data['types'][k]:
+            words.add(x)
+    for x in data['blocks']:
+        words.add(x)
+    for k in data['functions']:
+        if k not in data['operator_functions']:
+            words.add(k)
+    for x in data['distributions']:
+        words.add(x)
+    return '\n'.join(sorted(list(words)))
 
 if __name__ == '__main__':
     src, dst = sys.argv[1:3]

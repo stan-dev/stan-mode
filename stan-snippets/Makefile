@@ -1,4 +1,4 @@
-STAN_LANG = ../stan-lang/stan_lang.json
+STAN_LANG = ../stan-language-definitions/stan_lang.json
 SED = sed
 
 SNIPPETS_DIR = snippets
@@ -19,6 +19,6 @@ build-snippets :
 	$(PYTHON) create_snippets.py $(STAN_LANG) $(SNIPPETS_DIR)
 	$(CASK) exec $(EMACS) --batch -l yasnippet --eval '(yas-compile-directory "$(SNIPPETS_DIR)")'
 	# better for version control to remove dates
-	$(SED) -i .bak -e '/^;;; Do not edit!/d' $(COMPILED_SNIPPETS)
+	$(SED) -i -e '/^;;; Do not edit!/d' $(COMPILED_SNIPPETS)
 
 .PHONY: $(COMPILED_SNIPPETS)

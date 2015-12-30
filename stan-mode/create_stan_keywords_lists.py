@@ -61,21 +61,27 @@ def read_json(filename):
     with open(filename, "r") as f:
         data = json.load(f)
 
-    keywords = sorted(data['keywords']
-                      + data['pseudo_keywords']
-                      + data['function_like_keywords'])
-    types = sorted(data['types'])
-    return_types = sorted(data['function_return_types'])
+    keywords = set()
+    for k in ('control', 'other', 'functions'):
+        for x in data['keywords'][k]:
+            keywords.add(x)
+    keywords = sorted(list(keywords))
+
+    reserved = set()
+    for k in data['reserved']:
+        for x in data['reserved'][k]:
+            reserved.add(x)
+    reserved = sorted(list(reserved))
+        
+    types = sorted(data['types']['variable'])
+    return_types = sorted(data['types']['return'])
     blocks = sorted(data['blocks'])
-    bounds = sorted(data['bounds'])
-    re_op = re.compile("^operator")
+    bounds = sorted(data['keywords']['range_constraints'])
+    excluded_functions = data['keywords']['functions'] + data['operator_functions']
     functions = sorted([x for x in data['functions']
-                        if not re_op.match(x)
-                        and x not in data['function_like_keywords']])
+                        if x not in excluded_functions])
     distributions = sorted(data['distributions'])
-    reserved = sorted([x for x in data['reserved'] + data['cpp_reserved']
-                       if x not in keywords + blocks + functions
-                       + distributions + types + return_types])
+    
     return {
         'blocks' : sexp(sorted(blocks)),
         'bounds' : sexp(sorted(bounds)),
