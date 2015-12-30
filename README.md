@@ -64,6 +64,7 @@ See the Cask [documentation](http://cask.readthedocs.org/en/latest/index.html) f
 
 ## stan-mode
 
+[![License GPL 3](https://img.shields.io/badge/license-GPL_3-blue.svg)][COPYING]
 [![MELPA](http://melpa.org/packages/stan-mode-badge.svg)](http://melpa.org/#/stan-mode)
 [![MELPA Stable](http://stable.melpa.org/packages/stan-mode-badge.svg)](http://stable.melpa.org/#/stan-mode)
 
@@ -138,8 +139,6 @@ $ git push --tags
 ## License
 
 All packages are free software under the [GPL v3](http://www.gnu.org/licenses/gpl-3.0.html).
-
-The file `stan-lang/stan-lang.json` is available under the Public Domain Dedication and License v1.0 whose full text can be found at: http://www.opendatacommons.org/licenses/pddl/1.0/ - See more at: http://opendatacommons.org/licenses/pddl/#sthash.UJfFWezm.dpuf
 
 <!--  LocalWords:  stan imenu yasnippet flymake MELPA kbd RET init '
  -->
