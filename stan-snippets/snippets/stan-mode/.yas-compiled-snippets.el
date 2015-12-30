@@ -164,13 +164,13 @@
 		       ("multi_student_t" "multi_student_t(${1:Sigma})$0" "multi_student_t" nil
 			("Distributions")
 			nil "/Users/jrnold/Documents/projects/stan-mode/stan-snippets/snippets/stan-mode/distributions/multi_student_t(Sigma).yasnippet" nil nil)
-		       ("multi_normal_prec" "multi_normal_prec()$0" "multi_normal_prec" nil
+		       ("multi_normal_prec" "multi_normal_prec(${1:})$0" "multi_normal_prec" nil
 			("Distributions")
 			nil "/Users/jrnold/Documents/projects/stan-mode/stan-snippets/snippets/stan-mode/distributions/multi_normal_prec().yasnippet" nil nil)
-		       ("multi_normal_cholesky" "multi_normal_cholesky()$0" "multi_normal_cholesky" nil
+		       ("multi_normal_cholesky" "multi_normal_cholesky(${1:})$0" "multi_normal_cholesky" nil
 			("Distributions")
 			nil "/Users/jrnold/Documents/projects/stan-mode/stan-snippets/snippets/stan-mode/distributions/multi_normal_cholesky().yasnippet" nil nil)
-		       ("multi_normal" "multi_normal()$0" "multi_normal" nil
+		       ("multi_normal" "multi_normal(${1:})$0" "multi_normal" nil
 			("Distributions")
 			nil "/Users/jrnold/Documents/projects/stan-mode/stan-snippets/snippets/stan-mode/distributions/multi_normal().yasnippet" nil nil)
 		       ("multi_gp_cholesky" "multi_gp_cholesky(${1:L}, ${2:w})$0" "multi_gp_cholesky" nil
@@ -427,7 +427,7 @@
 		       ("square" "square(${1:x})$0" "square" nil
 			("Functions")
 			nil "/Users/jrnold/Documents/projects/stan-mode/stan-snippets/snippets/stan-mode/functions/square(x).yasnippet" nil nil)
-		       ("sqrt2" "sqrt2()$0" "sqrt2" nil
+		       ("sqrt2" "sqrt2(${1:})$0" "sqrt2" nil
 			("Functions")
 			nil "/Users/jrnold/Documents/projects/stan-mode/stan-snippets/snippets/stan-mode/functions/sqrt2().yasnippet" nil nil)
 		       ("sqrt" "sqrt(${1:x})$0" "sqrt" nil
@@ -589,7 +589,7 @@
 		       ("pow" "pow(${1:x}, ${2:y})$0" "pow" nil
 			("Functions")
 			nil "/Users/jrnold/Documents/projects/stan-mode/stan-snippets/snippets/stan-mode/functions/pow(x,y).yasnippet" nil nil)
-		       ("positive_infinity" "positive_infinity()$0" "positive_infinity" nil
+		       ("positive_infinity" "positive_infinity(${1:})$0" "positive_infinity" nil
 			("Functions")
 			nil "/Users/jrnold/Documents/projects/stan-mode/stan-snippets/snippets/stan-mode/functions/positive_infinity().yasnippet" nil nil)
 		       ("poisson_rng" "poisson_rng(${1:lambda})$0" "poisson_rng" nil
@@ -613,7 +613,7 @@
 		       ("poisson_ccdf_log" "poisson_ccdf_log(${1:n}, ${2:lambda})$0" "poisson_ccdf_log" nil
 			("Functions")
 			nil "/Users/jrnold/Documents/projects/stan-mode/stan-snippets/snippets/stan-mode/functions/poisson_ccdf_log(n,lambda).yasnippet" nil nil)
-		       ("pi" "pi()$0" "pi" nil
+		       ("pi" "pi(${1:})$0" "pi" nil
 			("Functions")
 			nil "/Users/jrnold/Documents/projects/stan-mode/stan-snippets/snippets/stan-mode/functions/pi().yasnippet" nil nil)
 		       ("pareto_type_2_rng" "pareto_type_2_rng(${1:mu}, ${2:lambda}, ${3:alpha})$0" "pareto_type_2_rng" nil
@@ -658,7 +658,7 @@
 		       ("num_elements" "num_elements(${1:x})$0" "num_elements" nil
 			("Functions")
 			nil "/Users/jrnold/Documents/projects/stan-mode/stan-snippets/snippets/stan-mode/functions/num_elements(x).yasnippet" nil nil)
-		       ("not_a_number" "not_a_number()$0" "not_a_number" nil
+		       ("not_a_number" "not_a_number(${1:})$0" "not_a_number" nil
 			("Functions")
 			nil "/Users/jrnold/Documents/projects/stan-mode/stan-snippets/snippets/stan-mode/functions/not_a_number().yasnippet" nil nil)
 		       ("normal_rng" "normal_rng(${1:mu}, ${2:sigma})$0" "normal_rng" nil
@@ -676,7 +676,7 @@
 		       ("normal_ccdf_log" "normal_ccdf_log(${1:y}, ${2:mu}, ${3:sigma})$0" "normal_ccdf_log" nil
 			("Functions")
 			nil "/Users/jrnold/Documents/projects/stan-mode/stan-snippets/snippets/stan-mode/functions/normal_ccdf_log(y,mu,sigma).yasnippet" nil nil)
-		       ("negative_infinity" "negative_infinity()$0" "negative_infinity" nil
+		       ("negative_infinity" "negative_infinity(${1:})$0" "negative_infinity" nil
 			("Functions")
 			nil "/Users/jrnold/Documents/projects/stan-mode/stan-snippets/snippets/stan-mode/functions/negative_infinity().yasnippet" nil nil)
 		       ("neg_binomial_rng" "neg_binomial_rng(${1:alpha}, ${2:beta})$0" "neg_binomial_rng" nil
@@ -790,7 +790,7 @@
 		       ("max" "max(${1:x})$0" "max" nil
 			("Functions")
 			nil "/Users/jrnold/Documents/projects/stan-mode/stan-snippets/snippets/stan-mode/functions/max(x).yasnippet" nil nil)
-		       ("machine_precision" "machine_precision()$0" "machine_precision" nil
+		       ("machine_precision" "machine_precision(${1:})$0" "machine_precision" nil
 			("Functions")
 			nil "/Users/jrnold/Documents/projects/stan-mode/stan-snippets/snippets/stan-mode/functions/machine_precision().yasnippet" nil nil)
 		       ("lognormal_rng" "lognormal_rng(${1:mu}, ${2:beta})$0" "lognormal_rng" nil
@@ -859,7 +859,7 @@
 		       ("log2" "log2(${1:x})$0" "log2" nil
 			("Functions")
 			nil "/Users/jrnold/Documents/projects/stan-mode/stan-snippets/snippets/stan-mode/functions/log2(x).yasnippet" nil nil)
-		       ("log2" "log2()$0" "log2" nil
+		       ("log2" "log2(${1:})$0" "log2" nil
 			("Functions")
 			nil "/Users/jrnold/Documents/projects/stan-mode/stan-snippets/snippets/stan-mode/functions/log2().yasnippet" nil nil)
 		       ("log1p_exp" "log1p_exp(${1:x})$0" "log1p_exp" nil
@@ -880,7 +880,7 @@
 		       ("log10" "log10(${1:x})$0" "log10" nil
 			("Functions")
 			nil "/Users/jrnold/Documents/projects/stan-mode/stan-snippets/snippets/stan-mode/functions/log10(x).yasnippet" nil nil)
-		       ("log10" "log10()$0" "log10" nil
+		       ("log10" "log10(${1:})$0" "log10" nil
 			("Functions")
 			nil "/Users/jrnold/Documents/projects/stan-mode/stan-snippets/snippets/stan-mode/functions/log10().yasnippet" nil nil)
 		       ("log" "log(${1:x})$0" "log" nil
@@ -1012,7 +1012,7 @@
 		       ("gumbel_ccdf_log" "gumbel_ccdf_log(${1:y}, ${2:mu}, ${3:beta})$0" "gumbel_ccdf_log" nil
 			("Functions")
 			nil "/Users/jrnold/Documents/projects/stan-mode/stan-snippets/snippets/stan-mode/functions/gumbel_ccdf_log(y,mu,beta).yasnippet" nil nil)
-		       ("get_lp" "get_lp()$0" "get_lp" nil
+		       ("get_lp" "get_lp(${1:})$0" "get_lp" nil
 			("Functions")
 			nil "/Users/jrnold/Documents/projects/stan-mode/stan-snippets/snippets/stan-mode/functions/get_lp().yasnippet" nil nil)
 		       ("gaussian_dlm_obs_log" "gaussian_dlm_obs_log(${1:y}, ${2:F}, ${3:G}, ${4:V}, ${5:W}, ${6:m0}, ${7:C0})$0" "gaussian_dlm_obs_log" nil
@@ -1129,7 +1129,7 @@
 		       ("eigenvalues_sym" "eigenvalues_sym(${1:A})$0" "eigenvalues_sym" nil
 			("Functions")
 			nil "/Users/jrnold/Documents/projects/stan-mode/stan-snippets/snippets/stan-mode/functions/eigenvalues_sym(A).yasnippet" nil nil)
-		       ("e" "e()$0" "e" nil
+		       ("e" "e(${1:})$0" "e" nil
 			("Functions")
 			nil "/Users/jrnold/Documents/projects/stan-mode/stan-snippets/snippets/stan-mode/functions/e().yasnippet" nil nil)
 		       ("double_exponential_rng" "double_exponential_rng(${1:mu}, ${2:sigma})$0" "double_exponential_rng" nil

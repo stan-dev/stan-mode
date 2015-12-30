@@ -163,8 +163,10 @@ hypot
 if
 if_else
 in
+increment_log_prob
 int
 int_step
+integrate_ode
 inv
 inv_chi_square
 inv_chi_square_ccdf_log
@@ -229,7 +231,6 @@ lognormal_cdf_log
 lognormal_log
 lognormal_rng
 lower
-lp__
 machine_precision
 matrix
 max
@@ -313,6 +314,7 @@ poisson_rng
 positive_infinity
 positive_ordered
 pow
+print
 prod
 qr_Q
 qr_R
@@ -327,6 +329,7 @@ rayleigh_cdf_log
 rayleigh_log
 rayleigh_rng
 real
+reject
 rep_array
 rep_matrix
 rep_row_vector
@@ -404,6 +407,7 @@ unit_vector
 upper
 variance
 vector
+void
 von_mises
 von_mises_log
 von_mises_rng

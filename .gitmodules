@@ -1,0 +1,3 @@
+[submodule "stan-language-definitions"]
+	path = stan-language-definitions
+	url = git@github.com:jrnold/stan-language-definitions.git

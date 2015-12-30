@@ -1,4 +1,4 @@
-STAN_LANG = ../stan-lang/stan_lang.json
+STAN_LANG = ../stan-language-definitions/stan_lang.json
 SED = sed
 
 SNIPPETS_DIR = snippets

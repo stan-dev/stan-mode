@@ -2,10 +2,7 @@ PACKAGES := stan-mode ac-stan stan-snippets
 
 all: build compile checkdoc
 
-build-stan-lang :
-	make -C stan-lang
-
-build : build-stan-lang
+build :
 	$(foreach pkg,$(PACKAGES),make -C $(pkg) build-src ; )
 
 compile :
