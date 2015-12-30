@@ -75,15 +75,15 @@ model {
   foo <- 2.0e9;
 
   // sampling distributions
-  y <- normal_log(alpha, beta);  
+  y <- normal_log(alpha, beta);
   foo <- normal_log(y, alpha, beta);
   foo <- normal_cdf(y, alpha, beta);
-  foo <- normal_cdf_log(y, alpha, beta);  
+  foo <- normal_cdf_log(y, alpha, beta);
   foo <- normal_ccdf_log(y, alpha, beta);
 
   // truncation
   alpha ~ normal(0, 1) T[-0.5, 0.5];
-  
+
   // control structures
   for (i in 1:10) {
     tmp <- tmp + 1;
@@ -128,13 +128,13 @@ model {
 
   // ODE
   y_hat <- integrate_ode(sho, y0, t0, ts, theta, x_r, x_i);
-  
+
   // print and reject statements
   print("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_~@#$%^&*`'-+={}[].,;: ");
   print("Hello, world!");
   print("");
   reject("rejected!");
-  
+
 
 }
 generated quantities {
