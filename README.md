@@ -113,7 +113,7 @@ See the documenation for [yasnippet](https://github.com/capitaomorte/yasnippet) 
 
 `stan-mode` does not directly support [autocomplete](http://cx4a.org/software/auto-complete/).
 However a dictionary compatible with autocomplete-mode is available for stan-mode.
-To use autcomplete with stan, download the [stan-mode](https://raw.githubusercontent.com/stan-dev/stan-mode/master/ac-stan/ac-dict/stan-mode), and follow the autocomplete directions for using a [major-mode dictionary](http://auto-complete.org/doc/manual.html#major-mode-dictionary-and-extension-dictionary).
+To use autocomplete with stan, download the [stan-mode](https://raw.githubusercontent.com/stan-dev/stan-mode/master/ac-stan/ac-dict/stan-mode), and follow the autocomplete directions for using a [major-mode dictionary](http://auto-complete.org/doc/manual.html#major-mode-dictionary-and-extension-dictionary).
 
 ## Updating packages
 
