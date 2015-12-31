@@ -393,7 +393,7 @@ does not accept the `word' option."
 (defvar stan-func-decl-regexp
   (concat (stan-regexp-opt (append stan-function-return-types-list '("void")))
           "\\(?:<.*?>\\)?\\(?:\\[.*?\\]\\)?[[:space:]]+\\([A-Za-z][A-Za-z0-9_]*\\)[[:space:]]*(")
-    "Regular expression for user-defined functions in Stan.")
+  "Regular expression for user-defined functions in Stan.")
 
 (defvar stan-font-lock-keywords
   `((,stan-blocks-regexp 1 font-lock-keyword-face)
@@ -406,7 +406,7 @@ does not accept the `word' option."
     ;; T
     ("\\_<\\(T\\)\\[.*?\\]" 1 font-lock-keyword-face)
     ;; check that lower and upper appear after a < or ,
-    (,(concat "\\(?:<\\|,\\)\\s-*" (stan-regexp-opt stan-bounds-list))
+    (,(concat "\\(?:<\\|,\\)\\s-*" (stan-regexp-opt stan-range-constraints-list))
      1 font-lock-keyword-face)
     (,(stan-regexp-opt stan-functions-list) . font-lock-function-name-face)
     ;; distribution names can only appear after a ~

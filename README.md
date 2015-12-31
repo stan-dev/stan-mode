@@ -1,6 +1,9 @@
 # Emacs support for Stan
 
 [![Build Status](https://travis-ci.org/stan-dev/stan-mode.svg?branch=master)](https://travis-ci.org/stan-dev/stan-mode)
+[![License GPL 3](https://img.shields.io/badge/license-GPL_3-blue.svg)](COPYING)
+
+![Example Stan file with font-lock](example.png)
 
 This repository contains several Emacs packages and tools to make editing [Stan](https://code.google.com/p/stan/) files easier.
 
@@ -64,6 +67,7 @@ See the Cask [documentation](http://cask.readthedocs.org/en/latest/index.html) f
 
 ## stan-mode
 
+
 [![MELPA](http://melpa.org/packages/stan-mode-badge.svg)](http://melpa.org/#/stan-mode)
 [![MELPA Stable](http://stable.melpa.org/packages/stan-mode-badge.svg)](http://stable.melpa.org/#/stan-mode)
 
@@ -109,7 +113,7 @@ See the documenation for [yasnippet](https://github.com/capitaomorte/yasnippet) 
 
 `stan-mode` does not directly support [autocomplete](http://cx4a.org/software/auto-complete/).
 However a dictionary compatible with autocomplete-mode is available for stan-mode.
-To use autcomplete with stan, download the [stan-mode](https://raw.githubusercontent.com/stan-dev/stan-mode/master/ac-stan/ac-dict/stan-mode), and follow the autocomplete directions for using a [major-mode dictionary](http://auto-complete.org/doc/manual.html#major-mode-dictionary-and-extension-dictionary).
+To use autocomplete with stan, download the [stan-mode](https://raw.githubusercontent.com/stan-dev/stan-mode/master/ac-stan/ac-dict/stan-mode), and follow the autocomplete directions for using a [major-mode dictionary](http://auto-complete.org/doc/manual.html#major-mode-dictionary-and-extension-dictionary).
 
 ## Updating packages
 
@@ -138,8 +142,6 @@ $ git push --tags
 ## License
 
 All packages are free software under the [GPL v3](http://www.gnu.org/licenses/gpl-3.0.html).
-
-The file `stan-lang/stan-lang.json` is available under the Public Domain Dedication and License v1.0 whose full text can be found at: http://www.opendatacommons.org/licenses/pddl/1.0/ - See more at: http://opendatacommons.org/licenses/pddl/#sthash.UJfFWezm.dpuf
 
 <!--  LocalWords:  stan imenu yasnippet flymake MELPA kbd RET init '
  -->

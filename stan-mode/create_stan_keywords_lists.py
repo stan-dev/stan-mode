@@ -16,7 +16,9 @@ _TEMPLATE = """;;; {el_file} -- variables used by `stan-mode'
 
 (defvar stan-types-list
   {types}
-  "List of data types in Stan.")
+  "List of data types in Stan.
+
+   This includes both variable declariations and function return types.")
 
 (defvar stan-function-return-types-list
   {return_types}
@@ -28,7 +30,7 @@ _TEMPLATE = """;;; {el_file} -- variables used by `stan-mode'
 
 (defvar stan-range-constraints
   {range_constraints}
-  "List of range_constraints (lower, upper) in Stan.")
+  "List of range constraint keywords in Stan.")
 
 (defvar stan-keywords-list
   {keywords}
