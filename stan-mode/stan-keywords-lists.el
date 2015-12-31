@@ -50,12 +50,12 @@
     )
   "List of the names of blocks in Stan.")
 
-(defvar stan-bounds-list
+(defvar stan-range-constraints
   '(
     "lower"
     "upper"
     )
-  "List of bounds statements in Stan.")
+  "List of range_constraints (lower, upper) in Stan.")
 
 (defvar stan-keywords-list
   '(
