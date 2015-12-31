@@ -25,7 +25,9 @@
     "unit_vector"
     "vector"
     )
-  "List of data types in Stan.")
+  "List of data types in Stan.
+
+   This includes both variable declariations and function return types.")
 
 (defvar stan-function-return-types-list
   '(
@@ -50,12 +52,12 @@
     )
   "List of the names of blocks in Stan.")
 
-(defvar stan-range-constraints
+(defvar stan-range-constraints-list
   '(
     "lower"
     "upper"
     )
-  "List of range_constraints (lower, upper) in Stan.")
+  "List of range constraint keywords in Stan.")
 
 (defvar stan-keywords-list
   '(

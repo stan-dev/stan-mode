@@ -28,7 +28,7 @@ _TEMPLATE = """;;; {el_file} -- variables used by `stan-mode'
   {blocks}
   "List of the names of blocks in Stan.")
 
-(defvar stan-range-constraints
+(defvar stan-range-constraints-list
   {range_constraints}
   "List of range constraint keywords in Stan.")
 
