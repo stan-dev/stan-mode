@@ -25,7 +25,7 @@ if test "$ec" = 0
 then
     update_file_versions
     git commit -a -m "bump version"
-    git tag -v$VERSION
+    git tag v$VERSION
     git push
 elif test "$ec" = 1
 then
