@@ -23,14 +23,14 @@ function update_file_versions {
 git ls-files --other --error-unmatch . >/dev/null 2>&1; ec=$?
 if test "$ec" = 0
 then
-    echo "Repository must be clean" >&2
-    exit 1
-elif test "$ec" = 1
-then
     update_file_versions
     git commit -a -m "bump version"
     git tag -v$VERSION
     git push
+elif test "$ec" = 1
+then
+    echo "Repository must be clean" >&2
+    exit 1
 else
     echo "error from ls-files"
 fi
