@@ -27,6 +27,7 @@ then
     git commit -a -m "bump version"
     git tag v$VERSION
     git push
+    git push --tags
 elif test "$ec" = 1
 then
     echo "Repository must be clean" >&2
