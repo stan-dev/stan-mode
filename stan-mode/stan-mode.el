@@ -423,14 +423,17 @@ does not accept the `word' option."
 ;;; Compilation mode
 
 (defvar stan-compilation-regexp
-  '((stan-input-file . '("Input file=\\(.*\\)$" nil 1 nil nil))
-    (stan-error . '("ERROR at line \\([0-9]+\\)" 1 nil nil nil)))
+  '((stan-input-file . ("Input file=\\(.*\\)$" 1))
+    (stan-error . ("ERROR at line \\([0-9]+\\)" nil 1)))
   "Specifications for matching parse errors in Stan.
 
 See `compilation-error-regexp-alist' for a description of the format.")
 
-(add-to-list 'compilation-error-regexp-alist-alist stan-compilation-regexp)
-(add-to-list 'compilation-error-regexp-alist '(stan-input-file stan-error))
+(setq compilation-error-regexp-alist-alist
+      (append stan-compilation-regexp compilation-error-regexp-alist-alist))
+(setq compilation-error-regexp-alist
+      (append (mapcar #'car stan-compilation-regexp)
+              compilation-error-regexp-alist))
 
 ;;; Imenu mode
 
