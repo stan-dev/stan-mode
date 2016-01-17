@@ -9,4 +9,4 @@ env:
 
 script:
   - make compile
-  - make checkdoc
+
