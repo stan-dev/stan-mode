@@ -8,9 +8,6 @@ build :
 compile :
 	$(foreach pkg,$(PACKAGES),make -C $(pkg) compile ; )
 
-checkdoc :
-	$(foreach pkg,$(PACKAGES),make -C $(pkg) checkdoc ; )
-
 dist : 
 	$(foreach pkg,$(PACKAGES),make -C $(pkg) dist ; )
 
