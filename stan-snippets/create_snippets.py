@@ -41,12 +41,11 @@ def format_args_for_yasnippet(x):
     
     
 def get_unique_function_args(data):
-    excluded = data['keywords']['functions'] + data['operator_functions']
-    functions = [f for f in data['functions'] if f not in excluded]
+    functions = sorted(data['functions']['names']['all'])
     funcargs = set()
     for f in functions:
-        for sig in data['functions'][f]:
-            args = ','.join([x['name'] for x in data['functions'][f][sig]['args']])
+        for sig in data['functions']['signatures'][f]:
+            args = ','.join([x['name'] for x in data['functions']['signatures'][f][sig]['args']])
             funcargs.add((f, args)) 
     return funcargs
 

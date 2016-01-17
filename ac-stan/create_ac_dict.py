@@ -14,9 +14,8 @@ def gen_dictwords(data):
             words.add(x)
     for x in data['blocks']:
         words.add(x)
-    for k in data['functions']:
-        if k not in data['operator_functions']:
-            words.add(k)
+    for k in data['functions']['names']['all']:
+        words.add(k)
     for x in data['distributions']:
         words.add(x)
     return '\n'.join(sorted(list(words)))

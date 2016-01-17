@@ -79,9 +79,7 @@ def read_json(filename):
     return_types = sorted(data['types']['return'])
     blocks = sorted(data['blocks'])
     range_constraints = sorted(data['keywords']['range_constraints'])
-    excluded_functions = data['keywords']['functions'] + data['operator_functions']
-    functions = sorted([x for x in data['functions']
-                        if x not in excluded_functions])
+    functions = sorted(data['functions']['names']['all'])
     distributions = sorted(data['distributions'])
     
     return {
