@@ -100,7 +100,7 @@ Set `stan-comment-end' to the associated comment end."
   stan (concat "[" c-alpha "]"))
 
 (c-lang-defconst c-symbol-chars
-  stan (concat  c-alnum "_"))
+  stan (concat c-alnum "_"))
 
 ;; Since I cannot set two types of line comments in a language,
 ;; treat # as a cpp-macro, but kill as much of the functionality as possible
@@ -123,7 +123,7 @@ Set `stan-comment-end' to the associated comment end."
   stan nil)
 
 (c-lang-defconst c-assignment-operators
-  stan '("<-" "~"))
+  stan '("<-" "="))
 
 (c-lang-defconst c-operators
   stan '((postfix "[" "]" "(" ")")
@@ -133,12 +133,13 @@ Set `stan-comment-end' to the associated comment end."
 	  (prefix "!" "-" "+")
 	  (left-assoc "./" ".*")
 	  (left-assoc "\\")
-	  (left-assoc "/" "*")
+	  (left-assoc "/" "*", "%")
 	  (left-assoc "+" "-")
 	  (left-assoc "<" "<=" ">" ">=")
 	  (left-assoc "!=" "==")
 	  (left-assoc "&&")
 	  (left-assoc "||")
+          (right-assoc-sequence "?" ":")
 	  ))
 
 ;; tokens in syntax or parenthesis syntax classes that have uses
@@ -233,8 +234,15 @@ Set `stan-comment-end' to the associated comment end."
 (c-lang-defconst c-before-label-kwds
   stan nil)
 
-(c-lang-defconst c-constant-kwds
-  stan '("lp__")) ;; lp__ is very not-constant but is a non-used defined variable that is exposed.
+;; these are here to avoid errors. I need to rethink cc-mode
+(c-lang-defconst c-constant-kwds stan nil)
+(c-lang-defconst c-nonsymbol-token-regexp stan nil)
+(c-lang-defconst c-<>-multichar-token-regexp stan nil)
+(c-lang-defconst c-<-op-cont-regexp stan nil)
+(c-lang-defconst c->-op-cont-regexp stan nil)
+(c-lang-defconst c-expr-kwds stan nil)
+(c-lang-defconst c-keywords stan nil)
+(c-lang-defconst c-not-decl-init-keywords stan nil)
 
 ;;; cc-mode indentation
 
@@ -363,8 +371,8 @@ Set `stan-comment-end' to the associated comment end."
 
 ;; <- and~ s
 (defvar stan-assign-regexp
-  "\\(<-\\|~\\)"
-  "Regular expression for assigment operators in Stan.")
+  "\\(<-\\|~\\|+=\\|=\\)"
+  "Regular expression for assigment and sampling operators in Stan.")
 
 ;; Stan parser will accept
 ;; "transformedparameters", "transformed parameters", "transformed     parameters",

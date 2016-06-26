@@ -19,11 +19,6 @@ build-src : build-snippets
 build-snippets :
 	$(PYTHON) create_snippets.py $(STAN_LANG) $(SNIPPETS_DIR)
 	$(CASK) exec $(EMACS) --batch -l yasnippet --eval '(yas-compile-directory "$(SNIPPETS_DIR)")'
-	# better for version control to remove dates
-	# gnu-sed and unix sed have different options
-	if $(SED) --version  > /dev/null; \
-	then $(SED) -i -e '/^;;; Do not edit!/d' $(COMPILED_SNIPPETS); \
-	else $(SED) -i .bak -e '/^;;; Do not edit!/d' $(COMPILED_SNIPPETS) ; \
-	fi
+	./clean-snippets.sh $(COMPILED_SNIPPETS)
 
 .PHONY: $(COMPILED_SNIPPETS)

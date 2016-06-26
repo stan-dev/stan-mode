@@ -79,8 +79,8 @@ def read_json(filename):
     return_types = sorted(data['types']['return'])
     blocks = sorted(data['blocks'])
     range_constraints = sorted(data['keywords']['range_constraints'])
-    functions = sorted(data['functions']['names']['all'])
-    distributions = sorted(data['distributions'])
+    functions = sorted(k for k, v in data['functions'].items() if not v['operator'])
+    distributions = sorted([v['sampling'] for k, v in data['functions'].items() if v['sampling']])
     
     return {
         'blocks' : sexp(sorted(blocks)),

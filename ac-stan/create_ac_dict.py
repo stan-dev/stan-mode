@@ -14,10 +14,11 @@ def gen_dictwords(data):
             words.add(x)
     for x in data['blocks']:
         words.add(x)
-    for k in data['functions']['names']['all']:
-        words.add(k)
-    for x in data['distributions']:
-        words.add(x)
+    for k, v in data['functions'].items():
+        if not v['operator']:
+            words.add(k)
+        if v['sampling']:
+            words.add(v['sampling'])
     return '\n'.join(sorted(list(words)))
 
 if __name__ == '__main__':
