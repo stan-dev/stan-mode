@@ -1,15 +1,12 @@
 PACKAGES := stan-mode ac-stan stan-snippets
 
-all: build compile checkdoc
+all: build compile
 
 build :
 	$(foreach pkg,$(PACKAGES),make -C $(pkg) build-src ; )
 
 compile :
 	$(foreach pkg,$(PACKAGES),make -C $(pkg) compile ; )
-
-checkdoc :
-	$(foreach pkg,$(PACKAGES),make -C $(pkg) checkdoc ; )
 
 dist : 
 	$(foreach pkg,$(PACKAGES),make -C $(pkg) dist ; )

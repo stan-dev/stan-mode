@@ -10,8 +10,7 @@ DISTDIR = dist
 
 EMACSBATCH = $(EMACS) -Q --batch $(EMACSFLAGS)
 
-.PHONY : compile dist deps dist clean-elc clean-deps clean-dist \
-	checkdoc
+.PHONY : compile dist deps dist clean-elc clean-deps clean-dist
 
 compile : $(OBJECTS)
 
@@ -28,9 +27,6 @@ clean-deps :
 
 clean-dist :
 	rm -rf $(DISTDIR)
-
-checkdoc : 
-	$(foreach file,$(SRCS),$(CASK) exec $(EMACSBATCH) -l checkdoc-batch.el --eval "(setq vc-handled-backends ())" -f checkdoc-batch-commandline $(file);)
 
 $(PKGDIR) : Cask
 	$(CASK) install
