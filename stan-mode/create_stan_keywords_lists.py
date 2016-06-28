@@ -14,39 +14,43 @@ _TEMPLATE = """;;; {el_file} -- variables used by `stan-mode'
 (defconst stan-language-version "{version}"
   "Stan modeling language version supported by `stan-mode'.")
 
-(defvar stan-types-list
+(defconst stan-types-list
   {types}
   "List of data types in Stan.
 
    This includes both variable declariations and function return types.")
 
-(defvar stan-function-return-types-list
+(defconst stan-function-return-types-list
   {return_types}
   "List of return types of Stan functions.")
 
-(defvar stan-blocks-list
+(defconst stan-blocks-list
   {blocks}
   "List of the names of blocks in Stan.")
 
-(defvar stan-range-constraints-list
+(defconst stan-range-constraints-list
   {range_constraints}
   "List of range constraint keywords in Stan.")
 
-(defvar stan-keywords-list
+(defconst stan-keywords-list
   {keywords}
   "List of keywords in Stan.")
 
-(defvar stan-functions-list
+(defconst stan-functions-list
   {functions}
   "List of functions in Stan.")
 
-(defvar stan-distribution-list
+(defconst stan-distribution-list
   {distributions}
   "List of distributions in Stan.")
 
-(defvar stan-reserved-list
+(defconst stan-reserved-list
   {reserved}
   "List of reserved keywords in Stan.")
+
+(defconst stan-deprecated-function-list
+  {deprecated}
+  "List of deprecated functions in Stan.")
 
 (provide 'stan-keywords-lists)
 
@@ -68,19 +72,21 @@ def read_json(filename):
         for x in data['keywords'][k]:
             keywords.add(x)
     keywords = sorted(list(keywords))
-
     reserved = set()
     for k in data['reserved']:
         for x in data['reserved'][k]:
-            reserved.add(x)
+            if x not in keywords:
+                 reserved.add(x)
     reserved = sorted(list(reserved))
-        
     types = sorted(data['types']['variable'])
     return_types = sorted(data['types']['return'])
     blocks = sorted(data['blocks'])
     range_constraints = sorted(data['keywords']['range_constraints'])
-    functions = sorted(k for k, v in data['functions'].items() if not v['operator'])
+    functions = sorted(k for k, v in data['functions'].items()
+                       if not (v['operator'] or v['keyword'] or v['deprecated']))
+    deprecated = sorted(k for k, v in data['functions'].items() if v['deprecated'])
     distributions = sorted([v['sampling'] for k, v in data['functions'].items() if v['sampling']])
+    
     
     return {
         'blocks' : sexp(sorted(blocks)),
@@ -92,6 +98,7 @@ def read_json(filename):
         'types' : sexp(sorted(types)),
         'return_types' : sexp(sorted(return_types)),
         'version' : data['version'],
+        'deprecated' : sexp(sorted(deprecated)),
         'py_file' : os.path.split(__file__)[1]
     }
 

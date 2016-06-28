@@ -371,7 +371,7 @@ Set `stan-comment-end' to the associated comment end."
 
 ;; <- and~ s
 (defvar stan-assign-regexp
-  "\\(<-\\|~\\|+=\\|=\\)"
+  "\\(~\\|+=\\|=\\)"
   "Regular expression for assigment and sampling operators in Stan.")
 
 ;; Stan parser will accept
@@ -406,6 +406,7 @@ does not accept the `word' option."
 (defvar stan-font-lock-keywords
   `((,stan-blocks-regexp 1 font-lock-keyword-face)
     (,stan-assign-regexp . font-lock-reference-face)
+    ("\\(<-\\)" . font-lock-warning-face)
     ;; Stan types. Look for it to come after the start of a line or semicolon.
     ( ,(stan-regexp-opt (append stan-types-list stan-function-return-types-list))
       . font-lock-type-face)
@@ -413,16 +414,19 @@ does not accept the `word' option."
     (,(stan-regexp-opt stan-keywords-list) . font-lock-keyword-face)
     ;; T
     ("\\_<\\(T\\)\\[.*?\\]" 1 font-lock-keyword-face)
+    ;; target +=
+    ("\\(target\\)\\s-*\\(\\+=\\)" (1 font-lock-keyword-face) (2 font-lock-reference-face))
     ;; check that lower and upper appear after a < or ,
     (,(concat "\\(?:<\\|,\\)\\s-*" (stan-regexp-opt stan-range-constraints-list))
      1 font-lock-keyword-face)
+    ;; function list
     (,(stan-regexp-opt stan-functions-list) . font-lock-function-name-face)
     ;; distribution names can only appear after a ~
     (,(concat "~\\s-*\\(" (regexp-opt stan-distribution-list) "\\)\\_>")
      1 font-lock-function-name-face)
-    ;; (,(concat "~\\s-*" (stan-regexp stan-distribution-list))
-    ;;  . font-lock-function-name-face)
-    (,(stan-regexp-opt stan-reserved-list) . font-lock-warning-face)
+    ;; deprecated functions
+    (,(stan-regexp-opt stan-deprecated-function-list) . font-lock-warning-face)
+    (,(stan-regexp-opt stan-reserved-list) . font-lock-error-face)
     ;; Variable declaration
     (,stan-var-decl-regexp 2 font-lock-variable-name-face)
     (,stan-func-decl-regexp 2 font-lock-variable-name-face)
