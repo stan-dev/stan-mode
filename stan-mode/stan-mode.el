@@ -243,6 +243,9 @@ Set `stan-comment-end' to the associated comment end."
 (c-lang-defconst c-expr-kwds stan nil)
 (c-lang-defconst c-keywords stan nil)
 (c-lang-defconst c-not-decl-init-keywords stan nil)
+(c-lang-defconst c-:$-multichar-token-regexp stan nil)
+(c-lang-defconst c->-op-without->-cont-regexp stan nil)
+(c-lang-defconst c-multichar->-op-not->>-regexp stan nil)
 
 ;;; cc-mode indentation
 
