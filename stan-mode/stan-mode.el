@@ -91,7 +91,7 @@ Set `stan-comment-end' to the associated comment end."
 ;; This mode does not inherit properties from other modes. So, we do not use
 ;; the usual `c-add-language' function.
 (eval-and-compile
-  ;; (c-add-language 'stan-mode 'c++-mode)
+  (c-add-language 'stan-mode 'c-mode)
   (put 'stan-mode 'c-mode-prefix "stan-")
   )
 
@@ -133,7 +133,7 @@ Set `stan-comment-end' to the associated comment end."
 	  (prefix "!" "-" "+")
 	  (left-assoc "./" ".*")
 	  (left-assoc "\\")
-	  (left-assoc "/" "*", "%")
+	  (left-assoc "/" "*" "%")
 	  (left-assoc "+" "-")
 	  (left-assoc "<" "<=" ">" ">=")
 	  (left-assoc "!=" "==")
@@ -234,18 +234,6 @@ Set `stan-comment-end' to the associated comment end."
 (c-lang-defconst c-before-label-kwds
   stan nil)
 
-;; these are here to avoid errors. I need to rethink cc-mode
-(c-lang-defconst c-constant-kwds stan nil)
-(c-lang-defconst c-nonsymbol-token-regexp stan nil)
-(c-lang-defconst c-<>-multichar-token-regexp stan nil)
-(c-lang-defconst c-<-op-cont-regexp stan nil)
-(c-lang-defconst c->-op-cont-regexp stan nil)
-(c-lang-defconst c-expr-kwds stan nil)
-(c-lang-defconst c-keywords stan nil)
-(c-lang-defconst c-not-decl-init-keywords stan nil)
-(c-lang-defconst c-:$-multichar-token-regexp stan nil)
-(c-lang-defconst c->-op-without->-cont-regexp stan nil)
-(c-lang-defconst c-multichar->-op-not->>-regexp stan nil)
 
 ;;; cc-mode indentation
 
