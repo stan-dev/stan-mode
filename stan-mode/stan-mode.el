@@ -178,7 +178,7 @@ Set `stan-comment-end' to the associated comment end."
   stan nil)
 
 ;; no type definitions
-(c-lang-defconst c-tyepdef-kwds
+(c-lang-defconst c-typedef-kwds
   stan nil)
 
 ;; no type modifiers
@@ -201,7 +201,7 @@ Set `stan-comment-end' to the associated comment end."
 (c-lang-defconst c-block-decls-with-vars
   stan nil)
 
-(c-lang-defconst c-paren-non-type-kwds
+(c-lang-defconst c-paren-nontype-kwds
   stan nil)
 
 (c-lang-defconst c-block-stmt-1-kwds
