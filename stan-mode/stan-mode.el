@@ -106,8 +106,6 @@ Set `stan-comment-end' to the associated comment end."
 ;; treat # as a cpp-macro, but kill as much of the functionality as possible
 ;; Set # to a comment in the syntax table.
 (c-lang-defconst c-opt-cpp-prefix
-  stan "#")
-(c-lang-defconst c-opt-cpp-prefix
   stan "\\s *#\\s *")
 (c-lang-defconst c-anchored-cpp-prefix
   stan "^\\s *\\(#\\)\\s *")
