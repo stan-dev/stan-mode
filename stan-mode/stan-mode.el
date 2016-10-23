@@ -494,7 +494,7 @@ Key bindings:
   (imenu-add-menubar-index)
 
   ;; conclusion
-  (run-hooks 'c-mode-common-hook 'stan-mode-hook)
+  (run-hooks 'c-mode-common-hook)
   )
 
 ;;;###autoload
