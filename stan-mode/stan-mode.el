@@ -417,8 +417,8 @@ does not accept the `word' option."
      1 font-lock-function-name-face)
     ;; deprecated functions
     (,(stan-regexp-opt stan-deprecated-function-list) . font-lock-warning-face)
-    (,(stan-regexp-opt stan-reserved-list) . font-lock-error-face)
-    ("\\w*__" . font-lock-error-face)
+    (,(stan-regexp-opt stan-reserved-list) . font-lock-warning-face)
+    ("\\w*__" . font-lock-warning-face)
     ;; Variable declaration
     (,stan-var-decl-regexp 2 font-lock-variable-name-face)
     (,stan-func-decl-regexp 2 font-lock-variable-name-face)
