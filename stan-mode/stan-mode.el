@@ -106,8 +106,6 @@ Set `stan-comment-end' to the associated comment end."
 ;; treat # as a cpp-macro, but kill as much of the functionality as possible
 ;; Set # to a comment in the syntax table.
 (c-lang-defconst c-opt-cpp-prefix
-  stan "#")
-(c-lang-defconst c-opt-cpp-prefix
   stan "\\s *#\\s *")
 (c-lang-defconst c-anchored-cpp-prefix
   stan "^\\s *\\(#\\)\\s *")
@@ -180,7 +178,7 @@ Set `stan-comment-end' to the associated comment end."
   stan nil)
 
 ;; no type definitions
-(c-lang-defconst c-tyepdef-kwds
+(c-lang-defconst c-typedef-kwds
   stan nil)
 
 ;; no type modifiers
@@ -203,7 +201,7 @@ Set `stan-comment-end' to the associated comment end."
 (c-lang-defconst c-block-decls-with-vars
   stan nil)
 
-(c-lang-defconst c-paren-non-type-kwds
+(c-lang-defconst c-paren-nontype-kwds
   stan nil)
 
 (c-lang-defconst c-block-stmt-1-kwds
