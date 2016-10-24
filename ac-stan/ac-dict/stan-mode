@@ -94,6 +94,7 @@ columns_dot_self
 corr_matrix
 cos
 cosh
+cov_exp_quad
 cov_matrix
 crossprod
 csr_extract_u
@@ -204,7 +205,6 @@ hypergeometric_lpmf
 hypergeometric_rng
 hypot
 if
-if_else
 in
 inc_beta
 increment_log_prob
@@ -297,7 +297,9 @@ lower
 machine_precision
 matrix
 max
+mdivide_left_spd
 mdivide_left_tri_low
+mdivide_right_spd
 mdivide_right_tri_low
 mean
 min

@@ -623,10 +623,16 @@
 			nil "/Users/jrnold/Documents/projects/stan-mode/stan-snippets/snippets/stan-mode/functions/mean(x).yasnippet" nil nil)
 		       ("mdivide_right_tri_low" "mdivide_right_tri_low(${1:B}, ${2:A})$0" "mdivide_right_tri_low" nil
 			("Functions")
-			nil "/Users/jrnold/Documents/projects/stan-mode/stan-snippets/snippets/stan-mode/functions/mdivide_right_tri_low(B,A).yasnippet" nil nil)
-		       ("mdivide_left_tri_low" "mdivide_left_tri_low(${1:A}, ${2:B})$0" "mdivide_left_tri_low" nil
+			nil "/Users/jrnold/Documents/projects/stan-mode/stan-snippets/snippets/stan-mode/functions/mdivide_right_tri_low(b,A).yasnippet" nil nil)
+		       ("mdivide_right_spd" "mdivide_right_spd(${1:b}, ${2:A})$0" "mdivide_right_spd" nil
+			("Functions")
+			nil "/Users/jrnold/Documents/projects/stan-mode/stan-snippets/snippets/stan-mode/functions/mdivide_right_spd(B,A).yasnippet" nil nil)
+		       ("mdivide_left_tri_low" "mdivide_left_tri_low(${1:A}, ${2:b})$0" "mdivide_left_tri_low" nil
 			("Functions")
 			nil "/Users/jrnold/Documents/projects/stan-mode/stan-snippets/snippets/stan-mode/functions/mdivide_left_tri_low(A,B).yasnippet" nil nil)
+		       ("mdivide_left_spd" "mdivide_left_spd(${1:A}, ${2:b})$0" "mdivide_left_spd" nil
+			("Functions")
+			nil "/Users/jrnold/Documents/projects/stan-mode/stan-snippets/snippets/stan-mode/functions/mdivide_left_spd(A,B).yasnippet" nil nil)
 		       ("max" "max(${1:x})$0" "max" nil
 			("Functions")
 			nil "/Users/jrnold/Documents/projects/stan-mode/stan-snippets/snippets/stan-mode/functions/max(x[]).yasnippet" nil nil)
@@ -843,9 +849,6 @@
 		       ("inc_beta" "inc_beta(${1:alpha}, ${2:beta}, ${3:x})$0" "inc_beta" nil
 			("Functions")
 			nil "/Users/jrnold/Documents/projects/stan-mode/stan-snippets/snippets/stan-mode/functions/inc_beta(alpha,beta,x).yasnippet" nil nil)
-		       ("if_else" "if_else(${1:cond}, ${2:x}, ${3:y})$0" "if_else" nil
-			("Functions")
-			nil "/Users/jrnold/Documents/projects/stan-mode/stan-snippets/snippets/stan-mode/functions/if_else(cond,x,y).yasnippet" nil nil)
 		       ("hypot" "hypot(${1:x}, ${2:y})$0" "hypot" nil
 			("Functions")
 			nil "/Users/jrnold/Documents/projects/stan-mode/stan-snippets/snippets/stan-mode/functions/hypot(x,y).yasnippet" nil nil)
@@ -1080,6 +1083,12 @@
 		       ("crossprod" "crossprod(${1:x})$0" "crossprod" nil
 			("Functions")
 			nil "/Users/jrnold/Documents/projects/stan-mode/stan-snippets/snippets/stan-mode/functions/crossprod(x).yasnippet" nil nil)
+		       ("cov_exp_quad" "cov_exp_quad(${1:x1}, ${2:x2}, ${3:sigma}, ${4:l})$0" "cov_exp_quad" nil
+			("Functions")
+			nil "/Users/jrnold/Documents/projects/stan-mode/stan-snippets/snippets/stan-mode/functions/cov_exp_quad(x1,x2,sigma,l).yasnippet" nil nil)
+		       ("cov_exp_quad" "cov_exp_quad(${1:x}, ${2:sigma}, ${3:l})$0" "cov_exp_quad" nil
+			("Functions")
+			nil "/Users/jrnold/Documents/projects/stan-mode/stan-snippets/snippets/stan-mode/functions/cov_exp_quad(x,sigma,l).yasnippet" nil nil)
 		       ("cosh" "cosh(${1:x})$0" "cosh" nil
 			("Functions")
 			nil "/Users/jrnold/Documents/projects/stan-mode/stan-snippets/snippets/stan-mode/functions/cosh(x).yasnippet" nil nil)

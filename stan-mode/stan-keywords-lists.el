@@ -6,7 +6,7 @@
 
 ;;; Code:
 
-(defconst stan-language-version "2.10.0"
+(defconst stan-language-version "2.12.0"
   "Stan modeling language version supported by `stan-mode'.")
 
 (defconst stan-types-list
@@ -135,6 +135,7 @@
     "columns_dot_self"
     "cos"
     "cosh"
+    "cov_exp_quad"
     "crossprod"
     "csr_extract_u"
     "csr_extract_v"
@@ -207,7 +208,6 @@
     "hypergeometric_lpmf"
     "hypergeometric_rng"
     "hypot"
-    "if_else"
     "inc_beta"
     "int_step"
     "integrate_ode_bdf"
@@ -272,7 +272,9 @@
     "lognormal_rng"
     "machine_precision"
     "max"
+    "mdivide_left_spd"
     "mdivide_left_tri_low"
+    "mdivide_right_spd"
     "mdivide_right_tri_low"
     "mean"
     "min"
