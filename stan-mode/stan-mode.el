@@ -7,7 +7,7 @@
 ;; Maintainer: Jeffrey Arnold <jeffrey.arnold@gmail.com>,
 ;;   Daniel Lee <bearlee@alum.mit.edu>
 ;; URL: http://github.com/stan-dev/stan-mode
-;; Keywords: languanges
+;; Keywords: languages
 ;; Version: 9.0.6
 ;; Created: 2012-08-18
 
