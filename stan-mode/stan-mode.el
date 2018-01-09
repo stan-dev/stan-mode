@@ -50,8 +50,6 @@
 ;; Warning: the function `c-populate-syntax-table' might not be defined at runtime.
 (require 'cc-langs)
 
-(require 'cl)
-
 (require 'font-lock)
 (require 'compile)
 
