@@ -3,24 +3,37 @@
 [![Build Status](https://travis-ci.org/stan-dev/stan-mode.svg?branch=master)](https://travis-ci.org/stan-dev/stan-mode)
 [![License GPL 3](https://img.shields.io/badge/license-GPL_3-blue.svg)](COPYING)
 
-![Example Stan file with font-lock](example.png)
+<!-- https://engineering.giphy.com/how-to-make-gifs-with-ffmpeg/ -->
+![Example](example.gif)
 
-This repository contains several Emacs packages and tools to make editing [Stan](https://code.google.com/p/stan/) files easier.
 
-- `stan-mode` is a major mode for editing Stan files.
-   Its current features include:
+This repository contains several Emacs packages and tools to make editing [Stan](https://mc-stan.org) files easier. For information on Stan itself, see its [documentation](https://mc-stan.org/users/documentation/) and [example models](https://github.com/stan-dev/example-models).
 
+- [`stan-mode`](https://github.com/stan-dev/stan-mode/tree/master/stan-mode) is a major mode for editing Stan files. Its current features include:
   - syntax highlighting
   - indentation
   - [imenu](http://www.emacswiki.org/emacs/ImenuMode) support for blocks, variables, and user-defined functions.
 
-- `stan-snippets`: Adds Stan support for [yasnippet](https://github.com/capitaomorte/yasnippet). Yasnippet is a template system for Emacs. Snippets are defined for blocks, control structures, and *all* the built-in functions and distributions.
-- `indent-stan-files`: A shell script that uses `stan-mode` to indent a file. See its [README](https://github.com/stan-dev/stan-mode/blob/develop/indent-stan-files/README.md).
-- `stan-lang`: The file `stan_lang.json` contains all keywords, functions (with their signatures and documentation) in the Stan modeling language. This is used to generate the keyword lists and snippets used by the modes. It could also be useful for developers designing tools for Stan, e.g. other editor modes.
+- [`company-stan`](https://github.com/stan-dev/stan-mode/tree/master/company-stan): Adds a [`company-mode`](https://company-mode.github.io) completion backend.
+
+- [`eldoc-stan`](https://github.com/stan-dev/stan-mode/tree/master/eldoc-stan): Adds Stan support for the [`eldoc`](https://www.emacswiki.org/emacs/ElDoc) minor mode, which show the argument list of the function being written.
+
+- [`flycheck-stan`](https://github.com/stan-dev/stan-mode/tree/master/flycheck-stan) adds a [`flycheck`](https://www.flycheck.org/en/latest/) on-the-fly syntax checker.
+
+- [`stan-snippets`](https://github.com/stan-dev/stan-mode/tree/master/stan-snippets): Adds Stan support for [yasnippet](https://github.com/capitaomorte/yasnippet). Yasnippet is a template system for Emacs. Snippets are defined for blocks, control structures, and *all* the built-in functions and distributions.
+
+- [`ac-stan`](https://github.com/stan-dev/stan-mode/tree/master/ac-stan): Adds a [`auto-complete`](https://github.com/auto-complete/auto-complete) stan dictionary.
+
+- [`indent-stan-files`](https://github.com/stan-dev/stan-mode/tree/master/indent-stan-files): A shell script that uses `stan-mode` to indent a file.
+
+- [`stan-language-definitions`](https://github.com/jrnold/stan-language-definitions): The file [`stan_lang.json`](https://github.com/jrnold/stan-language-definitions/blob/master/stan_lang.json) contains all keywords, functions (with their signatures and documentation) in the Stan modeling language. This is used to generate the keyword lists and snippets used by the modes. It could also be useful for developers designing tools for Stan, e.g. other editor modes.
+
 
 ## Installing
 
-### package.el
+Example configurations are available in the package-specific README.md file under each subfolder (linked above).
+
+### Via package.el
 
 The recommended way to install these packages is using the built-in package manager: `package.el`.
 These packages are available from [MELPA](http://melpa.org).
@@ -28,36 +41,51 @@ If you're not already using MELPA, follow its installation [instructions](http:/
 
 You can then install the packages using the following commands:
 
-<kbd>M-x package-install [RET] stan-mode [RET]</kbd>
+<kbd>M-x package-install [RET] stan-mode [RET]</kbd><br>
+<kbd>M-x package-install [RET] company-stan [RET]</kbd><br>
+<kbd>M-x package-install [RET] eldoc-stan [RET]</kbd><br>
+<kbd>M-x package-install [RET] flycheck-stan [RET]</kbd><br>
+<kbd>M-x package-install [RET] stan-snippets [RET]</kbd><br>
 
-<kbd>M-x package-install [RET] stan-snippets [RET]</kbd>
-
-<!-- <kbd>M-x package-install [RET] ac-stan [RET]</kbd> -->
+If you use `auto-complete`, also do the following:<br>
+<kbd>M-x package-install [RET] stan-snippets [RET]</kbd><br>
 
 If the installation does not work, try refreshing the package list:
 
 <kbd>M-x package-refresh-contents [RET]</kbd>
 
-Or add the following to you `init.el`:
+Or add the following to your `init.el` to ensure installation of these packages:
 ```lisp
 (package-refresh-contents)
 (mapc
  (lambda (p)
    (unless (package-installed-p p)
      (package-install p)))
- '(stan-mode stan-snippets))
+ '(stan-mode
+   company-stan
+   eldoc-stan
+   flycheck-stan
+   stan-snippets
+   ;; If you use auto-complete, uncomment the line below.
+   ;; ac-stan
+   ))
 ```
 
-### Cask
+### Via Cask
 
 Another way to manage dependencies is to to use [Cask](https://github.com/cask/cask).
 See its [docs](http://cask.readthedocs.org/en/latest/guide/introduction.html#emacs-configuration) for an argument as to why to use Cask to manage your configuration.
 
-Simply add the following to your Cask file:
+Simply add the following to your configuration Cask file:
 ```lisp
 (source melpa)
 (depends-on "stan-mode")
+(depends-on "company-stan")
+(depends-on "eldoc-stan")
+(depends-on "flycheck-stan")
 (depends-on "stan-snippets")
+;; If you use auto-complete, uncomment the line below.
+;; (depends-on "ac-stan")
 ```
 and from the command line in the same directory as the Cask file use `cask` to install the packages,
 ```console
@@ -65,78 +93,185 @@ $ cask install
 ```
 See the Cask [documentation](http://cask.readthedocs.org/en/latest/index.html) for more information.
 
-## stan-mode
 
+### Via Github
+The package maintainer's current development version is available on Github. This can be cloned as follows. You can also use `--recurse-submodules`, but this will recurse more than one level, which is not necessary for our purpose.
 
-[![MELPA](http://melpa.org/packages/stan-mode-badge.svg)](http://melpa.org/#/stan-mode)
-[![MELPA Stable](http://stable.melpa.org/packages/stan-mode-badge.svg)](http://stable.melpa.org/#/stan-mode)
-
-To use, add the following to your `init.el` file:
-```lisp
-(require 'stan-mode)
+```console
+# Clone the develop branch. Change as appropriate.
+$ git clone --branch=develop https://github.com/stan-dev/stan-mode.git
+$ cd stan-mode
+# Clone submodules
+$ git submodule update --init -- stan-language-definitions
+$ git submodule update --init -- local-melpa
+$ git submodule update --init -- rstanarm
+$ git submodule update --init -- stan
+# To run automated tests, do the following.
+make clean; make all
+# If just installing, do the following.
+make local-melpa
 ```
 
-## stan-snippets
+Add the following to your `init.el`. The local development versions will be installed provided their version numbers are greater than the ones in MELPA.
 
-[![MELPA](http://melpa.org/packages/stan-snippets-badge.svg)](http://melpa.org/#/stan-snippets)
-[![MELPA Stable](http://stable.melpa.org/packages/stan-snippets-badge.svg)](http://stable.melpa.org/#/stan-snippets)
-
-To use, add the following to your `init.el` file:
 ```lisp
-(require 'stan-snippets)
+;; To make the local package archive visible.
+(let ((local-melpa-stan
+       "your-path/stan-mode/local-melpa/packages"))
+  (when (file-exists-p local-melpa-stan)
+    (add-to-list 'package-archives
+                 `("local-melpa-stan" . ,local-melpa-stan) t)))
+;; Installation
+(package-refresh-contents)
+(mapc
+ (lambda (p)
+   (unless (package-installed-p p)
+     (package-install p)))
+ '(stan-mode
+   company-stan
+   eldoc-stan
+   flycheck-stan
+   stan-snippets
+   ;; If you use auto-complete, uncomment the line below.
+   ;; ac-stan
+   ))
 ```
-To use `yasnippet` globally:
+
+
+## Configuration
+The recommended mode of configuration is via the `use-package`. One example of configuration is included below. Please the package-specific README files for configuration without use-package.
+
 ```lisp
-(yas-global-mode 1)
+;; Uncomment the line below if not required elsewhere.
+;; (require 'use-package)
+
+;;; stan-mode.el
+(use-package stan-mode
+  ;; Uncomment if directly loading from your development repo
+  ;; :load-path "your-path/stan-mode/stan-mode"
+  :mode ("\\.stan\\'" . stan-mode)
+  :hook (stan-mode . stan-mode-setup)
+  ;;
+  :config
+  ;; The officially recommended offset is 2.
+  (setq stan-indentation-offset 2))
+
+;;; company-stan.el
+(use-package company-stan
+  ;; Uncomment if directly loading from your development repo
+  ;; :load-path "your-path/stan-mode/company-stan/"
+  :hook (stan-mode . company-stan-setup)
+  ;;
+  :config
+  ;; Whether to use fuzzy matching in `company-stan'
+  (setq company-stan-fuzzy nil))
+
+;;; eldoc-stan.el
+(use-package eldoc-stan
+  ;; Uncomment if directly loading from your development repo
+  ;; :load-path "your-path/stan-mode/eldoc-stan/"
+  :hook (stan-mode . eldoc-stan-setup)
+  ;;
+  :config
+  ;; No configuration options as of now.
+  )
+
+;;; flycheck-stan.el
+(use-package flycheck-stan
+  ;; Uncomment if directly loading from your development repo
+  ;; :load-path "your-path/stan-mode/flycheck-stan/"
+  :hook (stan-mode . flycheck-stan-setup)
+  ;;
+  :config
+  ;; No configuration options as of now.
+  )
+
+;;; stan-snippets.el
+(use-package stan-snippets
+  ;; Uncomment if directly loading from your development repo
+  ;; :load-path "your-path/stan-mode/stan-snippets/"
+  :hook (stan-mode . stan-snippets-initialize)
+  ;;
+  :config
+  ;; No configuration options as of now.
+  )
+
+;;; ac-stan.el
+(use-package ac-stan
+  ;; Uncomment if directly loading from your development repo
+  ;; :load-path "path-to-your-repo/stan-mode/ac-stan/"
+  ;; Delete the line below if using.
+  :disabled t
+  :hook (stan-mode . stan-ac-mode-setup)
+  ;;
+  :config
+  ;; No configuration options as of now.
+  )
 ```
-Else, to use `yasnippet` only for `stan-mode`:
-```lisp
-(add-hook 'stan-mode-hook '(lambda () (yas-minor-mode)))
-```
 
-See the documenation for [yasnippet](https://github.com/capitaomorte/yasnippet) for more information on using `yasnippet-mode`.
 
-<!-- ## ac-stan -->
+## For Developers
+### Updating packages for a new Stan version
 
-<!-- To use, add the following add the following to your `init.el`: -->
-<!-- ```lisp -->
-<!-- (require 'ac-stan) -->
-<!-- ``` -->
-<!-- To use `auto-complete` mode, -->
-<!-- ```lisp -->
-<!-- (require 'auto-complete-config) -->
-<!-- (ac-config-default) -->
-<!-- ``` -->
-<!-- See the Auto Complete Mode [documentation](http://cx4a.org/software/auto-complete/manual.html) for more information on using `autocomplete-mode`. -->
+To update stan-mode when a new version of the Stan language comes out:
 
-## Auto Complete mode
-
-`stan-mode` does not directly support [autocomplete](http://cx4a.org/software/auto-complete/).
-However a dictionary compatible with autocomplete-mode is available for stan-mode.
-To use autocomplete with stan, download the [stan-mode](https://raw.githubusercontent.com/stan-dev/stan-mode/master/ac-stan/ac-dict/stan-mode), and follow the autocomplete directions for using a [major-mode dictionary](http://auto-complete.org/doc/manual.html#major-mode-dictionary-and-extension-dictionary).
-
-## Updating packages
-
-To update stan-mode when a  version of the Stan language comes out:
-
-1. Replace `stan-lang/stan-functions-*.txt` with the newest version from CmdStan.
-2. Build the emacs files
+1. Replace `stan-lang/stan-functions-2.19.0.txt` with the newest version of the `stan-functions.txt` file in the [rstan repo](https://github.com/stan-dev/rstan/blob/develop/rstan/rstan/tools/stan-functions.txt). The version string must exist in the file name and it is the Stan version.
+2. Clean and rebuild all generated files. Fix issues in testing and linting as necessary.
 ``` shell
-$ make
+$ make clean
+$ make all
 ```
-3. Save and commit the changes
-4. Bump the version number of the emacs packages. For example, to bump to 8.0.0. This is different than the Stan language version.
+3. Save and commit the changes.
+4. Bump the version number of the emacs packages. For example, to bump to 10.0.0. This is the emacs stan-mode package version, which is different than the Stan language version.
 
 ``` shell
-$ ./update-versions.sh 8.0.0
+$ ./update-versions.sh 10.0.0
 ```
-5. Tag the commit and push the tag
+
+5. If the changes are minor, tag the commit and push the tag for MELPA Stable. If making major changes, it is better to create a pull request on Github to document and discuss.
 
 ``` shell
-$ git tag v8.0.0
+$ git tag v10.0.0
 $ git push --tags
 ```
 
+### Emacs lisp good practices
+The packages must meet the MELPA standards. See ["Making your package ready for inclusion"](https://github.com/melpa/melpa/blob/master/CONTRIBUTING.org#making-your-package-ready-for-inclusion). The packages ensure these standards through the following automated examinations, which are mandated in `make all`.
+
+- Testing via [buttercup](https://github.com/jorgenschaefer/emacs-buttercup)
+- Linting
+  - Package metadata via [package-lint](https://github.com/purcell/package-lint)
+  - Emacs lisp code via [elisp-lint](https://github.com/gonewest818/elisp-lint)
+
+For testing only, use `make test` at the top-level or in a subfolder. For linting only, use `make lint` at the top-level (both types) or `make lint-package` and `make lint-elisp` in a subfolder.
+
+### Available top-level make commands
+
+The following make commands are available at the top-level `Makefile`. Each package has its own `Makefile` and common included file `common.mk`, allowing us to work on them individually.
+
+| Command        | Cleaning Equivalent | Action                                                                            |
+|----------------|---------------------|-----------------------------------------------------------------------------------|
+| `all`          | `clean`             | Run `stan-lang` `deps` `build-src` `local-melpa` `compile` `test` `lint`          |
+|                |                     |                                                                                   |
+| `stan-lang`    | `clean-stan-lang`   | Create the `stan-lang.json` definition file in `stan-language-definitions`.       |
+| `deps`         | `clean-deps`        | Run `cask install` for each package to manage dependencies.                       |
+| `build-src`    | `clean-src`         | Build data files for each package.                                                |
+| `local-melpa`  | `clean-local-melpa` | Create a local archive `local-melpa` to manage package installability in testing. |
+| `compile`      | `clean-elc`         | Byte-compile `*.elc` files for each package.                                      |
+| `test`         |                     | Run `buttercup.el` tests for each package.                                        |
+| `lint`         |                     | Run both linting for each package.                                                |
+| `lint-package` |                     | Run `package-lint.el` to examine package metadata.                                |
+| `lint-elisp`   |                     | Run `elisp-lint.el` to examine elisp coding practice.                             |
+| `dist`         | `clean-dist`        | Run `cask package` to build package files under `dist` for each package.          |
+| `show`         |                     | Show elisp files designated for byte-compilation for each package.                |
+| `snippets`     | `clean-snippets`    | Move snippet files under `stan-snippets/snippets/` to `snippets`                  |
+
+
+### Submodules
+- [`stan-language-definitions`](https://github.com/jrnold/stan-language-definitions): Provides language definitions. All packages depend on this for definitions.
+- [`local-melpa`](https://github.com/kaz-yos/melpa/tree/local-melpa-stan): Provides a local version of MELPA to make the current development version available via the `package.el` interface. Used to avoid installability issue during linting. Also allows package installation checking.
+- [`rstanarm`](https://github.com/kaz-yos/rstanarm): Used to provide examples of complicated stan code in indentation and syntax highlighting tests for the `stan-mode` package.
+- [`stan`](https://github.com/kaz-yos/stan): Used to provide error message patterns for `flycheck-stan`.
 
 
 ## License
@@ -145,7 +280,7 @@ All packages are free software under the [GPL v3](http://www.gnu.org/licenses/gp
 
 <!--  LocalWords:  stan imenu yasnippet flymake MELPA kbd RET init '
  -->
-<!--  LocalWords:  mapc EmacsWiki cd 'load 'stan 'flymake Aquamacs 
+<!--  LocalWords:  mapc EmacsWiki cd 'load 'stan 'flymake Aquamacs
  -->
 <!--  LocalWords:  GPL stanc ' 'load 'stan autocomplete setq 'flymake
  -->
