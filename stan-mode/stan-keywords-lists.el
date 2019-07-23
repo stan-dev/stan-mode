@@ -117,12 +117,12 @@
     "beta_proportion_rng"
     "beta_rng"
     "binary_log_loss"
-    "binomia_cdf"
-    "binomia_lccdf"
-    "binomia_lcdf"
-    "binomia_lpmf"
+    "binomial_cdf"
     "binomial_coefficient_log"
+    "binomial_lccdf"
+    "binomial_lcdf"
     "binomial_logit_lpmf"
+    "binomial_lpmf"
     "binomial_rng"
     "block"
     "categorical_logit_lpmf"
@@ -465,7 +465,7 @@
     "beta"
     "beta_binomial"
     "beta_proportion"
-    "binomia"
+    "binomial"
     "binomial_logit"
     "categorical"
     "categorical_logit"
@@ -620,3 +620,4 @@
 (provide 'stan-keywords-lists)
 
 ;;; stan-keywords-lists.el ends here
+
