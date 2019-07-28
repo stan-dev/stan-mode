@@ -1,13 +1,16 @@
 ;;; stan-snippets.el --- Yasnippets for Stan
 
 ;; Copyright (C) 2012, 2013, 2014, 2015, 2016  Jeffrey Arnold
+;;               2019 Kazuki Yoshida
 
-;; Author: Jeffrey Arnold <jeffrey.arnold@gmail.com>
-;; URL: http://github.com/stan-dev/stan-mode
-;; Keywords:  snippets
-;; Version: 9.3.0
+;; Author: Jeffrey Arnold <jeffrey.arnold@gmail.com>,
+;;         Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>
+;; Maintainer: Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>
+;; URL: http://github.com/stan-dev/stan-mode/stan-snippets
+;; Keywords: languages,tools
+;; Version: 9.2.0
 ;; Created: 2012-08-18
-;; Package-Requires: ((stan-mode "9.3.0") (yasnippet "0.8.0"))
+;; Package-Requires: ((emacs "24.3") (stan-mode "9.2.0") (yasnippet "0.8.0"))
 
 ;; This file is not part of GNU Emacs.
 
@@ -30,10 +33,10 @@
 
 ;; Yasnippets for Stan.  This includes snippets for blocks, control structures,
 ;; and all functions.
-;; 
+;;
 
 ;; Usage:
-;; 
+;;
 ;;   (require 'stan-snippets)
 
 ;;; Code:
@@ -49,8 +52,7 @@
  'stan-mode-hook
  (lambda ()
    ;; this is needed to expand functions with _ in them.
-   (setq-local yas-key-syntaxes (list "w_" "w_." "w_.()" "^ "))
-   ))
+   (setq-local yas-key-syntaxes (list "w_" "w_." "w_.()" "^ "))))
 
 ;;;###autoload
 (defun stan-snippets-initialize ()
@@ -60,9 +62,6 @@
       (add-to-list 'yas-snippet-dirs snip-dir t))
     (yas-load-directory snip-dir)))
 
-;;;###autoload
-(eval-after-load 'yasnippet
-  '(stan-snippets-initialize))
 
 (provide 'stan-snippets)
 
