@@ -4,3 +4,6 @@
 [submodule "local-melpa"]
 	path = local-melpa
 	url = https://github.com/kaz-yos/melpa.git
+[submodule "rstanarm"]
+	path = rstanarm
+	url = https://github.com/kaz-yos/rstanarm.git
