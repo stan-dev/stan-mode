@@ -1,0 +1,10 @@
+Model name=example_info_deprecated_comments_model
+Input file=examples/example_info_deprecated_comments.stan
+Output file=examples/example_info_deprecated_comments.cpp
+DIAGNOSTIC(S) FROM PARSER:
+Info: Comments beginning with # are deprecated.  Please use // in place of # for line comments.
+Info: Comments beginning with # are deprecated.  Please use // in place of # for line comments.
+Info: Comments beginning with # are deprecated.  Please use // in place of # for line comments.
+Info: Comments beginning with # are deprecated.  Please use // in place of # for line comments.
+Info: Comments beginning with # are deprecated.  Please use // in place of # for line comments.
+

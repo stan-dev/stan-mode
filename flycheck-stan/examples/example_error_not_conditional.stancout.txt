@@ -1,0 +1,18 @@
+Model name=example_error_not_conditional_model
+Input file=examples/example_error_not_conditional.stan
+Output file=examples/example_error_not_conditional.cpp
+
+SYNTAX ERROR, MESSAGE(S) FROM PARSER:
+Probabilty functions with suffixes _lpdf, _lpmf, _lcdf, and _lccdf,
+require a vertical bar (|) between the first two arguments.
+ error in 'examples/example_error_not_conditional.stan' at line 19, column 27
+  -------------------------------------------------
+    17: model {
+    18:   mu ~ normal(0, 10);
+    19:   target += cauchy_lpdf(tau, 0, 10);
+                                  ^
+    20:   eta ~ normal(0, 1); // implies theta ~ normal(mu, tau)
+  -------------------------------------------------
+
+PARSER EXPECTED: "|"
+

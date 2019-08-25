@@ -1,0 +1,9 @@
+Model name=example_info_deprecated_functions_model
+Input file=examples/example_info_deprecated_functions.stan
+Output file=examples/example_info_deprecated_functions.cpp
+DIAGNOSTIC(S) FROM PARSER:
+Info: increment_log_prob(...); is deprecated and will be removed in the future.
+  Use target += ...; instead.
+Info: Deprecated function 'normal_log'; please replace suffix '_log' with '_lpdf' for density functions or '_lpmf' for mass functions
+Info: Deprecated function 'cauchy_log'; please replace suffix '_log' with '_lpdf' for density functions or '_lpmf' for mass functions
+

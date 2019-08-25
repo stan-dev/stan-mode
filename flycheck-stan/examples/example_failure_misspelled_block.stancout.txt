@@ -1,0 +1,26 @@
+Model name=example_failure_misspelled_block_model
+Input file=examples/example_failure_misspelled_block.stan
+Output file=examples/example_failure_misspelled_block.cpp
+
+PARSER FAILED TO PARSE INPUT COMPLETELY
+STOPPED AT LINE 8: 
+pparameters {
+  real mu;
+  real<lower=0> tau;
+  vector[J] eta;
+}
+transformed parameters {
+  vector[J] theta;
+  theta = mu + tau * eta;
+}
+model {
+  mu ~ normal(0, 10);
+  tau ~ cauchy(0, 10);
+  eta ~ normal(0, 1); // implies theta ~ normal(mu, tau)
+  y ~ normal(theta, sigma);
+}
+
+
+
+
+
