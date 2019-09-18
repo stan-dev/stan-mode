@@ -4,9 +4,9 @@
 ;; Maintainer: Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>
 ;; URL: http://github.com/stan-dev/stan-mode/eldoc-stan
 ;; Keywords: help, tools
-;; Version: 0.1.0
+;; Version: 10.0.0
 ;; Created: 2019-07-29
-;; Package-Requires: ((emacs "25") (stan-mode "9.2.0"))
+;; Package-Requires: ((emacs "25") (stan-mode "10.0.0"))
 
 ;; This file is not part of GNU Emacs.
 

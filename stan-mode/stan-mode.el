@@ -9,7 +9,7 @@
 ;; Maintainer: Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>
 ;; URL: http://github.com/stan-dev/stan-mode/stan-mode
 ;; Keywords: languages,c
-;; Version: 9.2.0
+;; Version: 10.0.0
 ;; Created: 2012-08-18
 ;; Package-Requires: ((emacs "24.4"))
 

@@ -8,9 +8,9 @@
 ;; Maintainer: Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>
 ;; URL: http://github.com/stan-dev/stan-mode/ac-stan
 ;; Keywords: languages
-;; Version: 9.2.0
+;; Version: 10.0.0
 ;; Created: 2014-12-18
-;; Package-Requires: ((emacs "24") (auto-complete "1.4.0") (stan-mode "9.2.0") (stan-snippets "9.2.0"))
+;; Package-Requires: ((emacs "24") (auto-complete "1.4.0") (stan-mode "10.0.0") (stan-snippets "10.0.0"))
 
 ;; This file is not part of GNU Emacs.
 

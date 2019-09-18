@@ -7,9 +7,9 @@
 ;; Maintainer: Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>
 ;; URL: http://github.com/stan-dev/flycheck-stan-error-msgs
 ;; Keywords: c,languages
-;; Version: 1.0.0
+;; Version: 10.0.0
 ;; Created: 2014-12-19
-;; Package-Requires: ((emacs "25") (flycheck "0.16.0") (stan-mode "3.0.0"))
+;; Package-Requires: ((emacs "25") (flycheck "0.16.0") (stan-mode "10.0.0"))
 
 ;; This file is not part of GNU Emacs.
 
