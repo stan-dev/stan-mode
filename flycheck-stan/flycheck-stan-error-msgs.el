@@ -1,14 +1,13 @@
-;;; flycheck-stan-error-msgs.el --- Add Stan support for Flycheck -*- lexical-binding: t; -*-
+;;; flycheck-stan-error-msgs.el --- Extract stanc error patterns -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2014  Jeffrey Arnold
+;; Copyright (C) 2019 Kazuki Yoshida
 
-;; Author: Jeffrey Arnold <jeffrey.arnold@gmail.com>,
-;;         Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>
+;; Author: Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>
 ;; Maintainer: Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>
 ;; URL: http://github.com/stan-dev/flycheck-stan-error-msgs
 ;; Keywords: c,languages
 ;; Version: 10.0.0
-;; Created: 2014-12-19
+;; Created: 2019-08-20
 ;; Package-Requires: ((emacs "25") (flycheck "0.16.0") (stan-mode "10.0.0"))
 
 ;; This file is not part of GNU Emacs.

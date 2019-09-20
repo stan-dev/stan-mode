@@ -449,13 +449,13 @@ References:
          (buff-file-name (buffer-file-name buffer)))
     ;;
     ;; Iterate over the the list of Error and Info.
-    (seq-map #'(lambda (message)
-                 (flycheck-stan-convert-message-to-error
-                  message buffer checker
-                  ;; Use input-file if available.
-                  ;; If not, use the file name of the BUFFER.
-                  (or input-file
-                      buff-file-name)))
+    (seq-map (lambda (message)
+               (flycheck-stan-convert-message-to-error
+                message buffer checker
+                ;; Use input-file if available.
+                ;; If not, use the file name of the BUFFER.
+                (or input-file
+                    buff-file-name)))
              list-errors)))
 
 

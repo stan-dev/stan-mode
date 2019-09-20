@@ -1,4 +1,4 @@
-;;; stan-snippets.el --- Yasnippets for Stan
+;;; stan-snippets.el --- Yasnippets for Stan -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2012, 2013, 2014, 2015, 2016  Jeffrey Arnold
 ;;               2019 Kazuki Yoshida

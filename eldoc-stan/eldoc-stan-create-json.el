@@ -88,10 +88,10 @@ DROP-FIRST is directly passed to `eldoc-stan-create-json--string-join-with-comma
 SIGNATURES is a list of signature hash tables.
 DROP-FIRST is passed to `eldoc-stan-create-json--signature-to-string'."
   ;;
-  (mapcar #'(lambda (signature)
-              (eldoc-stan-create-json--signature-to-string
-               signature
-               drop-first))
+  (mapcar (lambda (signature)
+            (eldoc-stan-create-json--signature-to-string
+             signature
+             drop-first))
           signatures))
 
 (defun eldoc-stan-create-json--density-function? (fun-ht)

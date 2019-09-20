@@ -1,6 +1,6 @@
 ;;; test-flycheck-stan-error-msgs.el --- A buttercup test suite for flycheck-stan-error-msgs -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2019  Kazuki Yoshida
+;; Copyright (C) 2019 Kazuki Yoshida
 
 ;; Author: Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>
 ;; Maintainer: Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>

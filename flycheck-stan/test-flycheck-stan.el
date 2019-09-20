@@ -2002,8 +2002,8 @@ model {
       ;; Given the same length this comparison is possible.
       ;; This tends to be more informative than
       ;; :to-be-equal-flycheck-errors.
-      (cl-mapcar #'(lambda (a b)
-                     (expect a :to-equal b))
+      (cl-mapcar (lambda (a b)
+                   (expect a :to-equal b))
                  flycheck-errors
                  correct-errors)
       (expect
@@ -2143,8 +2143,8 @@ PARSER EXPECTED: <one of the following:
           ;; Given the same length this comparison is possible.
           ;; This tends to be more informative than
           ;; :to-be-equal-flycheck-errors.
-          (cl-mapcar #'(lambda (a b)
-                         (expect a :to-equal b))
+          (cl-mapcar (lambda (a b)
+                       (expect a :to-equal b))
                      flycheck-current-errors
                      flycheck-correct-errors)
           ;;
@@ -2325,8 +2325,8 @@ PARSER EXPECTED: \"|\"")
           ;; Given the same length this comparison is possible.
           ;; This tends to be more informative than
           ;; :to-be-equal-flycheck-errors.
-          (cl-mapcar #'(lambda (a b)
-                         (expect a :to-equal b))
+          (cl-mapcar (lambda (a b)
+                       (expect a :to-equal b))
                      flycheck-current-errors
                      flycheck-correct-errors)
           ;;
@@ -2409,8 +2409,8 @@ PARSER EXPECTED: \"|\"")
           ;; Given the same length this comparison is possible.
           ;; This tends to be more informative than
           ;; :to-be-equal-flycheck-errors.
-          (cl-mapcar #'(lambda (a b)
-                         (expect a :to-equal b))
+          (cl-mapcar (lambda (a b)
+                       (expect a :to-equal b))
                      flycheck-current-errors
                      flycheck-correct-errors)
           ;;
