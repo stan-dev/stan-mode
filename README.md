@@ -105,7 +105,6 @@ $ cd stan-mode
 $ git submodule update --init -- stan-language-definitions
 $ git submodule update --init -- local-melpa
 $ git submodule update --init -- rstanarm
-$ git submodule update --init -- stan
 # To run automated tests, do the following.
 make clean; make all
 # If just installing, do the following.
@@ -271,7 +270,6 @@ The following make commands are available at the top-level `Makefile`. Each pack
 - [`stan-language-definitions`](https://github.com/jrnold/stan-language-definitions): Provides language definitions. All packages depend on this for definitions.
 - [`local-melpa`](https://github.com/kaz-yos/melpa/tree/local-melpa-stan): Provides a local version of MELPA to make the current development version available via the `package.el` interface. Used to avoid installability issue during linting. Also allows package installation checking.
 - [`rstanarm`](https://github.com/kaz-yos/rstanarm): Used to provide examples of complicated stan code in indentation and syntax highlighting tests for the `stan-mode` package.
-- [`stan`](https://github.com/kaz-yos/stan): Used to provide error message patterns for `flycheck-stan`.
 
 
 ## License
