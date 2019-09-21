@@ -137,8 +137,6 @@ lint-package :
 	--eval "(require 'package)" \
 	--eval "(setq package-archives '((\"melpa\" . \"http://melpa.org/packages/\")))" \
 	--eval "(push '(\"local-melpa\" . \"$(abspath ../local-melpa/packages/)\") package-archives)" \
-	--eval "(require 'pp)" \
-	--eval "(pp package-archives)" \
 	--eval "(package-initialize)" \
 	--eval "(package-refresh-contents)" \
 	$(EMACSFLAGS) -L $(abspath .) \
@@ -154,8 +152,6 @@ lint-elisp :
 	--eval "(require 'package)" \
 	--eval "(setq package-archives '((\"melpa\" . \"http://melpa.org/packages/\")))" \
 	--eval "(push '(\"local-melpa\" . \"$(abspath ../local-melpa/packages/)\") package-archives)" \
-	--eval "(require 'pp)" \
-	--eval "(pp package-archives)" \
 	--eval "(package-initialize)" \
 	--eval "(package-refresh-contents)" \
 	--eval "(setq make-backup-files nil)" \
