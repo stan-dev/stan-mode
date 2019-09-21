@@ -1,5 +1,5 @@
 STAN_LANG = ../stan-language-definitions/stan_lang.json
-STAN_SEMANTIC_ACTIONS_DEF = ../stan/src/stan/lang/grammars/semantic_actions_def.cpp
+STAN_SEMANTIC_ACTIONS_DEF = semantic_actions_def.cpp
 
 STANFILES_DIR = examples
 STANFILES = $(wildcard $(STANFILES_DIR)/*.stan)
