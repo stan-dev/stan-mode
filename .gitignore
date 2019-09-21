@@ -5,3 +5,7 @@ dist/
 *.bak
 
 flycheck_*
+
+local-melpa/*
+rstanarm/*
+stan/*

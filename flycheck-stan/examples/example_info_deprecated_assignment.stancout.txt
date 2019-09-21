@@ -1,0 +1,6 @@
+Model name=example_info_deprecated_assignment_model
+Input file=examples/example_info_deprecated_assignment.stan
+Output file=examples/example_info_deprecated_assignment.cpp
+DIAGNOSTIC(S) FROM PARSER:
+Info: assignment operator <- deprecated in the Stan language; use = instead.
+

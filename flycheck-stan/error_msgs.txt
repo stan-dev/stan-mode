@@ -1,0 +1,124 @@
+Error (fatal):  Use of lp__ is no longer supported.
+Unknown variable in assignment
+Loop variable
+Cannot assign to function argument variables.
+Cannot assign to variable outside of declaration block
+Dimension mismatch in
+Base type mismatch in
+Expression denoting real required; found type=
+Expression is ill formed.
+Condition in ternary expression must be
+Type mismatch in ternary expression,
+Binary infix operator
+Functions cannot contain void argument types;
+Void return type may not have dimensions declared.
+Function declared, but not defined.
+Parse Error.  Probability function already defined
+Parse Error.  Function already declared, name=
+Parse Error.  Function already defined, name=
+Parse Error.  Function system defined, name=
+Declaration doesn't match definition
+Parse Error.  Probability density functions require
+Parse Error.  Probability mass functions require
+Parse Error.  Probability functions require
+Improper return in body of function.
+Real return type required for probability functions
+Duplicate declaration of variable, name=
+Container index must be integer; found type=
+Index must be integer or 1D integer array;
+Error before start of program.
+Conditions in if-else statement must be
+Non-void function must return expression
+Return statement only allowed from function bodies.
+Void function cannot return a value.
+Returns only allowed from function bodies.
+Void returns only allowed from function
+Left-hand side indexing incompatible with variable.
+Cannot apply operator '
+Cannot apply element-wise operation to scalar
+Unknown distribution name:
+Probability function must end in _lpdf or _lpmf.
+Only distribution names can be used with
+CDF and CCDF functions may not be used with
+Real return type required for probability function.
+Outcomes in truncated distributions
+Parameters in truncated distributions
+Lower bounds in truncated distributions
+Upper bounds in truncated distributions
+Lower truncation not defined for specified
+Lower bound in truncation type does not match
+Upper truncation not defined for
+Upper bound in truncation type does not match
+Illegal statement beginning with non-void
+Conditions in while statement must be primitive
+Loop must be over container or range.
+Loop variable already declared.
+Expression denoting integer required; found type=
+Sampling statements (~) and increment_log_prob() are
+Attempt to increment log prob with void expression
+Wrong signature for function
+Second argument to
+Third argument to
+Fourth argument to
+Fifth argument to
+Sixth argument to
+Seventh argument to
+Eighth argument to
+Ninth argument to
+Tenth argument to
+Second argument to algebra_solver must have type vector
+Third argument to algebra_solver must have type vector
+Fourth argument to algebra_solver must have type real[ ]
+Fifth argument to algebra_solver must have type int[ ]
+Fourth argument to algebra_solver
+Sixth argument to algebra_solver
+Seventh argument to algebra_solver
+Eighth argument to algebra_solver
+integrated function may not be an _rng function,
+first argument to integrate_1d
+second argument to integrate_1d, the lower bound of
+third argument to integrate_1d, the upper bound of
+fourth argument to integrate_1d, the parameters,
+fifth argument to integrate_1d, the real data,
+sixth argument to integrate_1d, the integer data,
+seventh argument to integrate_1d, relative tolerance,
+Mapped function cannot be an _rng or _lp function,
+First argument to map_rect
+Second argument to map_rect must be of type vector.
+Third argument to map_rect must be of type vector[ ]
+Fourth argument to map_rect must be of type real[ , ]
+Fifth argument to map_rect must be of type int[ , ]
+Fourth argment to map_rect must be data only.
+Fifth argument to map_rect must be data only.
+Function argument error, function:
+Random number generators only allowed in
+Function target() or functions suffixed with _lp only
+Array expression found size 0, must be > 0
+Expressions for elements of array must have
+Vector or matrix expression found size 0, must be > 0
+Matrix expression elements must be type row_vector
+Matrix expression elements must be type row_vector,
+Row vector expression elements must be int or real,
+Arguments to ^ must be primitive (real or int)
+Both operands of % must be int
+Logical negation operator !
+Indexed expression must have at least as many
+Too many indexes, expression dimensions=
+Unexpected open block, missing close block "}"
+Variable "
+Probabilty functions with suffixes _lpdf, _lpmf,
+Variable definition not possible in this block.
+Variable definition base type mismatch,
+Variable definition dimensions mismatch,
+Variable identifier (name) may
+Variable identifier may not contain a period (.)
+Variable identifier (name) may not be reserved word
+Dimension declaration requires expression
+Array type requires at least 1 dimension,
+Array variable declaration is ill formed,
+Variable declaration is ill formed,
+Function argument is ill formed,
+Ill-formed bare type
+Parameters or transformed parameters
+Break and continue statements are only allowed
+Error: expected printable (non-void) expression.

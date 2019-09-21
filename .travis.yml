@@ -1,12 +1,34 @@
-language: emacs-lisp
-before_install:
-  - sudo apt-get update -qq && sudo apt-get install -qq emacs24 emacs24-el emacs24-common-non-dfsg;
-  - curl -fsSkL https://raw.github.com/rejeep/cask.el/master/go | python
-  - export PATH="/home/travis/.cask/bin:$PATH"
-
+# taken from https://github.com/jorgenschaefer/emacs-buttercup/blob/master/.travis.yml
+language: python
+# 2019-09-03 This is a temporary hack
+# https://github.com/dajva/rg.el/commit/10c3ea551a83df1d396eaf1bd38ae377281579a1
+dist: trusty
+sudo: no
 env:
-  - EMACS=emacs24
-
+# https://github.com/rejeep/evm/tree/master/recipes
+# eldoc-stan and flycheck-stan uses thread-last,
+# which was included in version 25.
+#  - EVM_EMACS=emacs-24.3-travis
+#  - EVM_EMACS=emacs-24.4-travis
+#  - EVM_EMACS=emacs-24.5-travis
+  - EVM_EMACS=emacs-25.1-travis
+  - EVM_EMACS=emacs-25.2-travis
+  - EVM_EMACS=emacs-25.3-travis
+  # emacs-26.1-travis has runtime dependency on libgnutls.so.26 #125
+  # https://github.com/rejeep/evm/issues/125
+  - EVM_EMACS=emacs-26.1-travis
+  - EVM_EMACS=emacs-26.2-travis
+  - EVM_EMACS=emacs-git-snapshot-travis
+# https://docs.travis-ci.com/user/languages/python/
+python:
+  - "3.6"
+before_install:
+  # See https://gist.github.com/rejeep/ebcd57c3af83b049833b#file-travis-evm-cask-sh
+  - curl -fsSkL https://gist.github.com/rejeep/ebcd57c3af83b049833b/raw > travis.sh && source ./travis.sh
+  - evm install "$EVM_EMACS" --use --skip
+  - emacs --version
+install:
+  - pip install pyyaml
 script:
-  - make compile
-
+  # Run deps build-src compile test lint
+  - make all

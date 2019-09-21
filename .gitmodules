@@ -1,3 +1,12 @@
 [submodule "stan-language-definitions"]
 	path = stan-language-definitions
 	url = https://github.com/jrnold/stan-language-definitions.git
+[submodule "local-melpa"]
+	path = local-melpa
+	url = https://github.com/kaz-yos/melpa.git
+[submodule "rstanarm"]
+	path = rstanarm
+	url = https://github.com/kaz-yos/rstanarm.git
+[submodule "stan"]
+	path = stan
+	url = https://github.com/kaz-yos/stan.git

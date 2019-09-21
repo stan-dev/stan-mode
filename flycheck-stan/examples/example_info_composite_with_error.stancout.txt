@@ -1,0 +1,34 @@
+Model name=example_info_composite_with_error_model
+Input file=examples/example_info_composite_with_error.stan
+Output file=examples/example_info_composite_with_error.cpp
+
+SYNTAX ERROR, MESSAGE(S) FROM PARSER:
+Info: Comments beginning with # are deprecated.  Please use // in place of # for line comments.
+Info: Comments beginning with # are deprecated.  Please use // in place of # for line comments.
+Info: Comments beginning with # are deprecated.  Please use // in place of # for line comments.
+Info: Comments beginning with # are deprecated.  Please use // in place of # for line comments.
+Info: assignment operator <- deprecated in the Stan language; use = instead.
+Info:
+Left-hand side of sampling statement (~) may contain a non-linear transform of a parameter or local variable.
+If it does, you need to include a target += statement with the log absolute determinant of the Jacobian of the transform.
+Left-hand-side of sampling statement:
+    stan::math::exp(stan::math::log(mu)) ~ normal(...)
+Info: increment_log_prob(...); is deprecated and will be removed in the future.
+  Use target += ...; instead.
+Info: Deprecated function 'cauchy_log'; please replace suffix '_log' with '_lpdf' for density functions or '_lpmf' for mass functions
+Info: Comments beginning with # are deprecated.  Please use // in place of # for line comments.
+Info: increment_log_prob(...); is deprecated and will be removed in the future.
+  Use target += ...; instead.
+Probabilty functions with suffixes _lpdf, _lpmf, _lcdf, and _lccdf,
+require a vertical bar (|) between the first two arguments.
+ error in 'examples/example_info_composite_with_error.stan' at line 21, column 34
+  -------------------------------------------------
+    19:   increment_log_prob(cauchy_log(tau, 0, 10));
+    20:   eta ~ normal(0, 1); # implies theta ~ normal(mu, tau)
+    21:   increment_log_prob(normal_lpdf(y, theta, sigma));
+                                         ^
+    22: }
+  -------------------------------------------------
+
+PARSER EXPECTED: "|"
+

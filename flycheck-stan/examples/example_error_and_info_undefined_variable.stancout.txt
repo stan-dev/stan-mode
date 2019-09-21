@@ -1,0 +1,21 @@
+Model name=example_error_and_info_undefined_variable_model
+Input file=examples/example_error_and_info_undefined_variable.stan
+Output file=examples/example_error_and_info_undefined_variable.cpp
+
+SYNTAX ERROR, MESSAGE(S) FROM PARSER:
+Info: Comments beginning with # are deprecated.  Please use // in place of # for line comments.
+Info: Comments beginning with # are deprecated.  Please use // in place of # for line comments.
+Info: Comments beginning with # are deprecated.  Please use // in place of # for line comments.
+Info: Comments beginning with # are deprecated.  Please use // in place of # for line comments.
+Info: Comments beginning with # are deprecated.  Please use // in place of # for line comments.
+Variable "mu" does not exist.
+ error in 'examples/example_error_and_info_undefined_variable.stan' at line 15, column 12
+  -------------------------------------------------
+    13: transformed parameters {
+    14:   vector[J] theta;
+    15:   theta = mu + tau * eta;
+                   ^
+    16: }
+  -------------------------------------------------
+
+
