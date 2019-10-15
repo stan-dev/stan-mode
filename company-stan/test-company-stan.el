@@ -4,7 +4,7 @@
 
 ;; Author: Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>
 ;; Maintainer: Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>
-;; URL: http://github.com/stan-dev/stan-mode/company-stan
+;; URL: http://github.com/stan-dev/stan-mode/tree/master/company-stan
 ;; Keywords: languages
 ;; Version: 10.0.0
 ;; Created: 2019-07-26
