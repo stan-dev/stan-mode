@@ -6,7 +6,7 @@
 ;; Author: Jeffrey Arnold <jeffrey.arnold@gmail.com>,
 ;;         Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>
 ;; Maintainer: Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>
-;; URL: http://github.com/stan-dev/stan-mode/stan-snippets
+;; URL: http://github.com/stan-dev/stan-mode/tree/master/stan-snippets
 ;; Keywords: languages,tools
 ;; Version: 10.0.0
 ;; Created: 2012-08-18
