@@ -4,7 +4,7 @@
 
 ;; Author: Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>
 ;; Maintainer: Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>
-;; URL: http://github.com/stan-dev/flycheck-stan-error-msgs
+;; URL: https://github.com/stan-dev/stan-mode/tree/master/flycheck-stan
 ;; Keywords: c,languages
 ;; Version: 10.0.0
 ;; Created: 2019-08-20
@@ -26,7 +26,7 @@
 ;;
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see
-;; <http://www.gnu.org/licenses/>
+;; <https://www.gnu.org/licenses/>
 
 ;;; Commentary:
 ;;

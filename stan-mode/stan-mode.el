@@ -7,7 +7,7 @@
 ;;         Daniel Lee <bearlee@alum.mit.edu>,
 ;;         Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>
 ;; Maintainer: Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>
-;; URL: http://github.com/stan-dev/stan-mode/tree/master/stan-mode
+;; URL: https://github.com/stan-dev/stan-mode/tree/master/stan-mode
 ;; Keywords: languages,c
 ;; Version: 10.0.0
 ;; Created: 2012-08-18
@@ -29,12 +29,12 @@
 ;;
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see
-;; <http://www.gnu.org/licenses/>
+;; <https://www.gnu.org/licenses/>
 
 ;;; Commentary:
 
 ;; This is a major mode for the Stan modeling language for Bayesian
-;; statistics.  (See URL `http://mc-stan.org/').
+;; statistics.  (See URL `https://mc-stan.org/').
 
 ;; This major mode supports syntax-highlighting, indentation,
 ;; `imenu-mode', and `compilation-mode'.

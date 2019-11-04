@@ -6,7 +6,7 @@
 ;; Author: Jeffrey Arnold <jeffrey.arnold@gmail.com>,
 ;;         Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>
 ;; Maintainer: Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>
-;; URL: http://github.com/stan-dev/stan-mode/tree/master/ac-stan
+;; URL: https://github.com/stan-dev/stan-mode/tree/master/ac-stan
 ;; Keywords: languages
 ;; Version: 10.0.0
 ;; Created: 2014-12-18

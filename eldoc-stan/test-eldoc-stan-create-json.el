@@ -2,7 +2,7 @@
 
 ;; Author: Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>
 ;; Maintainer: Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>
-;; URL: http://github.com/stan-dev/stan-mode/tree/master/eldoc-stan
+;; URL: https://github.com/stan-dev/stan-mode/tree/master/eldoc-stan
 ;; Keywords: help, tools
 ;; Version: 10.0.0
 ;; Created: 2019-07-29

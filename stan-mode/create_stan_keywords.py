@@ -12,7 +12,7 @@ _TEMPLATE = """;;; {el_file} --- Variables used by `stan-mode' -*- lexical-bindi
 ;;         Daniel Lee <bearlee@alum.mit.edu>,
 ;;         Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>
 ;; Maintainer: Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>
-;; URL: http://github.com/stan-dev/stan-mode/tree/master/stan-mode
+;; URL: https://github.com/stan-dev/stan-mode/tree/master/stan-mode
 ;; Keywords: languages,c
 ;; Version: 10.0.0
 ;; Created: 2012-08-18

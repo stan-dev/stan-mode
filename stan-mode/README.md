@@ -1,18 +1,18 @@
 # Emacs major mode for Stan
 
-[![MELPA](http://melpa.org/packages/stan-mode-badge.svg)](http://melpa.org/#/stan-mode)
-[![MELPA Stable](http://stable.melpa.org/packages/stan-mode-badge.svg)](http://stable.melpa.org/#/stan-mode)
+[![MELPA](https://melpa.org/packages/stan-mode-badge.svg)](https://melpa.org/#/stan-mode)
+[![MELPA Stable](https://stable.melpa.org/packages/stan-mode-badge.svg)](https://stable.melpa.org/#/stan-mode)
 
 ![Example](../example.png)
 
 `stan-mode` an Emacs meajor mode for editing [Stan](https://mc-stan.org) program files. Its current features include:
   - syntax highlighting
   - indentation
-  - [imenu](http://www.emacswiki.org/emacs/ImenuMode) support for blocks, variables, and user-defined functions.
+  - [imenu](https://www.emacswiki.org/emacs/ImenuMode) support for blocks, variables, and user-defined functions.
 
 
 ## Installation
-Install this package using the built-in package manager: `package.el`. `stan-mode` is available from [MELPA](http://melpa.org). If you're not already using MELPA, follow its [installation instructions](http://melpa.org/#/getting-started).
+Install this package using the built-in package manager: `package.el`. `stan-mode` is available from [MELPA](https://melpa.org). If you're not already using MELPA, follow its [installation instructions](https://melpa.org/#/getting-started).
 
 You can then install it using the following command:
 

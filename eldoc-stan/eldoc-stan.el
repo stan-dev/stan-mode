@@ -4,7 +4,7 @@
 
 ;; Author: Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>
 ;; Maintainer: Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>
-;; URL: http://github.com/stan-dev/stan-mode/tree/master/eldoc-stan
+;; URL: https://github.com/stan-dev/stan-mode/tree/master/eldoc-stan
 ;; Keywords: help, tools
 ;; Version: 10.0.0
 ;; Created: 2019-07-14
@@ -52,9 +52,9 @@
 ;;
 ;; References
 ;; eldoc-documentation-function
-;;  http://doc.endlessparentheses.com/Var/eldoc-documentation-function.html
+;;  https://doc.endlessparentheses.com/Var/eldoc-documentation-function.html
 ;; Deep diving into a major mode - Part 2 (IDE Features)
-;;  http://www.modernemacs.com/post/major-mode-part-2/
+;;  https://www.modernemacs.com/post/major-mode-part-2/
 ;; Displaying information for string under point
 ;;  https://emacs.stackexchange.com/questions/18581/displaying-information-for-string-under-point
 ;; c-eldoc.el: eldoc-mode plugin for C source code

@@ -6,7 +6,7 @@
 
 
 ## Installation
-Install this package using the built-in package manager: `package.el`. `eldoc-stan` is available from [MELPA](http://melpa.org). If you're not already using MELPA, follow its [installation instructions](http://melpa.org/#/getting-started).
+Install this package using the built-in package manager: `package.el`. `eldoc-stan` is available from [MELPA](https://melpa.org). If you're not already using MELPA, follow its [installation instructions](https://melpa.org/#/getting-started).
 
 You can then install it using the following command:
 
@@ -31,4 +31,4 @@ It can also be written as follows.
 ```
 
 ## Inner workings
-The package was designed after [`c-eldoc`](https://github.com/nflath/c-eldoc). `eldoc-stan-setup` will buffer locally set the [`eldoc-documentation-function`](http://doc.endlessparentheses.com/Var/eldoc-documentation-function.html) variable to `eldoc-stan-eldoc-documentation-function` and turn on `eldoc-mode`. The `eldoc-stan-eldoc-documentation-function` function retrieves argument information on the current function from the `eldoc-stan--hash-table`. This hash table is populated at package loading by entries in the `eldoc-stan.json` JSON file included in the package. This JSON file is a trimmed-down version of [`stan_lang.json`](https://github.com/jrnold/stan-language-definitions/blob/master/stan_lang.json) created with functions defined in `create-eldoc-stan-json.el`.
+The package was designed after [`c-eldoc`](https://github.com/nflath/c-eldoc). `eldoc-stan-setup` will buffer locally set the [`eldoc-documentation-function`](https://doc.endlessparentheses.com/Var/eldoc-documentation-function.html) variable to `eldoc-stan-eldoc-documentation-function` and turn on `eldoc-mode`. The `eldoc-stan-eldoc-documentation-function` function retrieves argument information on the current function from the `eldoc-stan--hash-table`. This hash table is populated at package loading by entries in the `eldoc-stan.json` JSON file included in the package. This JSON file is a trimmed-down version of [`stan_lang.json`](https://github.com/jrnold/stan-language-definitions/blob/master/stan_lang.json) created with functions defined in `create-eldoc-stan-json.el`.
