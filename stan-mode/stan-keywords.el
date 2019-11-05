@@ -38,8 +38,7 @@
     "row_vector"
     "simplex"
     "unit_vector"
-    "vector"
-    )
+    "vector")
   "List of data types in Stan.
 
    This includes both variable declariations and function return types.")
@@ -51,8 +50,7 @@
     "real"
     "row_vector"
     "vector"
-    "void"
-    )
+    "void")
   "List of return types of Stan functions.")
 
 (defconst stan-keywords--blocks-list
@@ -63,15 +61,13 @@
     "model"
     "parameters"
     "transformed data"
-    "transformed parameters"
-    )
+    "transformed parameters")
   "List of the names of blocks in Stan.")
 
 (defconst stan-keywords--range-constraints-list
   '(
     "lower"
-    "upper"
-    )
+    "upper")
   "List of range constraint keywords in Stan.")
 
 (defconst stan-keywords--keywords-list
@@ -89,8 +85,7 @@
     "target"
     "then"
     "until"
-    "while"
-    )
+    "while")
   "List of keywords in Stan.")
 
 (defconst stan-keywords--functions-list
@@ -464,8 +459,7 @@
     "weibull_rng"
     "wiener_lpdf"
     "wishart_lpdf"
-    "wishart_rng"
-    )
+    "wishart_rng")
   "List of functions in Stan.")
 
 (defconst stan-keywords--distribution-list
@@ -527,8 +521,7 @@
     "von_mises"
     "weibull"
     "wiener"
-    "wishart"
-    )
+    "wishart")
   "List of distributions in Stan.")
 
 (defconst stan-keywords--reserved-list
@@ -618,8 +611,7 @@
     "volatile"
     "wchar_t"
     "xor"
-    "xor_eq"
-    )
+    "xor_eq")
   "List of reserved keywords in Stan.")
 
 (defconst stan-keywords--deprecated-function-list
@@ -744,8 +736,7 @@
     "weibull_cdf_log"
     "weibull_log"
     "wiener_log"
-    "wishart_log"
-    )
+    "wishart_log")
   "List of deprecated functions in Stan.")
 
 (provide 'stan-keywords)

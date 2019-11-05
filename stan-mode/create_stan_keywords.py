@@ -76,7 +76,7 @@ _TEMPLATE = """;;; {el_file} --- Variables used by `stan-mode' -*- lexical-bindi
 DISTR_PARTS = ('Continuous Distributions', 'Discrete Distributions')
 
 def sexp(x):
-    return "'(\n" + '\n'.join('    "%s"' % atom for atom in x) + "\n    )"
+    return "'(\n" + '\n'.join('    "%s"' % atom for atom in x) + ")"
 
 def read_json(filename):
     with open(filename, "r") as f:
