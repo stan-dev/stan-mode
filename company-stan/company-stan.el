@@ -8,7 +8,7 @@
 ;; Keywords: languages
 ;; Version: 10.0.0
 ;; Created: 2019-07-14
-;; Package-Requires: ((emacs "24") (company "0.9.10") (stan-mode "10.0.0"))
+;; Package-Requires: ((emacs "24.3") (company "0.9.10") (stan-mode "10.0.0"))
 
 ;; This file is not part of GNU Emacs.
 
@@ -150,7 +150,6 @@ Returns nil if it is not in a stan block."
 S is the string from which the property is extracted."
   (format " [%s]" (get-text-property 0 :category s)))
 
-;;;###autoload
 (defun company-stan-backend (command &optional arg &rest ignored)
   ;; The signature (command &optional arg &rest ignored) is mandated.
   "A company backend function for Stan.
