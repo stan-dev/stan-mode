@@ -8,7 +8,7 @@
 ;; Keywords: help, tools
 ;; Version: 10.0.0
 ;; Created: 2019-07-29
-;; Package-Requires: ((emacs "25") (stan-mode "10.0.0"))
+;; Package-Requires: ((emacs "25.1") (stan-mode "10.0.0"))
 
 ;; This file is not part of GNU Emacs.
 

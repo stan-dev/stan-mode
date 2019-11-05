@@ -138,8 +138,7 @@
       (expect
        (string-match regexp args-with-given 44)
        :to-equal
-       46))
-    )
+       46)))
   ;;
   (it "detects the end of the current argument starting at its beginning"
     ;; https://www.gnu.org/software/emacs/manual/html_node/elisp/Regexp-Special.html#Regexp-Special

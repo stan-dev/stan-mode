@@ -6,7 +6,7 @@
 ;; Keywords: help, tools
 ;; Version: 10.0.0
 ;; Created: 2019-07-29
-;; Package-Requires: ((emacs "25") (stan-mode "10.0.0"))
+;; Package-Requires: ((emacs "25.1") (stan-mode "10.0.0"))
 
 ;; This file is not part of GNU Emacs.
 
@@ -165,8 +165,7 @@
         (nth 1 neg_binomial_2_log_glm_lpmf-sigatures)
         'given)
        :to-equal
-       "int[] y | matrix x, vector alpha, vector beta, real phi"))
-    ))
+       "int[] y | matrix x, vector alpha, vector beta, real phi"))))
 
 
 (describe "eldoc-stan-create-json--signatures-to-list-of-strings"
@@ -235,8 +234,7 @@
         nil)
        :to-equal
        '("int[] y, matrix x, real alpha, vector beta, real phi"
-         "int[] y, matrix x, vector alpha, vector beta, real phi"))
-      )
+         "int[] y, matrix x, vector alpha, vector beta, real phi")))
     ;;
     (it "drops the first element when asked"
       (expect
@@ -245,8 +243,7 @@
         t)
        :to-equal
        '("matrix x, real alpha, vector beta, real phi"
-         "matrix x, vector alpha, vector beta, real phi"))
-      )
+         "matrix x, vector alpha, vector beta, real phi")))
     ;;
     (it "uses | separator between the first and second elements if asked"
       (expect

@@ -67,8 +67,6 @@
 ;;; Code:
 ;; For json-read-file and json-encode
 (require 'json)
-;; For c-eldoc-format-arguments-string
-(require 'c-eldoc)
 ;; defines: c-literal-limits, c-literal-type, c-forward-token-2,
 ;;          c-backward-sws
 (require 'cc-engine)
@@ -187,7 +185,6 @@ the construction of these regexp."
       arguments)))
 
 
-;;;###autoload
 (defun eldoc-stan-eldoc-documentation-function ()
   "Return an eldoc string for the function at point.
 
