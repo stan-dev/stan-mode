@@ -10,7 +10,7 @@
 ;; Keywords: c,languages
 ;; Version: 10.0.0
 ;; Created: 2014-12-19
-;; Package-Requires: ((emacs "25") (flycheck "0.16.0") (stan-mode "10.0.0"))
+;; Package-Requires: ((emacs "25.1") (flycheck "0.16.0") (stan-mode "10.0.0"))
 
 ;; This file is not part of GNU Emacs.
 
@@ -168,6 +168,7 @@ Note that the file name is captured from the message.")
                   (or load-file-name
                       buffer-file-name))))
     ;; Add additional patterns
+    ;; These cannot be found in semantic_actions_def.cpp
     ;; TODO: Find where they are defined in stan.
     (cons "could not find include file")
     (cons "PARSER FAILED TO PARSE INPUT COMPLETELY")
@@ -253,7 +254,7 @@ Add Error: to the beginning of know error messages."
                                '(seq line-start " error in '" ))
                               nil t)
            (replace-match "Error:\n\\&" t))
-      ;; Drop trailing neline at the end of the tring
+      ;; Drop trailing newline at the end of the string
       (while (re-search-forward (rx "\n" buffer-end)
                                 nil t)
         (replace-match "" t))
