@@ -77,7 +77,7 @@ $(STANCOUTFILES) : $(STANFILES)
 	(command -v $(STANC) > /dev/null 2>&1) && $(STANC) --o=$${f%stan}cpp $$f > $${f%stan}stancout.txt 2>&1 ; \
 	done;
 
-$(ERROR_MSGS) : $(STAN_SEMANTIC_ACTIONS_DEF)
+$(ERROR_MSGS) : flycheck-stan-error-msgs.el $(STAN_SEMANTIC_ACTIONS_DEF)
 	$(CASK) exec $(EMACS) --batch \
 	--load flycheck-stan-error-msgs.el \
 	--eval '(flycheck-stan-error-msgs--create-file "$(STAN_SEMANTIC_ACTIONS_DEF)" "$(ERROR_MSGS)")'

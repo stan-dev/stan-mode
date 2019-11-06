@@ -39,6 +39,28 @@
 (require 'subr-x)
 
 
+(defvar flycheck-stan-error-msgs--missing-items
+  (concat
+   ;; Add additional patterns
+   ;; These cannot be found in semantic_actions_def.cpp
+   ;; TODO: Find where they are defined in stan.
+   "
+could not find include file
+PARSER FAILED TO PARSE INPUT COMPLETELY
+Function
+No matches for:"
+   ;; The next two are for a file name starting with a number,
+   ;; which results in a model name starting with a number.
+   "
+model_name must not
+Could not remove output")
+  ;;
+  "Error message patterns not found in semantic_actions_def.cpp.
+
+These are necessary for stanc versions 2.
+The string has to start with an empty line.")
+
+
 (defun flycheck-stan-error-msgs--delete-endl (code)
   "Remove endl from the start of error_msgs cpp stream.
 
@@ -134,6 +156,15 @@ Do not leave a newline at the very end."
     (buffer-substring-no-properties (point-min) (point-max))))
 
 
+(defun flycheck-stan-error-msgs--add-missing-items (code)
+  "Add several patterns to CODE.
+
+Add several lines for patterns not found in
+semantic_actions_def.cpp."
+  (concat code
+          flycheck-stan-error-msgs--missing-items))
+
+
 (defun flycheck-stan-error-msgs--create-file (infile outfile)
   "Transform INFILE into a cleaned OUTFILE."
   (let ((code (thread-last (with-temp-buffer
@@ -141,7 +172,8 @@ Do not leave a newline at the very end."
                              (buffer-string))
                 (flycheck-stan-error-msgs--delete-endl)
                 (flycheck-stan-error-msgs--collect-msgs)
-                (flycheck-stan-error-msgs--clean-lines))))
+                (flycheck-stan-error-msgs--clean-lines)
+                (flycheck-stan-error-msgs--add-missing-items))))
     ;; If START is a string, then output that string to the file
     ;; instead of any buffer contents; END is ignored.
     (write-region code

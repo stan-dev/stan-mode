@@ -167,17 +167,6 @@ Note that the file name is captured from the message.")
                   ;; Full name of file being loaded by load.
                   (or load-file-name
                       buffer-file-name))))
-    ;; Add additional patterns
-    ;; These cannot be found in semantic_actions_def.cpp
-    ;; TODO: Find where they are defined in stan.
-    (cons "could not find include file")
-    (cons "PARSER FAILED TO PARSE INPUT COMPLETELY")
-    (cons "Function ")
-    (cons "No matches for:")
-    ;; The next two are for a file name starting with a number,
-    ;; which results in a model name starting with a number.
-    (cons "model_name must not")
-    (cons "Could not remove output")
     ;; Optimize as one regexp
     (regexp-opt)
     ;; Need ^ to make sure they are at the beginning.

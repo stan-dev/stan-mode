@@ -118,6 +118,25 @@ Unknown variable in assignment
 Probability function must end in _lpdf or _lpmf.")))
 
 
+(describe "flycheck-stan-error-msgs--add-missing-items"
+  ;;
+  (it "adds lines for messages not in semantic_actions_def.cpp"
+    (expect
+     (flycheck-stan-error-msgs--add-missing-items "")
+     :to-equal
+     flycheck-stan-error-msgs--missing-items)
+    ;;
+    (expect
+     (flycheck-stan-error-msgs--add-missing-items
+      "Error (fatal):  Use of lp__ is no longer supported.
+Unknown variable in assignment
+Probability function must end in _lpdf or _lpmf.")
+     :to-equal
+     (concat "Error (fatal):  Use of lp__ is no longer supported.
+Unknown variable in assignment
+Probability function must end in _lpdf or _lpmf."
+             flycheck-stan-error-msgs--missing-items))))
+
 
 (provide 'test-flycheck-stan-error-msgs)
 ;;;
