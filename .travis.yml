@@ -18,6 +18,7 @@ env:
   # https://github.com/rejeep/evm/issues/125
   - EVM_EMACS=emacs-26.1-travis
   - EVM_EMACS=emacs-26.2-travis
+  - EVM_EMACS=emacs-26.3-travis
   - EVM_EMACS=emacs-git-snapshot-travis
 # https://docs.travis-ci.com/user/languages/python/
 python:
