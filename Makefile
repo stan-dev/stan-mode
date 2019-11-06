@@ -89,7 +89,7 @@ build-src : stan-lang deps
 local-melpa :
 	@echo "\n### Setting up a local package archive in local-melpa! ###"
 	make -C ./local-melpa all
-	@echo "### Stable packages"
+	@echo "### Stable packages (Errors allowed here)"
 	-STABLE=t make -C ./local-melpa all
 
 # This did not work with Travis. Use -L to specify other local folders
@@ -112,7 +112,7 @@ lint : lint-package lint-elisp
 
 # Additional rules
 .PHONY : lint-package lint-elisp dist show snippets
-lint-package : local-melpa
+lint-package : local-melpa build-src
 	@echo "\n### Running package-lint for each package! ###"
 	$(foreach pkg, $(PACKAGES), make -C $(pkg) lint-package ; )
 
@@ -162,7 +162,7 @@ clean-elc :
 	$(foreach pkg, $(PACKAGES), make -C $(pkg) clean-elc ; )
 
 clean-dist :
-	@echo "\n### Cleaning .elc files for each package! ###"
+	@echo "\n### Cleaning dist folder for each package! ###"
 	$(foreach pkg, $(PACKAGES), make -C $(pkg) clean-dist ; )
 
 clean-snippets :

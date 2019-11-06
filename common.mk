@@ -131,7 +131,7 @@ lint : lint-package lint-elisp
 # local-melpa local package archive
 # https://www.gnu.org/software/emacs/manual/html_node/elisp/Package-Archives.html
 # https://emacs.stackexchange.com/questions/33627/how-to-generate-and-activate-autoloads-for-local-packages
-lint-package :
+lint-package : compile build-src
 	@echo "Linting for elisp package metadata!"
 	$(CASK) exec $(EMACS) --batch \
 	--eval "(require 'package)" \
@@ -146,7 +146,7 @@ lint-package :
 # https://github.com/gonewest818/elisp-lint
 # Use - to allow the recipe to proceed even with error in the statement.
 # https://www.gnu.org/software/make/manual/html_node/Errors.html
-lint-elisp :
+lint-elisp : compile build-src
 	@echo "Linting for elisp!"
 	-$(CASK) exec $(EMACS) --batch \
 	--eval "(require 'package)" \
