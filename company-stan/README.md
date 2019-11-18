@@ -1,5 +1,8 @@
 # company-mode completion backend for Stan
 
+[![MELPA](http://melpa.org/packages/company-stan-badge.svg)](http://melpa.org/#/company-stan)
+[![MELPA Stable](http://stable.melpa.org/packages/company-stan-badge.svg)](http://stable.melpa.org/#/company-stan)
+
 ![Example completion](example_completion.png)
 
 `company-stan` adds a [`company-mode`](https://company-mode.github.io) backend for completing [Stan](https://mc-stan.org) function names.

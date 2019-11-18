@@ -1,5 +1,8 @@
 # flycheck syntax checker for Stan
 
+[![MELPA](http://melpa.org/packages/flycheck-stan-badge.svg)](http://melpa.org/#/flycheck-stan)
+[![MELPA Stable](http://stable.melpa.org/packages/flycheck-stan-badge.svg)](http://stable.melpa.org/#/flycheck-stan)
+
 ![Example flycheck](example_flycheck.png)
 
 `flycheck-stan` adds a [`flycheck`](https://www.flycheck.org/en/latest/) syntax checker for [Stan](https://mc-stan.org) program.

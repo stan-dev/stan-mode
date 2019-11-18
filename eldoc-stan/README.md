@@ -1,5 +1,8 @@
 # eldoc for Stan
 
+[![MELPA](http://melpa.org/packages/eldoc-stan-badge.svg)](http://melpa.org/#/eldoc-stan)
+[![MELPA Stable](http://stable.melpa.org/packages/eldoc-stan-badge.svg)](http://stable.melpa.org/#/eldoc-stan)
+
 ![Example eldoc](example_eldoc.png)
 
 `eldoc-stan` adds a [`eldoc-mode`](https://www.emacswiki.org/emacs/ElDoc) support for [Stan](https://mc-stan.org) function arguments.
