@@ -11,15 +11,15 @@ env:
 #  - EVM_EMACS=emacs-24.3-travis
 #  - EVM_EMACS=emacs-24.4-travis
 #  - EVM_EMACS=emacs-24.5-travis
-  - EVM_EMACS=emacs-25.1-travis
-  - EVM_EMACS=emacs-25.2-travis
-  - EVM_EMACS=emacs-25.3-travis
-  # emacs-26.1-travis has runtime dependency on libgnutls.so.26 #125
-  # https://github.com/rejeep/evm/issues/125
-  - EVM_EMACS=emacs-26.1-travis
-  - EVM_EMACS=emacs-26.2-travis
+#  - EVM_EMACS=emacs-25.1-travis
+#  - EVM_EMACS=emacs-25.2-travis
+#  - EVM_EMACS=emacs-25.3-travis
+#  # emacs-26.1-travis has runtime dependency on libgnutls.so.26 #125
+#  # https://github.com/rejeep/evm/issues/125
+#  - EVM_EMACS=emacs-26.1-travis
+#  - EVM_EMACS=emacs-26.2-travis
   - EVM_EMACS=emacs-26.3-travis
-  # - EVM_EMACS=emacs-git-snapshot-travis
+#  - EVM_EMACS=emacs-git-snapshot-travis
 # https://docs.travis-ci.com/user/languages/python/
 python:
   - "3.6"
