@@ -1,0 +1,86 @@
+
+Warning: deprecated language construct used in 'examples/example_info_composite_with_error.stan', line 1, column 0:
+   -------------------------------------------------
+     1:  # The Eight Schools example with non-centered parametrization.
+         ^
+     2:  # https://mc-stan.org/bayesplot/articles/visual-mcmc-diagnostics.html
+     3:  data {
+   -------------------------------------------------
+
+Comments beginning with # are deprecated. Please use // in place of # for line comments.
+
+
+Warning: deprecated language construct used in 'examples/example_info_composite_with_error.stan', line 2, column 0:
+   -------------------------------------------------
+     1:  # The Eight Schools example with non-centered parametrization.
+     2:  # https://mc-stan.org/bayesplot/articles/visual-mcmc-diagnostics.html
+         ^
+     3:  data {
+     4:    int<lower=0> J;
+   -------------------------------------------------
+
+Comments beginning with # are deprecated. Please use // in place of # for line comments.
+
+
+Warning: deprecated language construct used in 'examples/example_info_composite_with_error.stan', line 15, column 9:
+   -------------------------------------------------
+    13:  transformed parameters {
+    14:    vector[J] theta;
+    15:    theta <- mu + tau * eta;
+                  ^
+    16:  }
+    17:  model {
+   -------------------------------------------------
+
+assignment operator <- is deprecated in the Stan language; use = instead.
+
+
+Warning: deprecated language construct used in 'examples/example_info_composite_with_error.stan', line 19, column 19:
+   -------------------------------------------------
+    17:  model {
+    18:    exp(log(mu)) ~ normal(0, 10);
+    19:    increment_log_prob(cauchy_log(tau, 0, 10));
+                            ^
+    20:    eta ~ normal(0, 1); # implies theta ~ normal(mu, tau)
+    21:    increment_log_prob(normal_lpdf(y, theta, sigma));
+   -------------------------------------------------
+
+increment_log_prob(...); is deprecated and will be removed in the future. Use target += ...; instead.
+
+
+Warning: deprecated language construct used in 'examples/example_info_composite_with_error.stan', line 20, column 22:
+   -------------------------------------------------
+    18:    exp(log(mu)) ~ normal(0, 10);
+    19:    increment_log_prob(cauchy_log(tau, 0, 10));
+    20:    eta ~ normal(0, 1); # implies theta ~ normal(mu, tau)
+                               ^
+    21:    increment_log_prob(normal_lpdf(y, theta, sigma));
+    22:  }
+   -------------------------------------------------
+
+Comments beginning with # are deprecated. Please use // in place of # for line comments.
+
+
+Warning: deprecated language construct used in 'examples/example_info_composite_with_error.stan', line 21, column 19:
+   -------------------------------------------------
+    19:    increment_log_prob(cauchy_log(tau, 0, 10));
+    20:    eta ~ normal(0, 1); # implies theta ~ normal(mu, tau)
+    21:    increment_log_prob(normal_lpdf(y, theta, sigma));
+                            ^
+    22:  }
+   -------------------------------------------------
+
+increment_log_prob(...); is deprecated and will be removed in the future. Use target += ...; instead.
+
+
+Semantic error in 'examples/example_info_composite_with_error.stan', line 21, column 21 to column 49:
+   -------------------------------------------------
+    19:    increment_log_prob(cauchy_log(tau, 0, 10));
+    20:    eta ~ normal(0, 1); # implies theta ~ normal(mu, tau)
+    21:    increment_log_prob(normal_lpdf(y, theta, sigma));
+                              ^
+    22:  }
+   -------------------------------------------------
+
+Probabilty functions with suffixes _lpdf, _lpmf, _lcdf, and _lccdf, require a vertical bar (|) between the first two arguments.
+

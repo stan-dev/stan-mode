@@ -1,0 +1,37 @@
+
+Warning: deprecated language construct used in 'examples/example_error_and_info_undefined_include_file.stan', line 1, column 0:
+   -------------------------------------------------
+     1:  # The Eight Schools example with non-centered parametrization.
+         ^
+     2:  # https://mc-stan.org/bayesplot/articles/visual-mcmc-diagnostics.html
+     3:  functions {
+   -------------------------------------------------
+
+Comments beginning with # are deprecated. Please use // in place of # for line comments.
+
+
+Warning: deprecated language construct used in 'examples/example_error_and_info_undefined_include_file.stan', line 2, column 0:
+   -------------------------------------------------
+     1:  # The Eight Schools example with non-centered parametrization.
+     2:  # https://mc-stan.org/bayesplot/articles/visual-mcmc-diagnostics.html
+         ^
+     3:  functions {
+     4:  #include no_such_file.stan
+   -------------------------------------------------
+
+Comments beginning with # are deprecated. Please use // in place of # for line comments.
+
+
+Syntax error in 'examples/example_error_and_info_undefined_include_file.stan', line 4, column 0, include error:
+   -------------------------------------------------
+     2:  # https://mc-stan.org/bayesplot/articles/visual-mcmc-diagnostics.html
+     3:  functions {
+     4:  #include no_such_file.stan
+         ^
+     5:  }
+     6:  data {
+   -------------------------------------------------
+
+Could not find include file no_such_file.stan in specified include paths.
+
+
