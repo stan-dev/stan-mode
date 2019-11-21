@@ -4,9 +4,12 @@ STAN_SEMANTIC_ACTIONS_DEF = semantic_actions_def.cpp
 STANFILES_DIR = examples
 STANFILES = $(wildcard $(STANFILES_DIR)/*.stan)
 STANCOUTFILES = $(STANFILES:.stan=.stancout.txt)
+STANC3OUTFILES = $(STANFILES:.stan=.stanc3out.txt)
 ERROR_MSGS = error_msgs.txt
 
-STANC = stanc
+# Note we need to both versions of stanc here.
+STANC = stanc2
+STANC3 = stanc3
 
 # Appendix C Command Line Arguments for Emacs Invocation
 # C.1 Action Arguments
@@ -59,10 +62,11 @@ $(OBJECTS) : build-src
 # the recipe will be executed every time the target comes up for remaking.
 .PHONY : build-src clean-src link
 
-build-src : $(STANCOUTFILES) $(ERROR_MSGS)
+build-src : $(STANCOUTFILES) $(STANC3OUTFILES) $(ERROR_MSGS)
 clean-src :
 	rm -rf $(ERROR_MSGS)
 	rm -rf $(STANCOUTFILES)
+	rm -rf $(STANC3OUTFILES)
 	rm -rf $(STANFILES_DIR)/*.cpp
 
 # This split of build-src and $(STANCOUTFILES) is necessary to
@@ -75,6 +79,12 @@ $(STANCOUTFILES) : $(STANFILES)
 	-(command -v $(STANC) > /dev/null 2>&1) && $(STANC) --help
 	-for f in $(STANFILES) ; do \
 	(command -v $(STANC) > /dev/null 2>&1) && $(STANC) --o=$${f%stan}cpp $$f > $${f%stan}stancout.txt 2>&1 ; \
+	done;
+
+$(STANC3OUTFILES) : $(STANFILES)
+	-(command -v $(STANC3) > /dev/null 2>&1) && $(STANC3) --help
+	-for f in $(STANFILES) ; do \
+	(command -v $(STANC3) > /dev/null 2>&1) && $(STANC3) --o=$${f%stan}hpp $$f > $${f%stan}stanc3out.txt 2>&1 ; \
 	done;
 
 $(ERROR_MSGS) : flycheck-stan-error-msgs.el $(STAN_SEMANTIC_ACTIONS_DEF)
