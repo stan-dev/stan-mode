@@ -188,13 +188,13 @@ All the info messages are assumed to start with Info:, so they
 are not included here.")
 
 ;;;  Cleaner definition
-(defun flycheck-stan-cleaner (output)
+(defun flycheck-stan-cleaner (output &optional do-not-add-error)
   "Clean `stan' OUTPUT before parsing and return it.
 
 This should make the parsing process easier.
 Remove trailing whitespace.
 Remove trailing empty lines at the end of the OUTPUT.
-Add Error: to the beginning of know error messages."
+Add Error: to the beginning of know error messages unless given DO-NOT-ADD-ERROR."
   ;; https://www.masteringemacs.org/article/removing-blank-lines-buffer
   ;;
   (with-temp-buffer
@@ -208,36 +208,37 @@ Add Error: to the beginning of know error messages."
                    (point-min)
                    (point-max))
       ;; Add Error: to known patterns.
-      (goto-char (point-min))
-      (while (re-search-forward flycheck-stan-regexp-error-msgs-start
+      (unless do-not-add-error
+        (goto-char (point-min))
+        (while (re-search-forward flycheck-stan-regexp-error-msgs-start
+                                  nil t)
+          ;; \& in NEWTEXT means substitute original matched text.
+          ;; FIXEDCASE t to avoid replacing with ERROR: in an all-capital line.
+          (replace-match "Error: \\&" t))
+        ;; If error in 'file' at ... exists WITHOUT preceding Error:, add it.
+        ;; This is for a pattern like the following:
+        ;;
+        ;; Info: Comments beginning with # are deprecated.  Please use // in place of # for line comments.
+        ;;  error in 'examples/example_error_and_info_composite.stan' at line 9, column 2
+        ;;   -------------------------------------------------
+        ;;      7: }
+        ;;      8: parameters {
+        ;;      9:   rear mu;
+        ;;          ^
+        ;;     10:   // The parser stops at the above line.
+        ;;   -------------------------------------------------
+        (and (goto-char (point-min))
+             (re-search-forward (flycheck-rx-to-string
+                                 '(seq line-start " error in '" ))
                                 nil t)
-        ;; \& in NEWTEXT means substitute original matched text.
-        ;; FIXEDCASE t to avoid replacing with ERROR: in an all-capital line.
-        (replace-match "Error: \\&" t))
-      ;; If error in 'file' at ... exists WITHOUT preceding Error:, add it.
-      ;; This is for a pattern like the following:
-      ;;
-      ;; Info: Comments beginning with # are deprecated.  Please use // in place of # for line comments.
-      ;;  error in 'examples/example_error_and_info_composite.stan' at line 9, column 2
-      ;;   -------------------------------------------------
-      ;;      7: }
-      ;;      8: parameters {
-      ;;      9:   rear mu;
-      ;;          ^
-      ;;     10:   // The parser stops at the above line.
-      ;;   -------------------------------------------------
-      (and (goto-char (point-min))
-           (re-search-forward (flycheck-rx-to-string
-                               '(seq line-start " error in '" ))
-                              nil t)
-           (not (re-search-backward (flycheck-rx-to-string
-                                     '(seq line-start "Error: " ))
-                                    nil t))
-           (goto-char (point-min))
-           (re-search-forward (flycheck-rx-to-string
-                               '(seq line-start " error in '" ))
-                              nil t)
-           (replace-match "Error:\n\\&" t))
+             (not (re-search-backward (flycheck-rx-to-string
+                                       '(seq line-start "Error: " ))
+                                      nil t))
+             (goto-char (point-min))
+             (re-search-forward (flycheck-rx-to-string
+                                 '(seq line-start " error in '" ))
+                                nil t)
+             (replace-match "Error:\n\\&" t)))
       ;; Drop trailing newline at the end of the string
       (while (re-search-forward (rx "\n" buffer-end)
                                 nil t)
