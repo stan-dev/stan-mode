@@ -249,24 +249,42 @@ Add Error: to the beginning of know error messages unless given DO-NOT-ADD-ERROR
                                       (point-max)))))
 
 ;;;  Splitter definition
-(defun flycheck-stan-splitter (output)
+(defun flycheck-stan-splitter (output &optional stanc3)
   "Split OUTPUT into a list of strings.
 
-The first list element contains the header.
-The remaining elements are either an Info or Error."
-  (with-temp-buffer
-    (insert output)
-    (goto-char (point-min))
-    (while (re-search-forward (rx line-start (or "Info" "Error"))
-                              nil t)
-      ;; Replacement should not happen if its the very first line.
-      (when (> (count-lines 1 (point)) 1)
-        ;; \& in NEWTEXT means substitute original matched text.
-        (replace-match "\n\\&" t)))
-    ;; Split at double newline
-    (split-string
-     (buffer-substring-no-properties (point-min) (point-max))
-     "\n\n" t)))
+When STANC3 is nil, splitting happens at Info and Error.
+The first list element should the header.
+The remaining elements are either an Info or Error.
+
+When STANC3 is non-nil, splitting happens at
+- Warning:
+- Semantic error in
+- Syntax error in
+- This should not happen.
+All elements are either one of them."
+  ;;
+  ;; https://discourse.mc-stan.org/t/structured-error-output-format-for-stanc/10342/11?u=kaz-yos
+  (let ((split-regexp (if stanc3
+                          ;; stanc3 splitting patterns.
+                          (rx line-start (or "Warning:"
+                                             "Semantic error in"
+                                             "Syntax error in"
+                                             "This should not happen."))
+                        ;; stanc2 splitting patterns.
+                        (rx line-start (or "Info"
+                                           "Error")))))
+    (with-temp-buffer
+      (insert output)
+      (goto-char (point-min))
+      (while (re-search-forward split-regexp nil t)
+        ;; Replacement should not happen if its the very first line.
+        (when (> (count-lines 1 (point)) 1)
+          ;; \& in NEWTEXT means substitute original matched text.
+          (replace-match "\n\\&" t)))
+      ;; Split at double newline
+      (split-string
+       (buffer-substring-no-properties (point-min) (point-max))
+       "\n\n" t))))
 
 ;;;  Converter definition
 (defun flycheck-stan-convert-message-to-error (message buffer checker input-file)
