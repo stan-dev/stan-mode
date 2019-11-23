@@ -453,7 +453,7 @@ References:
 ;;  https://www.flycheck.org/en/27/_downloads/flycheck.html#Syntax-checker-definitions
 ;;
 (flycheck-define-checker stanc
-  "A Stan syntax checker using stans in cmdstan.
+  "A Stan syntax checker using stanc in cmdstan.
 
 References:
  https://mc-stan.org/rstan/reference/stanc.html
@@ -462,7 +462,7 @@ References:
   ;; The :command specifies the command Flycheck should run to check the buffer.
   ;; It’s a simple list containing the executable and its arguments.
   ;; https://www.flycheck.org/en/27/_downloads/flycheck.html#Defining-syntax-checkers
-  :command ("stanc"
+  :command ("stanc2"
             "--include_paths=."
             source)
   ;; Function to parse an stanc output into the flycheck-error format.
