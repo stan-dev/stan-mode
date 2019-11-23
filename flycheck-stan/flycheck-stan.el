@@ -207,11 +207,6 @@ Add Error: to the beginning of know error messages."
       (flush-lines (rx line-start line-end)
                    (point-min)
                    (point-max))
-      ;; Remove only neighboring duplicated lines.
-      ;; Trying to remove further will break multi-line Info
-      ;; in which some lines are duplicated but some are not.
-      ;; (delete-duplicate-lines (point-min) (point-max)
-      ;;                         nil t)
       ;; Add Error: to known patterns.
       (goto-char (point-min))
       (while (re-search-forward flycheck-stan-regexp-error-msgs-start
