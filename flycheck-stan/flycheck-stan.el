@@ -149,6 +149,88 @@ Note that the file name is captured from the message.")
      (not (any whitespace "\n" "\r"))))
   "An `rx' regexp for parser failure with #include issues.")
 
+(defvar flycheck-stan--rx-stanc3-warning
+  '(seq
+    (message
+     "Warning:" (one-or-more not-newline)
+     "'" (file-name) "'"
+     ", line " line
+     ", column " column ":"
+     (one-or-more (or not-newline "\n" "\r"))
+     ;; To avoid trailing empty lines.
+     (not (any whitespace "\n" "\r"))))
+  "An `rx' regexp for a `stanc3' warning with `line' and `column' information.
+Note that the file name is captured from the message.")
+
+(defvar flycheck-stan--rx-stanc3-semantic-error
+  '(seq
+    (message
+     "Semantic error in " "'" (file-name) "'"
+     ", line " line
+     ", column " column
+     (one-or-more (or not-newline "\n" "\r"))
+     ;; To avoid trailing empty lines.
+     (not (any whitespace "\n" "\r"))))
+  "An `rx' regexp for `stanc3' error with `line' and `column' information.
+This one is for a semantic error.
+Note that the file name is captured from the message.")
+
+(defvar flycheck-stan--rx-stanc3-syntax-parsing-error
+  '(seq
+    (message
+     "Syntax error in " "'" (file-name) "'"
+     ", line " line
+     ", column " column
+     (one-or-more not-newline)
+     "parsing error"
+     (one-or-more (or not-newline "\n" "\r"))
+     ;; To avoid trailing empty lines.
+     (not (any whitespace "\n" "\r"))))
+  "An `rx' regexp for `stanc3' error with `line' and `column' information.
+This one is for a syntax error (parsing).
+Note that the file name is captured from the message.")
+
+(defvar flycheck-stan--rx-stanc3-syntax-lexing-error
+  '(seq
+    (message
+     "Syntax error in " "'" (file-name) "'"
+     ", line " line
+     ", column " column
+     (one-or-more not-newline)
+     "lexing error"
+     (one-or-more (or not-newline "\n" "\r"))
+     ;; To avoid trailing empty lines.
+     (not (any whitespace "\n" "\r"))))
+  "An `rx' regexp for `stanc3' error with `line' and `column' information.
+This one is for a syntax error (lexing).
+Note that the file name is captured from the message.")
+
+(defvar flycheck-stan--rx-stanc3-syntax-include-error
+  '(seq
+    (message
+     "Syntax error in " "'" (file-name) "'"
+     ", line " line
+     ", column " column
+     (one-or-more not-newline)
+     "include error"
+     (one-or-more (or not-newline "\n" "\r"))
+     ;; To avoid trailing empty lines.
+     (not (any whitespace "\n" "\r"))))
+  "An `rx' regexp for `stanc3' error with `line' and `column' information.
+This one is for a syntax error (include).
+Note that the file name is captured from the message.")
+
+(defvar flycheck-stan--rx-stanc3-fatal-error
+  '(seq
+    (message
+     "This should never happen."
+     (one-or-more (or not-newline "\n" "\r"))
+     ;; To avoid trailing empty lines.
+     (not (any whitespace "\n" "\r"))))
+  "An `rx' regexp for `stanc3' error with `line' and `column' information.
+This one is for a syntax error (include).
+Note that the file name is captured from the message.")
+
 ;;;  Define fucntion for loading error message starters
 (defun flycheck-stan--list-of-strings-from-file (file)
   "Convert FILE into a list of string corresponding to each line."
