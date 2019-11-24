@@ -469,6 +469,123 @@ Lines cannot be nil.  They are set to 0.
                           :id nil
                           :group 'unexpected))))
 
+(defun flycheck-stan-convert-message-to-error-stanc3 (message buffer checker input-file)
+  "Convert a stanc3 message into `flycheck-error'.
+
+It expect the string MESSAGE to contain a single message.
+The level is determined by the very first line in the message,
+which should be either one of:
+- Warning:
+- Semantic error in
+- Syntax error in
+- This should not happen.
+Otherwise, level is nil.
+
+The arguments BUFFER and CHECKER are directly passed to `flycheck-error-new'.
+The INPUT-FILE will be used as the file name unless the message itself
+contains this information.
+
+Lines cannot be nil.  They are set to 0.
+`flycheck-fill-empty-line-numbers' could also be used instead."
+  (cond
+   ;; Warning
+   ((string-match (flycheck-rx-to-string flycheck-stan--rx-stanc3-warning)
+                  message)
+    (flycheck-error-new :buffer buffer
+                        :checker checker
+                        :filename (match-string 1 message)
+                        :line (if-let ((line (match-string 2 message)))
+                                  (string-to-number line)
+                                0)
+                        :column (when-let ((column (match-string 3 message)))
+                                  (string-to-number column))
+                        :message message
+                        :level 'warning
+                        :id nil
+                        :group nil))
+   ;; Semantic error
+   ((string-match (flycheck-rx-to-string flycheck-stan--rx-stanc3-semantic-error)
+                  message)
+    (flycheck-error-new :buffer buffer
+                        :checker checker
+                        :filename (match-string 1 message)
+                        :line (if-let ((line (match-string 2 message)))
+                                  (string-to-number line)
+                                0)
+                        :column (when-let ((column (match-string 3 message)))
+                                  (string-to-number column))
+                        :message message
+                        :level 'error
+                        :id nil
+                        :group 'semantic))
+   ;; Syntax error (parsing)
+   ((string-match (flycheck-rx-to-string flycheck-stan--rx-stanc3-syntax-parsing-error)
+                  message)
+    (flycheck-error-new :buffer buffer
+                        :checker checker
+                        :filename (match-string 1 message)
+                        :line (if-let ((line (match-string 2 message)))
+                                  (string-to-number line)
+                                0)
+                        :column (when-let ((column (match-string 3 message)))
+                                  (string-to-number column))
+                        :message message
+                        :level 'error
+                        :id nil
+                        :group 'syntax-parsing))
+   ;; Syntax error (lexing)
+   ((string-match (flycheck-rx-to-string flycheck-stan--rx-stanc3-syntax-lexing-error)
+                  message)
+    (flycheck-error-new :buffer buffer
+                        :checker checker
+                        :filename (match-string 1 message)
+                        :line (if-let ((line (match-string 2 message)))
+                                  (string-to-number line)
+                                0)
+                        :column (when-let ((column (match-string 3 message)))
+                                  (string-to-number column))
+                        :message message
+                        :level 'error
+                        :id nil
+                        :group 'syntax-lexing))
+   ;; Syntax error (include)
+   ((string-match (flycheck-rx-to-string flycheck-stan--rx-stanc3-syntax-include-error)
+                  message)
+    (flycheck-error-new :buffer buffer
+                        :checker checker
+                        :filename (match-string 1 message)
+                        :line (if-let ((line (match-string 2 message)))
+                                  (string-to-number line)
+                                0)
+                        :column (when-let ((column (match-string 3 message)))
+                                  (string-to-number column))
+                        :message message
+                        :level 'error
+                        :id nil
+                        :group 'syntax-include))
+   ;; Fatal error
+   ((string-match (flycheck-rx-to-string flycheck-stan--rx-stanc3-fatal-error)
+                  message)
+    (flycheck-error-new :buffer buffer
+                        :checker checker
+                        :filename input-file
+                        :line 0
+                        :column nil
+                        :message message
+                        :level 'error
+                        :id nil
+                        :group 'fatal))
+   ;; Remainig ones are unexpected.
+   (t (flycheck-error-new :buffer buffer
+                          :checker checker
+                          :filename input-file
+                          :line 0
+                          :column nil
+                          :message message
+                          :level 'error
+                          :id nil
+                          :group 'unexpected))))
+
 ;;;  Parser definition
 (defun flycheck-stan-parser (output checker buffer)
   "Parse `stanc' OUTPUT into a list of `flycheck-error' objects.
