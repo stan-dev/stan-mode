@@ -717,7 +717,7 @@ References:
 
 
 ;;;
-;;; Define a checker
+;;; Define checkers
 ;;
 ;; flycheck website: Writing a checker.
 ;;  https://www.flycheck.org/en/latest/developer/developing.html#writing-the-checker
@@ -739,6 +739,28 @@ References:
             source)
   ;; Function to parse an stanc output into the flycheck-error format.
   :error-parser flycheck-stan-parser
+  ;; Emacs major modes in which this checker can run
+  :modes stan-mode)
+
+(flycheck-define-checker stanc3
+  "A Stan syntax checker using stanc3 in cmdstan.
+
+References:
+ https://mc-stan.org/rstan/reference/stanc.html
+ https://mc-stan.org/misc/warnings.html"
+  ;;
+  ;; The :command specifies the command Flycheck should run to check the buffer.
+  ;; It’s a simple list containing the executable and its arguments.
+  ;; https://www.flycheck.org/en/27/_downloads/flycheck.html#Defining-syntax-checkers
+  :command ("stanc3"
+            "--o=/dev/null"
+            "--include_paths=."
+            source)
+  ;; Function to parse an stanc output into the flycheck-error format.
+  :error-parser flycheck-stan-parser-stanc3
+  ;; stanc3 uses zero-based columns whereas flycheck uses one-based columns.
+  ;; Note that this works by mutating the error list object.
+  :error-filter flycheck-increment-error-columns
   ;; Emacs major modes in which this checker can run
   :modes stan-mode)
 
