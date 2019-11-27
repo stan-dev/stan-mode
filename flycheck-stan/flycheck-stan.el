@@ -661,6 +661,60 @@ References:
                     buff-file-name)))
              list-errors)))
 
+(defun flycheck-stan-parser-stanc3 (output checker buffer)
+  "Parse `stanc3' OUTPUT into a list of `flycheck-error' objects.
+
+CHECKER and BUFFER denoted the CHECKER that returned OUTPUT and
+the BUFFER that was checked respectively.
+
+CHECKER can only be `stanc3`.
+
+The BUFFER object is only used to extract the associated stan file name.
+This buffer-associated file name is only used when the error message does
+not contain a valid file name information.
+
+References:
+`flycheck-parse-cppcheck' in `flycheck.el'"
+  ;; TODO: Use flycheck-increment-error-columns to accommodate 0-based column
+  ;;
+  (unless (eq 'stanc3 checker)
+    (error "This parser should not be called on an output from a checker other than `stanc3'"))
+  ;;
+  ;; `flycheck-parse-hy-traceback' by lunaryorn.
+  ;; https://emacs.stackexchange.com/questions/3755/regexp-to-parse-hy-errors-for-flycheck
+  ;;
+  ;; ALGORITHM
+  ;; Clean stanc3 output.
+  ;;  Remove trailing spaces.
+  ;;  Remove empty lines.
+  ;; Split cleaned output into individual messages.
+  ;;  Insert newlines before know starter keys (i.e., Warning:, Syntax error))
+  ;;  Split into list of strings.
+  ;; Convert to a list of flycheck-error objects.
+  ;;  Extract the header for input file information.
+  ;;  Iterate over the remaining list of messages to convert each.
+  ;;  Handle warning, semantic error, and syntax error differently.
+  ;;   Extract file name if available.
+  ;;   Extract line and column information if available.
+  ;;
+  ;; `flycheck-parse-with-patterns' is the regexp-only equivalent.
+  ;; But it is rather restricted compared to using a custom parser.
+  ;;
+  (let* (;; Clean output into a list of string
+         (list-errors (thread-first output
+                        ;; Do not add Error:
+                        (flycheck-stan-cleaner t)
+                        ;; Split using stanc3 message starters
+                        (flycheck-stan-splitter t)))
+         ;; File name of the BUFFER.
+         (buff-file-name (buffer-file-name buffer)))
+    ;;
+    ;; Iterate over the the list of messages.
+    (seq-map (lambda (message)
+               (flycheck-stan-convert-message-to-error-stanc3
+                message buffer checker buff-file-name))
+             list-errors)))
+
 
 ;;;
 ;;; Define a checker
