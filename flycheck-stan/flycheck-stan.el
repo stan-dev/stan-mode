@@ -428,7 +428,7 @@ References:
   ;; But it avoids duplicated matches, which is problematics for our purpose.
   ;;
   (let* (;; Clean output into a list of string
-         (list-output (thread-last output
+         (list-output (thread-first output
                         (flycheck-stan-cleaner)
                         (flycheck-stan-splitter)))
          ;; The first list element is usually the header containing
