@@ -3378,8 +3378,8 @@ Expected \"transformed data {\" or \"parameters {\" or \"transformed parameters 
 This may need adaptation depending on the system used for testing.")
 
 (describe "stanc checker working live (check test-flycheck-stan-sleep-for-time first if errors)"
-  (let* ((stanc-path (executable-find "stanc")))
-    ;; No tests will be run if stanc is not found.
+  (let* ((stanc-path (executable-find "stanc2")))
+    ;; No tests will be run if stanc2 is not found.
     (assume stanc-path)
     ;;
     (it "detects issues same as static gold standard (error_and_info_composite)"
@@ -3391,7 +3391,7 @@ This may need adaptation depending on the system used for testing.")
                              test-flycheck-stan-dir))
         (read-only-mode +1)
         (stan-mode)
-        (flycheck-stan-setup)
+        (add-to-list 'flycheck-checkers 'stanc)
         (flycheck-mode)
         (flycheck-buffer)
         ;; Needs to wait for the async process.
@@ -3512,7 +3512,7 @@ PARSER EXPECTED: <one of the following:
                              test-flycheck-stan-dir))
         (read-only-mode +1)
         (stan-mode)
-        (flycheck-stan-setup)
+        (add-to-list 'flycheck-checkers 'stanc)
         (flycheck-mode)
         (flycheck-buffer)
         ;; Needs to wait for the async process.
@@ -3697,7 +3697,7 @@ PARSER EXPECTED: \"|\"")
                              test-flycheck-stan-dir))
         (read-only-mode +1)
         (stan-mode)
-        (flycheck-stan-setup)
+        (add-to-list 'flycheck-checkers 'stanc)
         (flycheck-mode)
         (flycheck-buffer)
         ;; Needs to wait for the async process.
