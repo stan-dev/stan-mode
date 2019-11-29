@@ -1,1 +1,2 @@
 examples/*.cpp
+examples/*.hpp
