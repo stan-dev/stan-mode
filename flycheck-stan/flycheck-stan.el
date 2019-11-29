@@ -766,9 +766,15 @@ References:
 
 
 ;;;###autoload
-(defun flycheck-stan-setup ()
-  "Set up `flycheck' with `flycheck-stan' checker."
+(defun flycheck-stan-stanc2-setup ()
+  "Set up `flycheck' with `stanc' checker."
   (add-to-list 'flycheck-checkers 'stanc)
+  (flycheck-mode +1))
+
+;;;###autoload
+(defun flycheck-stan-stanc3-setup ()
+  "Set up `flycheck' with `stan3' checker."
+  (add-to-list 'flycheck-checkers 'stanc3)
   (flycheck-mode +1))
 
 
