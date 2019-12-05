@@ -177,13 +177,16 @@ The recommended mode of configuration is via the `use-package`. One example of c
 
 ;;; flycheck-stan.el
 (use-package flycheck-stan
-  ;; Uncomment if directly loading from your development repo
-  ;; :load-path "your-path/stan-mode/flycheck-stan/"
-  :hook (stan-mode . flycheck-stan-setup)
-  ;;
+  ;; Add a hook to setup `flycheck-stan' upon `stan-mode' entry
+  :hook ((stan-mode . flycheck-stan-stanc2-setup)
+         (stan-mode . flycheck-stan-stanc3-setup))
   :config
-  ;; No configuration options as of now.
-  )
+  ;; A string containing the name or the path of the stanc2 executable
+  ;; If nil, defaults to `stanc2'
+  (setq flycheck-stanc-executable nil)
+  ;; A string containing the name or the path of the stanc2 executable
+  ;; If nil, defaults to `stanc3'
+  (setq flycheck-stanc3-executable nil))
 
 ;;; stan-snippets.el
 (use-package stan-snippets
