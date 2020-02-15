@@ -280,6 +280,7 @@ multi_student_t_rng
 multinomial
 multinomial_lpmf
 multinomial_rng
+multiplier
 multiply_log
 multiply_lower_tri_self_transpose
 neg_binomial
@@ -310,6 +311,7 @@ normal_lpdf
 normal_rng
 not_a_number
 num_elements
+offset
 ordered
 ordered_logistic
 ordered_logistic_lpmf
