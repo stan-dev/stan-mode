@@ -78,6 +78,8 @@
     "for"
     "if"
     "in"
+    "multiplier"
+    "offset"
     "print"
     "reject"
     "repeat"
