@@ -16,9 +16,12 @@ STAN_LANG = ../stan-language-definitions/stan_lang.json
 # to an existing file or directory. Use the wildcard function to test
 # for existence.
 #
+# Single quote to protect against a abspath name with spaces in it.
+# This single quote trick can only work with a single name.
+#
 # This adds the local stan-mode package to be in the load-path,
 # which allows access to the latest definitions, not the MELPA version.
-EMACSFLAGS = -L $(abspath ../stan-mode) -L $(abspath ../stan-snippets)
+EMACSFLAGS = -L '$(abspath ../stan-mode)' -L '$(abspath ../stan-snippets)'
 
 # GNU Make: 8.2 Functions for String Substitution and Analysis
 # https://www.gnu.org/software/make/manual/html_node/Text-Functions.html
