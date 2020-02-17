@@ -1149,7 +1149,142 @@ PARSER EXPECTED: <one of the following:
        :to-equal
        (list
         "Error: model_name must not start with a number or symbol other than _"
-        "Error: Could not remove output file=examples/01_example_error_number_model_name.cpp")))))
+        "Error: Could not remove output file=examples/01_example_error_number_model_name.cpp"))))
+  ;;
+  (it "(stanc3) splits text at Warning and Syntax/Semantic/Fatal errors"
+    ;; https://discourse.mc-stan.org/t/structured-error-output-format-for-stanc/10342/11?u=kaz-yos
+    (expect
+     (flycheck-stan-splitter
+      "Warning: a
+Syntax error in b
+Semantic error in
+c
+This should not happen."
+      t)
+     :to-equal
+     (list
+      "Warning: a"
+      "Syntax error in b"
+      "Semantic error in
+c"
+      "This should not happen.")))
+  ;;
+  (it "(stanc3) handles multiple Warning:'s correctly"
+    (let* ((error-message (test-flycheck-stan--get-string-from-file
+                           (expand-file-name
+                            "./examples/example_info_composite_with_error.stanc3out.txt"
+                            test-flycheck-stan-dir))))
+      (expect
+       (flycheck-stan-splitter (flycheck-stan-cleaner
+                                error-message t)
+                               t)
+       :to-equal
+       ;; No empty lines or trailing whitespace. Error tag.
+       (list
+        "Warning: deprecated language construct used in 'examples/example_info_composite_with_error.stan', line 1, column 0:
+   -------------------------------------------------
+     1:  # The Eight Schools example with non-centered parametrization.
+         ^
+     2:  # https://mc-stan.org/bayesplot/articles/visual-mcmc-diagnostics.html
+     3:  data {
+   -------------------------------------------------
+Comments beginning with # are deprecated. Please use // in place of # for line comments."
+        "Warning: deprecated language construct used in 'examples/example_info_composite_with_error.stan', line 2, column 0:
+   -------------------------------------------------
+     1:  # The Eight Schools example with non-centered parametrization.
+     2:  # https://mc-stan.org/bayesplot/articles/visual-mcmc-diagnostics.html
+         ^
+     3:  data {
+     4:    int<lower=0> J;
+   -------------------------------------------------
+Comments beginning with # are deprecated. Please use // in place of # for line comments."
+        "Warning: deprecated language construct used in 'examples/example_info_composite_with_error.stan', line 15, column 9:
+   -------------------------------------------------
+    13:  transformed parameters {
+    14:    vector[J] theta;
+    15:    theta <- mu + tau * eta;
+                  ^
+    16:  }
+    17:  model {
+   -------------------------------------------------
+assignment operator <- is deprecated in the Stan language; use = instead."
+        "Warning: deprecated language construct used in 'examples/example_info_composite_with_error.stan', line 19, column 19:
+   -------------------------------------------------
+    17:  model {
+    18:    exp(log(mu)) ~ normal(0, 10);
+    19:    increment_log_prob(cauchy_log(tau, 0, 10));
+                            ^
+    20:    eta ~ normal(0, 1); # implies theta ~ normal(mu, tau)
+    21:    increment_log_prob(normal_lpdf(y, theta, sigma));
+   -------------------------------------------------
+increment_log_prob(...); is deprecated and will be removed in the future. Use target += ...; instead."
+        "Warning: deprecated language construct used in 'examples/example_info_composite_with_error.stan', line 20, column 22:
+   -------------------------------------------------
+    18:    exp(log(mu)) ~ normal(0, 10);
+    19:    increment_log_prob(cauchy_log(tau, 0, 10));
+    20:    eta ~ normal(0, 1); # implies theta ~ normal(mu, tau)
+                               ^
+    21:    increment_log_prob(normal_lpdf(y, theta, sigma));
+    22:  }
+   -------------------------------------------------
+Comments beginning with # are deprecated. Please use // in place of # for line comments."
+        "Warning: deprecated language construct used in 'examples/example_info_composite_with_error.stan', line 21, column 19:
+   -------------------------------------------------
+    19:    increment_log_prob(cauchy_log(tau, 0, 10));
+    20:    eta ~ normal(0, 1); # implies theta ~ normal(mu, tau)
+    21:    increment_log_prob(normal_lpdf(y, theta, sigma));
+                            ^
+    22:  }
+   -------------------------------------------------
+increment_log_prob(...); is deprecated and will be removed in the future. Use target += ...; instead."
+        "Semantic error in 'examples/example_info_composite_with_error.stan', line 21, column 21 to column 49:
+   -------------------------------------------------
+    19:    increment_log_prob(cauchy_log(tau, 0, 10));
+    20:    eta ~ normal(0, 1); # implies theta ~ normal(mu, tau)
+    21:    increment_log_prob(normal_lpdf(y, theta, sigma));
+                              ^
+    22:  }
+   -------------------------------------------------
+Probabilty functions with suffixes _lpdf, _lpmf, _lcdf, and _lccdf, require a vertical bar (|) between the first two arguments."))))
+  ;;
+  (it "(stanc3) splits entire error string into warnings and errors"
+    (let* ((error-message (test-flycheck-stan--get-string-from-file
+                           (expand-file-name
+                            "examples/example_error_and_info_composite.stanc3out.txt"
+                            test-flycheck-stan-dir))))
+      (expect
+       (flycheck-stan-splitter (flycheck-stan-cleaner
+                                error-message t)
+                               t)
+       :to-equal
+       (list
+        "Warning: deprecated language construct used in 'examples/example_error_and_info_composite.stan', line 1, column 0:
+   -------------------------------------------------
+     1:  # The Eight Schools example with non-centered parametrization.
+         ^
+     2:  # https://mc-stan.org/bayesplot/articles/visual-mcmc-diagnostics.html
+     3:  data {
+   -------------------------------------------------
+Comments beginning with # are deprecated. Please use // in place of # for line comments."
+        "Warning: deprecated language construct used in 'examples/example_error_and_info_composite.stan', line 2, column 0:
+   -------------------------------------------------
+     1:  # The Eight Schools example with non-centered parametrization.
+     2:  # https://mc-stan.org/bayesplot/articles/visual-mcmc-diagnostics.html
+         ^
+     3:  data {
+     4:    int<lower=0> J;
+   -------------------------------------------------
+Comments beginning with # are deprecated. Please use // in place of # for line comments."
+        "Syntax error in 'examples/example_error_and_info_composite.stan', line 8, column 11 to column 12, parsing error:
+   -------------------------------------------------
+     6:    vector<lower=0>[J] sigma;
+     7:  }
+     8:  parameters {
+                     ^
+     9:    rear mu;
+    10:    // The parser stops at the above line.
+   -------------------------------------------------
+Expected top-level variable declaration or \"}\".")))))
 
 
 (describe "flycheck-stan-convert-message-to-error"
