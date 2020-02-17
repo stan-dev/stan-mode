@@ -862,7 +862,170 @@ model {
         error-message)
        :to-equal
        "Error: model_name must not start with a number or symbol other than _
-Error: Could not remove output file=examples/01_example_error_number_model_name.cpp"))))
+Error: Could not remove output file=examples/01_example_error_number_model_name.cpp")))
+  ;;
+  ;; stanc3 support: No need to add Error: for stanc3 errors.
+  (it "(stanc3) does not add Error: correctly for undefined include file"
+    (let* ((error-message (test-flycheck-stan--get-string-from-file
+                           (expand-file-name
+                            "examples/example_error_and_info_undefined_include_file.stanc3out.txt"
+                            test-flycheck-stan-dir))))
+      (expect
+       (flycheck-stan-cleaner
+        error-message t)
+       :to-equal
+       "Warning: deprecated language construct used in 'examples/example_error_and_info_undefined_include_file.stan', line 1, column 0:
+   -------------------------------------------------
+     1:  # The Eight Schools example with non-centered parametrization.
+         ^
+     2:  # https://mc-stan.org/bayesplot/articles/visual-mcmc-diagnostics.html
+     3:  functions {
+   -------------------------------------------------
+Comments beginning with # are deprecated. Please use // in place of # for line comments.
+Warning: deprecated language construct used in 'examples/example_error_and_info_undefined_include_file.stan', line 2, column 0:
+   -------------------------------------------------
+     1:  # The Eight Schools example with non-centered parametrization.
+     2:  # https://mc-stan.org/bayesplot/articles/visual-mcmc-diagnostics.html
+         ^
+     3:  functions {
+     4:  #include no_such_file.stan
+   -------------------------------------------------
+Comments beginning with # are deprecated. Please use // in place of # for line comments.
+Syntax error in 'examples/example_error_and_info_undefined_include_file.stan', line 4, column 0, include error:
+   -------------------------------------------------
+     2:  # https://mc-stan.org/bayesplot/articles/visual-mcmc-diagnostics.html
+     3:  functions {
+     4:  #include no_such_file.stan
+         ^
+     5:  }
+     6:  data {
+   -------------------------------------------------
+Could not find include file no_such_file.stan in specified include paths.")))
+  ;;
+  (it "(stanc3) does not add Error: correctly for missing error message before error in..."
+    (let* ((error-message (test-flycheck-stan--get-string-from-file
+                           (expand-file-name
+                            "examples/example_error_and_info_composite.stanc3out.txt"
+                            test-flycheck-stan-dir))))
+      (expect
+       (flycheck-stan-cleaner
+        error-message t)
+       :to-equal
+       "Warning: deprecated language construct used in 'examples/example_error_and_info_composite.stan', line 1, column 0:
+   -------------------------------------------------
+     1:  # The Eight Schools example with non-centered parametrization.
+         ^
+     2:  # https://mc-stan.org/bayesplot/articles/visual-mcmc-diagnostics.html
+     3:  data {
+   -------------------------------------------------
+Comments beginning with # are deprecated. Please use // in place of # for line comments.
+Warning: deprecated language construct used in 'examples/example_error_and_info_composite.stan', line 2, column 0:
+   -------------------------------------------------
+     1:  # The Eight Schools example with non-centered parametrization.
+     2:  # https://mc-stan.org/bayesplot/articles/visual-mcmc-diagnostics.html
+         ^
+     3:  data {
+     4:    int<lower=0> J;
+   -------------------------------------------------
+Comments beginning with # are deprecated. Please use // in place of # for line comments.
+Syntax error in 'examples/example_error_and_info_composite.stan', line 8, column 11 to column 12, parsing error:
+   -------------------------------------------------
+     6:    vector<lower=0>[J] sigma;
+     7:  }
+     8:  parameters {
+                     ^
+     9:    rear mu;
+    10:    // The parser stops at the above line.
+   -------------------------------------------------
+Expected top-level variable declaration or \"}\".")))
+  ;;
+  (it "(stanc3) does not add Error: correctly for a line involving a variable name"
+    (let* ((error-message (test-flycheck-stan--get-string-from-file
+                           (expand-file-name
+                            "examples/example_error_and_info_undefined_variable.stanc3out.txt"
+                            test-flycheck-stan-dir))))
+      (expect
+       (flycheck-stan-cleaner
+        error-message t)
+       :to-equal
+       "Warning: deprecated language construct used in 'examples/example_error_and_info_undefined_variable.stan', line 1, column 0:
+   -------------------------------------------------
+     1:  # The Eight Schools example with non-centered parametrization.
+         ^
+     2:  # https://mc-stan.org/bayesplot/articles/visual-mcmc-diagnostics.html
+     3:  data {
+   -------------------------------------------------
+Comments beginning with # are deprecated. Please use // in place of # for line comments.
+Warning: deprecated language construct used in 'examples/example_error_and_info_undefined_variable.stan', line 2, column 0:
+   -------------------------------------------------
+     1:  # The Eight Schools example with non-centered parametrization.
+     2:  # https://mc-stan.org/bayesplot/articles/visual-mcmc-diagnostics.html
+         ^
+     3:  data {
+     4:    int<lower=0> J;
+   -------------------------------------------------
+Comments beginning with # are deprecated. Please use // in place of # for line comments.
+Warning: deprecated language construct used in 'examples/example_error_and_info_undefined_variable.stan', line 9, column 2:
+   -------------------------------------------------
+     7:  }
+     8:  parameters {
+     9:    # real mu;
+           ^
+    10:    real<lower=0> tau;
+    11:    vector[J] eta;
+   -------------------------------------------------
+Comments beginning with # are deprecated. Please use // in place of # for line comments.
+Warning: deprecated language construct used in 'examples/example_error_and_info_undefined_variable.stan', line 20, column 22:
+   -------------------------------------------------
+    18:    mu ~ normal(0, 10);
+    19:    tau ~ cauchy(0, 10);
+    20:    eta ~ normal(0, 1); # implies theta ~ normal(mu, tau)
+                               ^
+    21:    y ~ normal(theta, sigma);
+    22:  }
+   -------------------------------------------------
+Comments beginning with # are deprecated. Please use // in place of # for line comments.
+Semantic error in 'examples/example_error_and_info_undefined_variable.stan', line 15, column 10 to column 12:
+   -------------------------------------------------
+    13:  transformed parameters {
+    14:    vector[J] theta;
+    15:    theta = mu + tau * eta;
+                   ^
+    16:  }
+    17:  model {
+   -------------------------------------------------
+Identifier 'mu' not in scope.")))
+  ;;
+  (it "(stanc3) does not add Error: correctly for a line that is all capital"
+    (let* ((error-message (test-flycheck-stan--get-string-from-file
+                           (expand-file-name
+                            "examples/example_failure_misspelled_block.stanc3out.txt"
+                            test-flycheck-stan-dir))))
+      (expect
+       (flycheck-stan-cleaner
+        error-message t)
+       :to-equal
+       "Syntax error in 'examples/example_failure_misspelled_block.stan', line 3, column 0 to line 7, column 1, parsing error:
+   -------------------------------------------------
+     5:    vector[J] y;
+     6:    vector<lower=0>[J] sigma;
+     7:  }
+          ^
+     8:  pparameters {
+     9:    real mu;
+   -------------------------------------------------
+Expected \"transformed data {\" or \"parameters {\" or \"transformed parameters {\" or \"model {\" or \"generated quantities {\".")))
+  ;;
+  (it "(stanc3) does not add Error: correctly for a model name starting with a number"
+    (let* ((error-message (test-flycheck-stan--get-string-from-file
+                           (expand-file-name
+                            "examples/01_example_error_number_model_name.stanc3out.txt"
+                            test-flycheck-stan-dir))))
+      (expect
+       (flycheck-stan-cleaner
+        error-message t)
+       :to-equal
+       ""))))
 
 
 (describe "flycheck-stan-splitter"
