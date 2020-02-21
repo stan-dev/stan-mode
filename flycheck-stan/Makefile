@@ -4,9 +4,12 @@ STAN_SEMANTIC_ACTIONS_DEF = semantic_actions_def.cpp
 STANFILES_DIR = examples
 STANFILES = $(wildcard $(STANFILES_DIR)/*.stan)
 STANCOUTFILES = $(STANFILES:.stan=.stancout.txt)
+STANC3OUTFILES = $(STANFILES:.stan=.stanc3out.txt)
 ERROR_MSGS = error_msgs.txt
 
-STANC = stanc
+# Note we need to both versions of stanc here.
+STANC = stanc2
+STANC3 = stanc3
 
 # Appendix C Command Line Arguments for Emacs Invocation
 # C.1 Action Arguments
@@ -24,9 +27,12 @@ STANC = stanc
 # to an existing file or directory. Use the wildcard function to test
 # for existence.
 #
+# Single quote to protect against a abspath name with spaces in it.
+# This single quote trick can only work with a single name.
+#
 # This adds the local stan-mode package to be in the load-path,
 # which allows access to the latest definitions, not the MELPA version.
-EMACSFLAGS = -L $(abspath ../stan-mode)
+EMACSFLAGS = -L '$(abspath ../stan-mode)'
 
 # GNU Make: 8.2 Functions for String Substitution and Analysis
 # https://www.gnu.org/software/make/manual/html_node/Text-Functions.html
@@ -59,10 +65,11 @@ $(OBJECTS) : build-src
 # the recipe will be executed every time the target comes up for remaking.
 .PHONY : build-src clean-src link
 
-build-src : $(STANCOUTFILES) $(ERROR_MSGS)
+build-src : $(STANCOUTFILES) $(STANC3OUTFILES) $(ERROR_MSGS)
 clean-src :
 	rm -rf $(ERROR_MSGS)
 	rm -rf $(STANCOUTFILES)
+	rm -rf $(STANC3OUTFILES)
 	rm -rf $(STANFILES_DIR)/*.cpp
 
 # This split of build-src and $(STANCOUTFILES) is necessary to
@@ -75,6 +82,12 @@ $(STANCOUTFILES) : $(STANFILES)
 	-(command -v $(STANC) > /dev/null 2>&1) && $(STANC) --help
 	-for f in $(STANFILES) ; do \
 	(command -v $(STANC) > /dev/null 2>&1) && $(STANC) --o=$${f%stan}cpp $$f > $${f%stan}stancout.txt 2>&1 ; \
+	done;
+
+$(STANC3OUTFILES) : $(STANFILES)
+	-(command -v $(STANC3) > /dev/null 2>&1) && $(STANC3) --help
+	-for f in $(STANFILES) ; do \
+	(command -v $(STANC3) > /dev/null 2>&1) && $(STANC3) --o=$${f%stan}hpp $$f > $${f%stan}stanc3out.txt 2>&1 ; \
 	done;
 
 $(ERROR_MSGS) : flycheck-stan-error-msgs.el $(STAN_SEMANTIC_ACTIONS_DEF)

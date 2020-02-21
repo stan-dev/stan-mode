@@ -1,0 +1,13 @@
+
+Warning: deprecated language construct used in 'examples/example_info_deprecated_functions.stan', line 18, column 19:
+   -------------------------------------------------
+    16:  }
+    17:  model {
+    18:    increment_log_prob(normal_log(mu, 0, 10));
+                            ^
+    19:    target += cauchy_log(tau, 0, 10);
+    20:    eta ~ normal(0, 1); // implies theta ~ normal(mu, tau)
+   -------------------------------------------------
+
+increment_log_prob(...); is deprecated and will be removed in the future. Use target += ...; instead.
+

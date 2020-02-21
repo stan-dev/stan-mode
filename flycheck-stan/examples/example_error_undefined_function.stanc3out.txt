@@ -1,0 +1,13 @@
+
+Semantic error in 'examples/example_error_undefined_function.stan', line 18, column 2 to column 22:
+   -------------------------------------------------
+    16:  }
+    17:  model {
+    18:    mu ~ normall(0, 10);
+           ^
+    19:    tau ~ cauchy(0, 10);
+    20:    eta ~ normal(0, 1); // implies theta ~ normal(mu, tau)
+   -------------------------------------------------
+
+Ill-typed arguments to '~' statement. No distribution 'normall' was found with the correct signature.
+

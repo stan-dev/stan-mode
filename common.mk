@@ -29,6 +29,8 @@ export EMACS
 #
 # Note this common.mk is included from each project subdirectory Makefile.
 # Thus, .. takes make out of the project directory to the parent directory.
+# Single quote to protect against a abspath name with spaces in it.
+# This single quote trick can only work with a single name.g
 EMACSFLAGS ?=
 #
 # 6.5 Setting Variables
@@ -95,9 +97,12 @@ EMACSBATCH = $(EMACS) -Q --batch $(EMACSFLAGS)
 # to an existing file or directory. Use the wildcard function to test
 # for existence.
 #
-# -L $(abspath .): Add the expanded current directory to load-path.
+# Single quote to protect against a abspath name with spaces in it.
+# This single quote trick can only work with a single name.
+#
+# -L '$(abspath .)': Add the expanded current directory to load-path.
 test : compile build-src
-	$(CASK) exec buttercup $(EMACSFLAGS) -L $(abspath .)
+	$(CASK) exec buttercup $(EMACSFLAGS) -L '$(abspath .)'
 
 lint : lint-package lint-elisp
 
@@ -136,10 +141,10 @@ lint-package : compile build-src
 	$(CASK) exec $(EMACS) --batch \
 	--eval "(require 'package)" \
 	--eval "(setq package-archives '((\"melpa\" . \"http://melpa.org/packages/\")))" \
-	--eval "(push '(\"local-melpa\" . \"$(abspath ../local-melpa/packages/)\") package-archives)" \
+	--eval "(push '(\"local-melpa\" . \"'$(abspath ../local-melpa/packages/)'\") package-archives)" \
 	--eval "(package-initialize)" \
 	--eval "(package-refresh-contents)" \
-	$(EMACSFLAGS) -L $(abspath .) \
+	$(EMACSFLAGS) -L '$(abspath .)' \
 	-l package-lint \
 	-f package-lint-batch-and-exit $(filter-out %-autoloads.el, $(SRCS))
 
@@ -151,11 +156,11 @@ lint-elisp : compile build-src
 	-$(CASK) exec $(EMACS) --batch \
 	--eval "(require 'package)" \
 	--eval "(setq package-archives '((\"melpa\" . \"http://melpa.org/packages/\")))" \
-	--eval "(push '(\"local-melpa\" . \"$(abspath ../local-melpa/packages/)\") package-archives)" \
+	--eval "(push '(\"local-melpa\" . \"'$(abspath ../local-melpa/packages/)'\") package-archives)" \
 	--eval "(package-initialize)" \
 	--eval "(package-refresh-contents)" \
 	--eval "(setq make-backup-files nil)" \
-	$(EMACSFLAGS) -L $(abspath .) \
+	$(EMACSFLAGS) -L '$(abspath .)' \
 	-l elisp-lint \
 	-f elisp-lint-files-batch --no-indent-character --no-fill-column \
 	$(filter-out %-autoloads.el, $(SRCS))
@@ -195,10 +200,12 @@ clean-dist :
 # cask update is necessary to utilize local developmental repos,
 # which are somehow not used upon cask install.
 # See the developmental dependencies in company-mode/Cask.
+# Quote with '' for touch to avoid issues with spaces in path names.
+# https://stackoverflow.com/questions/9838384/can-gnu-make-handle-filenames-with-spaces
 $(PKGDIR) : Cask
 	$(CASK) install
 	$(CASK) update
-	touch $(PKGDIR)
+	touch '$(PKGDIR)'
 
 # (batch-byte-compile &optional NOFORCE)
 # Run byte-compile-file on the files remaining on the command line.
@@ -208,7 +215,7 @@ $(PKGDIR) : Cask
 # https://www.gnu.org/software/make/manual/html_node/Automatic-Variables.html
 # $< The name of the first prerequisite.
 %.elc : %.el $(PKGDIR)
-	$(CASK) exec $(EMACSBATCH) -L $(abspath .) \
+	$(CASK) exec $(EMACSBATCH) -L '$(abspath .)' \
 	-f batch-byte-compile $<
 
 # Just show SRCS and OBJECTS defined in the project-specific Makefile.

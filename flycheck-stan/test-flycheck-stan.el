@@ -6,9 +6,9 @@
 ;; Maintainer: Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>
 ;; URL: https://github.com/stan-dev/stan-mode/tree/master/flycheck-stan
 ;; Keywords: languages
-;; Version: 10.0.0
+;; Version: 10.1.0
 ;; Created: 2019-07-26
-;; Package-Requires: ((emacs "25.1") (flycheck "0.16.0") (stan-mode "10.0.0"))
+;; Package-Requires: ((emacs "25.1") (flycheck "0.16.0") (stan-mode "10.1.0"))
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -862,7 +862,170 @@ model {
         error-message)
        :to-equal
        "Error: model_name must not start with a number or symbol other than _
-Error: Could not remove output file=examples/01_example_error_number_model_name.cpp"))))
+Error: Could not remove output file=examples/01_example_error_number_model_name.cpp")))
+  ;;
+  ;; stanc3 support: No need to add Error: for stanc3 errors.
+  (it "(stanc3) does not add Error: correctly for undefined include file"
+    (let* ((error-message (test-flycheck-stan--get-string-from-file
+                           (expand-file-name
+                            "examples/example_error_and_info_undefined_include_file.stanc3out.txt"
+                            test-flycheck-stan-dir))))
+      (expect
+       (flycheck-stan-cleaner
+        error-message t)
+       :to-equal
+       "Warning: deprecated language construct used in 'examples/example_error_and_info_undefined_include_file.stan', line 1, column 0:
+   -------------------------------------------------
+     1:  # The Eight Schools example with non-centered parametrization.
+         ^
+     2:  # https://mc-stan.org/bayesplot/articles/visual-mcmc-diagnostics.html
+     3:  functions {
+   -------------------------------------------------
+Comments beginning with # are deprecated. Please use // in place of # for line comments.
+Warning: deprecated language construct used in 'examples/example_error_and_info_undefined_include_file.stan', line 2, column 0:
+   -------------------------------------------------
+     1:  # The Eight Schools example with non-centered parametrization.
+     2:  # https://mc-stan.org/bayesplot/articles/visual-mcmc-diagnostics.html
+         ^
+     3:  functions {
+     4:  #include no_such_file.stan
+   -------------------------------------------------
+Comments beginning with # are deprecated. Please use // in place of # for line comments.
+Syntax error in 'examples/example_error_and_info_undefined_include_file.stan', line 4, column 0, include error:
+   -------------------------------------------------
+     2:  # https://mc-stan.org/bayesplot/articles/visual-mcmc-diagnostics.html
+     3:  functions {
+     4:  #include no_such_file.stan
+         ^
+     5:  }
+     6:  data {
+   -------------------------------------------------
+Could not find include file no_such_file.stan in specified include paths.")))
+  ;;
+  (it "(stanc3) does not add Error: correctly for missing error message before error in..."
+    (let* ((error-message (test-flycheck-stan--get-string-from-file
+                           (expand-file-name
+                            "examples/example_error_and_info_composite.stanc3out.txt"
+                            test-flycheck-stan-dir))))
+      (expect
+       (flycheck-stan-cleaner
+        error-message t)
+       :to-equal
+       "Warning: deprecated language construct used in 'examples/example_error_and_info_composite.stan', line 1, column 0:
+   -------------------------------------------------
+     1:  # The Eight Schools example with non-centered parametrization.
+         ^
+     2:  # https://mc-stan.org/bayesplot/articles/visual-mcmc-diagnostics.html
+     3:  data {
+   -------------------------------------------------
+Comments beginning with # are deprecated. Please use // in place of # for line comments.
+Warning: deprecated language construct used in 'examples/example_error_and_info_composite.stan', line 2, column 0:
+   -------------------------------------------------
+     1:  # The Eight Schools example with non-centered parametrization.
+     2:  # https://mc-stan.org/bayesplot/articles/visual-mcmc-diagnostics.html
+         ^
+     3:  data {
+     4:    int<lower=0> J;
+   -------------------------------------------------
+Comments beginning with # are deprecated. Please use // in place of # for line comments.
+Syntax error in 'examples/example_error_and_info_composite.stan', line 8, column 11 to column 12, parsing error:
+   -------------------------------------------------
+     6:    vector<lower=0>[J] sigma;
+     7:  }
+     8:  parameters {
+                     ^
+     9:    rear mu;
+    10:    // The parser stops at the above line.
+   -------------------------------------------------
+Expected top-level variable declaration or \"}\".")))
+  ;;
+  (it "(stanc3) does not add Error: correctly for a line involving a variable name"
+    (let* ((error-message (test-flycheck-stan--get-string-from-file
+                           (expand-file-name
+                            "examples/example_error_and_info_undefined_variable.stanc3out.txt"
+                            test-flycheck-stan-dir))))
+      (expect
+       (flycheck-stan-cleaner
+        error-message t)
+       :to-equal
+       "Warning: deprecated language construct used in 'examples/example_error_and_info_undefined_variable.stan', line 1, column 0:
+   -------------------------------------------------
+     1:  # The Eight Schools example with non-centered parametrization.
+         ^
+     2:  # https://mc-stan.org/bayesplot/articles/visual-mcmc-diagnostics.html
+     3:  data {
+   -------------------------------------------------
+Comments beginning with # are deprecated. Please use // in place of # for line comments.
+Warning: deprecated language construct used in 'examples/example_error_and_info_undefined_variable.stan', line 2, column 0:
+   -------------------------------------------------
+     1:  # The Eight Schools example with non-centered parametrization.
+     2:  # https://mc-stan.org/bayesplot/articles/visual-mcmc-diagnostics.html
+         ^
+     3:  data {
+     4:    int<lower=0> J;
+   -------------------------------------------------
+Comments beginning with # are deprecated. Please use // in place of # for line comments.
+Warning: deprecated language construct used in 'examples/example_error_and_info_undefined_variable.stan', line 9, column 2:
+   -------------------------------------------------
+     7:  }
+     8:  parameters {
+     9:    # real mu;
+           ^
+    10:    real<lower=0> tau;
+    11:    vector[J] eta;
+   -------------------------------------------------
+Comments beginning with # are deprecated. Please use // in place of # for line comments.
+Warning: deprecated language construct used in 'examples/example_error_and_info_undefined_variable.stan', line 20, column 22:
+   -------------------------------------------------
+    18:    mu ~ normal(0, 10);
+    19:    tau ~ cauchy(0, 10);
+    20:    eta ~ normal(0, 1); # implies theta ~ normal(mu, tau)
+                               ^
+    21:    y ~ normal(theta, sigma);
+    22:  }
+   -------------------------------------------------
+Comments beginning with # are deprecated. Please use // in place of # for line comments.
+Semantic error in 'examples/example_error_and_info_undefined_variable.stan', line 15, column 10 to column 12:
+   -------------------------------------------------
+    13:  transformed parameters {
+    14:    vector[J] theta;
+    15:    theta = mu + tau * eta;
+                   ^
+    16:  }
+    17:  model {
+   -------------------------------------------------
+Identifier 'mu' not in scope.")))
+  ;;
+  (it "(stanc3) does not add Error: correctly for a line that is all capital"
+    (let* ((error-message (test-flycheck-stan--get-string-from-file
+                           (expand-file-name
+                            "examples/example_failure_misspelled_block.stanc3out.txt"
+                            test-flycheck-stan-dir))))
+      (expect
+       (flycheck-stan-cleaner
+        error-message t)
+       :to-equal
+       "Syntax error in 'examples/example_failure_misspelled_block.stan', line 3, column 0 to line 7, column 1, parsing error:
+   -------------------------------------------------
+     5:    vector[J] y;
+     6:    vector<lower=0>[J] sigma;
+     7:  }
+          ^
+     8:  pparameters {
+     9:    real mu;
+   -------------------------------------------------
+Expected \"transformed data {\" or \"parameters {\" or \"transformed parameters {\" or \"model {\" or \"generated quantities {\".")))
+  ;;
+  (it "(stanc3) does not add Error: correctly for a model name starting with a number"
+    (let* ((error-message (test-flycheck-stan--get-string-from-file
+                           (expand-file-name
+                            "examples/01_example_error_number_model_name.stanc3out.txt"
+                            test-flycheck-stan-dir))))
+      (expect
+       (flycheck-stan-cleaner
+        error-message t)
+       :to-equal
+       ""))))
 
 
 (describe "flycheck-stan-splitter"
@@ -986,7 +1149,142 @@ PARSER EXPECTED: <one of the following:
        :to-equal
        (list
         "Error: model_name must not start with a number or symbol other than _"
-        "Error: Could not remove output file=examples/01_example_error_number_model_name.cpp")))))
+        "Error: Could not remove output file=examples/01_example_error_number_model_name.cpp"))))
+  ;;
+  (it "(stanc3) splits text at Warning and Syntax/Semantic/Fatal errors"
+    ;; https://discourse.mc-stan.org/t/structured-error-output-format-for-stanc/10342/11?u=kaz-yos
+    (expect
+     (flycheck-stan-splitter
+      "Warning: a
+Syntax error in b
+Semantic error in
+c
+This should not happen."
+      t)
+     :to-equal
+     (list
+      "Warning: a"
+      "Syntax error in b"
+      "Semantic error in
+c"
+      "This should not happen.")))
+  ;;
+  (it "(stanc3) handles multiple Warning:'s correctly"
+    (let* ((error-message (test-flycheck-stan--get-string-from-file
+                           (expand-file-name
+                            "./examples/example_info_composite_with_error.stanc3out.txt"
+                            test-flycheck-stan-dir))))
+      (expect
+       (flycheck-stan-splitter (flycheck-stan-cleaner
+                                error-message t)
+                               t)
+       :to-equal
+       ;; No empty lines or trailing whitespace. Error tag.
+       (list
+        "Warning: deprecated language construct used in 'examples/example_info_composite_with_error.stan', line 1, column 0:
+   -------------------------------------------------
+     1:  # The Eight Schools example with non-centered parametrization.
+         ^
+     2:  # https://mc-stan.org/bayesplot/articles/visual-mcmc-diagnostics.html
+     3:  data {
+   -------------------------------------------------
+Comments beginning with # are deprecated. Please use // in place of # for line comments."
+        "Warning: deprecated language construct used in 'examples/example_info_composite_with_error.stan', line 2, column 0:
+   -------------------------------------------------
+     1:  # The Eight Schools example with non-centered parametrization.
+     2:  # https://mc-stan.org/bayesplot/articles/visual-mcmc-diagnostics.html
+         ^
+     3:  data {
+     4:    int<lower=0> J;
+   -------------------------------------------------
+Comments beginning with # are deprecated. Please use // in place of # for line comments."
+        "Warning: deprecated language construct used in 'examples/example_info_composite_with_error.stan', line 15, column 9:
+   -------------------------------------------------
+    13:  transformed parameters {
+    14:    vector[J] theta;
+    15:    theta <- mu + tau * eta;
+                  ^
+    16:  }
+    17:  model {
+   -------------------------------------------------
+assignment operator <- is deprecated in the Stan language; use = instead."
+        "Warning: deprecated language construct used in 'examples/example_info_composite_with_error.stan', line 19, column 19:
+   -------------------------------------------------
+    17:  model {
+    18:    exp(log(mu)) ~ normal(0, 10);
+    19:    increment_log_prob(cauchy_log(tau, 0, 10));
+                            ^
+    20:    eta ~ normal(0, 1); # implies theta ~ normal(mu, tau)
+    21:    increment_log_prob(normal_lpdf(y, theta, sigma));
+   -------------------------------------------------
+increment_log_prob(...); is deprecated and will be removed in the future. Use target += ...; instead."
+        "Warning: deprecated language construct used in 'examples/example_info_composite_with_error.stan', line 20, column 22:
+   -------------------------------------------------
+    18:    exp(log(mu)) ~ normal(0, 10);
+    19:    increment_log_prob(cauchy_log(tau, 0, 10));
+    20:    eta ~ normal(0, 1); # implies theta ~ normal(mu, tau)
+                               ^
+    21:    increment_log_prob(normal_lpdf(y, theta, sigma));
+    22:  }
+   -------------------------------------------------
+Comments beginning with # are deprecated. Please use // in place of # for line comments."
+        "Warning: deprecated language construct used in 'examples/example_info_composite_with_error.stan', line 21, column 19:
+   -------------------------------------------------
+    19:    increment_log_prob(cauchy_log(tau, 0, 10));
+    20:    eta ~ normal(0, 1); # implies theta ~ normal(mu, tau)
+    21:    increment_log_prob(normal_lpdf(y, theta, sigma));
+                            ^
+    22:  }
+   -------------------------------------------------
+increment_log_prob(...); is deprecated and will be removed in the future. Use target += ...; instead."
+        "Semantic error in 'examples/example_info_composite_with_error.stan', line 21, column 21 to column 49:
+   -------------------------------------------------
+    19:    increment_log_prob(cauchy_log(tau, 0, 10));
+    20:    eta ~ normal(0, 1); # implies theta ~ normal(mu, tau)
+    21:    increment_log_prob(normal_lpdf(y, theta, sigma));
+                              ^
+    22:  }
+   -------------------------------------------------
+Probabilty functions with suffixes _lpdf, _lpmf, _lcdf, and _lccdf, require a vertical bar (|) between the first two arguments."))))
+  ;;
+  (it "(stanc3) splits entire error string into warnings and errors"
+    (let* ((error-message (test-flycheck-stan--get-string-from-file
+                           (expand-file-name
+                            "examples/example_error_and_info_composite.stanc3out.txt"
+                            test-flycheck-stan-dir))))
+      (expect
+       (flycheck-stan-splitter (flycheck-stan-cleaner
+                                error-message t)
+                               t)
+       :to-equal
+       (list
+        "Warning: deprecated language construct used in 'examples/example_error_and_info_composite.stan', line 1, column 0:
+   -------------------------------------------------
+     1:  # The Eight Schools example with non-centered parametrization.
+         ^
+     2:  # https://mc-stan.org/bayesplot/articles/visual-mcmc-diagnostics.html
+     3:  data {
+   -------------------------------------------------
+Comments beginning with # are deprecated. Please use // in place of # for line comments."
+        "Warning: deprecated language construct used in 'examples/example_error_and_info_composite.stan', line 2, column 0:
+   -------------------------------------------------
+     1:  # The Eight Schools example with non-centered parametrization.
+     2:  # https://mc-stan.org/bayesplot/articles/visual-mcmc-diagnostics.html
+         ^
+     3:  data {
+     4:    int<lower=0> J;
+   -------------------------------------------------
+Comments beginning with # are deprecated. Please use // in place of # for line comments."
+        "Syntax error in 'examples/example_error_and_info_composite.stan', line 8, column 11 to column 12, parsing error:
+   -------------------------------------------------
+     6:    vector<lower=0>[J] sigma;
+     7:  }
+     8:  parameters {
+                     ^
+     9:    rear mu;
+    10:    // The parser stops at the above line.
+   -------------------------------------------------
+Expected top-level variable declaration or \"}\".")))))
 
 
 (describe "flycheck-stan-convert-message-to-error"
@@ -1125,6 +1423,175 @@ model {
                          :level 'error
                          :id nil
                          :group nil))))
+
+(describe "flycheck-stan-convert-message-to-error-stanc3"
+  ;; Warning
+  (it "converts a warning correctly"
+    (expect
+     (flycheck-stan-convert-message-to-error-stanc3
+      "Warning: deprecated language construct used in 'examples/example_info_deprecated_comments.stan', line 1, column 0:
+   -------------------------------------------------
+     1:  # The Eight Schools example with non-centered parametrization.
+         ^
+     2:  # https://mc-stan.org/bayesplot/articles/visual-mcmc-diagnostics.html
+     3:  data {
+   -------------------------------------------------
+Comments beginning with # are deprecated. Please use // in place of # for line comments."
+      'buffer 'stanc3 "fake_input_file")
+     :to-equal
+     (flycheck-error-new :buffer 'buffer
+                         :checker 'stanc3
+                         :filename "examples/example_info_deprecated_comments.stan"
+                         :line 1
+                         :column 0
+                         :message "Warning: deprecated language construct used in 'examples/example_info_deprecated_comments.stan', line 1, column 0:
+   -------------------------------------------------
+     1:  # The Eight Schools example with non-centered parametrization.
+         ^
+     2:  # https://mc-stan.org/bayesplot/articles/visual-mcmc-diagnostics.html
+     3:  data {
+   -------------------------------------------------
+Comments beginning with # are deprecated. Please use // in place of # for line comments."
+                         :level 'warning
+                         :id nil
+                         :group nil)))
+  ;;
+  ;; Errors
+  (it "converts a semantic error correctly"
+    (expect
+     (flycheck-stan-convert-message-to-error-stanc3
+      "Semantic error in 'examples/example_error_undefined_function.stan', line 18, column 2 to column 22:
+   -------------------------------------------------
+    16:  }
+    17:  model {
+    18:    mu ~ normall(0, 10);
+           ^
+    19:    tau ~ cauchy(0, 10);
+    20:    eta ~ normal(0, 1); // implies theta ~ normal(mu, tau)
+   -------------------------------------------------
+Ill-typed arguments to '~' statement. No distribution 'normall' was found with the correct signature."
+      'buffer 'stanc3 "fake_input_file")
+     :to-equal
+     (flycheck-error-new :buffer 'buffer
+                         :checker 'stanc3
+                         :filename "examples/example_error_undefined_function.stan"
+                         :line 18
+                         :column 2
+                         :message "Semantic error in 'examples/example_error_undefined_function.stan', line 18, column 2 to column 22:
+   -------------------------------------------------
+    16:  }
+    17:  model {
+    18:    mu ~ normall(0, 10);
+           ^
+    19:    tau ~ cauchy(0, 10);
+    20:    eta ~ normal(0, 1); // implies theta ~ normal(mu, tau)
+   -------------------------------------------------
+Ill-typed arguments to '~' statement. No distribution 'normall' was found with the correct signature."
+                         :level 'error
+                         :id nil
+                         :group 'semantic)))
+  ;;
+  (it "converts a syntax error (parsing error) correctly"
+    (expect
+     (flycheck-stan-convert-message-to-error-stanc3
+      "Syntax error in 'examples/example_error_and_info_misspelled_type.stan', line 8, column 11 to column 12, parsing error:
+   -------------------------------------------------
+     6:    vector<lower=0>[J] sigma;
+     7:  }
+     8:  parameters {
+                     ^
+     9:    rear mu;
+    10:    real<lower=0> tau;
+   -------------------------------------------------
+Expected top-level variable declaration or \"}\"."
+      'buffer 'stanc3 "fake_input_file")
+     :to-equal
+     (flycheck-error-new :buffer 'buffer
+                         :checker 'stanc3
+                         :filename "examples/example_error_and_info_misspelled_type.stan"
+                         :line 8
+                         :column 11
+                         :message "Syntax error in 'examples/example_error_and_info_misspelled_type.stan', line 8, column 11 to column 12, parsing error:
+   -------------------------------------------------
+     6:    vector<lower=0>[J] sigma;
+     7:  }
+     8:  parameters {
+                     ^
+     9:    rear mu;
+    10:    real<lower=0> tau;
+   -------------------------------------------------
+Expected top-level variable declaration or \"}\"."
+                         :level 'error
+                         :id nil
+                         :group 'syntax-parsing)))
+  ;;
+  (it "converts a syntax error (lexing error) correctly"
+    (expect
+     (flycheck-stan-convert-message-to-error-stanc3
+      "Syntax error in 'examples/example_error_invalid_character.stan', line 14, column 17, lexing error:
+   -------------------------------------------------
+    12:  }
+    13:  transformed parameters {
+    14:    vector[J] theta;$
+                           ^
+    15:    theta = mu + tau * eta;
+    16:  }
+   -------------------------------------------------
+Invalid character found."
+      'buffer 'stanc3 "examples/example_error_invalid_character.stan")
+     :to-equal
+     (flycheck-error-new :buffer 'buffer
+                         :checker 'stanc3
+                         :filename "examples/example_error_invalid_character.stan"
+                         :line 14
+                         :column 17
+                         :message "Syntax error in 'examples/example_error_invalid_character.stan', line 14, column 17, lexing error:
+   -------------------------------------------------
+    12:  }
+    13:  transformed parameters {
+    14:    vector[J] theta;$
+                           ^
+    15:    theta = mu + tau * eta;
+    16:  }
+   -------------------------------------------------
+Invalid character found."
+                         :level 'error
+                         :id nil
+                         :group 'syntax-lexing)))
+  ;;
+  (it "converts a syntax error (include error) correctly"
+    (expect
+     (flycheck-stan-convert-message-to-error-stanc3
+      "Syntax error in 'examples/example_error_and_info_undefined_include_file.stan', line 4, column 0, include error:
+   -------------------------------------------------
+     2:  # https://mc-stan.org/bayesplot/articles/visual-mcmc-diagnostics.html
+     3:  functions {
+     4:  #include no_such_file.stan
+         ^
+     5:  }
+     6:  data {
+   -------------------------------------------------
+Could not find include file no_such_file.stan in specified include paths."
+      'buffer 'stanc3 "examples/example_error_invalid_character.stan")
+     :to-equal
+     (flycheck-error-new :buffer 'buffer
+                         :checker 'stanc3
+                         :filename "examples/example_error_and_info_undefined_include_file.stan"
+                         :line 4
+                         :column 0
+                         :message "Syntax error in 'examples/example_error_and_info_undefined_include_file.stan', line 4, column 0, include error:
+   -------------------------------------------------
+     2:  # https://mc-stan.org/bayesplot/articles/visual-mcmc-diagnostics.html
+     3:  functions {
+     4:  #include no_such_file.stan
+         ^
+     5:  }
+     6:  data {
+   -------------------------------------------------
+Could not find include file no_such_file.stan in specified include paths."
+                         :level 'error
+                         :id nil
+                         :group 'syntax-include))))
 
 
 (describe "flycheck-stan-parser"
@@ -2012,6 +2479,889 @@ model {
        correct-errors))))
 
 
+(describe "flycheck-stan-parser-stanc3"
+  ;; This file uses `flycheck-error-new-at' to create a gold-standard error object.
+  ;;  https://github.com/flycheck/flycheck/blob/master/test/specs/test-error-filters.el
+  ;; This file also uses `flycheck-error-new' to create a gold-standard error object.
+  ;;  https://github.com/flycheck/flycheck/blob/master/test/specs/test-error-parsers.el
+  ;; Both are :constructor's for the `flycheck-error' object.
+  ;;  https://github.com/flycheck/flycheck/blob/master/flycheck.el#L3255
+  ;;  https://www.gnu.org/software/emacs/manual/html_mono/cl.html#Structures
+  ;; `flycheck-error-new' requires keyword arguments for all its arguments.
+  ;; `flycheck-error-new-at' has a different argument order.
+  ;; Access to an element like: (flycheck-error-checker correct-error).
+  ;;
+  ;; Compare lists of errors using `:to-be-equal-flycheck-errors'.
+  ;; This matcher calls `flycheck-error-format', which then calls
+  ;; `number-to-string' on the line number. Thus it cannot be nil.
+  ;;
+  (before-each
+    ;; Spying
+    ;; (buffer-file-name) is called inside flycheck-stan-parser
+    ;; to obtain the file name associated with the current buffer.
+    ;; This information is not used as long as the error message
+    ;; contains a header with the file name.
+    ;; Here we are passing a non-buffer object to flycheck-stan-parser.
+    ;; Thus, overriding buff-file-name is necessary to avoid
+    ;; unwanted errors.
+    (spy-on 'buffer-file-name
+            :and-return-value
+            "fake_file_name.stan"))
+  ;;
+  (it "captures a misspelled type correctly"
+    (let* ((error-message (test-flycheck-stan--get-string-from-file
+                           (expand-file-name
+                            "./examples/example_error_misspelled_type.stanc3out.txt"
+                            test-flycheck-stan-dir)))
+           ;; list of flycheck-style error objects
+           (flycheck-errors (flycheck-stan-parser-stanc3
+                             error-message 'stanc3 'buffer-object))
+           ;; Gold standard object
+           ;; (flycheck-error-new-at
+           ;;  LINE COLUMN &optional LEVEL MESSAGE &key CHECKER ID GROUP
+           ;;  (FILENAME (buffer-file-name)) (BUFFER (current-buffer)))
+           ;; LINE and COLUMN are numbers.
+           (correct-errors
+            (list (flycheck-error-new-at
+                   ;; line column level
+                   8 11 'error
+                   ;; message
+                   "Syntax error in 'examples/example_error_misspelled_type.stan', line 8, column 11 to column 12, parsing error:
+   -------------------------------------------------
+     6:    vector<lower=0>[J] sigma;
+     7:  }
+     8:  parameters {
+                     ^
+     9:    rear mu;
+    10:    real<lower=0> tau;
+   -------------------------------------------------
+Expected top-level variable declaration or \"}\"."
+                   :checker 'stanc3
+                   :id nil
+                   :group 'syntax-parsing
+                   :filename
+                   "examples/example_error_misspelled_type.stan"
+                   :buffer 'buffer-object))))
+      (expect
+       (length flycheck-errors)
+       :to-equal
+       (length correct-errors))
+      (expect
+       flycheck-errors
+       :to-be-equal-flycheck-errors
+       correct-errors)))
+  ;;
+  (it "captures a misspelled type correctly even with infos"
+    (let* ((error-message (test-flycheck-stan--get-string-from-file
+                           (expand-file-name
+                            "./examples/example_error_and_info_misspelled_type.stanc3out.txt"
+                            test-flycheck-stan-dir)))
+           ;; list of flycheck-style error objects
+           (flycheck-errors (flycheck-stan-parser-stanc3
+                             error-message 'stanc3 'buffer-object))
+           ;; Gold standard object
+           ;; (flycheck-error-new-at
+           ;;  LINE COLUMN &optional LEVEL MESSAGE &key CHECKER ID GROUP
+           ;;  (FILENAME (buffer-file-name)) (BUFFER (current-buffer)))
+           (correct-errors
+            (list
+             (flycheck-error-new-at
+              ;; line column level
+              1 0 'warning
+              ;; message
+              "Warning: deprecated language construct used in 'examples/example_error_and_info_misspelled_type.stan', line 1, column 0:
+   -------------------------------------------------
+     1:  # The Eight Schools example with non-centered parametrization.
+         ^
+     2:  # https://mc-stan.org/bayesplot/articles/visual-mcmc-diagnostics.html
+     3:  data {
+   -------------------------------------------------
+Comments beginning with # are deprecated. Please use // in place of # for line comments."
+              :checker 'stanc3
+              :id nil
+              :group nil
+              :filename
+              "examples/example_error_and_info_misspelled_type.stan"
+              :buffer 'buffer-object)
+             (flycheck-error-new-at
+              ;; line column level
+              2 0 'warning
+              ;; message
+              "Warning: deprecated language construct used in 'examples/example_error_and_info_misspelled_type.stan', line 2, column 0:
+   -------------------------------------------------
+     1:  # The Eight Schools example with non-centered parametrization.
+     2:  # https://mc-stan.org/bayesplot/articles/visual-mcmc-diagnostics.html
+         ^
+     3:  data {
+     4:    int<lower=0> J;
+   -------------------------------------------------
+Comments beginning with # are deprecated. Please use // in place of # for line comments."
+              :checker 'stanc3
+              :id nil
+              :group nil
+              :filename
+              "examples/example_error_and_info_misspelled_type.stan"
+              :buffer 'buffer-object)
+             (flycheck-error-new-at
+              ;; line column level
+              8 11 'error
+              ;; message
+              "Syntax error in 'examples/example_error_and_info_misspelled_type.stan', line 8, column 11 to column 12, parsing error:
+   -------------------------------------------------
+     6:    vector<lower=0>[J] sigma;
+     7:  }
+     8:  parameters {
+                     ^
+     9:    rear mu;
+    10:    real<lower=0> tau;
+   -------------------------------------------------
+Expected top-level variable declaration or \"}\"."
+              :checker 'stanc3
+              :id nil
+              :group 'syntax-parsing
+              :filename
+              "examples/example_error_and_info_misspelled_type.stan"
+              :buffer 'buffer-object))))
+      (expect
+       (length flycheck-errors)
+       :to-equal
+       (length correct-errors))
+      (expect
+       flycheck-errors
+       :to-be-equal-flycheck-errors
+       correct-errors)))
+  ;;
+  (it "captures a function that needs | correctly"
+    (let* ((error-message (test-flycheck-stan--get-string-from-file
+                           (expand-file-name
+                            "./examples/example_error_not_conditional.stanc3out.txt"
+                            test-flycheck-stan-dir)))
+           ;; list of flycheck-style error objects
+           (flycheck-errors (flycheck-stan-parser-stanc3
+                             error-message 'stanc3 'buffer-object))
+           ;; Gold standard object
+           ;; (flycheck-error-new-at
+           ;;  LINE COLUMN &optional LEVEL MESSAGE &key CHECKER ID GROUP
+           ;;  (FILENAME (buffer-file-name)) (BUFFER (current-buffer)))
+           (correct-errors
+            (list (flycheck-error-new-at
+                   ;; line column level
+                   19 12 'error
+                   ;; message
+                   "Semantic error in 'examples/example_error_not_conditional.stan', line 19, column 12 to column 35:
+   -------------------------------------------------
+    17:  model {
+    18:    mu ~ normal(0, 10);
+    19:    target += cauchy_lpdf(tau, 0, 10);
+                     ^
+    20:    eta ~ normal(0, 1); // implies theta ~ normal(mu, tau)
+    21:    y ~ normal(theta, sigma);
+   -------------------------------------------------
+Probabilty functions with suffixes _lpdf, _lpmf, _lcdf, and _lccdf, require a vertical bar (|) between the first two arguments."
+                   :checker 'stanc3
+                   :id nil
+                   :group 'semantic
+                   :filename
+                   "examples/example_error_not_conditional.stan"
+                   :buffer 'buffer-object))))
+      (expect
+       (length flycheck-errors)
+       :to-equal
+       (length correct-errors))
+      (expect
+       flycheck-errors
+       :to-be-equal-flycheck-errors
+       correct-errors)))
+  ;;
+  (it "captures a function that needs | correctly even with infos"
+    (let* ((error-message (test-flycheck-stan--get-string-from-file
+                           (expand-file-name
+                            "./examples/example_error_and_info_not_conditional.stanc3out.txt"
+                            test-flycheck-stan-dir)))
+           ;; list of flycheck-style error objects
+           (flycheck-errors (flycheck-stan-parser-stanc3
+                             error-message 'stanc3 'buffer-object))
+           ;; Gold standard object
+           ;; (flycheck-error-new-at
+           ;;  LINE COLUMN &optional LEVEL MESSAGE &key CHECKER ID GROUP
+           ;;  (FILENAME (buffer-file-name)) (BUFFER (current-buffer)))
+           (correct-errors
+            (list
+             (flycheck-error-new-at
+              ;; line column level
+              1 0 'warning
+              ;; message
+              "Warning: deprecated language construct used in 'examples/example_error_and_info_not_conditional.stan', line 1, column 0:
+   -------------------------------------------------
+     1:  # The Eight Schools example with non-centered parametrization.
+         ^
+     2:  # https://mc-stan.org/bayesplot/articles/visual-mcmc-diagnostics.html
+     3:  data {
+   -------------------------------------------------
+Comments beginning with # are deprecated. Please use // in place of # for line comments."
+              :checker 'stanc3
+              :id nil
+              :group nil
+              :filename
+              "examples/example_error_and_info_not_conditional.stan"
+              :buffer 'buffer-object)
+             (flycheck-error-new-at
+              ;; line column level
+              2 0 'warning
+              ;; message
+              "Warning: deprecated language construct used in 'examples/example_error_and_info_not_conditional.stan', line 2, column 0:
+   -------------------------------------------------
+     1:  # The Eight Schools example with non-centered parametrization.
+     2:  # https://mc-stan.org/bayesplot/articles/visual-mcmc-diagnostics.html
+         ^
+     3:  data {
+     4:    int<lower=0> J;
+   -------------------------------------------------
+Comments beginning with # are deprecated. Please use // in place of # for line comments."
+              :checker 'stanc3
+              :id nil
+              :group nil
+              :filename
+              "examples/example_error_and_info_not_conditional.stan"
+              :buffer 'buffer-object)
+             (flycheck-error-new-at
+              ;; line column level
+              20 22 'warning
+              ;; message
+              "Warning: deprecated language construct used in 'examples/example_error_and_info_not_conditional.stan', line 20, column 22:
+   -------------------------------------------------
+    18:    mu ~ normal(0, 10);
+    19:    target += cauchy_lpdf(tau, 0, 10);
+    20:    eta ~ normal(0, 1); # implies theta ~ normal(mu, tau)
+                               ^
+    21:    y ~ normal(theta, sigma);
+    22:  }
+   -------------------------------------------------
+Comments beginning with # are deprecated. Please use // in place of # for line comments."
+              :checker 'stanc3
+              :id nil
+              :group nil
+              :filename
+              "examples/example_error_and_info_not_conditional.stan"
+              :buffer 'buffer-object)
+             (flycheck-error-new-at
+              ;; line column level
+              19 12 'error
+              ;; message
+              "Semantic error in 'examples/example_error_and_info_not_conditional.stan', line 19, column 12 to column 35:
+   -------------------------------------------------
+    17:  model {
+    18:    mu ~ normal(0, 10);
+    19:    target += cauchy_lpdf(tau, 0, 10);
+                     ^
+    20:    eta ~ normal(0, 1); # implies theta ~ normal(mu, tau)
+    21:    y ~ normal(theta, sigma);
+   -------------------------------------------------
+Probabilty functions with suffixes _lpdf, _lpmf, _lcdf, and _lccdf, require a vertical bar (|) between the first two arguments."
+              :checker 'stanc3
+              :id nil
+              :group 'semantic
+              :filename
+              "examples/example_error_and_info_not_conditional.stan"
+              :buffer 'buffer-object))))
+      (expect
+       (length flycheck-errors)
+       :to-equal
+       (length correct-errors))
+      (expect
+       flycheck-errors
+       :to-be-equal-flycheck-errors
+       correct-errors)))
+  ;;
+  (it "captures an undefined function correctly"
+    (let* ((error-message (test-flycheck-stan--get-string-from-file
+                           (expand-file-name
+                            "./examples/example_error_undefined_function.stanc3out.txt"
+                            test-flycheck-stan-dir)))
+           ;; list of flycheck-style error objects
+           (flycheck-errors (flycheck-stan-parser-stanc3
+                             error-message 'stanc3 'buffer-object))
+           ;; Gold standard object
+           ;; (flycheck-error-new-at
+           ;;  LINE COLUMN &optional LEVEL MESSAGE &key CHECKER ID GROUP
+           ;;  (FILENAME (buffer-file-name)) (BUFFER (current-buffer)))
+           (correct-errors
+            (list (flycheck-error-new-at
+                   ;; line column level
+                   18 2 'error
+                   ;; message
+                   "Semantic error in 'examples/example_error_undefined_function.stan', line 18, column 2 to column 22:
+   -------------------------------------------------
+    16:  }
+    17:  model {
+    18:    mu ~ normall(0, 10);
+           ^
+    19:    tau ~ cauchy(0, 10);
+    20:    eta ~ normal(0, 1); // implies theta ~ normal(mu, tau)
+   -------------------------------------------------
+Ill-typed arguments to '~' statement. No distribution 'normall' was found with the correct signature."
+                   :checker 'stanc3
+                   :id nil
+                   :group 'semantic
+                   :filename
+                   "examples/example_error_undefined_function.stan"
+                   :buffer 'buffer-object))))
+      (expect
+       (length flycheck-errors)
+       :to-equal
+       (length correct-errors))
+      (expect
+       flycheck-errors
+       :to-be-equal-flycheck-errors
+       correct-errors)))
+  ;;
+  (it "captures an undefined function correctly even with infos"
+    (let* ((error-message (test-flycheck-stan--get-string-from-file
+                           (expand-file-name
+                            "./examples/example_error_and_info_undefined_function.stanc3out.txt"
+                            test-flycheck-stan-dir)))
+           ;; list of flycheck-style error objects
+           (flycheck-errors (flycheck-stan-parser-stanc3
+                             error-message 'stanc3 'buffer-object))
+           ;; Gold standard object
+           ;; (flycheck-error-new-at
+           ;;  LINE COLUMN &optional LEVEL MESSAGE &key CHECKER ID GROUP
+           ;;  (FILENAME (buffer-file-name)) (BUFFER (current-buffer)))
+           (correct-errors
+            (list
+             (flycheck-error-new-at
+              ;; line column level
+              1 0 'warning
+              ;; message
+              "Warning: deprecated language construct used in 'examples/example_error_and_info_undefined_function.stan', line 1, column 0:
+   -------------------------------------------------
+     1:  # The Eight Schools example with non-centered parametrization.
+         ^
+     2:  # https://mc-stan.org/bayesplot/articles/visual-mcmc-diagnostics.html
+     3:  data {
+   -------------------------------------------------
+Comments beginning with # are deprecated. Please use // in place of # for line comments."
+              :checker 'stanc3
+              :id nil
+              :group nil
+              :filename
+              "examples/example_error_and_info_undefined_function.stan"
+              :buffer 'buffer-object)
+             (flycheck-error-new-at
+              ;; line column level
+              2 0 'warning
+              ;; message
+              "Warning: deprecated language construct used in 'examples/example_error_and_info_undefined_function.stan', line 2, column 0:
+   -------------------------------------------------
+     1:  # The Eight Schools example with non-centered parametrization.
+     2:  # https://mc-stan.org/bayesplot/articles/visual-mcmc-diagnostics.html
+         ^
+     3:  data {
+     4:    int<lower=0> J;
+   -------------------------------------------------
+Comments beginning with # are deprecated. Please use // in place of # for line comments."
+              :checker 'stanc3
+              :id nil
+              :group nil
+              :filename
+              "examples/example_error_and_info_undefined_function.stan"
+              :buffer 'buffer-object)
+             (flycheck-error-new-at
+              ;; line column level
+              20 22 'warning
+              ;; message
+              "Warning: deprecated language construct used in 'examples/example_error_and_info_undefined_function.stan', line 20, column 22:
+   -------------------------------------------------
+    18:    mu ~ normall(0, 10);
+    19:    tau ~ cauchy(0, 10);
+    20:    eta ~ normal(0, 1); # implies theta ~ normal(mu, tau)
+                               ^
+    21:    y ~ normal(theta, sigma);
+    22:  }
+   -------------------------------------------------
+Comments beginning with # are deprecated. Please use // in place of # for line comments."
+              :checker 'stanc3
+              :id nil
+              :group nil
+              :filename
+              "examples/example_error_and_info_undefined_function.stan"
+              :buffer 'buffer-object)
+             (flycheck-error-new-at
+              ;; line column level
+              18 2 'error
+              ;; message
+              "Semantic error in 'examples/example_error_and_info_undefined_function.stan', line 18, column 2 to column 22:
+   -------------------------------------------------
+    16:  }
+    17:  model {
+    18:    mu ~ normall(0, 10);
+           ^
+    19:    tau ~ cauchy(0, 10);
+    20:    eta ~ normal(0, 1); # implies theta ~ normal(mu, tau)
+   -------------------------------------------------
+Ill-typed arguments to '~' statement. No distribution 'normall' was found with the correct signature."
+              :checker 'stanc3
+              :id nil
+              :group 'semantic
+              :filename
+              "examples/example_error_and_info_undefined_function.stan"
+              :buffer 'buffer-object))))
+      (expect
+       (length flycheck-errors)
+       :to-equal
+       (length correct-errors))
+      (expect
+       flycheck-errors
+       :to-be-equal-flycheck-errors
+       correct-errors)))
+  ;;
+  (it "captures an undefined include file correctly"
+    (let* ((error-message (test-flycheck-stan--get-string-from-file
+                           (expand-file-name
+                            "./examples/example_error_undefined_include_file.stanc3out.txt"
+                            test-flycheck-stan-dir)))
+           ;; list of flycheck-style error objects
+           (flycheck-errors (flycheck-stan-parser-stanc3
+                             error-message 'stanc3 'buffer-object))
+           ;; Gold standard object
+           ;; (flycheck-error-new-at
+           ;;  LINE COLUMN &optional LEVEL MESSAGE &key CHECKER ID GROUP
+           ;;  (FILENAME (buffer-file-name)) (BUFFER (current-buffer)))
+           (correct-errors
+            (list (flycheck-error-new-at
+                   ;; line column level
+                   4 0 'error
+                   ;; message
+                   "Syntax error in 'examples/example_error_undefined_include_file.stan', line 4, column 0, include error:
+   -------------------------------------------------
+     2:  // https://mc-stan.org/bayesplot/articles/visual-mcmc-diagnostics.html
+     3:  functions {
+     4:  #include no_such_file.stan
+         ^
+     5:  }
+     6:  data {
+   -------------------------------------------------
+Could not find include file no_such_file.stan in specified include paths."
+                   :checker 'stanc3
+                   :id nil
+                   :group 'syntax-include
+                   :filename
+                   "examples/example_error_undefined_include_file.stan"
+                   :buffer 'buffer-object))))
+      (expect
+       (length flycheck-errors)
+       :to-equal
+       (length correct-errors))
+      (expect
+       flycheck-errors
+       :to-be-equal-flycheck-errors
+       correct-errors)))
+  ;;
+  (it "captures an undefined include file correctly even with infos"
+    ;; No infos because #include resolution happens first.
+    (let* ((error-message (test-flycheck-stan--get-string-from-file
+                           (expand-file-name
+                            "./examples/example_error_and_info_undefined_include_file.stanc3out.txt"
+                            test-flycheck-stan-dir)))
+           ;; list of flycheck-style error objects
+           (flycheck-errors (flycheck-stan-parser-stanc3
+                             error-message 'stanc3 'buffer-object))
+           ;; Gold standard object
+           ;; (flycheck-error-new-at
+           ;;  LINE COLUMN &optional LEVEL MESSAGE &key CHECKER ID GROUP
+           ;;  (FILENAME (buffer-file-name)) (BUFFER (current-buffer)))
+           (correct-errors
+            (list
+             (flycheck-error-new-at
+              ;; line column level
+              1 0 'warning
+              ;; message
+              "Warning: deprecated language construct used in 'examples/example_error_and_info_undefined_include_file.stan', line 1, column 0:
+   -------------------------------------------------
+     1:  # The Eight Schools example with non-centered parametrization.
+         ^
+     2:  # https://mc-stan.org/bayesplot/articles/visual-mcmc-diagnostics.html
+     3:  functions {
+   -------------------------------------------------
+Comments beginning with # are deprecated. Please use // in place of # for line comments."
+              :checker 'stanc3
+              :id nil
+              :group nil
+              :filename
+              "examples/example_error_and_info_undefined_include_file.stan"
+              :buffer 'buffer-object)
+             (flycheck-error-new-at
+              ;; line column level
+              2 0 'warning
+              ;; message
+              "Warning: deprecated language construct used in 'examples/example_error_and_info_undefined_include_file.stan', line 2, column 0:
+   -------------------------------------------------
+     1:  # The Eight Schools example with non-centered parametrization.
+     2:  # https://mc-stan.org/bayesplot/articles/visual-mcmc-diagnostics.html
+         ^
+     3:  functions {
+     4:  #include no_such_file.stan
+   -------------------------------------------------
+Comments beginning with # are deprecated. Please use // in place of # for line comments."
+              :checker 'stanc3
+              :id nil
+              :group nil
+              :filename
+              "examples/example_error_and_info_undefined_include_file.stan"
+              :buffer 'buffer-object)
+             (flycheck-error-new-at
+              ;; line column level
+              4 0 'error
+              ;; message
+              "Syntax error in 'examples/example_error_and_info_undefined_include_file.stan', line 4, column 0, include error:
+   -------------------------------------------------
+     2:  # https://mc-stan.org/bayesplot/articles/visual-mcmc-diagnostics.html
+     3:  functions {
+     4:  #include no_such_file.stan
+         ^
+     5:  }
+     6:  data {
+   -------------------------------------------------
+Could not find include file no_such_file.stan in specified include paths."
+              :checker 'stanc3
+              :id nil
+              :group 'syntax-include
+              :filename
+              "examples/example_error_and_info_undefined_include_file.stan"
+              :buffer 'buffer-object))))
+      (expect
+       (length flycheck-errors)
+       :to-equal
+       (length correct-errors))
+      (expect
+       flycheck-errors
+       :to-be-equal-flycheck-errors
+       correct-errors)))
+  ;;
+  (it "captures an undefined variable correctly"
+    (let* ((error-message (test-flycheck-stan--get-string-from-file
+                           (expand-file-name
+                            "./examples/example_error_undefined_variable.stanc3out.txt"
+                            test-flycheck-stan-dir)))
+           ;; list of flycheck-style error objects
+           (flycheck-errors (flycheck-stan-parser-stanc3
+                             error-message 'stanc3 'buffer-object))
+           ;; Gold standard object
+           ;; (flycheck-error-new-at
+           ;;  LINE COLUMN &optional LEVEL MESSAGE &key CHECKER ID GROUP
+           ;;  (FILENAME (buffer-file-name)) (BUFFER (current-buffer)))
+           (correct-errors
+            (list (flycheck-error-new-at
+                   ;; line column level
+                   15 10 'error
+                   ;; message
+                   "Semantic error in 'examples/example_error_undefined_variable.stan', line 15, column 10 to column 12:
+   -------------------------------------------------
+    13:  transformed parameters {
+    14:    vector[J] theta;
+    15:    theta = mu + tau * eta;
+                   ^
+    16:  }
+    17:  model {
+   -------------------------------------------------
+Identifier 'mu' not in scope."
+                   :checker 'stanc3
+                   :id nil
+                   :group 'semantic
+                   :filename
+                   "examples/example_error_undefined_variable.stan"
+                   :buffer 'buffer-object))))
+      (expect
+       (length flycheck-errors)
+       :to-equal
+       (length correct-errors))
+      (expect
+       flycheck-errors
+       :to-be-equal-flycheck-errors
+       correct-errors)))
+  ;;
+  (it "captures an undefined variable correctly even with infos"
+    (let* ((error-message (test-flycheck-stan--get-string-from-file
+                           (expand-file-name
+                            "./examples/example_error_and_info_undefined_variable.stanc3out.txt"
+                            test-flycheck-stan-dir)))
+           ;; list of flycheck-style error objects
+           (flycheck-errors (flycheck-stan-parser-stanc3
+                             error-message 'stanc3 'buffer-object))
+           ;; Gold standard object
+           ;; (flycheck-error-new-at
+           ;;  LINE COLUMN &optional LEVEL MESSAGE &key CHECKER ID GROUP
+           ;;  (FILENAME (buffer-file-name)) (BUFFER (current-buffer)))
+           (correct-errors
+            (list (flycheck-error-new-at
+                   ;; line column level
+                   1 0 'warning
+                   ;; message
+                   "Warning: deprecated language construct used in 'examples/example_error_and_info_undefined_variable.stan', line 1, column 0:
+   -------------------------------------------------
+     1:  # The Eight Schools example with non-centered parametrization.
+         ^
+     2:  # https://mc-stan.org/bayesplot/articles/visual-mcmc-diagnostics.html
+     3:  data {
+   -------------------------------------------------
+Comments beginning with # are deprecated. Please use // in place of # for line comments."
+                   :checker 'stanc3
+                   :id nil
+                   :group nil
+                   :filename
+                   "examples/example_error_and_info_undefined_variable.stan"
+                   :buffer 'buffer-object)
+                  (flycheck-error-new-at
+                   ;; line column level
+                   2 0 'warning
+                   ;; message
+                   "Warning: deprecated language construct used in 'examples/example_error_and_info_undefined_variable.stan', line 2, column 0:
+   -------------------------------------------------
+     1:  # The Eight Schools example with non-centered parametrization.
+     2:  # https://mc-stan.org/bayesplot/articles/visual-mcmc-diagnostics.html
+         ^
+     3:  data {
+     4:    int<lower=0> J;
+   -------------------------------------------------
+Comments beginning with # are deprecated. Please use // in place of # for line comments."
+                   :checker 'stanc3
+                   :id nil
+                   :group nil
+                   :filename
+                   "examples/example_error_and_info_undefined_variable.stan"
+                   :buffer 'buffer-object)
+                  (flycheck-error-new-at
+                   ;; line column level
+                   9 2 'warning
+                   ;; message
+                   "Warning: deprecated language construct used in 'examples/example_error_and_info_undefined_variable.stan', line 9, column 2:
+   -------------------------------------------------
+     7:  }
+     8:  parameters {
+     9:    # real mu;
+           ^
+    10:    real<lower=0> tau;
+    11:    vector[J] eta;
+   -------------------------------------------------
+Comments beginning with # are deprecated. Please use // in place of # for line comments."
+                   :checker 'stanc3
+                   :id nil
+                   :group nil
+                   :filename
+                   "examples/example_error_and_info_undefined_variable.stan"
+                   :buffer 'buffer-object)
+                  (flycheck-error-new-at
+                   ;; line column level
+                   20 22 'warning
+                   ;; message
+                   "Warning: deprecated language construct used in 'examples/example_error_and_info_undefined_variable.stan', line 20, column 22:
+   -------------------------------------------------
+    18:    mu ~ normal(0, 10);
+    19:    tau ~ cauchy(0, 10);
+    20:    eta ~ normal(0, 1); # implies theta ~ normal(mu, tau)
+                               ^
+    21:    y ~ normal(theta, sigma);
+    22:  }
+   -------------------------------------------------
+Comments beginning with # are deprecated. Please use // in place of # for line comments."
+                   :checker 'stanc3
+                   :id nil
+                   :group nil
+                   :filename
+                   "examples/example_error_and_info_undefined_variable.stan"
+                   :buffer 'buffer-object)
+                  (flycheck-error-new-at
+                   ;; line column level
+                   15 10 'error
+                   ;; message
+                   "Semantic error in 'examples/example_error_and_info_undefined_variable.stan', line 15, column 10 to column 12:
+   -------------------------------------------------
+    13:  transformed parameters {
+    14:    vector[J] theta;
+    15:    theta = mu + tau * eta;
+                   ^
+    16:  }
+    17:  model {
+   -------------------------------------------------
+Identifier 'mu' not in scope."
+                   :checker 'stanc3
+                   :id nil
+                   :group 'semantic
+                   :filename
+                   "examples/example_error_and_info_undefined_variable.stan"
+                   :buffer 'buffer-object))))
+      (expect
+       (length flycheck-errors)
+       :to-equal
+       (length correct-errors))
+      (expect
+       flycheck-errors
+       :to-be-equal-flycheck-errors
+       correct-errors)))
+  ;;
+  (it "captures a misspelled block correctly"
+    (let* ((error-message (test-flycheck-stan--get-string-from-file
+                           (expand-file-name
+                            "./examples/example_failure_misspelled_block.stanc3out.txt"
+                            test-flycheck-stan-dir)))
+           ;; list of flycheck-style error objects
+           (flycheck-errors (flycheck-stan-parser-stanc3
+                             error-message 'stanc3 'buffer-object))
+           ;; Gold standard object
+           ;; (flycheck-error-new-at
+           ;;  LINE COLUMN &optional LEVEL MESSAGE &key CHECKER ID GROUP
+           ;;  (FILENAME (buffer-file-name)) (BUFFER (current-buffer)))
+           (correct-errors
+            (list (flycheck-error-new-at
+                   ;; line column level
+                   3 0 'error
+                   ;; message
+                   "Syntax error in 'examples/example_failure_misspelled_block.stan', line 3, column 0 to line 7, column 1, parsing error:
+   -------------------------------------------------
+     5:    vector[J] y;
+     6:    vector<lower=0>[J] sigma;
+     7:  }
+          ^
+     8:  pparameters {
+     9:    real mu;
+   -------------------------------------------------
+Expected \"transformed data {\" or \"parameters {\" or \"transformed parameters {\" or \"model {\" or \"generated quantities {\"."
+                   :checker 'stanc3
+                   :id nil
+                   :group 'syntax-parsing
+                   :filename
+                   "examples/example_failure_misspelled_block.stan"
+                   :buffer 'buffer-object))))
+      (expect
+       (length flycheck-errors)
+       :to-equal
+       (length correct-errors))
+      (expect
+       flycheck-errors
+       :to-be-equal-flycheck-errors
+       correct-errors)))
+  ;;
+  (it "captures a misspelled block correctly even with infos"
+    (let* ((error-message (test-flycheck-stan--get-string-from-file
+                           (expand-file-name
+                            "./examples/example_failure_and_info_misspelled_block.stanc3out.txt"
+                            test-flycheck-stan-dir)))
+           ;; list of flycheck-style error objects
+           (flycheck-errors (flycheck-stan-parser-stanc3
+                             error-message 'stanc3 'buffer-object))
+           ;; Gold standard object
+           ;; (flycheck-error-new-at
+           ;;  LINE COLUMN &optional LEVEL MESSAGE &key CHECKER ID GROUP
+           ;;  (FILENAME (buffer-file-name)) (BUFFER (current-buffer)))
+           (correct-errors
+            (list
+             (flycheck-error-new-at
+              ;; line column level
+              1 0 'warning
+              ;; message
+              "Warning: deprecated language construct used in 'examples/example_failure_and_info_misspelled_block.stan', line 1, column 0:
+   -------------------------------------------------
+     1:  # The Eight Schools example with non-centered parametrization.
+         ^
+     2:  # https://mc-stan.org/bayesplot/articles/visual-mcmc-diagnostics.html
+     3:  data {
+   -------------------------------------------------
+Comments beginning with # are deprecated. Please use // in place of # for line comments."
+              :checker 'stanc3
+              :id nil
+              :group nil
+              :filename
+              "examples/example_failure_and_info_misspelled_block.stan"
+              :buffer 'buffer-object)
+             (flycheck-error-new-at
+              ;; line column level
+              2 0 'warning
+              ;; message
+              "Warning: deprecated language construct used in 'examples/example_failure_and_info_misspelled_block.stan', line 2, column 0:
+   -------------------------------------------------
+     1:  # The Eight Schools example with non-centered parametrization.
+     2:  # https://mc-stan.org/bayesplot/articles/visual-mcmc-diagnostics.html
+         ^
+     3:  data {
+     4:    int<lower=0> J;
+   -------------------------------------------------
+Comments beginning with # are deprecated. Please use // in place of # for line comments."
+              :checker 'stanc3
+              :id nil
+              :group nil
+              :filename
+              "examples/example_failure_and_info_misspelled_block.stan"
+              :buffer 'buffer-object)
+             (flycheck-error-new-at
+              ;; line column level
+              3 0 'error
+              ;; message
+              "Syntax error in 'examples/example_failure_and_info_misspelled_block.stan', line 3, column 0 to line 7, column 1, parsing error:
+   -------------------------------------------------
+     5:    vector[J] y;
+     6:    vector<lower=0>[J] sigma;
+     7:  }
+          ^
+     8:  pparameters {
+     9:    real mu;
+   -------------------------------------------------
+Expected \"transformed data {\" or \"parameters {\" or \"transformed parameters {\" or \"model {\" or \"generated quantities {\"."
+              :checker 'stanc3
+              :id nil
+              :group 'syntax-parsing
+              :filename
+              "examples/example_failure_and_info_misspelled_block.stan"
+              :buffer 'buffer-object))))
+      (expect
+       (length flycheck-errors)
+       :to-equal
+       (length correct-errors))
+      (expect
+       flycheck-errors
+       :to-be-equal-flycheck-errors
+       correct-errors)))
+  ;;
+  (it "handles an error without header correctly (number starting the file name)"
+    ;; Spying
+    ;; https://www.gnu.org/software/emacs/manual/html_node/elisp/Buffer-File-Name.html
+    ;; (buffer-file-name (current-buffer)) needs to return a fake file name.
+    ;; https://github.com/jorgenschaefer/emacs-buttercup/blob/master/docs/writing-tests.md#spies-and-return-value
+    ;; https://github.com/jorgenschaefer/emacs-buttercup/issues/122
+    (spy-on 'buffer-file-name
+            :and-return-value
+            "examples/01_example_error_number_model_name.stan")
+    ;;
+    (let* ((error-message (test-flycheck-stan--get-string-from-file
+                           (expand-file-name
+                            "./examples/01_example_error_number_model_name.stanc3out.txt"
+                            test-flycheck-stan-dir)))
+           ;; list of flycheck-style error objects
+           (flycheck-errors (flycheck-stan-parser-stanc3
+                             error-message 'stanc3 'buffer-object))
+           ;; Gold standard object
+           ;; (flycheck-error-new-at
+           ;;  LINE COLUMN &optional LEVEL MESSAGE &key CHECKER ID GROUP
+           ;;  (FILENAME (buffer-file-name)) (BUFFER (current-buffer)))
+           (correct-errors
+            ;; This does not error in stanc3.
+            (list)))
+      (expect
+       (length flycheck-errors)
+       :to-equal
+       (length correct-errors))
+      ;; Given the same length this comparison is possible.
+      ;; This tends to be more informative than
+      ;; :to-be-equal-flycheck-errors.
+      (cl-mapcar (lambda (a b)
+                   (expect a :to-equal b))
+                 flycheck-errors
+                 correct-errors)
+      (expect
+       flycheck-errors
+       :to-be-equal-flycheck-errors
+       correct-errors))))
+
+
 ;;;
 ;;; Tests that require the `stanc' binary.
 ;; Nice example of `before-all', `before-each', `assume', etc.
@@ -2028,8 +3378,8 @@ model {
 This may need adaptation depending on the system used for testing.")
 
 (describe "stanc checker working live (check test-flycheck-stan-sleep-for-time first if errors)"
-  (let* ((stanc-path (executable-find "stanc")))
-    ;; No tests will be run if stanc is not found.
+  (let* ((stanc-path (executable-find "stanc2")))
+    ;; No tests will be run if stanc2 is not found.
     (assume stanc-path)
     ;;
     (it "detects issues same as static gold standard (error_and_info_composite)"
@@ -2041,7 +3391,7 @@ This may need adaptation depending on the system used for testing.")
                              test-flycheck-stan-dir))
         (read-only-mode +1)
         (stan-mode)
-        (flycheck-stan-setup)
+        (add-to-list 'flycheck-checkers 'stanc)
         (flycheck-mode)
         (flycheck-buffer)
         ;; Needs to wait for the async process.
@@ -2162,7 +3512,7 @@ PARSER EXPECTED: <one of the following:
                              test-flycheck-stan-dir))
         (read-only-mode +1)
         (stan-mode)
-        (flycheck-stan-setup)
+        (add-to-list 'flycheck-checkers 'stanc)
         (flycheck-mode)
         (flycheck-buffer)
         ;; Needs to wait for the async process.
@@ -2347,7 +3697,7 @@ PARSER EXPECTED: \"|\"")
                              test-flycheck-stan-dir))
         (read-only-mode +1)
         (stan-mode)
-        (flycheck-stan-setup)
+        (add-to-list 'flycheck-checkers 'stanc)
         (flycheck-mode)
         (flycheck-buffer)
         ;; Needs to wait for the async process.
@@ -2386,6 +3736,365 @@ PARSER EXPECTED: \"|\"")
                   :filename stan-file-name
                   ;; We can use (current-buffer) within `temp-buffer'.
                   :buffer stan-buffer))))
+          ;;
+          (expect
+           (length flycheck-current-errors)
+           :to-equal
+           (length flycheck-correct-errors))
+          ;;
+          (expect
+           (seq-map #'flycheck-error-line
+                    flycheck-current-errors)
+           :to-equal
+           (seq-map #'flycheck-error-line
+                    flycheck-correct-errors))
+          ;;
+          (expect
+           (seq-map #'flycheck-error-column
+                    flycheck-current-errors)
+           :to-equal
+           (seq-map #'flycheck-error-column
+                    flycheck-correct-errors))
+          ;;
+          ;; Given the same length this comparison is possible.
+          ;; This tends to be more informative than
+          ;; :to-be-equal-flycheck-errors.
+          (cl-mapcar (lambda (a b)
+                       (expect a :to-equal b))
+                     flycheck-current-errors
+                     flycheck-correct-errors)
+          ;;
+          (expect
+           flycheck-current-errors
+           :to-be-equal-flycheck-errors
+           flycheck-correct-errors))))))
+
+(describe "stanc3 checker working live (check test-flycheck-stan-sleep-for-time first if errors)"
+  (let* ((stanc-path (executable-find "stanc3")))
+    ;; No tests will be run if stanc3 is not found.
+    (assume stanc-path)
+    ;;
+    (it "detects issues same as static gold standard (error_and_info_composite)"
+      ;; Execute the forms in BODY with BUFFER-OR-NAME temporarily current.
+      ;; https://emacs.stackexchange.com/questions/33915/problem-with-save-current-buffer-and-find-file
+      (with-current-buffer (find-file-noselect
+                            (expand-file-name
+                             "examples/example_error_and_info_composite.stan"
+                             test-flycheck-stan-dir))
+        (read-only-mode +1)
+        (stan-mode)
+        (add-to-list 'flycheck-checkers 'stanc3)
+        (flycheck-mode)
+        (flycheck-buffer)
+        ;; Needs to wait for the async process.
+        (sleep-for test-flycheck-stan-sleep-for-time)
+        ;; Gold standard
+        ;; It is manually specified rather than parsed from the error file to
+        ;; manipulate the file name.
+        (let* ((stan-file-name (expand-file-name
+                                "examples/example_error_and_info_composite.stan"
+                                test-flycheck-stan-dir))
+               (stan-buffer (current-buffer))
+               (flycheck-correct-errors
+                (list
+                 (flycheck-error-new-at
+                  ;; line column level
+                  1 0 'warning
+                  ;; message
+                  (concat "Warning: deprecated language construct used in '" stan-file-name "', line 1, column 0:
+   -------------------------------------------------
+     1:  # The Eight Schools example with non-centered parametrization.
+         ^
+     2:  # https://mc-stan.org/bayesplot/articles/visual-mcmc-diagnostics.html
+     3:  data {
+   -------------------------------------------------
+Comments beginning with # are deprecated. Please use // in place of # for line comments.")
+                  :checker 'stanc3
+                  :id nil
+                  :group nil
+                  :filename stan-file-name
+                  :buffer stan-buffer)
+                 (flycheck-error-new-at
+                  ;; line column level
+                  2 0 'warning
+                  ;; message
+                  (concat "Warning: deprecated language construct used in '" stan-file-name "', line 2, column 0:
+   -------------------------------------------------
+     1:  # The Eight Schools example with non-centered parametrization.
+     2:  # https://mc-stan.org/bayesplot/articles/visual-mcmc-diagnostics.html
+         ^
+     3:  data {
+     4:    int<lower=0> J;
+   -------------------------------------------------
+Comments beginning with # are deprecated. Please use // in place of # for line comments.")
+                  :checker 'stanc3
+                  :id nil
+                  :group nil
+                  :filename stan-file-name
+                  :buffer stan-buffer)
+                 (flycheck-error-new-at
+                  ;; line column level
+                  8 11 'error
+                  ;; message
+                  (concat "Syntax error in '" stan-file-name "', line 8, column 11 to column 12, parsing error:
+   -------------------------------------------------
+     6:    vector<lower=0>[J] sigma;
+     7:  }
+     8:  parameters {
+                     ^
+     9:    rear mu;
+    10:    // The parser stops at the above line.
+   -------------------------------------------------
+Expected top-level variable declaration or \"}\".")
+                  :checker 'stanc3
+                  :id nil
+                  :group 'syntax-parsing
+                  :filename stan-file-name
+                  :buffer stan-buffer))))
+          ;;
+          ;; Mutate to increment column
+          (flycheck-increment-error-columns flycheck-correct-errors)
+          ;;
+          (expect
+           (length flycheck-current-errors)
+           :to-equal
+           (length flycheck-correct-errors))
+          ;;
+          (expect
+           (seq-map #'flycheck-error-line
+                    flycheck-current-errors)
+           :to-equal
+           (seq-map #'flycheck-error-line
+                    flycheck-correct-errors))
+          ;;
+          (expect
+           (seq-map #'flycheck-error-column
+                    flycheck-current-errors)
+           :to-equal
+           (seq-map #'flycheck-error-column
+                    flycheck-correct-errors))
+          ;;
+          ;; Given the same length this comparison is possible.
+          ;; This tends to be more informative than
+          ;; :to-be-equal-flycheck-errors.
+          (cl-mapcar (lambda (a b)
+                       (expect a :to-equal b))
+                     flycheck-current-errors
+                     flycheck-correct-errors)
+          ;;
+          (expect
+           flycheck-current-errors
+           :to-be-equal-flycheck-errors
+           flycheck-correct-errors))))
+    ;;
+    (it "detects issues same as static gold standard (info_composite_with_error)"
+      ;; Execute the forms in BODY with BUFFER-OR-NAME temporarily current.
+      ;; https://emacs.stackexchange.com/questions/33915/problem-with-save-current-buffer-and-find-file
+      (with-current-buffer (find-file-noselect
+                            (expand-file-name
+                             "examples/example_info_composite_with_error.stan"
+                             test-flycheck-stan-dir))
+        (read-only-mode +1)
+        (stan-mode)
+        (add-to-list 'flycheck-checkers 'stanc3)
+        (flycheck-mode)
+        (flycheck-buffer)
+        ;; Needs to wait for the async process.
+        (sleep-for test-flycheck-stan-sleep-for-time)
+        ;; Gold standard
+        ;; It is manually specified rather than parsed from the error file to
+        ;; manipulate the file name.
+        (let* ((stan-file-name (expand-file-name
+                                "examples/example_info_composite_with_error.stan"
+                                test-flycheck-stan-dir))
+               (stan-buffer (current-buffer))
+               (flycheck-correct-errors
+                (list
+                 (flycheck-error-new-at
+                  ;; line column level
+                  1 0 'warning
+                  ;; message
+                  (concat "Warning: deprecated language construct used in '" stan-file-name "', line 1, column 0:
+   -------------------------------------------------
+     1:  # The Eight Schools example with non-centered parametrization.
+         ^
+     2:  # https://mc-stan.org/bayesplot/articles/visual-mcmc-diagnostics.html
+     3:  data {
+   -------------------------------------------------
+Comments beginning with # are deprecated. Please use // in place of # for line comments.")
+                  :checker 'stanc3
+                  :id nil
+                  :group nil
+                  :filename stan-file-name
+                  :buffer stan-buffer)
+                 (flycheck-error-new-at
+                  ;; line column level
+                  2 0 'warning
+                  ;; message
+                  (concat "Warning: deprecated language construct used in '" stan-file-name "', line 2, column 0:
+   -------------------------------------------------
+     1:  # The Eight Schools example with non-centered parametrization.
+     2:  # https://mc-stan.org/bayesplot/articles/visual-mcmc-diagnostics.html
+         ^
+     3:  data {
+     4:    int<lower=0> J;
+   -------------------------------------------------
+Comments beginning with # are deprecated. Please use // in place of # for line comments.")
+                  :checker 'stanc3
+                  :id nil
+                  :group nil
+                  :filename stan-file-name
+                  :buffer stan-buffer)
+                 (flycheck-error-new-at
+                  ;; line column level
+                  15 9 'warning
+                  ;; message
+                  (concat "Warning: deprecated language construct used in '" stan-file-name "', line 15, column 9:
+   -------------------------------------------------
+    13:  transformed parameters {
+    14:    vector[J] theta;
+    15:    theta <- mu + tau * eta;
+                  ^
+    16:  }
+    17:  model {
+   -------------------------------------------------
+assignment operator <- is deprecated in the Stan language; use = instead.")
+                  :checker 'stanc3
+                  :id nil
+                  :group nil
+                  :filename stan-file-name
+                  :buffer stan-buffer)
+                 (flycheck-error-new-at
+                  ;; line column level
+                  19 19 'warning
+                  ;; message
+                  (concat "Warning: deprecated language construct used in '" stan-file-name "', line 19, column 19:
+   -------------------------------------------------
+    17:  model {
+    18:    exp(log(mu)) ~ normal(0, 10);
+    19:    increment_log_prob(cauchy_log(tau, 0, 10));
+                            ^
+    20:    eta ~ normal(0, 1); # implies theta ~ normal(mu, tau)
+    21:    increment_log_prob(normal_lpdf(y, theta, sigma));
+   -------------------------------------------------
+increment_log_prob(...); is deprecated and will be removed in the future. Use target += ...; instead.")
+                  :checker 'stanc3
+                  :id nil
+                  :group nil
+                  :filename stan-file-name
+                  :buffer stan-buffer)
+                 (flycheck-error-new-at
+                  ;; line column level
+                  20 22 'warning
+                  ;; message
+                  (concat "Warning: deprecated language construct used in '" stan-file-name "', line 20, column 22:
+   -------------------------------------------------
+    18:    exp(log(mu)) ~ normal(0, 10);
+    19:    increment_log_prob(cauchy_log(tau, 0, 10));
+    20:    eta ~ normal(0, 1); # implies theta ~ normal(mu, tau)
+                               ^
+    21:    increment_log_prob(normal_lpdf(y, theta, sigma));
+    22:  }
+   -------------------------------------------------
+Comments beginning with # are deprecated. Please use // in place of # for line comments.")
+                  :checker 'stanc3
+                  :id nil
+                  :group nil
+                  :filename stan-file-name
+                  :buffer stan-buffer)
+                 (flycheck-error-new-at
+                  ;; line column level
+                  21 19 'warning
+                  ;; message
+                  (concat "Warning: deprecated language construct used in '" stan-file-name "', line 21, column 19:
+   -------------------------------------------------
+    19:    increment_log_prob(cauchy_log(tau, 0, 10));
+    20:    eta ~ normal(0, 1); # implies theta ~ normal(mu, tau)
+    21:    increment_log_prob(normal_lpdf(y, theta, sigma));
+                            ^
+    22:  }
+   -------------------------------------------------
+increment_log_prob(...); is deprecated and will be removed in the future. Use target += ...; instead.")
+                  :checker 'stanc3
+                  :id nil
+                  :group nil
+                  :filename stan-file-name
+                  :buffer stan-buffer)
+                 (flycheck-error-new-at
+                  ;; line column level
+                  21 21 'error
+                  ;; message
+                  (concat "Semantic error in '" stan-file-name "', line 21, column 21 to column 49:
+   -------------------------------------------------
+    19:    increment_log_prob(cauchy_log(tau, 0, 10));
+    20:    eta ~ normal(0, 1); # implies theta ~ normal(mu, tau)
+    21:    increment_log_prob(normal_lpdf(y, theta, sigma));
+                              ^
+    22:  }
+   -------------------------------------------------
+Probabilty functions with suffixes _lpdf, _lpmf, _lcdf, and _lccdf, require a vertical bar (|) between the first two arguments.")
+                  :checker 'stanc3
+                  :id nil
+                  :group 'semantic
+                  :filename stan-file-name
+                  :buffer stan-buffer))))
+          ;;
+          ;; Mutate to increment column
+          (flycheck-increment-error-columns flycheck-correct-errors)
+          ;;
+          (expect
+           (length flycheck-current-errors)
+           :to-equal
+           (length flycheck-correct-errors))
+          ;;
+          (expect
+           (seq-map #'flycheck-error-line
+                    flycheck-current-errors)
+           :to-equal
+           (seq-map #'flycheck-error-line
+                    flycheck-correct-errors))
+          ;;
+          (expect
+           (seq-map #'flycheck-error-column
+                    flycheck-current-errors)
+           :to-equal
+           (seq-map #'flycheck-error-column
+                    flycheck-correct-errors))
+          ;;
+          ;; Given the same length this comparison is possible.
+          ;; This tends to be more informative than
+          ;; :to-be-equal-flycheck-errors.
+          (cl-mapcar (lambda (a b)
+                       (expect a :to-equal b))
+                     flycheck-current-errors
+                     flycheck-correct-errors)
+          ;;
+          (expect
+           flycheck-current-errors
+           :to-be-equal-flycheck-errors
+           flycheck-correct-errors))))
+    ;;
+    (it "handles a bad file name correctly (number starting the file name)"
+      ;; This error message does not have a header with file name, so the file
+      ;; name is taken from the buffer-file-name.
+      ;;
+      ;; Execute the forms in BODY with BUFFER-OR-NAME temporarily current.
+      ;; https://emacs.stackexchange.com/questions/33915/problem-with-save-current-buffer-and-find-file
+      (with-current-buffer (find-file-noselect
+                            (expand-file-name
+                             "examples/01_example_error_number_model_name.stan"
+                             test-flycheck-stan-dir))
+        (read-only-mode +1)
+        (stan-mode)
+        (add-to-list 'flycheck-checkers 'stanc3)
+        (flycheck-mode)
+        (flycheck-buffer)
+        ;; Needs to wait for the async process.
+        (sleep-for test-flycheck-stan-sleep-for-time)
+        ;; Gold standard
+        ;; Define here rather than use the stancout.txt file.
+        ;; The filename (absolute path) and buffer object can be tested.
+        (let* ((flycheck-correct-errors (list)))
           ;;
           (expect
            (length flycheck-current-errors)

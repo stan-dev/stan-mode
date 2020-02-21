@@ -1,0 +1,62 @@
+
+Warning: deprecated language construct used in 'examples/example_error_and_info_undefined_variable.stan', line 1, column 0:
+   -------------------------------------------------
+     1:  # The Eight Schools example with non-centered parametrization.
+         ^
+     2:  # https://mc-stan.org/bayesplot/articles/visual-mcmc-diagnostics.html
+     3:  data {
+   -------------------------------------------------
+
+Comments beginning with # are deprecated. Please use // in place of # for line comments.
+
+
+Warning: deprecated language construct used in 'examples/example_error_and_info_undefined_variable.stan', line 2, column 0:
+   -------------------------------------------------
+     1:  # The Eight Schools example with non-centered parametrization.
+     2:  # https://mc-stan.org/bayesplot/articles/visual-mcmc-diagnostics.html
+         ^
+     3:  data {
+     4:    int<lower=0> J;
+   -------------------------------------------------
+
+Comments beginning with # are deprecated. Please use // in place of # for line comments.
+
+
+Warning: deprecated language construct used in 'examples/example_error_and_info_undefined_variable.stan', line 9, column 2:
+   -------------------------------------------------
+     7:  }
+     8:  parameters {
+     9:    # real mu;
+           ^
+    10:    real<lower=0> tau;
+    11:    vector[J] eta;
+   -------------------------------------------------
+
+Comments beginning with # are deprecated. Please use // in place of # for line comments.
+
+
+Warning: deprecated language construct used in 'examples/example_error_and_info_undefined_variable.stan', line 20, column 22:
+   -------------------------------------------------
+    18:    mu ~ normal(0, 10);
+    19:    tau ~ cauchy(0, 10);
+    20:    eta ~ normal(0, 1); # implies theta ~ normal(mu, tau)
+                               ^
+    21:    y ~ normal(theta, sigma);
+    22:  }
+   -------------------------------------------------
+
+Comments beginning with # are deprecated. Please use // in place of # for line comments.
+
+
+Semantic error in 'examples/example_error_and_info_undefined_variable.stan', line 15, column 10 to column 12:
+   -------------------------------------------------
+    13:  transformed parameters {
+    14:    vector[J] theta;
+    15:    theta = mu + tau * eta;
+                   ^
+    16:  }
+    17:  model {
+   -------------------------------------------------
+
+Identifier 'mu' not in scope.
+

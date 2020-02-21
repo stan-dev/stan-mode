@@ -6,9 +6,9 @@
 ;; Maintainer: Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>
 ;; URL: https://github.com/stan-dev/stan-mode/tree/master/company-stan
 ;; Keywords: languages
-;; Version: 10.0.0
+;; Version: 10.1.0
 ;; Created: 2019-07-14
-;; Package-Requires: ((emacs "24.3") (company "0.9.10") (stan-mode "10.0.0"))
+;; Package-Requires: ((emacs "24.3") (company "0.9.10") (stan-mode "10.1.0"))
 
 ;; This file is not part of GNU Emacs.
 
