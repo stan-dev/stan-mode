@@ -6,6 +6,13 @@
 <!-- https://engineering.giphy.com/how-to-make-gifs-with-ffmpeg/ -->
 ![Example](example.gif)
 
+## NEWS
+
+- 2020-02-21 Version 10.1.0 supporting `stanc3`.
+
+This version includes an updated version of `flycheck-stan` that supports `stanc3`. Two checkers are defined, `stanc` (old one for `stanc2` executable) and `stanc3` (new one for `stanc3` executable). By default, the updated `flycheck-stan` expect the executable names in the PATH to be `stanc2` and `stanc3`. Otherwise, the configuration must be specified by setting the `flycheck-stanc-executable` or `flycheck-stanc3-executable` variables. Please see the Configuration part.
+
+## Packages and tools included
 
 This repository contains several Emacs packages and tools to make editing [Stan](https://mc-stan.org) files easier. For information on Stan itself, see its [documentation](https://mc-stan.org/users/documentation/) and [example models](https://github.com/stan-dev/example-models).
 
@@ -212,7 +219,7 @@ The recommended mode of configuration is via the `use-package`. One example of c
 ```
 
 
-## For Developers
+## For developers
 ### Updating packages for a new Stan version
 
 To update stan-mode when a new version of the Stan language comes out:
