@@ -41,6 +41,32 @@
 (require 'eldoc-stan-create-json)
 
 
+;; ;; Use the following to extract string representation of json.
+;; ;; Load the entire function signature json.
+;; (defvar stan_lang-hash-table
+;;   (let* ((json-object-type 'hash-table)
+;;          (json-array-type 'list)
+;;          (json-key-type 'string))
+;;     ;;
+;;     (json-read-file
+;;      ;; https://www.gnu.org/software/emacs/manual/html_node/elisp/Multi_002dfile-Packages.html
+;;      ;; https://emacs.stackexchange.com/questions/30356/how-can-i-find-the-path-of-files-in-an-melpa-package
+;;      ;; Convert filename NAME to absolute, and canonicalize it.
+;;      (expand-file-name
+;;       "../stan-language-definitions/stan_lang.json"
+;;       ;; Return the directory component in file name FILENAME.
+;;       (file-name-directory
+;;        ;; Full name of file being loaded by load.
+;;        (or load-file-name
+;;            buffer-file-name)))))
+;;   "Hash table holding stan function signatures")
+;; ;; Encode std_normal_lpdf function
+;; (let ((json-encoding-pretty-print t))
+;;   (json-encode
+;;    (gethash "std_normal_lpdf"
+;;             (gethash "functions" stan_lang-hash-table))))
+
+
 ;;; The following tests are for lookup data generation functions.
 (describe "eldoc-stan-create-json--string-join-with-comma"
   ;;
@@ -60,13 +86,55 @@
     (expect
      (eldoc-stan-create-json--string-join-with-comma 'given '("a" "b" "c"))
      :to-equal
-     "a | b, c")))
+     "a | b, c"))
+  ;;
+  (describe "one argument example"
+    (it "joins a list of strings with commas in between"
+      (expect
+       (eldoc-stan-create-json--string-join-with-comma nil '("a"))
+       :to-equal
+       "a"))
+    ;;
+    (it "drops the first element if asked"
+      (expect
+       (eldoc-stan-create-json--string-join-with-comma t '("a"))
+       :to-equal
+       ""))
+    ;;
+    (it "uses | separator between the first and second elements if asked"
+      (expect
+       (eldoc-stan-create-json--string-join-with-comma 'given '("a"))
+       :to-equal
+       "a")))
+  ;;
+  (describe "zero arguments"
+    (it "joins a list of strings with commas in between"
+      (expect
+       (eldoc-stan-create-json--string-join-with-comma nil '())
+       :to-equal
+       ""))
+    ;;
+    (it "drops the first element if asked"
+      (expect
+       (eldoc-stan-create-json--string-join-with-comma t '())
+       :to-equal
+       ""))
+    ;;
+    (it "uses | separator between the first and second elements if asked"
+      (expect
+       (eldoc-stan-create-json--string-join-with-comma 'given '())
+       :to-equal
+       ""))))
 
 
 (describe "eldoc-stan-create-json--signature-to-string"
-  (let* ((neg_binomial_2_log_glm_lpmf
-          ;; This string was created using (json-encode ...)
-          "{
+  (describe "multiple arguments example"
+    (let* ((json-object-type 'hash-table)
+           (json-array-type 'list)
+           (json-key-type 'string)
+           (neg_binomial_2_log_glm_lpmf
+            ;; This string was created using (json-encode ...)
+            "{
   \"signatures\": [
     {
       \"return\": \"real\",
@@ -114,62 +182,173 @@
   \"keyword\": false,
   \"deprecated\": false,
   \"density\": true}")
-         (json-object-type 'hash-table)
-         (json-array-type 'list)
-         (json-key-type 'string)
-         (neg_binomial_2_log_glm_lpmf-hash
-          (json-read-from-string neg_binomial_2_log_glm_lpmf))
-         (neg_binomial_2_log_glm_lpmf-sigatures
-          (gethash "signatures" neg_binomial_2_log_glm_lpmf-hash)))
-    ;;
-    (it "transforms a signature to a string"
-      (expect
-       (eldoc-stan-create-json--signature-to-string
-        (nth 0 neg_binomial_2_log_glm_lpmf-sigatures)
-        nil)
-       :to-equal
-       "int[] y, matrix x, real alpha, vector beta, real phi")
+           (neg_binomial_2_log_glm_lpmf-hash
+            (json-read-from-string neg_binomial_2_log_glm_lpmf))
+           (neg_binomial_2_log_glm_lpmf-sigatures
+            (gethash "signatures" neg_binomial_2_log_glm_lpmf-hash)))
       ;;
-      (expect
-       (eldoc-stan-create-json--signature-to-string
-        (nth 1 neg_binomial_2_log_glm_lpmf-sigatures)
-        nil)
-       :to-equal
-       "int[] y, matrix x, vector alpha, vector beta, real phi"))
-    ;;
-    (it "drops the first element when asked"
-      (expect
-       (eldoc-stan-create-json--signature-to-string
-        (nth 0 neg_binomial_2_log_glm_lpmf-sigatures)
-        t)
-       :to-equal
-       "matrix x, real alpha, vector beta, real phi")
+      (it "transforms a signature to a string"
+        (expect
+         (eldoc-stan-create-json--signature-to-string
+          (nth 0 neg_binomial_2_log_glm_lpmf-sigatures)
+          nil)
+         :to-equal
+         "int[] y, matrix x, real alpha, vector beta, real phi")
+        ;;
+        (expect
+         (eldoc-stan-create-json--signature-to-string
+          (nth 1 neg_binomial_2_log_glm_lpmf-sigatures)
+          nil)
+         :to-equal
+         "int[] y, matrix x, vector alpha, vector beta, real phi"))
       ;;
-      (expect
-       (eldoc-stan-create-json--signature-to-string
-        (nth 1 neg_binomial_2_log_glm_lpmf-sigatures)
-        t)
-       :to-equal
-       "matrix x, vector alpha, vector beta, real phi"))
-    ;;
-    (it "uses | between the first and second elements when asked"
-      (expect
-       (eldoc-stan-create-json--signature-to-string
-        (nth 0 neg_binomial_2_log_glm_lpmf-sigatures)
-        'given)
-       :to-equal
-       "int[] y | matrix x, real alpha, vector beta, real phi")
+      (it "drops the first element when asked"
+        (expect
+         (eldoc-stan-create-json--signature-to-string
+          (nth 0 neg_binomial_2_log_glm_lpmf-sigatures)
+          t)
+         :to-equal
+         "matrix x, real alpha, vector beta, real phi")
+        ;;
+        (expect
+         (eldoc-stan-create-json--signature-to-string
+          (nth 1 neg_binomial_2_log_glm_lpmf-sigatures)
+          t)
+         :to-equal
+         "matrix x, vector alpha, vector beta, real phi"))
       ;;
-      (expect
-       (eldoc-stan-create-json--signature-to-string
-        (nth 1 neg_binomial_2_log_glm_lpmf-sigatures)
-        'given)
-       :to-equal
-       "int[] y | matrix x, vector alpha, vector beta, real phi"))))
+      (it "uses | between the first and second elements when asked"
+        (expect
+         (eldoc-stan-create-json--signature-to-string
+          (nth 0 neg_binomial_2_log_glm_lpmf-sigatures)
+          'given)
+         :to-equal
+         "int[] y | matrix x, real alpha, vector beta, real phi")
+        ;;
+        (expect
+         (eldoc-stan-create-json--signature-to-string
+          (nth 1 neg_binomial_2_log_glm_lpmf-sigatures)
+          'given)
+         :to-equal
+         "int[] y | matrix x, vector alpha, vector beta, real phi"))))
+  ;;
+  (describe "one argument example"
+    (let* ((json-object-type 'hash-table)
+           (json-array-type 'list)
+           (json-key-type 'string)
+           (std_normal_lpdf
+            ;; This string was created using (json-encode ...)
+            "{
+  \"signatures\": [
+    {
+      \"return\": \"real\",
+      \"args\": [
+        {
+          \"type\": \"reals\",
+          \"name\": \"y\"
+        }
+      ]
+    }
+  ],
+  \"sampling\": \"std_normal\",
+  \"operator\": false,
+  \"math\": false,
+  \"lpmf\": false,
+  \"lpdf\": true,
+  \"lcdf\": false,
+  \"lccdf\": false,
+  \"keyword\": false,
+  \"deprecated\": false,
+  \"density\": true
+}")
+           (std_normal_lpdf-hash
+            (json-read-from-string std_normal_lpdf))
+           (std_normal_lpdf-sigatures
+            (gethash "signatures" std_normal_lpdf-hash)))
+      ;;
+      (it "transforms a signature to a string"
+        (expect
+         (eldoc-stan-create-json--signature-to-string
+          (nth 0 std_normal_lpdf-sigatures)
+          nil)
+         :to-equal
+         "reals y"))
+      ;;
+      (it "drops the first element when asked"
+        (expect
+         (eldoc-stan-create-json--signature-to-string
+          (nth 0 std_normal_lpdf-sigatures)
+          t)
+         :to-equal
+         ""))
+      ;;
+      (it "uses | between the first and second elements when asked"
+        (expect
+         (eldoc-stan-create-json--signature-to-string
+          (nth 0 std_normal_lpdf-sigatures)
+          'given)
+         :to-equal
+         "reals y"))))
+  ;;
+  (describe "zero arguments example"
+    (let* ((json-object-type 'hash-table)
+           (json-array-type 'list)
+           (json-key-type 'string)
+           (std_normal_rng
+            ;; This string was created using (json-encode ...)
+            "{
+  \"signatures\": [
+    {
+      \"return\": \"real\",
+      \"args\": null
+    }
+  ],
+  \"sampling\": null,
+  \"operator\": false,
+  \"math\": true,
+  \"lpmf\": false,
+  \"lpdf\": false,
+  \"lcdf\": false,
+  \"lccdf\": false,
+  \"keyword\": false,
+  \"deprecated\": false,
+  \"density\": false
+}")
+           (std_normal_rng-hash
+            (json-read-from-string std_normal_rng))
+           (std_normal_rng-sigatures
+            (gethash "signatures" std_normal_rng-hash)))
+      ;;
+      (it "transforms a signature to a string"
+        (expect
+         (eldoc-stan-create-json--signature-to-string
+          (nth 0 std_normal_rng-sigatures)
+          nil)
+         :to-equal
+         ""))
+      ;;
+      (it "drops the first element when asked"
+        (expect
+         (eldoc-stan-create-json--signature-to-string
+          (nth 0 std_normal_rng-sigatures)
+          t)
+         :to-equal
+         ""))
+      ;;
+      (it "uses | between the first and second elements when asked"
+        (expect
+         (eldoc-stan-create-json--signature-to-string
+          (nth 0 std_normal_rng-sigatures)
+          'given)
+         :to-equal
+         "")))))
 
 
 (describe "eldoc-stan-create-json--signatures-to-list-of-strings"
-  (let* ((neg_binomial_2_log_glm_lpmf
+  (let* ((json-object-type 'hash-table)
+         (json-array-type 'list)
+         (json-key-type 'string)
+         (neg_binomial_2_log_glm_lpmf
           ;; This string was created using (json-encode ...)
           "{
   \"signatures\": [
@@ -219,9 +398,6 @@
   \"keyword\": false,
   \"deprecated\": false,
   \"density\": true}")
-         (json-object-type 'hash-table)
-         (json-array-type 'list)
-         (json-key-type 'string)
          (neg_binomial_2_log_glm_lpmf-hash
           (json-read-from-string neg_binomial_2_log_glm_lpmf))
          (neg_binomial_2_log_glm_lpmf-sigatures
