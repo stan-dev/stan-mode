@@ -55,11 +55,14 @@ LST is a list of strings."
   ;; drop-first vector element if drop-first
   ;; https://www.gnu.org/software/emacs/manual/html_node/elisp/Sequence-Functions.html
   (thread-first (cond
-                 ((eq drop-first 'given) (cons
-                                          (concat (nth 0 lst)
-                                                  " | "
-                                                  (nth 1 lst))
-                                          (seq-drop lst 2)))
+                 ;; If using | and two or more aguments exist.
+                 ((and (eq drop-first 'given)
+                       (>= (length lst) 2))
+                  (cons (concat (nth 0 lst)
+                                " | "
+                                (nth 1 lst))
+                        (seq-drop lst 2)))
+                 ;; Drop first if asked
                  ((eq drop-first t) (seq-drop lst 1))
                  ;; Otherwise do not mess with it.
                  (t lst))
