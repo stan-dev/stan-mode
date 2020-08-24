@@ -67,21 +67,21 @@
     "row_vector v",
     "vector v"],
   "to_matrix": [
-    "int[] a, int m, int n, int col_major",
-    "int[] a, int m, int n",
     "int[,] a",
-    "matrix m, int m, int n, int col_major",
-    "matrix m, int m, int n",
+    "int[] a, int m, int n",
+    "int[] a, int m, int n, int col_major",
     "matrix m",
-    "real[] a, int m, int n, int col_major",
-    "real[] a, int m, int n",
+    "matrix m, int m, int n",
+    "matrix m, int m, int n, int col_major",
     "real[,] a",
-    "row_vector v, int m, int n, int col_major",
-    "row_vector v, int m, int n",
+    "real[] a, int m, int n",
+    "real[] a, int m, int n, int col_major",
     "row_vector v",
-    "vector v, int m, int n, int col_major",
+    "row_vector v, int m, int n",
+    "row_vector v, int m, int n, int col_major",
+    "vector v",
     "vector v, int m, int n",
-    "vector v"],
+    "vector v, int m, int n, int col_major"],
   "to_array_2d": [
     "matrix m"],
   "to_array_1d": [
@@ -94,15 +94,13 @@
     "T x"],
   "tcrossprod": [
     "matrix x"],
-  "target": [
-    ""],
   "tanh": [
     "T x"],
   "tan": [
     "T x"],
   "tail": [
-    "row_vector rv, int n",
     "T[] sv, int n",
+    "row_vector rv, int n",
     "vector v, int n"],
   "sum": [
     "int[] x",
@@ -128,10 +126,18 @@
     "reals y, reals nu, reals mu, reals sigma"],
   "step": [
     "real x"],
+  "std_normal_rng": [
+    ""],
   "std_normal": [
     ""],
   "std_normal_lpdf": [
-    "reals y | "],
+    "reals y"],
+  "std_normal_lcdf": [
+    "reals y"],
+  "std_normal_lccdf": [
+    "reals y"],
+  "std_normal_cdf": [
+    "reals y"],
   "squared_distance": [
     "row_vector x, row_vector[] y",
     "row_vector x, vector[] y",
@@ -139,8 +145,6 @@
     "vector x, vector y"],
   "square": [
     "T x"],
-  "sqrt2": [
-    ""],
   "sqrt": [
     "T x"],
   "sort_indices_desc": [
@@ -186,8 +190,8 @@
   "sin": [
     "T x"],
   "segment": [
-    "row_vector rv, int i, int n",
     "T[] sv, int i, int n",
+    "row_vector rv, int i, int n",
     "vector v, int i, int n"],
   "sd": [
     "matrix x",
@@ -225,7 +229,11 @@
   "round": [
     "T x"],
   "rising_factorial": [
-    "real x, real n"],
+    "real x, int n"],
+  "reverse": [
+    "T[] v",
+    "row_vector v",
+    "vector v"],
   "rep_vector": [
     "real x, int m"],
   "rep_row_vector": [
@@ -240,6 +248,8 @@
     "T x, int n"],
   "reject": [
     "T1 x1, ... ..., TN xN"],
+  "reduce_sum": [
+    "F f, T[] x, int grainsize, T1 s1, T2 s2, ... ..."],
   "rayleigh_rng": [
     "reals sigma"],
   "rayleigh": [
@@ -266,13 +276,13 @@
   "quad_form": [
     "matrix A, matrix B",
     "matrix A, vector B"],
-  "qr_thin_r": [
+  "qr_thin_R": [
     "matrix A"],
-  "qr_thin_q": [
+  "qr_thin_Q": [
     "matrix A"],
-  "qr_r": [
+  "qr_R": [
     "matrix A"],
-  "qr_q": [
+  "qr_Q": [
     "matrix A"],
   "prod": [
     "int[] x",
@@ -284,8 +294,6 @@
     "T1 x1, ... ..., TN xN"],
   "pow": [
     "real x, real y"],
-  "positive_infinity": [
-    ""],
   "poisson_rng": [
     "reals lambda"],
   "poisson": [
@@ -300,22 +308,24 @@
     "ints n | reals alpha"],
   "poisson_log_glm": [
     "matrix x, real alpha, vector beta",
-    "matrix x, vector alpha, vector beta"],
+    "matrix x, vector alpha, vector beta",
+    "matrix x, real alpha, vector beta",
+    "matrix x, vector alpha, vector beta",
+    "row_vector x, real alpha, vector beta",
+    "row_vector x, vector alpha, vector beta"],
   "poisson_log_glm_lpmf": [
+    "int y | matrix x, real alpha, vector beta",
+    "int y | matrix x, vector alpha, vector beta",
     "int[] y | matrix x, real alpha, vector beta",
-    "int[] y | matrix x, vector alpha, vector beta"],
+    "int[] y | matrix x, vector alpha, vector beta",
+    "int[] y | row_vector x, real alpha, vector beta",
+    "int[] y | row_vector x, vector alpha, vector beta"],
   "poisson_lcdf": [
     "ints n | reals lambda"],
   "poisson_lccdf": [
     "ints n | reals lambda"],
   "poisson_cdf": [
     "ints n, reals lambda"],
-  "pi": [
-    ""],
-  "phi_approx": [
-    "T x"],
-  "phi": [
-    "T x"],
   "pareto_type_2_rng": [
     "reals mu, reals lambda, reals alpha"],
   "pareto_type_2": [
@@ -354,28 +364,31 @@
     "vector eta, vectors c"],
   "ordered_logistic_lpmf": [
     "ints k | vector eta, vectors c"],
+  "ordered_logistic_glm": [
+    "matrix x, vector beta, vector c",
+    "row_vector x, vector beta, vector c",
+    "matrix x, vector beta, vector c",
+    "row_vector x, vector beta, vector c"],
+  "ordered_logistic_glm_lpmf": [
+    "int y | matrix x, vector beta, vector c",
+    "int y | row_vector x, vector beta, vector c",
+    "int[] y | matrix x, vector beta, vector c",
+    "int[] y | row_vector x, vector beta, vector c"],
   "operator||": [
-    "int x, int y",
-    "real x, real y"],
-  "operator_logial_equal": [
     "int x, int y",
     "real x, real y"],
   "operator^": [
     "real x, real y"],
   "operator\\": [
-    "int x, int y",
     "matrix A, matrix B",
-    "matrix A, vector b",
-    "matrix B, matrix A",
-    "matrix x, real y",
-    "real x, real y",
-    "row_vector b, matrix A",
-    "row_vector x, real y",
-    "vector x, real y"],
+    "matrix A, vector b"],
   "operator>=": [
     "int x, int y",
     "real x, real y"],
   "operator>": [
+    "int x, int y",
+    "real x, real y"],
+  "operator==": [
     "int x, int y",
     "real x, real y"],
   "operator<=": [
@@ -390,7 +403,15 @@
     "real x, real y",
     "row_vector x, real y",
     "vector x, real y"],
-  "operator.\\": [
+  "operator/": [
+    "int x, int y",
+    "matrix B, matrix A",
+    "matrix x, real y",
+    "real x, real y",
+    "row_vector b, matrix A",
+    "row_vector x, real y",
+    "vector x, real y"],
+  "operator.^": [
     "matrix x, matrix y",
     "matrix x, real y",
     "real x, matrix y",
@@ -403,6 +424,16 @@
   "operator./=": [
     "matrix x, matrix y",
     "matrix x, real y",
+    "row_vector x, real y",
+    "row_vector x, row_vector y",
+    "vector x, real y",
+    "vector x, vector y"],
+  "operator./": [
+    "matrix x, matrix y",
+    "matrix x, real y",
+    "real x, matrix y",
+    "real x, row_vector y",
+    "real x, vector y",
     "row_vector x, real y",
     "row_vector x, row_vector y",
     "vector x, real y",
@@ -430,16 +461,16 @@
     "matrix x",
     "matrix x, matrix y",
     "matrix x, real y",
-    "real x, matrix y",
     "real x",
+    "real x, matrix y",
     "real x, real y",
     "real x, row_vector y",
     "real x, vector y",
-    "row_vector x, real y",
     "row_vector x",
+    "row_vector x, real y",
     "row_vector x, row_vector y",
-    "vector x, real y",
     "vector x",
+    "vector x, real y",
     "vector x, vector y"],
   "operator+=": [
     "int x, int y",
@@ -455,8 +486,8 @@
     "int x, int y",
     "matrix x, matrix y",
     "matrix x, real y",
-    "real x, matrix y",
     "real x",
+    "real x, matrix y",
     "real x, real y",
     "real x, row_vector y",
     "real x, vector y",
@@ -502,12 +533,10 @@
     "int x",
     "real x"],
   "num_elements": [
+    "T[] x",
     "matrix x",
     "row_vector x",
-    "T[] x",
     "vector x"],
-  "not_a_number": [
-    ""],
   "normal_rng": [
     "reals mu, reals sigma"],
   "normal": [
@@ -520,14 +549,20 @@
     "reals y | reals mu, reals sigma"],
   "normal_id_glm": [
     "matrix x, real alpha, vector beta, real sigma",
-    "matrix x, vector alpha, vector beta, real sigma"],
-  "normal_id_glm_lpmf": [
+    "matrix x, vector alpha, vector beta, real sigma",
+    "matrix x, real alpha, vector beta, real sigma",
+    "matrix x, vector alpha, vector beta, real sigma",
+    "row_vector x, real alpha, vector beta, real sigma",
+    "row_vector x, vector alpha, vector beta, real sigma"],
+  "normal_id_glm_lpdf": [
+    "real y | matrix x, real alpha, vector beta, real sigma",
+    "real y | matrix x, vector alpha, vector beta, real sigma",
     "vector y | matrix x, real alpha, vector beta, real sigma",
-    "vector y | matrix x, vector alpha, vector beta, real sigma"],
+    "vector y | matrix x, vector alpha, vector beta, real sigma",
+    "vector y | row_vector x, real alpha, vector beta, real sigma",
+    "vector y | row_vector x, vector alpha, vector beta, real sigma"],
   "normal_cdf": [
     "reals y, reals mu, reals sigma"],
-  "negative_infinity": [
-    ""],
   "neg_binomial_rng": [
     "reals alpha, reals beta"],
   "neg_binomial": [
@@ -545,19 +580,27 @@
   "neg_binomial_2": [
     "reals mu, reals phi"],
   "neg_binomial_2_lpmf": [
-    "ints y | reals mu, reals phi"],
+    "ints n | reals mu, reals phi"],
   "neg_binomial_2_log_rng": [
     "reals eta, reals phi"],
   "neg_binomial_2_log": [
     "reals eta, reals phi"],
   "neg_binomial_2_log_lpmf": [
-    "ints y | reals eta, reals phi"],
+    "ints n | reals eta, reals phi"],
   "neg_binomial_2_log_glm": [
     "matrix x, real alpha, vector beta, real phi",
-    "matrix x, vector alpha, vector beta, real phi"],
+    "matrix x, vector alpha, vector beta, real phi",
+    "matrix x, real alpha, vector beta, real phi",
+    "matrix x, vector alpha, vector beta, real phi",
+    "row_vector x, real alpha, vector beta, real phi",
+    "row_vector x, vector alpha, vector beta, real phi"],
   "neg_binomial_2_log_glm_lpmf": [
+    "int y | matrix x, real alpha, vector beta, real phi",
+    "int y | matrix x, vector alpha, vector beta, real phi",
     "int[] y | matrix x, real alpha, vector beta, real phi",
-    "int[] y | matrix x, vector alpha, vector beta, real phi"],
+    "int[] y | matrix x, vector alpha, vector beta, real phi",
+    "int[] y | row_vector x, real alpha, vector beta, real phi",
+    "int[] y | row_vector x, vector alpha, vector beta, real phi"],
   "neg_binomial_2_lcdf": [
     "ints n | reals mu, reals phi"],
   "neg_binomial_2_lccdf": [
@@ -573,6 +616,12 @@
   "multinomial": [
     "vector theta"],
   "multinomial_lpmf": [
+    "int[] y | vector theta"],
+  "multinomial_logit_rng": [
+    "vector theta, int N"],
+  "multinomial_logit": [
+    "vector theta"],
+  "multinomial_logit_lpmf": [
     "int[] y | vector theta"],
   "multi_student_t_rng": [
     "real nu, row_vector mu, matrix Sigma",
@@ -642,8 +691,8 @@
   "modified_bessel_first_kind": [
     "int v, real z"],
   "min": [
-    "int[] x",
     "int x, int y",
+    "int[] x",
     "matrix x",
     "real[] x",
     "row_vector x",
@@ -666,22 +715,22 @@
     "matrix A, matrix B",
     "matrix A, vector b"],
   "max": [
-    "int[] x",
     "int x, int y",
+    "int[] x",
     "matrix x",
     "real[] x",
     "row_vector x",
     "vector x"],
+  "matrix_power": [
+    "matrix A, int B"],
   "matrix_exp_multiply": [
     "matrix A, matrix B"],
   "matrix_exp": [
     "matrix A"],
   "map_rect": [
     "F f, vector phi, vector[] theta, data real[,] x_r, data int[,] x_i"],
-  "machine_precision": [
-    ""],
   "lognormal_rng": [
-    "reals mu, reals beta"],
+    "reals mu, reals sigma"],
   "lognormal": [
     "reals mu, reals sigma"],
   "lognormal_lpdf": [
@@ -708,8 +757,8 @@
     "reals y, reals mu, reals sigma"],
   "log_sum_exp": [
     "matrix x",
-    "real[] x",
     "real x, real y",
+    "real[] x",
     "row_vector x",
     "vector x"],
   "log_softmax": [
@@ -727,7 +776,6 @@
   "log_determinant": [
     "matrix A"],
   "log2": [
-    "",
     "T x"],
   "log1p_exp": [
     "T x"],
@@ -740,7 +788,6 @@
   "log1m": [
     "T x"],
   "log10": [
-    "",
     "T x"],
   "log": [
     "T x"],
@@ -784,8 +831,6 @@
     "T x"],
   "inv_sqrt": [
     "T x"],
-  "inv_phi": [
-    "T x"],
   "inv_logit": [
     "T x"],
   "inv_gamma_rng": [
@@ -814,16 +859,13 @@
     "reals y | reals nu"],
   "inv_chi_square_cdf": [
     "reals y, reals nu"],
+  "inv_Phi": [
+    "T x"],
   "inv": [
     "T x"],
-  "integrate_ode_rk45": [
-    "function ode, real[] initial_state, real initial_time, real[] times, real[] theta, real[] x_r, int[] x_i",
-    "function ode, real[] initial_state, real initial_time, real[] times, real[] theta, real[] x_r, int[] x_i, real rel_tol, real abs_tol, int max_num_steps"],
-  "integrate_ode_bdf": [
-    "function ode, real[] initial_state, real initial_time, real[] times, real[] theta, data real[] x_r, data int[] x_i, data real rel_tol, data real abs_tol, data int max_num_steps",
-    "function ode, real[] initial_state, real initial_time, real[] times, real[] theta, data real[] x_r, data int[] x_i"],
-  "integrate_ode": [
-    "function ode, real[] initial_state, real initial_time, real[] times, real[] theta, real[] x_r, int[] x_i"],
+  "integrate_1d": [
+    "function integrand, real a, real b, real[] theta, real[] x_r, int[] x_i, real relative_tolerance",
+    "function integrand, real a, real b, real[] theta, real[] x_r, int[] x_i"],
   "int_step": [
     "int x",
     "real x"],
@@ -838,8 +880,8 @@
   "hypergeometric_lpmf": [
     "int n | int N, int a, int b"],
   "head": [
-    "row_vector rv, int n",
     "T[] sv, int n",
+    "row_vector rv, int n",
     "vector v, int n"],
   "gumbel_rng": [
     "reals mu, reals beta"],
@@ -853,8 +895,6 @@
     "reals y | reals mu, reals beta"],
   "gumbel_cdf": [
     "reals y, reals mu, reals beta"],
-  "get_lp": [
-    ""],
   "gaussian_dlm_obs": [
     "matrix F, matrix G, matrix V, matrix W, vector m0, matrix C0",
     "matrix F, matrix G, vector V, matrix W, vector m0, matrix C0"],
@@ -943,8 +983,6 @@
     "matrix A"],
   "eigenvalues_sym": [
     "matrix A"],
-  "e": [
-    ""],
   "double_exponential_rng": [
     "reals mu, reals sigma"],
   "double_exponential": [
@@ -1009,12 +1047,12 @@
   "crossprod": [
     "matrix x"],
   "cov_exp_quad": [
-    "real[] x1, real[] x2, real alpha, real rho",
     "real[] x, real alpha, real rho",
-    "row_vectors x1, row_vectors x2, real alpha, real rho",
+    "real[] x1, real[] x2, real alpha, real rho",
     "row_vectors x, real alpha, real rho",
-    "vectors x1, vectors x2, real alpha, real rho",
-    "vectors x, real alpha, real rho"],
+    "row_vectors x1, row_vectors x2, real alpha, real rho",
+    "vectors x, real alpha, real rho",
+    "vectors x1, vectors x2, real alpha, real rho"],
   "cosh": [
     "T x"],
   "cos": [
@@ -1077,6 +1115,14 @@
     "vector beta"],
   "categorical_logit_lpmf": [
     "ints y | vector beta"],
+  "categorical_logit_glm": [
+    "matrix x, vector alpha, matrix beta",
+    "row_vector x, vector alpha, matrix beta",
+    "vector theta"],
+  "categorical_logit_glm_lpmf": [
+    "int y | matrix x, vector alpha, matrix beta",
+    "int y | row_vector x, vector alpha, matrix beta",
+    "int[] y | vector theta"],
   "block": [
     "matrix x, int i, int j, int n_rows, int n_cols"],
   "binomial_rng": [
@@ -1103,10 +1149,6 @@
     "reals alpha, reals beta"],
   "beta_proportion_rng": [
     "reals mu, reals kappa"],
-  "beta_proportion": [
-    "reals mu, reals kappa"],
-  "beta_proportion_lpdf": [
-    "reals theta | reals mu, reals kappa"],
   "beta_proportion_lcdf": [
     "reals theta | reals mu, reals kappa"],
   "beta_proportion_lccdf": [
@@ -1151,10 +1193,18 @@
     "ints y | reals alpha"],
   "bernoulli_logit_glm": [
     "matrix x, real alpha, vector beta",
-    "matrix x, vector alpha, vector beta"],
+    "matrix x, vector alpha, vector beta",
+    "matrix x, real alpha, vector beta",
+    "matrix x, vector alpha, vector beta",
+    "row_vector x, real alpha, vector beta",
+    "row_vector x, vector alpha, vector beta"],
   "bernoulli_logit_glm_lpmf": [
+    "int y | matrix x, real alpha, vector beta",
+    "int y | matrix x, vector alpha, vector beta",
     "int[] y | matrix x, real alpha, vector beta",
-    "int[] y | matrix x, vector alpha, vector beta"],
+    "int[] y | matrix x, vector alpha, vector beta",
+    "int[] y | row_vector x, real alpha, vector beta",
+    "int[] y | row_vector x, vector alpha, vector beta"],
   "bernoulli_lcdf": [
     "ints y | reals theta"],
   "bernoulli_lccdf": [
@@ -1190,11 +1240,19 @@
   "append_array": [
     "T x, T y"],
   "algebra_solver": [
-    "function algebra_system, vector y_guess, vector theta, real[] x_r, int[] x_i, real rel_tol, real f_tol, int max_steps",
-    "function algebra_system, vector y_guess, vector theta, real[] x_r, int[] x_i"],
+    "function algebra_system, vector y_guess, vector theta, real[] x_r, int[] x_i",
+    "function algebra_system, vector y_guess, vector theta, real[] x_r, int[] x_i, real rel_tol, real f_tol, int max_steps"],
+  "add_diag": [
+    "matrix m, real d",
+    "matrix m, row_vector d",
+    "matrix m, vector d"],
   "acosh": [
     "T x"],
   "acos": [
     "T x"],
   "abs": [
+    "T x"],
+  "Phi_approx": [
+    "T x"],
+  "Phi": [
     "T x"]}
