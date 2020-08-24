@@ -67,7 +67,7 @@ link :
 # the create-eldoc-stan-json.el file is loaded and the following
 # is executed.
 # http://ergoemacs.org/emacs/elisp_running_script_in_batch_mode.html
-$(ELDOC_STAN_JSON) : $(STAN_LANG)
+$(ELDOC_STAN_JSON) : $(STAN_LANG) eldoc-stan-create-json.el
 	$(CASK) exec $(EMACS) --batch \
 	--load eldoc-stan-create-json.el \
 	--eval '(eldoc-stan-create-json--write-args-json (eldoc-stan-create-json--create-function-hash-table "$(STAN_LANG)" (quote given)) "$(ELDOC_STAN_JSON)")'
