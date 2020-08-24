@@ -1133,24 +1133,32 @@
                     t))
          (fun-names (hash-table-keys ht))
          ;; Extract by patterns
+         ;; Exclude std_normal_* because it only has one argument for data.
          (fun-names-lpdf
-          (seq-filter (lambda (elt) (string-match "_lpdf$" elt))
+          (seq-filter (lambda (elt) (and (string-match "_lpdf$" elt)
+                                         (not (string-match "^std_normal_" elt))))
                       fun-names))
          (fun-names-lpmf
-          (seq-filter (lambda (elt) (string-match "_lpmf$" elt))
+          (seq-filter (lambda (elt) (and (string-match "_lpmf$" elt)
+                                         (not (string-match "^std_normal_" elt))))
                       fun-names))
          (fun-names-lcdf
-          (seq-filter (lambda (elt) (string-match "_lcdf$" elt))
+          (seq-filter (lambda (elt) (and (string-match "_lcdf$" elt)
+                                         (not (string-match "^std_normal_" elt))))
                       fun-names))
          (fun-names-lccdf
-          (seq-filter (lambda (elt) (string-match "_lccdf$" elt))
+          (seq-filter (lambda (elt) (and (string-match "_lccdf$" elt)
+                                         (not (string-match "^std_normal_" elt))))
                       fun-names))
+         ;; Add std_normal_* here because it only has one argument for data
+         ;; and behaves similarly to others.
          (fun-names-others
           (seq-filter (lambda (elt)
-                        (not (or (string-match "_lpdf$" elt)
-                                 (string-match "_lpmf$" elt)
-                                 (string-match "_lcdf$" elt)
-                                 (string-match "_lccdf$" elt))))
+                        (or (not (or (string-match "_lpdf$" elt)
+                                     (string-match "_lpmf$" elt)
+                                     (string-match "_lcdf$" elt)
+                                     (string-match "_lccdf$" elt)))
+                            (string-match "^std_normal_" elt)))
                       fun-names)))
     ;;
     (it "creates a hash table"
