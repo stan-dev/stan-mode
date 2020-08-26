@@ -8,9 +8,8 @@
 
 ## NEWS
 
-- 2020-02-21 Version 10.1.0 supporting `stanc3`.
+- 2020-08-30 Version 10.2.0 update for Stan version 2.24
 
-This version includes an updated version of `flycheck-stan` that supports `stanc3`. Two checkers are defined, `stanc` (old one for `stanc2` executable) and `stanc3` (new one for `stanc3` executable). By default, the updated `flycheck-stan` expect the executable names in the PATH to be `stanc2` and `stanc3`. Otherwise, the configuration must be specified by setting the `flycheck-stanc-executable` or `flycheck-stanc3-executable` variables. Please see the Configuration part.
 
 ## Packages and tools included
 
@@ -29,7 +28,7 @@ This repository contains several Emacs packages and tools to make editing [Stan]
 
 - [`stan-snippets`](https://github.com/stan-dev/stan-mode/tree/master/stan-snippets): Adds Stan support for [yasnippet](https://github.com/capitaomorte/yasnippet). Yasnippet is a template system for Emacs. Snippets are defined for blocks, control structures, and *all* the built-in functions and distributions.
 
-- [`ac-stan`](https://github.com/stan-dev/stan-mode/tree/master/ac-stan): Adds a [`auto-complete`](https://github.com/auto-complete/auto-complete) stan dictionary.
+- [`ac-stan`](https://github.com/stan-dev/stan-mode/tree/master/ac-stan): Adds a [`auto-complete`](https://github.com/auto-complete/auto-complete) stan dictionary. This is not on MELPA because `auto-complete` itself is semi-deprecated.
 
 - [`indent-stan-files`](https://github.com/stan-dev/stan-mode/tree/master/indent-stan-files): A shell script that uses `stan-mode` to indent a file.
 
@@ -54,9 +53,6 @@ You can then install the packages using the following commands:
 <kbd>M-x package-install [RET] flycheck-stan [RET]</kbd><br>
 <kbd>M-x package-install [RET] stan-snippets [RET]</kbd><br>
 
-If you use `auto-complete`, also do the following:<br>
-<kbd>M-x package-install [RET] stan-snippets [RET]</kbd><br>
-
 If the installation does not work, try refreshing the package list:
 
 <kbd>M-x package-refresh-contents [RET]</kbd>
@@ -72,10 +68,7 @@ Or add the following to your `init.el` to ensure installation of these packages:
    company-stan
    eldoc-stan
    flycheck-stan
-   stan-snippets
-   ;; If you use auto-complete, uncomment the line below.
-   ;; ac-stan
-   ))
+   stan-snippets))
 ```
 
 ### Via Cask
@@ -91,8 +84,6 @@ Simply add the following to your configuration Cask file:
 (depends-on "eldoc-stan")
 (depends-on "flycheck-stan")
 (depends-on "stan-snippets")
-;; If you use auto-complete, uncomment the line below.
-;; (depends-on "ac-stan")
 ```
 and from the command line in the same directory as the Cask file use `cask` to install the packages,
 ```console
@@ -153,8 +144,6 @@ The recommended mode of configuration is via the `use-package`. One example of c
 
 ;;; stan-mode.el
 (use-package stan-mode
-  ;; Uncomment if directly loading from your development repo
-  ;; :load-path "your-path/stan-mode/stan-mode"
   :mode ("\\.stan\\'" . stan-mode)
   :hook (stan-mode . stan-mode-setup)
   ;;
@@ -164,8 +153,6 @@ The recommended mode of configuration is via the `use-package`. One example of c
 
 ;;; company-stan.el
 (use-package company-stan
-  ;; Uncomment if directly loading from your development repo
-  ;; :load-path "your-path/stan-mode/company-stan/"
   :hook (stan-mode . company-stan-setup)
   ;;
   :config
@@ -174,8 +161,6 @@ The recommended mode of configuration is via the `use-package`. One example of c
 
 ;;; eldoc-stan.el
 (use-package eldoc-stan
-  ;; Uncomment if directly loading from your development repo
-  ;; :load-path "your-path/stan-mode/eldoc-stan/"
   :hook (stan-mode . eldoc-stan-setup)
   ;;
   :config
@@ -197,18 +182,15 @@ The recommended mode of configuration is via the `use-package`. One example of c
 
 ;;; stan-snippets.el
 (use-package stan-snippets
-  ;; Uncomment if directly loading from your development repo
-  ;; :load-path "your-path/stan-mode/stan-snippets/"
   :hook (stan-mode . stan-snippets-initialize)
   ;;
   :config
   ;; No configuration options as of now.
   )
 
-;;; ac-stan.el
+;;; ac-stan.el (Not on MELPA; Need manual installation)
 (use-package ac-stan
-  ;; Uncomment if directly loading from your development repo
-  ;; :load-path "path-to-your-repo/stan-mode/ac-stan/"
+  :load-path "path-to-your-directory/ac-stan/"
   ;; Delete the line below if using.
   :disabled t
   :hook (stan-mode . stan-ac-mode-setup)
@@ -224,7 +206,7 @@ The recommended mode of configuration is via the `use-package`. One example of c
 
 To update stan-mode when a new version of the Stan language comes out:
 
-1. Replace `stan-lang/stan-functions-2.19.0.txt` with the newest version of the `stan-functions.txt` file in the [rstan repo](https://github.com/stan-dev/rstan/blob/develop/rstan/rstan/tools/stan-functions.txt). The version string must exist in the file name and it is the Stan version.
+1. Replace `stan-lang/stan-functions-MAJORVERSION_MINORVERSION.txt` with the newest version generated by `extract_function_sigs.py` in the [stan-dev/docs repo](https://github.com/stan-dev/docs). The version string must exist in the file name and it is the Stan version.
 2. Clean and rebuild all generated files. Fix issues in testing and linting as necessary.
 ``` shell
 $ make clean
@@ -281,6 +263,11 @@ The following make commands are available at the top-level `Makefile`. Each pack
 - [`local-melpa`](https://github.com/kaz-yos/melpa/tree/local-melpa-stan): Provides a local version of MELPA to make the current development version available via the `package.el` interface. Used to avoid installability issue during linting. Also allows package installation checking.
 - [`rstanarm`](https://github.com/kaz-yos/rstanarm): Used to provide examples of complicated stan code in indentation and syntax highlighting tests for the `stan-mode` package.
 
+
+### TODO items
+- eldoc-stan: Correctly ignore , in [,]
+- flycheck-stan: Handle end of column
+- company-stan: Detect context and modify candidates
 
 ## License
 
