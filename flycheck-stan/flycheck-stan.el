@@ -754,7 +754,8 @@ References:
   ;; https://www.flycheck.org/en/27/_downloads/flycheck.html#Defining-syntax-checkers
   :command ("stanc3"
             "--o=/dev/null"
-            "--include_paths=."
+            ;; As of stanc3 2.24
+            "--include-paths=."
             source)
   ;; Function to parse an stanc output into the flycheck-error format.
   :error-parser flycheck-stan-parser-stanc3
