@@ -6,11 +6,8 @@
 
 
 ## Installation
-Install this package using the built-in package manager: `package.el`. `ac-stan` is available from [MELPA](http://melpa.org). If you're not already using MELPA, follow its [installation instructions](http://melpa.org/#/getting-started).
 
-You can then install it using the following command:
-
-<kbd>M-x package-install [RET] ac-stan [RET]</kbd>
+This is not on MELPA because `auto-complete` itself is semi-deprecated. Please clone this repo or otherwise copy the `ac-stan` folder to your local system.
 
 
 ## Configuration
@@ -18,6 +15,7 @@ An example configuration using the [`use-package`](https://github.com/jwiegley/u
 
 ```{lisp}
 (use-package ac-stan
+  :load-path "path-to-your-directory/ac-stan/"
   ;; Add a hook to setup `ac-stan' upon `stan-mode' entry
   :hook (stan-mode . ac-stan-ac-mode-setup))
 ```
