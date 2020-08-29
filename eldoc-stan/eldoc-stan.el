@@ -127,6 +127,7 @@ https://github.com/nflath/c-eldoc/blob/master/c-eldoc.el"
                      (match-beginning 0) (match-end 0))
                     argument-index))))))))
 
+;; This is currently unused.
 (defun eldoc-stan--substring-propertize (string start end &rest properties)
   "Return a string with a substring propertized.
 
@@ -161,7 +162,12 @@ the construction of these regexp."
                                                 " "
                                                 (substring arguments paren-pos))
             arguments (replace-regexp-in-string "\\s-+" " " arguments)
-            arguments (replace-regexp-in-string " *, *" ", " arguments)
+            ;; Commented out. This inserts SPC in "real[, ]".
+            ;; We only deal with a clean arguments string generated
+            ;; from a list. No messy numbers of spaces exist.
+            ;; Any number of spaces before , to zero.
+            ;; Any number of spaces after , to one.
+            ;; arguments (replace-regexp-in-string " *, *" ", " arguments)
             arguments (replace-regexp-in-string "( +" "(" arguments)
             arguments (replace-regexp-in-string " +)" ")" arguments))
       ;; find the correct argument to highlight, taking `...'
@@ -170,9 +176,13 @@ the construction of these regexp."
                   pos
                   (not (string= (substring arguments (+ pos 2) (+ pos 6))
                                 "...)")))
-        ;; Move pos to the next separator and decrease index by 1.
-        (setq pos (string-match "[,|]" arguments (1+ pos))
-              index (1- index)))
+        ;; Move pos to the next separator , or |.
+        ;; This does not ignore , in real[,].
+        (setq pos
+              ;; (string-match REGEXP STRING &optional START)
+              (string-match "[,|]" arguments (1+ pos)))
+        ;; Decrease index by 1.
+        (setq index (1- index)))
       ;; while loop exits when index == 1.
       ;; pos should be at , right before the current argument.
       ;; embolden the current argument
