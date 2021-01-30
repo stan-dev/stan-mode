@@ -6,9 +6,9 @@
 ;; Maintainer: Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>
 ;; URL: https://github.com/stan-dev/stan-mode/tree/master/ac-stan
 ;; Keywords: languages
-;; Version: 10.1.0
+;; Version: 10.2.1
 ;; Created: 2019-07-26
-;; Package-Requires: ((emacs "24") (auto-complete "1.4.0") (stan-mode "10.1.0") (stan-snippets "10.1.0"))
+;; Package-Requires: ((emacs "24") (auto-complete "1.4.0") (stan-mode "10.2.1") (stan-snippets "10.2.1"))
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by

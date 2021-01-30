@@ -6,7 +6,7 @@
 ;; Maintainer: Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>
 ;; URL: https://github.com/stan-dev/stan-mode/tree/master/stan-mode
 ;; Keywords: languages
-;; Version: 10.1.0
+;; Version: 10.2.1
 ;; Created: 2019-07-26
 ;; Package-Requires: ((emacs "25.1"))
 
