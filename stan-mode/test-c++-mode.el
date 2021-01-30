@@ -45,7 +45,7 @@
 (require 'seq)
 (require 'rx)
 (require 'cc-mode)
-
+(require 'stan-mode)
 
 ;;; c++-mode check
 ;; stan-mode may interfere with c++-mode syntax highlighting
@@ -78,7 +78,202 @@ START is the optional start position of search."
                            src-highlighted)
       (error "String not found! Thus, the face is undefined!"))))
 
-(describe "c++-mode font lock (without stan-mode loaded)"
+(describe "c++-mode font lock (WITHOUT stan-mode loaded)"
+  (let* ((src-highlighted
+          (test-c++--highlight
+           ;; Taken from:
+           ;; https://github.com/stan-dev/stan/blob/develop/src/stan/mcmc/hmc/nuts/adapt_unit_e_nuts.hpp
+           "#ifndef STAN_MCMC_HMC_NUTS_ADAPT_UNIT_E_NUTS_HPP
+#define STAN_MCMC_HMC_NUTS_ADAPT_UNIT_E_NUTS_HPP
+
+#include <stan/callbacks/logger.hpp>
+#include <stan/mcmc/hmc/nuts/unit_e_nuts.hpp>
+#include <stan/mcmc/stepsize_adapter.hpp>
+
+namespace stan {
+namespace mcmc {
+/**
+ * The No-U-Turn sampler (NUTS) with multinomial sampling
+ * with a Gaussian-Euclidean disintegration and unit metric
+ * and adaptive step size
+ */
+template <class Model, class BaseRNG>
+class adapt_unit_e_nuts : public unit_e_nuts<Model, BaseRNG>,
+                          public stepsize_adapter {
+ public:
+  adapt_unit_e_nuts(const Model& model, BaseRNG& rng)
+      : unit_e_nuts<Model, BaseRNG>(model, rng) {}
+
+  ~adapt_unit_e_nuts() {}
+
+  sample transition(sample& init_sample, callbacks::logger& logger) {
+    sample s = unit_e_nuts<Model, BaseRNG>::transition(init_sample, logger);
+
+    if (this->adapt_flag_)
+      this->stepsize_adaptation_.learn_stepsize(this->nom_epsilon_,
+                                                s.accept_stat());
+
+    return s;
+  }
+
+  void disengage_adaptation() {
+    base_adapter::disengage_adaptation();
+    this->stepsize_adaptation_.complete_adaptation(this->nom_epsilon_);
+  }
+};
+
+}  // namespace mcmc
+}  // namespace stan
+#endif")))
+    ;;
+    (describe "gives #ifndef font-lock-preprocessor-face and handle its body"
+      (it "#ifndef STAN_MCMC_HMC_NUTS_ADAPT_UNIT_E_NUTS_HPP"
+        (expect
+         (test-c++--check-face (rx "#ifndef STAN_MCMC_HMC_NUTS_ADAPT_UNIT_E_NUTS_HPP") src-highlighted)
+         :to-be
+         'font-lock-preprocessor-face))
+      ;; Leave spaces to align
+      (it "        STAN_MCMC_HMC_NUTS_ADAPT_UNIT_E_NUTS_HPP"
+        (expect
+         (test-c++--check-face (rx "STAN_MCMC_HMC_NUTS_ADAPT_UNIT_E_NUTS_HPP") src-highlighted)
+         :to-be
+         nil)))
+    ;;
+    (describe "gives #define font-lock-preprocessor-face and handle its body"
+      (it "#define STAN_MCMC_HMC_NUTS_ADAPT_UNIT_E_NUTS_HPP"
+        (expect
+         (test-c++--check-face (rx "#define STAN_MCMC_HMC_NUTS_ADAPT_UNIT_E_NUTS_HPP") src-highlighted)
+         :to-be
+         'font-lock-preprocessor-face))
+      (it "        STAN_MCMC_HMC_NUTS_ADAPT_UNIT_E_NUTS_HPP"
+        (expect
+         (test-c++--check-face (rx "STAN_MCMC_HMC_NUTS_ADAPT_UNIT_E_NUTS_HPP
+
+#include <stan/callbacks/logger.hpp>") src-highlighted)
+         :to-be
+         'font-lock-variable-name-face)))
+    ;;
+    (describe "gives #include font-lock-preprocessor-face and handle its body"
+      (it "#include <stan/callbacks/logger.hpp>"
+        (expect
+         (test-c++--check-face (rx "#include <stan/callbacks/logger.hpp>") src-highlighted)
+         :to-be
+         'font-lock-preprocessor-face))
+      (it "         <stan/callbacks/logger.hpp>"
+        (expect
+         (test-c++--check-face (rx "<stan/callbacks/logger.hpp>") src-highlighted)
+         :to-be
+         'font-lock-string-face))
+      (it "          stan/callbacks/logger.hpp>"
+        (expect
+         (test-c++--check-face (rx "stan/callbacks/logger.hpp>") src-highlighted)
+         :to-be
+         'font-lock-string-face)))
+    ;;
+    (describe "gives namespace correct faces"
+      (it "namespace stan {"
+        (expect
+         (test-c++--check-face (rx "namespace stan {") src-highlighted)
+         :to-be
+         'font-lock-keyword-face))
+      (it "          stan {"
+        (expect
+         (test-c++--check-face (rx "stan {") src-highlighted)
+         :to-be
+         'font-lock-constant-face))
+      (it "               {"
+        (expect
+         (test-c++--check-face (rx "{") src-highlighted)
+         :to-be
+         nil)))
+    ;;
+    (describe "gives documentation part correct faces"
+      (it "/**"
+        (expect
+         (test-c++--check-face (rx "/**") src-highlighted)
+         :to-be
+         'font-lock-doc-face))
+      (it " **"
+        (expect
+         (test-c++--check-face (rx "**") src-highlighted)
+         :to-be
+         'font-lock-doc-face))
+      (it " * The No-U-Turn sampler (NUTS) with multinomial sampling"
+        (expect
+         (test-c++--check-face (rx "* The No-U-Turn sampler (NUTS) with multinomial sampling") src-highlighted)
+         :to-be
+         'font-lock-doc-face))
+      (it "   The No-U-Turn sampler (NUTS) with multinomial sampling"
+        (expect
+         (test-c++--check-face (rx "The No-U-Turn sampler (NUTS) with multinomial sampling") src-highlighted)
+         :to-be
+         'font-lock-doc-face)))
+    ;;
+    (describe "gives template correct faces"
+      (it "template <class Model, class BaseRNG>"
+        (expect
+         (test-c++--check-face (rx "template <class Model, class BaseRNG>") src-highlighted)
+         :to-be
+         'font-lock-keyword-face))
+      (it "         <class Model, class BaseRNG>"
+        (expect
+         (test-c++--check-face (rx "<class Model, class BaseRNG>") src-highlighted)
+         :to-be
+         nil))
+      (it "          class Model, class BaseRNG>"
+        (expect
+         (test-c++--check-face (rx "class Model, class BaseRNG>") src-highlighted)
+         :to-be
+         'font-lock-keyword-face))
+      (it "                Model, class BaseRNG>"
+        (expect
+         (test-c++--check-face (rx "Model, class BaseRNG") src-highlighted)
+         :to-be
+         'font-lock-type-face)))
+    ;;
+    (describe "gives class correct faces"
+      (it "class adapt_unit_e_nuts : public unit_e_nuts<Model, BaseRNG>,"
+        (expect
+         (test-c++--check-face (rx "class adapt_unit_e_nuts : public unit_e_nuts<Model, BaseRNG>,") src-highlighted)
+         :to-be
+         'font-lock-keyword-face))
+      (it "      adapt_unit_e_nuts : public unit_e_nuts<Model, BaseRNG>,"
+        (expect
+         (test-c++--check-face (rx "adapt_unit_e_nuts : public unit_e_nuts<Model, BaseRNG>,") src-highlighted)
+         :to-be
+         'font-lock-type-face)))
+    ;;
+    (describe "gives comment correct faces"
+      (it "   // namespace mcmc"
+        (expect
+         (test-c++--check-face (rx "// namespace mcmc") src-highlighted)
+         :to-be
+         'font-lock-comment-delimiter-face))
+      (it "      namespace mcmc"
+        (expect
+         (test-c++--check-face (rx "namespace mcmc
+}  // namespace stan") src-highlighted)
+         :to-be
+         'font-lock-comment-face)))
+    ;;
+    (describe "gives #endif correct faces"
+      (it "#endif"
+        (expect
+         (test-c++--check-face (rx "#endif") src-highlighted)
+         :to-be
+         'font-lock-preprocessor-face))
+      (it " endif"
+        (expect
+         (test-c++--check-face (rx "endif") src-highlighted)
+         :to-be
+         'font-lock-preprocessor-face)))))
+
+(describe "c++-mode font lock (AFTER stan-mode loaded elsewhere)"
+  ;; Load stan-mode elsewhere
+  (with-temp-buffer
+    ;; This will invoke `stan-advice-add-c-syntactic-end-of-macro'.
+    (stan-mode))
+  ;;
   (let* ((src-highlighted
           (test-c++--highlight
            ;; Taken from:
