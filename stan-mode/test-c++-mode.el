@@ -147,7 +147,9 @@ class adapt_unit_e_nuts : public unit_e_nuts<Model, BaseRNG>,
          'font-lock-preprocessor-face))
       (it "        STAN_MCMC_HMC_NUTS_ADAPT_UNIT_E_NUTS_HPP"
         (expect
-         (test-c++--check-face (rx "STAN_MCMC_HMC_NUTS_ADAPT_UNIT_E_NUTS_HPP") src-highlighted)
+         (test-c++--check-face (rx "STAN_MCMC_HMC_NUTS_ADAPT_UNIT_E_NUTS_HPP
+
+#include <stan/callbacks/logger.hpp>") src-highlighted)
          :to-be
          'font-lock-variable-name-face)))
     ;;
