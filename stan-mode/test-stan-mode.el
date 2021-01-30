@@ -1812,29 +1812,41 @@ class adapt_unit_e_nuts : public unit_e_nuts<Model, BaseRNG>,
          :to-be
          'font-lock-type-face)))
     ;;
-    (describe "gives template correct faces"
-      (it "template <class Model, class BaseRNG>"
+    (describe "gives class correct faces"
+      (it "class adapt_unit_e_nuts : public unit_e_nuts<Model, BaseRNG>,"
         (expect
-         (test-stan--check-face-c++ (rx "template <class Model, class BaseRNG>") src-highlighted)
+         (test-stan--check-face-c++ (rx "class adapt_unit_e_nuts : public unit_e_nuts<Model, BaseRNG>,") src-highlighted)
          :to-be
          'font-lock-keyword-face))
-      (it "         <class Model, class BaseRNG>"
+      (it "      adapt_unit_e_nuts : public unit_e_nuts<Model, BaseRNG>,"
         (expect
-         (test-stan--check-face-c++ (rx "<class Model, class BaseRNG>") src-highlighted)
-         :to-be
-         nil))
-      (it "          class Model, class BaseRNG>"
-        (expect
-         (test-stan--check-face-c++ (rx "class Model, class BaseRNG>") src-highlighted)
-         :to-be
-         'font-lock-keyword-face))
-      (it "                Model, class BaseRNG>"
-        (expect
-         (test-stan--check-face-c++ (rx "Model, class BaseRNG") src-highlighted)
+         (test-stan--check-face-c++ (rx "adapt_unit_e_nuts : public unit_e_nuts<Model, BaseRNG>,") src-highlighted)
          :to-be
          'font-lock-type-face)))
     ;;
-    ))
+    (describe "gives comment correct faces"
+      (it "   // namespace mcmc"
+        (expect
+         (test-stan--check-face-c++ (rx "// namespace mcmc") src-highlighted)
+         :to-be
+         'font-lock-comment-face))
+      (it "      namespace mcmc"
+        (expect
+         (test-stan--check-face-c++ (rx "namespace mcmc") src-highlighted)
+         :to-be
+         'font-lock-comment-face)))
+    ;;
+    (describe "gives #endif correct faces"
+      (it "#endif"
+        (expect
+         (test-stan--check-face-c++ (rx "#endif") src-highlighted)
+         :to-be
+         'font-lock-preprocessor-face))
+      (it " endif"
+        (expect
+         (test-stan--check-face-c++ (rx "endif") src-highlighted)
+         :to-be
+         'font-lock-preprocessor-face)))))
 
 (provide 'test-stan-mode)
 ;;; test-stan-mode.el ends here
