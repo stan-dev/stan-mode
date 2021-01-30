@@ -1,4 +1,4 @@
-;;; test-c++-mode.el --- A buttercup test suite for c++-mode in the presence of stan-mode -*- lexical-binding: t; -*-
+;;; test-c++-mode.el --- Tests for c++-mode with stan-mode -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2021  Kazuki Yoshida
 
