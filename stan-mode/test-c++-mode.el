@@ -78,7 +78,7 @@ START is the optional start position of search."
                            src-highlighted)
       (error "String not found! Thus, the face is undefined!"))))
 
-(describe "c++-mode font lock (stan-mode may interfere)"
+(describe "c++-mode font lock (without stan-mode loaded)"
   (let* ((src-highlighted
           (test-c++--highlight
            ;; Taken from:
