@@ -464,9 +464,11 @@ OLDFUN should be `c-syntactic-end-of-macro'."
 
 (defun stan-advice-add-c-syntactic-end-of-macro ()
   "Add an :around advice to `c-syntactic-end-of-macro'."
-  (advice-add 'c-syntactic-end-of-macro
-              :around
-              #'stan-syntactic-end-of-macro))
+  (unless (advice-member-p 'stan-syntactic-end-of-macro
+                           'c-syntactic-end-of-macro)
+    (advice-add 'c-syntactic-end-of-macro
+                :around
+                #'stan-syntactic-end-of-macro)))
 
 (defun stan-advice-remove-c-syntactic-end-of-macro ()
   "Remove an :around advice to `c-syntactic-end-of-macro'."
