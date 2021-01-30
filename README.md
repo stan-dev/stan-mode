@@ -1,6 +1,6 @@
 # Emacs support for Stan
 
-[![Build Status](https://travis-ci.org/stan-dev/stan-mode.svg?branch=master)](https://travis-ci.org/stan-dev/stan-mode)
+[![Build Status](https://github.com/stan-dev/stan-mode/workflows/test/badge.svg?branch=master)](https://github.com/stan-dev/stan-mode/actions)
 [![License GPL 3](https://img.shields.io/badge/license-GPL_3-blue.svg)](COPYING)
 
 <!-- https://engineering.giphy.com/how-to-make-gifs-with-ffmpeg/ -->
