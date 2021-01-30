@@ -1,0 +1,39 @@
+name: make all
+
+on:
+  pull_request:
+  push:
+    branches:
+      - 'master'
+      - '*'
+    paths-ignore:
+
+jobs:
+  build:
+    name: Build and test
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        emacs_version:
+          # Limit to one under each major version
+          - 25.1
+          # - 25.2
+          # - 25.3
+          # - 26.1
+          # - 26.2
+          - 26.3
+          - 27.1
+          - snapshot
+    steps:
+    # https://github.com/marketplace/actions/set-up-emacs
+    - uses: purcell/setup-emacs@master
+      with:
+        version: ${{ matrix.emacs_version }}
+    # https://github.com/marketplace/actions/setup-cask
+    - uses: conao3/setup-cask@v1.1
+    # https://github.com/actions/checkout
+    - uses: actions/checkout@v2
+      with:
+        submodules: true
+    - name: Run make test
+      run: make test

@@ -14,7 +14,7 @@ _TEMPLATE = """;;; {el_file} --- Variables used by `stan-mode' -*- lexical-bindi
 ;; Maintainer: Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>
 ;; URL: https://github.com/stan-dev/stan-mode/tree/master/stan-mode
 ;; Keywords: languages,c
-;; Version: 10.1.0
+;; Version: 10.2.1
 ;; Created: 2012-08-18
 ;; Package-Requires: ((emacs "24.3"))
 

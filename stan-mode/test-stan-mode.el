@@ -6,7 +6,7 @@
 ;; Maintainer: Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>
 ;; URL: https://github.com/stan-dev/stan-mode/tree/master/stan-mode
 ;; Keywords: languages
-;; Version: 10.1.0
+;; Version: 10.2.1
 ;; Created: 2019-07-26
 ;; Package-Requires: ((emacs "25.1"))
 
@@ -1660,6 +1660,25 @@ there\"
                             (test-stan--highlight "<lower=0,upper=1>"))
      :to-be
      'font-lock-keyword-face)))
+
+
+;;; c++-mode check
+;; stan-mode may interfere with c++-mode syntax highlighting
+;; https://github.com/stan-dev/stan-mode/issues/64
+(defun test-stan--highlight-c++ (src)
+  "Syntax hightlight SRC with `c++-mode'.
+
+Adopted from test/groovy-unit-test.el in the `groovy-mode'."
+  (with-temp-buffer
+    (insert src)
+    (goto-char (point-min))
+    (c++-mode)
+    ;; Ensure we've syntax-highlighted the whole buffer.
+    (if (fboundp 'font-lock-ensure)
+        (font-lock-ensure)
+      (with-no-warnings
+        (font-lock-fontify-buffer)))
+    (buffer-string)))
 
 (provide 'test-stan-mode)
 ;;; test-stan-mode.el ends here

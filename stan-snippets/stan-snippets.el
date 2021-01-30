@@ -8,9 +8,9 @@
 ;; Maintainer: Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>
 ;; URL: https://github.com/stan-dev/stan-mode/tree/master/stan-snippets
 ;; Keywords: languages,tools
-;; Version: 10.1.0
+;; Version: 10.2.1
 ;; Created: 2012-08-18
-;; Package-Requires: ((emacs "24.3") (stan-mode "10.1.0") (yasnippet "0.8.0"))
+;; Package-Requires: ((emacs "24.3") (stan-mode "10.2.1") (yasnippet "0.8.0"))
 
 ;; This file is not part of GNU Emacs.
 

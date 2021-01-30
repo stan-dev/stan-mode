@@ -9,7 +9,7 @@
 ;; Maintainer: Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>
 ;; URL: https://github.com/stan-dev/stan-mode/tree/master/stan-mode
 ;; Keywords: languages,c
-;; Version: 10.1.0
+;; Version: 10.2.1
 ;; Created: 2012-08-18
 ;; Package-Requires: ((emacs "24.4"))
 
@@ -431,16 +431,17 @@ This construct is \"<keyword> <expression> :\"."
 
 
 ;;; Use this as a mode specific hook to `c-syntactic-end-of-macro'.
-(defun stan-syntactic-end-of-macro ()
+(defun stan-syntactic-end-of-macro (oldfun)
   "Find the syntactic end of #include or #comment.
 
 In `stan-mode', the syntactic end can only be the line end
 of the corresponding line unlike other c++ where a macro
 can span multiple lines.
 
-This is intended to be used as a replacement for
-`c-syntactic-end-of-macro' while in `stan-mode' through
-advising `c-syntactic-end-of-macro' via :override method."
+This is intended to be used :around `c-syntactic-end-of-macro'
+for correct behaviors in `stan-mode'.
+
+OLDFUN should be `c-syntactic-end-of-macro'."
   ;; Original comments regarding c langauges in general:
   ;; Go to the end of a CPP directive, or a "safe" pos just before.
   ;; This is normally the end of the next non-escaped line.  A "safe"
@@ -459,16 +460,18 @@ advising `c-syntactic-end-of-macro' via :override method."
           (setq c-macro-cache-syntactic (point)))
         (point))
     ;; Otherwise just call the original
-    (c-syntactic-end-of-macro)))
+    (funcall oldfun)))
 
 (defun stan-advice-add-c-syntactic-end-of-macro ()
-  "Add an :override advice to `c-syntactic-end-of-macro'."
-  (advice-add 'c-syntactic-end-of-macro
-              :override
-              #'stan-syntactic-end-of-macro))
+  "Add an :around advice to `c-syntactic-end-of-macro'."
+  (unless (advice-member-p 'stan-syntactic-end-of-macro
+                           'c-syntactic-end-of-macro)
+    (advice-add 'c-syntactic-end-of-macro
+                :around
+                #'stan-syntactic-end-of-macro)))
 
 (defun stan-advice-remove-c-syntactic-end-of-macro ()
-  "Remove an :override advice to `c-syntactic-end-of-macro'."
+  "Remove an :around advice to `c-syntactic-end-of-macro'."
   (advice-remove 'c-syntactic-end-of-macro
                  #'stan-syntactic-end-of-macro))
 
