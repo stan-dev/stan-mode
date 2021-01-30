@@ -1709,176 +1709,132 @@ class adapt_unit_e_nuts : public unit_e_nuts<Model, BaseRNG>,
 }  // namespace stan
 #endif")))
     ;;
-    (describe "gives #include font-lock-preprocessor-face and handle its body"
+    (describe "gives #ifndef font-lock-preprocessor-face and handle its body"
       (it "#ifndef STAN_MCMC_HMC_NUTS_ADAPT_UNIT_E_NUTS_HPP"
         (expect
          (test-stan--check-face-c++ (rx "#ifndef STAN_MCMC_HMC_NUTS_ADAPT_UNIT_E_NUTS_HPP") src-highlighted)
          :to-be
          'font-lock-preprocessor-face))
-      (it "         /pre/Columbia_copyright.stan"
+      ;; Leave spaces to align
+      (it "        STAN_MCMC_HMC_NUTS_ADAPT_UNIT_E_NUTS_HPP"
         (expect
-         (test-stan--check-face-c++ (rx "/pre/Columbia_copyright.stan") src-highlighted)
+         (test-stan--check-face-c++ (rx "STAN_MCMC_HMC_NUTS_ADAPT_UNIT_E_NUTS_HPP") src-highlighted)
          :to-be
-         nil))
-      (it " #include /pre/license.stan"
+         nil)))
+    ;;
+    (describe "gives #define font-lock-preprocessor-face and handle its body"
+      (it "#define STAN_MCMC_HMC_NUTS_ADAPT_UNIT_E_NUTS_HPP"
         (expect
-         (test-stan--check-face-c++ (rx "#include /pre/license.stan") src-highlighted)
-         :to-be
-         'font-lock-preprocessor-face))
-      (it "          /pre/license.stan"
-        (expect
-         (test-stan--check-face-c++ (rx "/pre/license.stan") src-highlighted)
-         :to-be
-         nil))
-      (it "#include /functions/common_functions.stan"
-        (expect
-         (test-stan--check-face-c++ (rx "#include /functions/common_functions.stan") src-highlighted)
+         (test-stan--check-face-c++ (rx "#define STAN_MCMC_HMC_NUTS_ADAPT_UNIT_E_NUTS_HPP") src-highlighted)
          :to-be
          'font-lock-preprocessor-face))
-      (it " #include /functions/bernoulli_likelihoods.stan"
+      (it "        STAN_MCMC_HMC_NUTS_ADAPT_UNIT_E_NUTS_HPP"
         (expect
-         (test-stan--check-face-c++ (rx "#include /functions/bernoulli_likelihoods.stan") src-highlighted)
+         (test-stan--check-face-c++ (rx "STAN_MCMC_HMC_NUTS_ADAPT_UNIT_E_NUTS_HPP") src-highlighted)
+         :to-be
+         'font-lock-variable-name-face)))
+    ;;
+    (describe "gives #include font-lock-preprocessor-face and handle its body"
+      (it "#include <stan/callbacks/logger.hpp>"
+        (expect
+         (test-stan--check-face-c++ (rx "#include <stan/callbacks/logger.hpp>") src-highlighted)
          :to-be
          'font-lock-preprocessor-face))
-      (it "/functions/common_functions.stan"
+      (it "         <stan/callbacks/logger.hpp>"
         (expect
-         (test-stan--check-face-c++ (rx "/functions/common_functions.stan") src-highlighted)
-         :to-be
-         nil))
-      (it "/functions/double_quote.stan"
-        (expect
-         ;; This should appear as a string.
-         (test-stan--check-face-c++ (rx "/functions/double_quote.stan") src-highlighted)
+         (test-stan--check-face-c++ (rx "<stan/callbacks/logger.hpp>") src-highlighted)
          :to-be
          'font-lock-string-face))
-      (it "/functions/single_quote.stan"
+      (it "          stan/callbacks/logger.hpp>"
         (expect
-         ;; This is ok to be not font-locked.
-         (test-stan--check-face-c++ (rx "/functions/single_quote.stan") src-highlighted)
-         :to-be
-         nil))
-      (it "#hello within a string"
-        (expect
-         ;; This is a fake comment within a string.
-         (test-stan--check-face-c++ (rx "#hello") src-highlighted)
-         :to-be
-         'font-lock-string-face))
-      (it "#include within a string"
-        (expect
-         ;; This is a fake comment within a string.
-         (test-stan--check-face-c++ (rx "#include this_is_not_include_directive") src-highlighted)
-         :to-be
-         'font-lock-string-face))
-      (it "text following #include within a string"
-        (expect
-         ;; This is a fake comment within a string.
-         (test-stan--check-face-c++ (rx "this_is_not_include_directive") src-highlighted)
+         (test-stan--check-face-c++ (rx "stan/callbacks/logger.hpp>") src-highlighted)
          :to-be
          'font-lock-string-face)))
     ;;
-    (describe "gives // comments correct faces"
-      (it "// GLM for a Bernoulli outcome (font-lock-comment-delimiter-face)"
+    (describe "gives namespace correct faces"
+      (it "namespace stan {"
         (expect
-         (test-stan--check-face-c++ (rx "// GLM for a Bernoulli outcome") src-highlighted)
+         (test-stan--check-face-c++ (rx "namespace stan {") src-highlighted)
          :to-be
-         'font-lock-comment-delimiter-face))
-      (it "   GLM for a Bernoulli outcome (font-lock-comment-face"
+         'font-lock-keyword-face))
+      (it "          stan {"
         (expect
-         (test-stan--check-face-c++ (rx "GLM for a Bernoulli outcome") src-highlighted)
+         (test-stan--check-face-c++ (rx "stan {") src-highlighted)
          :to-be
-         'font-lock-comment-face)))
+         'font-lock-constant-face))
+      (it "               {"
+        (expect
+         (test-stan--check-face-c++ (rx "{") src-highlighted)
+         :to-be
+         nil)))
     ;;
-    (describe "gives deprecated comments correct faces"
-      (it "#ixclude /pre/incorrect.stan"
+    (describe "gives documentation part correct faces"
+      (it "/**"
         (expect
-         (test-stan--check-face-c++ (rx "#ixclude /pre/incorrect.stan") src-highlighted)
+         (test-stan--check-face-c++ (rx "/**") src-highlighted)
          :to-be
-         'font-lock-warning-face))
-      (it "# this is a deprecated comment"
+         'font-lock-doc-face))
+      (it " **"
         (expect
-         (test-stan--check-face-c++ (rx "# this is a deprecated comment") src-highlighted)
+         (test-stan--check-face-c++ (rx "**") src-highlighted)
          :to-be
-         'font-lock-warning-face))
-      (it "  this is a deprecated comment"
+         'font-lock-doc-face))
+      (it " * The No-U-Turn sampler (NUTS) with multinomial sampling"
         (expect
-         (test-stan--check-face-c++ (rx "this is a deprecated comment") src-highlighted)
+         (test-stan--check-face-c++ (rx "* The No-U-Turn sampler (NUTS) with multinomial sampling") src-highlighted)
          :to-be
-         'font-lock-warning-face))
-      (it "# this is also deprecated"
+         'font-lock-doc-face))
+      (it "   The No-U-Turn sampler (NUTS) with multinomial sampling"
         (expect
-         (test-stan--check-face-c++ (rx "# this is also deprecated") src-highlighted)
+         (test-stan--check-face-c++ (rx "The No-U-Turn sampler (NUTS) with multinomial sampling") src-highlighted)
          :to-be
-         'font-lock-warning-face))
-      (it "  this is also deprecated"
+         'font-lock-doc-face)))
+    ;;
+    (describe "gives template correct faces"
+      (it "template <class Model, class BaseRNG>"
         (expect
-         (test-stan--check-face-c++ (rx "this is also deprecated") src-highlighted)
+         (test-stan--check-face-c++ (rx "template <class Model, class BaseRNG>") src-highlighted)
          :to-be
-         'font-lock-warning-face))
-      (it "  data int lower these should not be highlighted"
+         'font-lock-keyword-face))
+      (it "         <class Model, class BaseRNG>"
         (expect
-         (test-stan--check-face-c++ (rx "data int lower these should not be highlighted") src-highlighted)
+         (test-stan--check-face-c++ (rx "<class Model, class BaseRNG>") src-highlighted)
          :to-be
-         'font-lock-warning-face))
-      (it "       int lower these should not be highlighted"
+         nil))
+      (it "          class Model, class BaseRNG>"
         (expect
-         (test-stan--check-face-c++ (rx "int lower these should not be highlighted") src-highlighted)
+         (test-stan--check-face-c++ (rx "class Model, class BaseRNG>") src-highlighted)
          :to-be
-         'font-lock-warning-face))
-      (it "           lower these should not be highlighted"
+         'font-lock-keyword-face))
+      (it "                Model, class BaseRNG>"
         (expect
-         (test-stan--check-face-c++ (rx "lower these should not be highlighted") src-highlighted)
+         (test-stan--check-face-c++ (rx "Model, class BaseRNG") src-highlighted)
          :to-be
-         'font-lock-warning-face))
-      (it "                 these should not be highlighted"
+         'font-lock-type-face)))
+    ;;
+    (describe "gives template correct faces"
+      (it "template <class Model, class BaseRNG>"
         (expect
-         (test-stan--check-face-c++ (rx "these should not be highlighted") src-highlighted)
+         (test-stan--check-face-c++ (rx "template <class Model, class BaseRNG>") src-highlighted)
          :to-be
-         'font-lock-warning-face))
-      (it "# number of predictors"
+         'font-lock-keyword-face))
+      (it "         <class Model, class BaseRNG>"
         (expect
-         (test-stan--check-face-c++ (rx "# number of predictors") src-highlighted)
+         (test-stan--check-face-c++ (rx "<class Model, class BaseRNG>") src-highlighted)
          :to-be
-         'font-lock-warning-face))
-      (it "  number of predictors"
+         nil))
+      (it "          class Model, class BaseRNG>"
         (expect
-         (test-stan--check-face-c++ (rx "number of predictors") src-highlighted)
+         (test-stan--check-face-c++ (rx "class Model, class BaseRNG>") src-highlighted)
          :to-be
-         'font-lock-warning-face))
-      (it "code; #include cannot_be_after_code"
+         'font-lock-keyword-face))
+      (it "                Model, class BaseRNG>"
         (expect
-         (test-stan--check-face-c++ (rx "#include cannot_be_after_code") src-highlighted)
+         (test-stan--check-face-c++ (rx "Model, class BaseRNG") src-highlighted)
          :to-be
-         'font-lock-warning-face))
-      (it "# vector of column-means of rbind(X0, X1)"
-        (expect
-         (test-stan--check-face-c++ (rx "# vector of column-means of rbind(X0, X1)") src-highlighted)
-         :to-be
-         'font-lock-warning-face))
-      (it "  vector of column-means of rbind(X0, X1)"
-        (expect
-         (test-stan--check-face-c++ (rx "vector of column-means of rbind(X0, X1)") src-highlighted)
-         :to-be
-         'font-lock-warning-face))
-      (it "         of column-means of rbind(X0, X1)"
-        (expect
-         (test-stan--check-face-c++ (rx "of column-means of rbind(X0, X1)") src-highlighted)
-         :to-be
-         'font-lock-warning-face))
-      (it "# centered (by xbar) predictor matrix | y = 0"
-        (expect
-         (test-stan--check-face-c++ (rx "# centered (by xbar) predictor matrix | y = 0") src-highlighted)
-         :to-be
-         'font-lock-warning-face))
-      (it "           (by xbar) predictor matrix | y = 0"
-        (expect
-         (test-stan--check-face-c++ (rx "(by xbar) predictor matrix | y = 0") src-highlighted)
-         :to-be
-         'font-lock-warning-face))
-      (it "                               matrix | y = 0"
-        (expect
-         (test-stan--check-face-c++ (rx "matrix | y = 0") src-highlighted)
-         :to-be
-         'font-lock-warning-face)))))
+         'font-lock-type-face)))
+    ;;
+    ))
 
 (provide 'test-stan-mode)
 ;;; test-stan-mode.el ends here
