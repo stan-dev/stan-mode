@@ -1680,7 +1680,7 @@ Adopted from test/groovy-unit-test.el in the `groovy-mode'."
         (font-lock-fontify-buffer)))
     (buffer-string)))
 
-(describe "c++-mode font lock (stan-mode may interfere)"
+(xdescribe "c++-mode font lock (stan-mode may interfere)"
   (let* ((src-highlighted
           (test-stan--highlight-c++
            ;; Taken from:
