@@ -248,7 +248,7 @@ class adapt_unit_e_nuts : public unit_e_nuts<Model, BaseRNG>,
         (expect
          (test-c++--check-face (rx "// namespace mcmc") src-highlighted)
          :to-be
-         'font-lock-comment-face))
+         'font-lock-comment-delimiter-face))
       (it "      namespace mcmc"
         (expect
          (test-c++--check-face (rx "namespace mcmc") src-highlighted)
