@@ -8,6 +8,7 @@
 
 ## NEWS
 
+- 2021-01-30 Version 10.2.1 bugfix for https://github.com/stan-dev/stan-mode/issues/64
 - 2020-08-30 Version 10.2.0 update for Stan version 2.24
 
 
