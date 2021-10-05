@@ -990,10 +990,10 @@ these must occur explicitly.")
 ;;; Compilation mode
 
 (defvar stan-regexp-compilation
-  '((stan-input-file . ("Input file=\\(.*\\)$" 1))
+  '((stanc3 . ("^\\(Semantic\\|Syntax\\) error in '\\(.*\\)', line \\([0-9]+\\)" 2 3))
+    (stan-input-file . ("Input file=\\(.*\\)$" 1))
     (stan-error . ("ERROR at line \\([0-9]+\\)" nil 1)))
   "Specifications for matching parse errors in Stan.
-
 See `compilation-error-regexp-alist' for a description of the format.")
 
 (setq compilation-error-regexp-alist-alist
