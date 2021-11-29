@@ -9,7 +9,7 @@
 ;; Maintainer: Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>
 ;; URL: https://github.com/stan-dev/stan-mode/tree/master/stan-mode
 ;; Keywords: languages,c
-;; Version: 10.2.1
+;; Version: 10.3.0
 ;; Created: 2012-08-18
 ;; Package-Requires: ((emacs "24.4"))
 
@@ -990,10 +990,10 @@ these must occur explicitly.")
 ;;; Compilation mode
 
 (defvar stan-regexp-compilation
-  '((stan-input-file . ("Input file=\\(.*\\)$" 1))
+  '((stanc3 . ("^\\(Semantic\\|Syntax\\) error in '\\(.*\\)', line \\([0-9]+\\)" 2 3))
+    (stan-input-file . ("Input file=\\(.*\\)$" 1))
     (stan-error . ("ERROR at line \\([0-9]+\\)" nil 1)))
   "Specifications for matching parse errors in Stan.
-
 See `compilation-error-regexp-alist' for a description of the format.")
 
 (setq compilation-error-regexp-alist-alist

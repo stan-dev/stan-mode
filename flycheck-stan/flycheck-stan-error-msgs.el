@@ -6,9 +6,9 @@
 ;; Maintainer: Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>
 ;; URL: https://github.com/stan-dev/stan-mode/tree/master/flycheck-stan
 ;; Keywords: c,languages
-;; Version: 10.2.1
+;; Version: 10.3.0
 ;; Created: 2019-08-20
-;; Package-Requires: ((emacs "25.1") (flycheck "0.16.0") (stan-mode "10.2.1"))
+;; Package-Requires: ((emacs "25.1") (flycheck "0.16.0") (stan-mode "10.3.0"))
 
 ;; This file is not part of GNU Emacs.
 
