@@ -1,7 +1,0 @@
-Model name=example_error_and_info_undefined_include_file_model
-Input file=examples/example_error_and_info_undefined_include_file.stan
-Output file=examples/example_error_and_info_undefined_include_file.cpp
-
-could not find include file no_such_file.stan in the following directories:
-    
-

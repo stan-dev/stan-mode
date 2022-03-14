@@ -1,3 +1,0 @@
-Model name=example_ok_model
-Input file=examples/example_ok.stan
-Output file=examples/example_ok.cpp

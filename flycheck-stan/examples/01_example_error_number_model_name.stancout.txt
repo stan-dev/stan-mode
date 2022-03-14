@@ -1,3 +1,0 @@
-
-model_name must not start with a number or symbol other than _
-Could not remove output file=examples/01_example_error_number_model_name.cpp
