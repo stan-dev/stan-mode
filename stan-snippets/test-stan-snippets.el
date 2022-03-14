@@ -6,9 +6,9 @@
 ;; Maintainer: Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>,
 ;; URL: https://github.com/stan-dev/stan-mode/tree/master/stan-snippets
 ;; Keywords: languages,tools
-;; Version: 10.3.0
+;; Version: 10.4.0
 ;; Created: 2019-07-26
-;; Package-Requires: ((emacs "25.1") (stan-mode "10.3.0") (yasnippet "0.8.0"))
+;; Package-Requires: ((emacs "25.1") (stan-mode "10.4.0") (yasnippet "0.8.0"))
 
 
 ;; This program is free software; you can redistribute it and/or modify
