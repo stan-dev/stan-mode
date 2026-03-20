@@ -1,5 +1,10 @@
 # Emacs support for Stan
 
+
+> [!WARNING]
+> `stan-mode` has been unmaintained for some time. For a more up-to-date Stan editing experience, check out [`stan-ts-mode`](github.com/WardBrian/stan-ts-mode)
+> and the [`stan-language-server`](https://github.com/tomatitito/stan-language-server#emacs-eglot).
+
 [![Build Status](https://github.com/stan-dev/stan-mode/workflows/test/badge.svg?branch=master)](https://github.com/stan-dev/stan-mode/actions)
 [![License GPL 3](https://img.shields.io/badge/license-GPL_3-blue.svg)](COPYING)
 
